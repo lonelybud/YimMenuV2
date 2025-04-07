@@ -23,10 +23,10 @@ namespace YimMenu
 {
 	DWORD Main(void*)
 	{
-		const auto documents = std::filesystem::path(std::getenv("appdata")) / "YimMenuV2";
+		const auto documents = std::filesystem::path(std::getenv("appdata")) / "LonelyMuddingV2";
 		FileMgr::Init(documents);
 
-		LogHelper::Init("YimMenuV2", FileMgr::GetProjectFile("./cout.log"));
+		LogHelper::Init("LonelyMuddingV2", FileMgr::GetProjectFile("./cout.log"));
 
 		g_HotkeySystem.RegisterCommands();
 		SavedLocations::FetchSavedLocations();
@@ -60,7 +60,7 @@ namespace YimMenu
 		ScriptMgr::AddScript(std::make_unique<Script>(&Commands::RunScript));
 		ScriptMgr::AddScript(std::make_unique<Script>(&GiveVehicleReward::RunScript));
 
-		Notifications::Show("YimMenuV2", "Loaded succesfully", NotificationType::Success);
+		Notifications::Show("LonelyMuddingV2", "Loaded succesfully", NotificationType::Success);
 
 		while (g_Running)
 		{

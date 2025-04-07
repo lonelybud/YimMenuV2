@@ -39,7 +39,7 @@ namespace YimMenu
 			    ImGui::PushStyleColor(ImGuiCol_WindowBg, ImU32(ImColor(15, 15, 15)));
 
 			    ImGui::SetNextWindowSize(ImVec2((*Pointers.ScreenResX / 2.5), (*Pointers.ScreenResY / 2.5)), ImGuiCond_Once);
-			    if (ImGui::Begin("YimMenuV2", nullptr, ImGuiWindowFlags_NoDecoration))
+			    if (ImGui::Begin("LonelyMuddingV2", nullptr, ImGuiWindowFlags_NoDecoration))
 			    {
 				    //ImGui::BeginDisabled(*Pointers.IsSessionStarted);
 				    if (ImGui::Button("Unload", ImVec2(120, 0)))
