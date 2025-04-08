@@ -71,7 +71,8 @@ namespace YimMenu::Features
 			if (!m_SnowEnabled)
 			{
 				STREAMING::REQUEST_NAMED_PTFX_ASSET("core_snow");
-
+				
+				// TODO: this native occasionally causes crashes
 				if (AUDIO::REQUEST_SCRIPT_AUDIO_BANK("SNOW_FOOTSTEPS", false, -1) && STREAMING::HAS_NAMED_PTFX_ASSET_LOADED("core_snow"))
 				{
 					GRAPHICS::USE_SNOW_FOOT_VFX_WHEN_UNSHELTERED(true);
