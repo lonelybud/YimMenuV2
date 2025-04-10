@@ -27,6 +27,9 @@ namespace rage
 	class rlSessionByGamerTaskResult;
 	class rlQueryPresenceAttributesContext;
 	class rlScGamerHandle;
+	class rlQueryAccountsResult;
+	class rlGetAvatarsContext;
+	class rlGetAvatarsPlayerList;
 }
 class CPedFactory;
 class CNetGamePlayer;
