@@ -42,22 +42,24 @@ namespace YimMenu
 			int32_t m_Offset;
 			bool m_Enabled;
 			std::uint32_t m_Hash;
+			std::string m_Name;
 
 			std::optional<int32_t> GetPC();
 			void Apply();
 			void Restore();
 
 		public:
-			Patch(joaat_t script, SimplePattern pattern, int32_t offset, std::vector<uint8_t> patch);
+			Patch(std::string name, joaat_t script, SimplePattern pattern, int32_t offset, std::vector<uint8_t> patch);
 			void Enable();
 			void Disable();
 			void Update();
 			bool InScope(std::uint32_t hash);
 		};
 
-		static std::shared_ptr<Patch> AddPatch(joaat_t script, const std::string& pattern, int32_t offset, std::vector<uint8_t> patch)
+		// add_patch
+		static std::shared_ptr<Patch> AddPatch(std::string name, joaat_t script, const std::string& pattern, int32_t offset, std::vector<uint8_t> patch)
 		{
-			return GetInstance().AddPatchImpl(script, pattern, offset, patch);
+			return GetInstance().AddPatchImpl(name, script, pattern, offset, patch);
 		}
 
 		static void RegisterProgram(rage::scrProgram* program)
@@ -80,6 +82,13 @@ namespace YimMenu
 			GetInstance().OnScriptVMLeaveImpl(program);
 		}
 
+		static inline void RegisterDefaultScriptPatches()
+		{
+			// Allows MP vehicles to be used in SP
+			auto m_ShopPatch = ScriptPatches::AddPatch("despawnbypass", "shop_controller"_J, "2D 01 04 00 00 2C ? ? ? 56 ? ? 71", 5, {0x71, 0x2E, 0x01, 0x01});
+			m_ShopPatch->Enable();
+		}
+
 	private:
 		ScriptPatches();
 		~ScriptPatches();
@@ -90,7 +99,7 @@ namespace YimMenu
 			return Instance;
 		}
 
-		std::shared_ptr<Patch> AddPatchImpl(joaat_t script, const std::string& pattern, int32_t offset, std::vector<uint8_t> patch);
+		std::shared_ptr<Patch> AddPatchImpl(std::string name, joaat_t script, const std::string& pattern, int32_t offset, std::vector<uint8_t> patch);
 		void RegisterProgramImpl(rage::scrProgram* program);
 		void UnregisterProgramImpl(rage::scrProgram* program);
 		void OnScriptVMEnterImpl(rage::scrProgram* program);

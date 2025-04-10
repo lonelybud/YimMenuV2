@@ -23,6 +23,7 @@ namespace YimMenu
 			GetInstance().DestroyImpl();
 		}
 
+		// queue_job
 		static void Push(std::function<void()> callback)
 		{
 			GetInstance().PushImpl(callback);

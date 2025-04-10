@@ -1,11 +1,33 @@
 #pragma once
-#include "core/frontend/manager/UIManager.hpp"
+#include "core/frontend/manager/Submenu.hpp"
+#include "game/features/recovery/GiveVehicleReward.hpp"
+
 
 namespace YimMenu::Submenus
 {
+	class ShoppingCategory : public SubmenuMenuCategory
+	{
+		using SubmenuMenuCategory::SubmenuMenuCategory;
+		void Draw()
+		{
+			if (ImGui::Button("Save This Vehicle as Personal Vehicle"))
+			{
+				if (GiveVehicleReward::IsSafeToRunScript())
+				{
+					GiveVehicleReward::SetShouldRunScript(true);
+				}
+			}
+		}
+	};
+
 	class Recovery : public Submenu
 	{
 	public:
-		Recovery();
+		Recovery() :
+		    Submenu("Recovery")
+		{
+			auto shopping = std::make_shared<ShoppingCategory>("Shopping");
+			AddCategory(std::move(shopping));
+		}
 	};
 }

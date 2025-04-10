@@ -1,6 +1,5 @@
 #include "core/hooking/DetourHook.hpp"
 #include "game/hooks/Hooks.hpp"
-#include "game/backend/Players.hpp"
 #include "types/network/CNetGamePlayer.hpp"
 
 namespace YimMenu::Hooks
@@ -15,11 +14,11 @@ namespace YimMenu::Hooks
 			if (player->m_PlayerIndex != 255)
 				LOGF(WARNING, "Player {} changed their player index from {} to {}", player->GetName(), player->m_PlayerIndex, index);
 			BaseHook::Get<Info::AssignPhysicalIndex, DetourHook<decltype(&Info::AssignPhysicalIndex)>>()->Original()(mgr, player, index);
-			Players::OnPlayerJoin(player);
+			LOGF(INFO, "Player {} joined", player->GetName());
 		}
 		else
 		{
-			Players::OnPlayerLeave(player);
+			LOGF(INFO, "Player {} left", player->GetName());
 			BaseHook::Get<Info::AssignPhysicalIndex, DetourHook<decltype(&Info::AssignPhysicalIndex)>>()->Original()(mgr, player, index);
 		}
 	}

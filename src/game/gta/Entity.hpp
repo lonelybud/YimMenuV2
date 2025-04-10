@@ -109,8 +109,6 @@ namespace YimMenu
 		void SetCollision(bool enabled);
 		void SetFrozen(bool enabled);
 		void Delete();
-		static void DeleteNetwork(std::uint16_t network_id, std::uint32_t ownership_token = -1, bool local = true, Player* for_player = nullptr);
-		static void DeleteNetwork(rage::netObject* object, bool local = true, Player* for_player = nullptr);
 
 		// networking
 		bool IsNetworked();
@@ -135,16 +133,11 @@ namespace YimMenu
 		/// <param name="timeout">In ticks. If zero, the function doesn't block</param>
 		/// <returns>True if we managed to grab control</returns>
 		bool RequestControl(int timeout = 100);
-		/// <summary>
-		/// Forces creation of a networked entity for a specified player or the entire session
-		/// </summary>
-		void ForceSync(Player* for_player = nullptr); // pointer because we want to avoid cyclic imports
 
 		// health
 		bool IsInvincible();
 		void SetInvincible(bool status);
 		bool IsDead();
-		void Kill();
 		int GetHealth();
 		void SetHealth(int health);
 		int GetMaxHealth();
@@ -157,9 +150,6 @@ namespace YimMenu
 		void ResetAlpha();
 
 		bool HasInterior();
-
-		// explosions
-		void Explode(ExplosionType explosion, float damage = 1.0f, bool is_visible = true, bool is_audible = true, float camera_shake = 1.0f);
 
 		bool operator==(const Entity& other);
 		bool operator!=(const Entity& other)

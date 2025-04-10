@@ -11,9 +11,7 @@ namespace YimMenu
 		ENTITY_ASSERT_SCRIPT_CONTEXT();
 		if (!STREAMING::IS_MODEL_IN_CDIMAGE(model))
 		{
-#ifdef ENTITY_DEBUG
 			LOGF(WARNING, "Invalid model passed to Vehicle::Create: 0x{:X}", model);
-#endif
 			return nullptr;
 		}
 
@@ -24,9 +22,7 @@ namespace YimMenu
 
 			if (i > 30)
 			{
-#ifdef ENTITY_DEBUG
 				LOGF(WARNING, "Model 0x{:X} failed to load after 30 ticks, bailing out", model);
-#endif
 				return nullptr;
 			}
 		}
@@ -37,9 +33,7 @@ namespace YimMenu
 
 		if (!veh)
 		{
-#ifdef ENTITY_DEBUG
 			LOGF(WARNING, "CREATE_VEHICLE failed when creating a vehicle with model {:X}", model);
-#endif
 			return nullptr;
 		}
 
@@ -62,27 +56,6 @@ namespace YimMenu
 			VEHICLE::SET_VEHICLE_FIXED(GetHandle());
 			VEHICLE::SET_VEHICLE_DIRT_LEVEL(GetHandle(), 0);
 		}
-	}
-
-	int Vehicle::GetGear()
-	{
-		ENTITY_ASSERT_VALID();
-
-		return VEHICLE::_GET_VEHICLE_CURRENT_DRIVE_GEAR(GetHandle());
-	}
-
-	float Vehicle::GetRevRatio()
-	{
-		ENTITY_ASSERT_VALID();
-
-		return VEHICLE::_GET_VEHICLE_CURRENT_REV_RATIO(GetHandle());
-	}
-
-	float Vehicle::GetMaxSpeed()
-	{
-		ENTITY_ASSERT_VALID();
-
-		return VEHICLE::GET_VEHICLE_ESTIMATED_MAX_SPEED(GetHandle());
 	}
 
 	void Vehicle::Upgrade()
@@ -121,28 +94,5 @@ namespace YimMenu
 		ENTITY_ASSERT_VALID();
 
 		return VEHICLE::IS_VEHICLE_SEAT_FREE(GetHandle(), seat, true);
-	}
-
-	bool Vehicle::SupportsBoost()
-	{
-		ENTITY_ASSERT_VALID();
-
-		return VEHICLE::GET_HAS_ROCKET_BOOST(GetHandle());
-	}
-
-	bool Vehicle::IsBoostActive()
-	{
-		ENTITY_ASSERT_VALID();
-
-		return VEHICLE::IS_ROCKET_BOOST_ACTIVE(GetHandle());
-	}
-
-	void Vehicle::SetBoostCharge(int percentage)
-	{
-		ENTITY_ASSERT_VALID();
-		if (!SupportsBoost())
-			return;
-
-		VEHICLE::SET_ROCKET_BOOST_FILL(GetHandle(), percentage);
 	}
 }

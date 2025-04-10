@@ -1,4 +1,5 @@
 #include "UIManager.hpp"
+#include "game/frontend/components/components.hpp"
 
 namespace YimMenu
 {
@@ -17,47 +18,29 @@ namespace YimMenu
 
 	void UIManager::DrawImpl()
 	{
-		auto pos = ImGui::GetCursorPos();
-
-		if (ImGui::BeginChild("##submenus", ImVec2(120, ImGui::GetContentRegionAvail().y - 20), true))
+		if (ImGui::BeginListBox("##submenus", ImVec2(120, 400)))
 		{
 			for (auto& submenu : m_Submenus)
-			{
 				if (ImGui::Selectable(submenu->m_Name.data(), (submenu == m_ActiveSubmenu)))
-				{
 					SetActiveSubmenu(submenu);
-				}
-			}
+			ImGui::EndListBox();
 		}
-		ImGui::EndChild();
-		
-		ImGui::Text("LonelyMuddingV2");
-
-		pos.y -= 28;
-		ImGui::SetCursorPos(ImVec2(pos.x + 130, pos.y));
-
-		if (ImGui::BeginChild("##minisubmenus", ImVec2(0, 50), true, ImGuiWindowFlags_NoScrollbar))
+		ImGui::SameLine();
+		ImGui::BeginGroup();
 		{
 			if (m_ActiveSubmenu)
 				m_ActiveSubmenu->DrawCategorySelectors();
-		}
-		ImGui::EndChild();
 
-		ImGui::SetCursorPos(ImVec2(pos.x + 130, pos.y + 60));
+			components::ver_space();
 
-		if (ImGui::BeginChild("##options", ImVec2(0, 0), true))
-		{
 			if (m_OptionsFont)
 				ImGui::PushFont(m_OptionsFont);
-
 			if (m_ActiveSubmenu)
 				m_ActiveSubmenu->Draw();
-
 			if (m_OptionsFont)
 				ImGui::PopFont();
 		}
-
-		ImGui::EndChild();
+		ImGui::EndGroup();
 	}
 
 	std::shared_ptr<Submenu> UIManager::GetActiveSubmenuImpl()
@@ -70,7 +53,7 @@ namespace YimMenu
 		return nullptr;
 	}
 
-	std::shared_ptr<Category> UIManager::GetActiveCategoryImpl()
+	std::shared_ptr<SubmenuMenuCategory> UIManager::GetActiveCategoryImpl()
 	{
 		if (m_ActiveSubmenu)
 		{

@@ -17,11 +17,5 @@ namespace YimMenu::Menu
 
 		inline ImFont* g_ChildTitleFont   = nullptr;
 		inline float g_ChildTitleFontSize   = 14.5f;
-
-		inline ImFont* g_ChatFont   = nullptr;
-		inline float g_ChatFontSize = 24.0f;
-
-		inline ImFont* g_OverlayFont = nullptr;
-		inline float g_OverlayFontSize  = 30.0f;
 	}
 }

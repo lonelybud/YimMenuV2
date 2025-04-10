@@ -1,5 +1,5 @@
 #pragma once
-#include "Category.hpp"
+#include "SubmenuMenuCategory.hpp"
 #include "Submenu.hpp"
 
 namespace YimMenu
@@ -27,7 +27,7 @@ namespace YimMenu
 			return GetInstance().GetActiveSubmenuImpl();
 		}
 
-		static std::shared_ptr<Category> GetActiveCategory()
+		static std::shared_ptr<SubmenuMenuCategory> GetActiveCategory()
 		{
 			return GetInstance().GetActiveCategoryImpl();
 		}
@@ -48,7 +48,7 @@ namespace YimMenu
 		void SetActiveSubmenuImpl(const std::shared_ptr<Submenu> submenu);
 		void DrawImpl();
 		std::shared_ptr<Submenu> GetActiveSubmenuImpl();
-		std::shared_ptr<Category> GetActiveCategoryImpl();
+		std::shared_ptr<SubmenuMenuCategory> GetActiveCategoryImpl();
 
 		std::shared_ptr<Submenu> m_ActiveSubmenu;
 		std::vector<std::shared_ptr<Submenu>> m_Submenus;

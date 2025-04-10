@@ -1,20 +1,13 @@
 #include "Menu.hpp"
 
-#include "core/commands/Commands.hpp"
-#include "core/frontend/manager/UIManager.hpp"
-#include "core/renderer/Renderer.hpp"
 #include "core/backend/FiberPool.hpp"
 #include "core/backend/ScriptMgr.hpp"
+#include "core/frontend/manager/UIManager.hpp"
+#include "core/renderer/Renderer.hpp"
 #include "game/frontend/fonts/Fonts.hpp"
 #include "game/pointers/Pointers.hpp"
-#include "submenus/Self.hpp"
-#include "submenus/Teleport.hpp"
-#include "submenus/Network.hpp"
-#include "submenus/Players.hpp"
 #include "submenus/Recovery.hpp"
-#include "submenus/Settings.hpp"
-#include "submenus/Debug.hpp"
-#include "submenus/World.hpp"
+#include "submenus/Self.hpp"
 
 namespace YimMenu
 {
@@ -22,13 +15,7 @@ namespace YimMenu
 	{
 		// Arguably the only place this file should be edited at for more menus
 		UIManager::AddSubmenu(std::make_shared<Submenus::Self>());
-		UIManager::AddSubmenu(std::make_shared<Submenus::Teleport>());
-		UIManager::AddSubmenu(std::make_shared<Submenus::Network>());
-		UIManager::AddSubmenu(std::make_shared<Submenus::Players>());
-		UIManager::AddSubmenu(std::make_shared<Submenus::World>());
 		UIManager::AddSubmenu(std::make_shared<Submenus::Recovery>());
-		UIManager::AddSubmenu(std::make_shared<Submenus::Settings>());
-		UIManager::AddSubmenu(std::make_shared<Submenus::Debug>());
 
 		Renderer::AddRendererCallBack(
 		    [&] {
@@ -38,26 +25,11 @@ namespace YimMenu
 			    ImGui::PushFont(Menu::Font::g_DefaultFont);
 			    ImGui::PushStyleColor(ImGuiCol_WindowBg, ImU32(ImColor(15, 15, 15)));
 
-			    ImGui::SetNextWindowSize(ImVec2((*Pointers.ScreenResX / 2.5), (*Pointers.ScreenResY / 2.5)), ImGuiCond_Once);
-			    if (ImGui::Begin("LonelyMuddingV2", nullptr, ImGuiWindowFlags_NoDecoration))
+			    ImGui::SetNextWindowPos({10.f, 100.f});
+			    ImGui::SetNextWindowSize({0.f, 0.f});
+			    ImGui::SetNextWindowSizeConstraints({10.f, 100.f}, {(float)*Pointers.ScreenResX - 10.f, (float)*Pointers.ScreenResY - 100.f});
+			    if (ImGui::Begin("Main", nullptr, ImGuiWindowFlags_NoDecoration))
 			    {
-				    //ImGui::BeginDisabled(*Pointers.IsSessionStarted);
-				    if (ImGui::Button("Unload", ImVec2(120, 0)))
-				    {
-					    if (true)
-					    {
-						    FiberPool::Push([] {
-							    Commands::Shutdown();
-							    g_Running = false;
-						    });
-					    }
-					    else
-					    {
-						    g_Running = false;
-					    }
-				    }
-				    //ImGui::EndDisabled();
-
 				    UIManager::Draw();
 			    }
 			    ImGui::End();
@@ -117,8 +89,6 @@ namespace YimMenu
 		Menu::Font::g_DefaultFont = IO.Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(Fonts::MainFont), sizeof(Fonts::MainFont), Menu::Font::g_DefaultFontSize, &FontCfg);
 		Menu::Font::g_OptionsFont = IO.Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(Fonts::MainFont), sizeof(Fonts::MainFont), Menu::Font::g_OptionsFontSize, &FontCfg);
 		Menu::Font::g_ChildTitleFont = IO.Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(Fonts::MainFont), sizeof(Fonts::MainFont), Menu::Font::g_ChildTitleFontSize, &FontCfg);
-		Menu::Font::g_ChatFont = IO.Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(Fonts::MainFont), sizeof(Fonts::MainFont), Menu::Font::g_ChatFontSize, &FontCfg);
-		Menu::Font::g_OverlayFont = IO.Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(Fonts::MainFont), sizeof(Fonts::MainFont), Menu::Font::g_OverlayFontSize, &FontCfg);
 		UIManager::SetOptionsFont(Menu::Font::g_OptionsFont);
 	}
 }

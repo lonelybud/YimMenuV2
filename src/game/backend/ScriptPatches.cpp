@@ -100,6 +100,8 @@ namespace YimMenu
 		}
 
 		memcpy(GetCodeLocation(data, pc.value()), m_PatchedBytes.data(), m_PatchedBytes.size());
+
+		LOGF(INFO, "Script patch applied: '{}'", m_Name);
 	}
 
 	void ScriptPatches::Patch::Restore()
@@ -114,16 +116,19 @@ namespace YimMenu
 			return;
 
 		memcpy(GetCodeLocation(data, pc.value()), m_OriginalBytes.data(), m_OriginalBytes.size());
+
+		LOGF(INFO, "Script patch restored: '{}'", m_Name);
 	}
 
-	ScriptPatches::Patch::Patch(joaat_t script, SimplePattern pattern, int32_t offset, std::vector<uint8_t> patch) :
+	ScriptPatches::Patch::Patch(std::string name, joaat_t script, SimplePattern pattern, int32_t offset, std::vector<uint8_t> patch) :
 	    m_Pattern(pattern),
 	    m_Offset(offset),
 	    m_PatchedBytes(patch),
 	    m_Enabled(false),
 	    m_Pc(std::nullopt),
 	    m_OriginalBytes({}),
-	    m_Hash(script)
+	    m_Hash(script),
+		m_Name(name)
 	{
 	}
 
@@ -162,9 +167,9 @@ namespace YimMenu
 		return m_Hash == hash;
 	}
 
-	std::shared_ptr<ScriptPatches::Patch> ScriptPatches::AddPatchImpl(joaat_t script, const std::string& pattern, int32_t offset, std::vector<uint8_t> patch)
+	std::shared_ptr<ScriptPatches::Patch> ScriptPatches::AddPatchImpl(std::string name, joaat_t script, const std::string& pattern, int32_t offset, std::vector<uint8_t> patch)
 	{
-		auto scr_patch = std::make_shared<Patch>(script, SimplePattern(pattern), offset, patch);
+		auto scr_patch = std::make_shared<Patch>(name, script, SimplePattern(pattern), offset, patch);
 
 		// add patch to map
 		m_Patches.push_back(scr_patch);

@@ -106,19 +106,9 @@ namespace YimMenu
 			ScriptGlobals = ptr.Add(7).Add(3).Rip().As<std::int64_t**>();
 		});
 
-		constexpr auto sendNetworkDamagePtrn = Pattern<"0F B6 41 28 04 FE 3C 03 0F 87 EA">("SendNetworkDamage");
-		scanner.Add(sendNetworkDamagePtrn, [this](PointerCalculator ptr) {
-			TriggerWeaponDamageEvent = ptr.Sub(0x51).As<Functions::TriggerWeaponDamageEvent>();
-		});
-
 		constexpr auto scriptProgramsPtrn = Pattern<"48 C7 84 C8 D8 00 00 00 00 00 00 00">("ScriptPrograms");
 		scanner.Add(scriptProgramsPtrn, [this](PointerCalculator ptr) {
 			ScriptPrograms = ptr.Add(0x13).Add(3).Rip().Add(0xD8).As<rage::scrProgram**>();
-		});
-
-		constexpr auto regionCodePtrn = Pattern<"4C 8D 05 ? ? ? ? 48 89 F1 48 89 FA E8 ? ? ? ? 84 C0 74 3D">("RegionCode");
-		scanner.Add(regionCodePtrn, [this](PointerCalculator ptr) {
-			RegionCode = ptr.Add(3).Rip().As<int*>();		
 		});
 
 		constexpr auto networkObjectMgrPtrn = Pattern<"41 83 7E FA 02 40 0F 9C C5 C1 E5 02">("NetworkObjectMgr&GetSyncTreeForType");
@@ -145,11 +135,6 @@ namespace YimMenu
 		constexpr auto writeSyncTreePtrn = Pattern<"4D 89 CD 45 89 C6 41 89 D7 48 89 CF 8B 05 ? ? ? ? 65 48 8B 0C 25 58 00 00 00">("WriteSyncTree");
 		scanner.Add(writeSyncTreePtrn, [this](PointerCalculator ptr) {
 			WriteSyncTree = ptr.Sub(0x10).As<PVOID>();
-		});
-
-		constexpr auto migrateObjectPtrn = Pattern<"48 8B 96 D0 00 00 00 4C 89 F9 41 B8 03 00 00 00">("MigrateObject");
-		scanner.Add(migrateObjectPtrn, [this](PointerCalculator ptr) {
-			MigrateObject = ptr.Add(0x10).Add(1).Rip().As<Functions::MigrateObject>();
 		});
 
 		constexpr auto networkPlayerMgrPtrn = Pattern<"75 0E 48 8B 05 ? ? ? ? 48 8B 88 F0 00 00 00">("NetworkPlayerMgr");
@@ -180,11 +165,6 @@ namespace YimMenu
 		constexpr auto modelSpawnBypassPtrn = Pattern<"E8 ? ? ? ? 48 8B 78 48">("ModelSpawnBypass");
 		scanner.Add(modelSpawnBypassPtrn, [this](PointerCalculator ptr) {
 			ModelSpawnBypass = BytePatches::Add(ptr.Add(1).Rip().Add(0x2B).As<std::uint8_t*>(), 0xEB);
-		});
-
-		constexpr auto worldModelSpawnBypassPtrn = Pattern<"4C 8B 2C 01 4D 85 ED 0F 84 ? ? ? ?">("WorldModelSpawnBypass");
-		scanner.Add(worldModelSpawnBypassPtrn, [this](PointerCalculator ptr) {
-			WorldModelSpawnBypass = BytePatches::Add(ptr.Add(4).As<void*>(), std::vector<std::uint8_t>{0xEB, 0x12, 0x90});
 		});
 
 		constexpr auto receiveNetMessagePtrn = Pattern<"48 81 C1 00 03 00 00 4C 89 E2">("ReceiveNetMessage");
@@ -231,41 +211,9 @@ namespace YimMenu
 			BattlEyeStatusUpdatePatch = BytePatches::Add(ptr.Sub(0x26).As<std::uint8_t*>(), 0xC3);
 		});
 
-		constexpr auto writeNetArrayDataPtrn = Pattern<"0F 84 06 03 00 00 0F B6">("WriteNetArrayData");
-		scanner.Add(writeNetArrayDataPtrn, [this](PointerCalculator ptr) {
-			WriteNetArrayData = ptr.Sub(0x4E).As<PVOID>();
-			NetArrayMgr = ptr.Sub(0x32).Add(3).As<rage::netArrayMgr**>();
-		});
-
-		constexpr auto netArrayCachedDataPatchPtrn = Pattern<"0F 84 64 FE FF FF FF">("NetArrayCachedDataPatch");
-		scanner.Add(netArrayCachedDataPatchPtrn, [this](PointerCalculator ptr) {
-			NetArrayCachedDataPatch = BytePatches::Add(ptr.As<void*>(), std::vector<std::uint8_t>{0xE9, 0x65, 0xFE, 0xFF, 0xFF, 0x90});
-		});
-
-		constexpr auto statsMgrPtrn = Pattern<"89 6C 24 28 48 8D 0D ? ? ? ? 48 8D">("CStatsMgr");
-		scanner.Add(statsMgrPtrn, [this](PointerCalculator ptr) {
-			StatsMgr = ptr.Add(4).Add(3).Rip().As<CStatsMgr*>();
-		});
-
 		constexpr auto getPackedStatDataPtrn = Pattern<"8D 81 37 FE FF FF">("GetPackedStatData");
 		scanner.Add(getPackedStatDataPtrn, [this](PointerCalculator ptr) {
 			GetPackedStatData = ptr.Sub(0xE).As<Functions::GetPackedStatData>();
-		});
-
-		constexpr auto getCatalogItemPtrn = Pattern<"0F 82 55 FF FF FF 44 89 7C 24 30">("NetCatalog&GetCatalogItem");
-		scanner.Add(getCatalogItemPtrn, [this](PointerCalculator ptr) {
-			NetCatalog = ptr.Add(0xB).Add(3).Rip().As<rage::netCatalog*>();
-			GetCatalogItem = ptr.Add(0x17).Add(1).Rip().As<Functions::GetCatalogItem>();
-		});
-
-		constexpr auto transactionMgrPtrn = Pattern<"48 8B 05 ? ? ? ? 80 78 39 00 74 2D">("TransactionMgr");
-		scanner.Add(transactionMgrPtrn, [this](PointerCalculator ptr) {
-			TransactionMgr = ptr.Add(3).Rip().As<void**>();
-		});
-
-		constexpr auto getActiveBasketPtrn = Pattern<"48 8B 40 10 81 7B 0C AE A0 A9 04">("GetActiveBasket");
-		scanner.Add(getActiveBasketPtrn, [this](PointerCalculator ptr) {
-			GetActiveBasket = ptr.Sub(0x39).As<Functions::GetActiveBasket>();
 		});
 
 		constexpr auto pedPoolPtrn = Pattern<"80 79 4B 00 0F 84 F5 00 00 00 48 89 F1">("PedPool");
@@ -286,21 +234,6 @@ namespace YimMenu
 		constexpr auto httpStartRequestPtrn = Pattern<"56 57 48 83 EC 28 48 89 CE 8B 81 ? ? ? ? FF C8 83 F8 04 0F 87">("HttpStartRequest");
 		scanner.Add(httpStartRequestPtrn, [this](PointerCalculator ptr) {
 			HttpStartRequest = ptr.As<PVOID>();
-		});
-
-		constexpr auto networkSessionPtrn = Pattern<"49 C7 86 F8 00 00 00 00 00 00 00 48 8B 05">("NetworkSession");
-		scanner.Add(networkSessionPtrn, [this](PointerCalculator ptr) {
-			NetworkSession = ptr.Add(0x17).Add(3).Rip().As<CNetworkSession**>();
-		});
-
-		constexpr auto joinSessionByInfoPtrn = Pattern<"B0 01 40 84 E9 0F 85 32 FD FF FF 48 89 F1">("JoinSessionByInfo");
-		scanner.Add(joinSessionByInfoPtrn, [this](PointerCalculator ptr) {
-			JoinSessionByInfo = ptr.Sub(0x7).Add(1).Rip().As<Functions::JoinSessionByInfo>();
-		});
-
-		constexpr auto getSessionByGamerHandle = Pattern<"48 C7 84 24 80 00 00 00 10 00 00 08">("GetSessionByGamerHandle");
-		scanner.Add(getSessionByGamerHandle, [this](PointerCalculator ptr) {
-			GetSessionByGamerHandle = ptr.Sub(0x4A).Add(1).Rip().As<Functions::GetSessionByGamerHandle>();
 		});
 
 		if (!scanner.Scan())
@@ -331,11 +264,6 @@ namespace YimMenu
 		}
 
 		auto scanner = PatternScanner(sc);
-
-		constexpr auto getPresenceAttributesPtrn = Pattern<"48 8B C4 48 89 58 08 48 89 68 10 48 89 70 18 48 89 78 20 41 54 41 56 41 57 48 83 EC 40 33 DB 49">("GetPresenceAttributes");
-		scanner.Add(getPresenceAttributesPtrn, [this](PointerCalculator ptr) {
-			GetPresenceAttributes = ptr.As<Functions::GetPresenceAttributes>();
-		});
 
 		constexpr auto numHandlesPatchPtrn = Pattern<"83 FD 20 0F 87 54 02 00 00">("NumHandlesPatch");
 		scanner.Add(numHandlesPatchPtrn, [this](PointerCalculator ptr) {

@@ -71,6 +71,7 @@ namespace YimMenu
 			script->Yield(time);
 	}
 
+	// add_script
 	void ScriptMgr::AddScriptImpl(std::unique_ptr<Script> script)
 	{
 		std::lock_guard lock(m_Mutex);

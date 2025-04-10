@@ -2,12 +2,12 @@
 
 namespace YimMenu
 {
-	void Submenu::SetActiveCategory(const std::shared_ptr<Category> category)
+	void Submenu::SetActiveCategory(const std::shared_ptr<SubmenuMenuCategory> category)
 	{
 		m_ActiveCategory = category;
 	}
 
-	void Submenu::AddCategory(std::shared_ptr<Category>&& category)
+	void Submenu::AddCategory(std::shared_ptr<SubmenuMenuCategory>&& category)
 	{
 		if (!m_ActiveCategory)
 			m_ActiveCategory = category;
@@ -30,7 +30,7 @@ namespace YimMenu
 				if (!active)
 					ImGui::PushStyleColor(ImGuiCol_Button, color);
 
-				if (ImGui::Button(category->m_Name.data(), ImVec2(category->GetLength(), 35)))
+				if (ImGui::Button(category->m_Name.data()))
 				{
 					SetActiveCategory(category);
 				}

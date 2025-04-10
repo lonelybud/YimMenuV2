@@ -1,11 +1,8 @@
 #include "GUI.hpp"
 #include "Menu.hpp"
-#include "ESP.hpp"
-#include "Overlay.hpp"
 #include "core/backend/ScriptMgr.hpp"
 #include "core/renderer/Renderer.hpp"
 #include "core/frontend/Notifications.hpp"
-#include "game/frontend/ChatDisplay.hpp"
 #include "game/gta/Natives.hpp"
 #include "types/pad/ControllerInputs.hpp"
 
@@ -27,21 +24,6 @@ namespace YimMenu
 			    Notifications::Draw();
 		    },
 		    -2);
-		Renderer::AddRendererCallBack(
-		    [&] {
-			    ESP::Draw();
-		    },
-		    -3);
-		Renderer::AddRendererCallBack(
-		    [&] {
-			    ChatDisplay::Draw();
-		    },
-		    -5);
-		Renderer::AddRendererCallBack(
-		    [&] {
-			    Overlay::Draw();
-		    },
-		    -6);
 	}
 
 	GUI::~GUI()

@@ -6,50 +6,6 @@
 
 namespace YimMenu
 {
-	Ped Ped::Create(uint32_t model, rage::fvector3 coords, float heading)
-	{
-		ENTITY_ASSERT_SCRIPT_CONTEXT();
-		if (!STREAMING::IS_MODEL_IN_CDIMAGE(model))
-		{
-#ifdef ENTITY_DEBUG
-			LOGF(WARNING, "Invalid model passed to Ped::Create: 0x{:X}", model);
-#endif
-			return nullptr;
-		}
-
-		for (int i = 0; !STREAMING::HAS_MODEL_LOADED(model); i++)
-		{
-			STREAMING::REQUEST_MODEL(model);
-			ScriptMgr::Yield();
-
-			if (i > 30)
-			{
-#ifdef ENTITY_DEBUG
-				LOGF(WARNING, "Model 0x{:X} failed to load after 30 ticks, bailing out", model);
-#endif
-				return nullptr;
-			}
-		}
-
-		Pointers.SpectatePatch->Apply();
-		auto ped = Ped(PED::CREATE_PED(0, model, coords.x, coords.y, coords.z, heading, true, 0));
-		Pointers.SpectatePatch->Restore();
-
-		if (!ped)
-		{
-#ifdef ENTITY_DEBUG
-			LOGF(WARNING, "CREATE_PED failed when creating a ped with model {:X}", model);
-#endif
-			return nullptr;
-		}
-
-		ped.SetPosition(coords);
-		ped.SetVelocity({});
-
-		STREAMING::SET_MODEL_AS_NO_LONGER_NEEDED(model);
-		return ped;
-	}
-
 	Vehicle Ped::GetVehicle()
 	{
 		ENTITY_ASSERT_VALID();
@@ -184,14 +140,14 @@ namespace YimMenu
 	void Ped::GiveWeapon(std::uint32_t hash, bool equip)
 	{
 		ENTITY_ASSERT_VALID();
-		
+
 		WEAPON::GIVE_WEAPON_TO_PED(GetHandle(), hash, 9999, false, equip);
 	}
 
 	void Ped::RemoveWeapon(std::uint32_t hash)
 	{
 		ENTITY_ASSERT_VALID();
-		
+
 		WEAPON::REMOVE_WEAPON_FROM_PED(GetHandle(), hash);
 	}
 
@@ -228,6 +184,7 @@ namespace YimMenu
 		PED::CLEAR_PED_BLOOD_DAMAGE(GetHandle());
 		PED::CLEAR_PED_WETNESS(GetHandle());
 		PED::CLEAR_PED_ENV_DIRT(GetHandle());
+
 		PED::RESET_PED_VISIBLE_DAMAGE(GetHandle());
 	}
 
