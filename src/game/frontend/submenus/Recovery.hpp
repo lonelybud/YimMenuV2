@@ -20,10 +20,10 @@ namespace YimMenu::Submenus
 		}
 	};
 
-	class Recovery : public Submenu
+	class RecoverySubmenu : public Submenu
 	{
 	public:
-		Recovery() :
+		RecoverySubmenu() :
 		    Submenu("Recovery")
 		{
 			auto shopping = std::make_shared<ShoppingCategory>("Shopping");

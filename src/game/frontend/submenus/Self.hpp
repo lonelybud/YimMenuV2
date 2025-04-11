@@ -11,9 +11,6 @@
 #include "game/features/self/UnlimitedOxygen.hpp"
 #include "game/features/self/Wanted.hpp"
 #include "game/features/teleport/Simple.hpp"
-#include "game/features/vehicle/Godmode.hpp"
-#include "game/features/vehicle/Seatbelt.hpp"
-#include "game/features/vehicle/Simple.hpp"
 #include "game/frontend/components/components.hpp"
 
 
@@ -78,29 +75,6 @@ namespace YimMenu::Submenus
 		}
 	};
 
-	class SelfVehicleCategory : public SubmenuMenuCategory
-	{
-		using SubmenuMenuCategory::SubmenuMenuCategory;
-		void Draw()
-		{
-			ImGui::BeginGroup();
-			{
-				components::checkbox(YimMenu::Features::_VehicleGodmode);
-				components::checkbox(YimMenu::Features::_Seatbelt);
-			}
-			ImGui::EndGroup();
-			ImGui::SameLine();
-			ImGui::BeginGroup();
-			{
-				if (ImGui::Button("Repair Vehicle"))
-					YimMenu::Features::RepairVehicle();
-				if (ImGui::Button("Enter Last Vehicle"))
-					YimMenu::Features::EnterLastVehicle();
-			}
-			ImGui::EndGroup();
-		}
-	};
-
 	class SelfTeleportCategory : public SubmenuMenuCategory
 	{
 		using SubmenuMenuCategory::SubmenuMenuCategory;
@@ -115,20 +89,17 @@ namespace YimMenu::Submenus
 		}
 	};
 
-
-	class Self : public Submenu
+	class SelfSubmenu : public Submenu
 	{
 	public:
-		Self() :
+		SelfSubmenu() :
 		    Submenu("Self")
 		{
 			auto main     = std::make_shared<SelfMainCategory>("Main");
 			auto weapon   = std::make_shared<SelfWeaponCategory>("Weapon");
-			auto vehicle  = std::make_shared<SelfVehicleCategory>("Weapon");
 			auto teleport = std::make_shared<SelfTeleportCategory>("Teleport");
 			AddCategory(std::move(main));
 			AddCategory(std::move(weapon));
-			AddCategory(std::move(vehicle));
 			AddCategory(std::move(teleport));
 		};
 	};

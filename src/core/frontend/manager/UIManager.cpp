@@ -18,7 +18,7 @@ namespace YimMenu
 
 	void UIManager::DrawImpl()
 	{
-		if (ImGui::BeginListBox("##submenus", ImVec2(120, 400)))
+		if (ImGui::BeginListBox("##submenus", ImVec2(120, 250)))
 		{
 			for (auto& submenu : m_Submenus)
 				if (ImGui::Selectable(submenu->m_Name.data(), (submenu == m_ActiveSubmenu)))

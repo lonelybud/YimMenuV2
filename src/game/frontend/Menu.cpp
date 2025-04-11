@@ -8,14 +8,16 @@
 #include "game/pointers/Pointers.hpp"
 #include "submenus/Recovery.hpp"
 #include "submenus/Self.hpp"
+#include "submenus/Vehicle.hpp"
 
 namespace YimMenu
 {
 	void Menu::Init()
 	{
 		// Arguably the only place this file should be edited at for more menus
-		UIManager::AddSubmenu(std::make_shared<Submenus::Self>());
-		UIManager::AddSubmenu(std::make_shared<Submenus::Recovery>());
+		UIManager::AddSubmenu(std::make_shared<Submenus::SelfSubmenu>());
+		UIManager::AddSubmenu(std::make_shared<Submenus::VehicleSubmenu>());
+		UIManager::AddSubmenu(std::make_shared<Submenus::RecoverySubmenu>());
 
 		Renderer::AddRendererCallBack(
 		    [&] {
@@ -25,9 +27,9 @@ namespace YimMenu
 			    ImGui::PushFont(Menu::Font::g_DefaultFont);
 			    ImGui::PushStyleColor(ImGuiCol_WindowBg, ImU32(ImColor(15, 15, 15)));
 
-			    ImGui::SetNextWindowPos({10.f, 100.f});
+			    ImGui::SetNextWindowPos({10.f, 50.f});
 			    ImGui::SetNextWindowSize({0.f, 0.f});
-			    ImGui::SetNextWindowSizeConstraints({10.f, 100.f}, {(float)*Pointers.ScreenResX - 10.f, (float)*Pointers.ScreenResY - 100.f});
+			    ImGui::SetNextWindowSizeConstraints({10.f, 50.f}, {(float)*Pointers.ScreenResX - 10.f, (float)*Pointers.ScreenResY - 50.f});
 			    if (ImGui::Begin("Main", nullptr, ImGuiWindowFlags_NoDecoration))
 			    {
 				    UIManager::Draw();

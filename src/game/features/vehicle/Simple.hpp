@@ -3,6 +3,7 @@
 #include "game/backend/Self.hpp"
 #include "game/gta/Natives.hpp"
 #include "game/gta/data/VehicleValues.hpp"
+#include "core/util/strings.hpp"
 
 namespace YimMenu::Features
 {
@@ -22,8 +23,10 @@ namespace YimMenu::Features
 		});
 	}
 
-	inline void SpawnVehicle(std::string model, bool spawn_in = false, bool max_upgade = false)
+	inline void SpawnVehicle(std::string _model, bool spawn_in, bool max_upgade)
 	{
+		auto model = trimString(_model);
+
 		if (!model.length())
 		{
 			Notifications::Show("Spawn Vehicle", "No model name provided.", NotificationType::Error);

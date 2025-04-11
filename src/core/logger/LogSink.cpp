@@ -36,8 +36,7 @@ namespace YimMenu
 
 		const auto file = std::filesystem::path(location.file_name()).filename().string();
 
-		out << "[" << timestamp << "]" << ADD_COLOR_TO_STREAM(color) << "[" << GetLevelStr(level) << "/" << file << ":"
-		    << location.line() << "] " << RESET_STREAM_COLOR << msg->Message();
+		out << ADD_COLOR_TO_STREAM(color) << msg->Message() << RESET_STREAM_COLOR;
 
 		return out.str();
 	}
