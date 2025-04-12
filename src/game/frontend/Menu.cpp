@@ -1,5 +1,6 @@
 #include "Menu.hpp"
-
+#include "imgui.h"
+#include "imgui_internal.h"
 #include "core/backend/FiberPool.hpp"
 #include "core/backend/ScriptMgr.hpp"
 #include "core/frontend/manager/UIManager.hpp"
@@ -85,6 +86,8 @@ namespace YimMenu
 	void Menu::SetupFonts()
 	{
 		auto& IO = ImGui::GetIO();
+		IO.IniFilename = NULL;
+		IO.LogFilename = NULL;
 		ImFontConfig FontCfg{};
 		FontCfg.FontDataOwnedByAtlas = false;
 
