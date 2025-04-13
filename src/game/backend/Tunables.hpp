@@ -1,6 +1,5 @@
 #pragma once
 #include "core/util/Joaat.hpp"
-#include "core/filemgr/CacheFile.hpp"
 #include "game/gta/ScriptGlobal.hpp"
 
 namespace YimMenu
@@ -14,14 +13,6 @@ namespace YimMenu
 	};
 	static_assert(sizeof(TUNABLES_LAUNCH_DATA) == 2 * 8);
 
-#pragma pack(push, 1)
-	struct TunableSaveStruct
-	{
-		joaat_t m_Hash;
-		std::uint32_t m_Offset;
-	};
-#pragma pack(pop)
-
 	class Tunables
 	{
 		static Tunables& GetInstance()
@@ -33,7 +24,6 @@ namespace YimMenu
 		bool m_Initialized = false;
 		bool m_Loading = false;
 		bool m_ScriptStarted = false;
-		CacheFile m_CacheFile;
 		std::unordered_map<joaat_t, int> m_Tunables{};
 		std::unique_ptr<uint64_t[]> m_TunablesBackup;
 		int m_NumTunables = 0;
@@ -41,8 +31,6 @@ namespace YimMenu
 		std::unordered_map<int, joaat_t> m_JunkValues{};
 
 		void RunScriptImpl();
-		void Save();
-		void Load();
 
 	public:
 		Tunables();

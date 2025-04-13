@@ -1,6 +1,4 @@
 #include "Tunables.hpp"
-#include "core/filemgr/FileMgr.hpp"
-#include "core/memory/ModuleMgr.hpp"
 #include "core/backend/ScriptMgr.hpp"
 #include "game/backend/NativeHooks.hpp"
 #include "game/gta/Natives.hpp"
@@ -53,8 +51,7 @@ namespace YimMenu
 		src->SetReturnValue<float>(NETWORK::_NETWORK_GET_TUNABLES_REGISTRATION_FLOAT(src->GetArg<Hash>(0), src->GetArg<float>(1)));
 	}
 
-	Tunables::Tunables() :
-	    m_CacheFile(FileMgr::GetProjectFile("./tunables.bin"))
+	Tunables::Tunables()
 	{
 	}
 
@@ -68,16 +65,6 @@ namespace YimMenu
 		while (true)
 		{
 			ScriptMgr::Yield();
-
-			m_CacheFile.Load();
-
-			if (m_CacheFile.UpToDate(ModuleMgr.Get("GTA5_Enhanced.exe"_J)->GetNtHeader()->FileHeader.TimeDateStamp))
-			{
-				LOG(INFO) << "Loading tunables from cache.";
-				m_Loading = true;
-
-				Load();
-			}
 
 			if (m_Initialized || m_Loading)
 				return;
@@ -103,7 +90,7 @@ namespace YimMenu
 					args.ContentModifier = 27; // MP_FM_RANDOM
 					if (!BUILTIN::START_NEW_SCRIPT_WITH_NAME_HASH_AND_ARGS("tuneables_processing"_J, &args, sizeof(args) / 8, 1424))
 					{
-						LOG(FATAL) << "Failed to start tuneables_processing. Cannot cache tunables.";
+						LOG(FATAL) << "Failed to start tuneables_processing.";
 						return;
 					}
 
@@ -132,12 +119,11 @@ namespace YimMenu
 
 					if (m_Tunables.size() == 0)
 					{
-						LOG(FATAL) << "Failed to cache tunables.";
+						LOG(FATAL) << "Failed to load tunables.";
 						return;
 					}
 
-					LOG(INFO) << "Saving " << m_Tunables.size() << " tunables to cache.";
-					Save();
+					LOG(INFO) << "Loaded " << m_Tunables.size() << " tunables.";
 
 					m_ScriptStarted = false;
 					m_TunablesBackup.release();
@@ -146,45 +132,5 @@ namespace YimMenu
 				}
 			}
 		}
-	}
-
-	void Tunables::Save()
-	{
-		auto dataSize = sizeof(std::uint32_t) + sizeof(TunableSaveStruct) * m_Tunables.size();
-		auto data     = std::make_unique<uint8_t[]>(dataSize);
-		auto dataPtr  = data.get();
-
-		*(std::uint32_t*)dataPtr = m_Tunables.size();
-		dataPtr += sizeof(std::uint32_t);
-
-		for (auto& [hash, val] : m_Tunables)
-		{
-			auto saveStruct      = (TunableSaveStruct*)dataPtr;
-			saveStruct->m_Hash   = hash;
-			saveStruct->m_Offset = val;
-			dataPtr += sizeof(TunableSaveStruct);
-		}
-
-		m_CacheFile.SetHeaderVersion(ModuleMgr.Get("GTA5_Enhanced.exe"_J)->GetNtHeader()->FileHeader.TimeDateStamp);
-		m_CacheFile.SetData(std::move(data), dataSize);
-		m_CacheFile.Write();
-	}
-
-	void Tunables::Load()
-	{
-		auto data = m_CacheFile.Data();
-
-		auto numTunables = *(std::uint32_t*)data;
-		data += sizeof(std::uint32_t);
-
-		for (int i = 0; i < numTunables; i++)
-		{
-			auto saveStruct = (TunableSaveStruct*)data;
-			m_Tunables.emplace(saveStruct->m_Hash, saveStruct->m_Offset);
-			data += sizeof(TunableSaveStruct);
-		}
-
-		m_Initialized = true;
-		m_Loading     = false;
 	}
 }

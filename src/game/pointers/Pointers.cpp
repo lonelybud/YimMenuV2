@@ -1,6 +1,5 @@
 #include "Pointers.hpp"
 
-#include "core/backend/PatternCache.hpp"
 #include "core/memory/ModuleMgr.hpp"
 #include "core/memory/PatternScanner.hpp"
 #include "core/util/Joaat.hpp"
@@ -16,8 +15,6 @@ namespace YimMenu
 
 	bool Pointers::Init()
 	{
-		PatternCache::Init();
-
 		const auto gta5 = ModuleMgr.Get("GTA5_Enhanced.exe"_J);
 		if (!gta5)
 		{
@@ -242,7 +239,6 @@ namespace YimMenu
 			return false;
 		}
 
-		PatternCache::Update();
 		return true;
 	}
 
@@ -286,7 +282,6 @@ namespace YimMenu
 			return false;
 		}
 
-		PatternCache::Update();
 		return true;
 	}
 }
