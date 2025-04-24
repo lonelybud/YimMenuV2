@@ -51,6 +51,7 @@ namespace YimMenu::Features
 				auto coords = HUD::GET_BLIP_COORDS(HUD::GET_CLOSEST_BLIP_INFO_ID(HUD::GET_WAYPOINT_BLIP_ENUM_ID()));
 				ResolveZCoordinate(coords);
 				Self::GetPed().TeleportTo(coords);
+				HUD::SET_WAYPOINT_OFF();
 			}
 		});
 	}
