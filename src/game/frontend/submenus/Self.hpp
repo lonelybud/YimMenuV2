@@ -45,6 +45,8 @@ namespace YimMenu::Submenus
 					YimMenu::Features::ClearSelfDamage();
 				if (ImGui::Button("fill inventory"))
 					YimMenu::Features::FillInventory();
+				if (ImGui::Button("Open Wardrobe"))
+					YimMenu::Features::OpenWardrobe();
 			}
 			ImGui::EndGroup();
 		}
