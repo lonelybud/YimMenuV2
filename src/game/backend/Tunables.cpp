@@ -1,12 +1,20 @@
 #include "Tunables.hpp"
 #include "core/backend/ScriptMgr.hpp"
 #include "game/backend/NativeHooks.hpp"
+#include "game/gta/data/StackSizes.hpp"
 #include "game/gta/Natives.hpp"
 #include "game/gta/Scripts.hpp"
 #include "types/script/scrProgram.hpp"
 
 namespace YimMenu
 {
+	struct TUNABLES_LAUNCH_DATA
+	{
+		SCR_INT Context;
+		SCR_INT ContentModifier;
+	};
+	static_assert(sizeof(TUNABLES_LAUNCH_DATA) == 2 * 8);
+
 	static void TunablesWaitHook(rage::scrNativeCallContext* src)
 	{
 		if (Tunables::CachingTunables())
@@ -88,7 +96,7 @@ namespace YimMenu
 					TUNABLES_LAUNCH_DATA args;
 					args.Context         = 6;  // BASE_GLOBALS
 					args.ContentModifier = 27; // MP_FM_RANDOM
-					if (!BUILTIN::START_NEW_SCRIPT_WITH_NAME_HASH_AND_ARGS("tuneables_processing"_J, &args, sizeof(args) / 8, 1424))
+					if (!BUILTIN::START_NEW_SCRIPT_WITH_NAME_HASH_AND_ARGS("tuneables_processing"_J, &args, SCR_SIZEOF(args), eStackSizes::DEFAULT))
 					{
 						LOG(FATAL) << "Failed to start tuneables_processing.";
 						return;
