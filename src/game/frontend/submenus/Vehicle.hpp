@@ -1,8 +1,11 @@
 #pragma once
 #include "core/backend/FiberPool.hpp"
+#include "core/frontend/Notifications.hpp"
 #include "core/frontend/manager/Submenu.hpp"
+#include "core/util/strings.hpp"
 #include "game/features/lsc/LSC.hpp"
 #include "game/features/vehicle/Godmode.hpp"
+#include "game/features/vehicle/PersistCarService/PersistCarService.hpp"
 #include "game/features/vehicle/Seatbelt.hpp"
 #include "game/features/vehicle/Simple.hpp"
 #include "game/frontend/components/components.hpp"
@@ -694,7 +697,7 @@ namespace YimMenu::Submenus
 								{
 									if (ImGui::Selectable(name.c_str(), selected_color == color))
 									{
-										selected_color = color;
+										selected_color                                                      = color;
 										Features::LSC::owned_mods[(int)CustomVehicleModType::MOD_WHEEL_COL] = color;
 										FiberPool::Push([] {
 											VEHICLE::SET_VEHICLE_EXTRA_COLOURS(Features::LSC::current_veh, Features::LSC::owned_mods[(int)CustomVehicleModType::MOD_PEARLESCENT_COL], Features::LSC::owned_mods[(int)CustomVehicleModType::MOD_WHEEL_COL]);
@@ -709,7 +712,7 @@ namespace YimMenu::Submenus
 								{
 									if (ImGui::Selectable(name.c_str(), selected_color == color))
 									{
-										selected_color = color;
+										selected_color                                                         = color;
 										Features::LSC::owned_mods[(int)CustomVehicleModType::MOD_INTERIOR_COL] = color;
 										FiberPool::Push([] {
 											VEHICLE::SET_VEHICLE_EXTRA_COLOUR_5(Features::LSC::current_veh, Features::LSC::owned_mods[(int)CustomVehicleModType::MOD_INTERIOR_COL]);
@@ -724,7 +727,7 @@ namespace YimMenu::Submenus
 								{
 									if (ImGui::Selectable(name.c_str(), selected_color == color))
 									{
-										selected_color = color;
+										selected_color                                                          = color;
 										Features::LSC::owned_mods[(int)CustomVehicleModType::MOD_DASHBOARD_COL] = color;
 										FiberPool::Push([] {
 											VEHICLE::SET_VEHICLE_EXTRA_COLOUR_6(Features::LSC::current_veh, Features::LSC::owned_mods[(int)CustomVehicleModType::MOD_DASHBOARD_COL]);
@@ -739,7 +742,7 @@ namespace YimMenu::Submenus
 								{
 									if (ImGui::Selectable(name.c_str(), selected_color == color))
 									{
-										selected_color = color;
+										selected_color                                                      = color;
 										Features::LSC::owned_mods[(int)CustomVehicleModType::MOD_XENON_COL] = color;
 										FiberPool::Push([] {
 											VEHICLE::SET_VEHICLE_XENON_LIGHT_COLOR_INDEX(Features::LSC::current_veh, Features::LSC::owned_mods[(int)CustomVehicleModType::MOD_XENON_COL]);
@@ -759,6 +762,138 @@ namespace YimMenu::Submenus
 		}
 	};
 
+	class VehiclePersistCarCategory : public SubmenuMenuCategory
+	{
+		using SubmenuMenuCategory::SubmenuMenuCategory;
+
+		inline static std::string folder{}, file{};
+		inline static std::vector<std::string> folders{}, files{};
+
+		void draw_save_vehicle_button(char* vehicle_file_name_input, const char* save_folder)
+		{
+			if (ImGui::Button("Save Veh"))
+			{
+				std::string yo = vehicle_file_name_input;
+
+				if (!trimString(yo).size())
+				{
+					Notifications::Show("Persist Car", "Filename empty!", NotificationType::Warning);
+					return;
+				}
+
+				if (Self::GetVehicle() && Self::GetVehicle().IsValid())
+				{
+					replace_string(yo, ".", ""); // so that .. does not throw error by custom file system when it sees say bob..json
+					yo += ".json";
+
+					Features::PersistCarService::Save(save_folder, yo);
+					ZeroMemory(vehicle_file_name_input, sizeof(vehicle_file_name_input));
+					Features::PersistCarService::RefreshList(folder, folders, files);
+				}
+				else
+					Notifications::Show("Persist Car", "You must be in a vehicle. Please enter a vehicle before using load.", NotificationType::Warning);
+			}
+		}
+
+		void Draw()
+		{
+			if (ImGui::Button("Refresh List"))
+				Features::PersistCarService::RefreshList(folder, folders, files);
+
+			ImGui::SetNextItemWidth(300.f);
+			auto folder_display = folder.empty() ? "Root" : folder.c_str();
+			if (ImGui::BeginCombo("Folder", folder_display))
+			{
+				if (ImGui::Selectable("Root", folder == ""))
+				{
+					folder.clear();
+					Features::PersistCarService::RefreshList(folder, folders, files);
+				}
+
+				for (std::string folder_name : folders)
+					if (ImGui::Selectable(folder_name.c_str(), folder == folder_name))
+					{
+						folder = folder_name;
+						Features::PersistCarService::RefreshList(folder, folders, files);
+					}
+
+				ImGui::EndCombo();
+			}
+
+			static bool open_modal = false;
+			static std::string search;
+
+			ImGui::SetNextItemWidth(300);
+			if (ImGui::InputTextWithHint("###veh_name", "Search", &search))
+				std::transform(search.begin(), search.end(), search.begin(), tolower);
+
+			ImGui::Text("Saved Vehicles");
+
+			static const auto over_30 = (30 * ImGui::GetTextLineHeightWithSpacing() + 2);
+			const auto box_height = files.size() <= 30 ? (files.size() * ImGui::GetTextLineHeightWithSpacing() + 2) : over_30;
+			ImGui::SetNextItemWidth(250);
+			if (ImGui::BeginListBox("##saved_vehs", ImVec2(300, box_height)))
+			{
+				for (const auto& pair : files)
+				{
+					std::string pair_lower = pair;
+					std::transform(pair_lower.begin(), pair_lower.end(), pair_lower.begin(), tolower);
+					if (pair_lower.contains(search))
+					{
+						auto file_name = pair.c_str();
+						if (ImGui::Selectable(file_name, file == pair, ImGuiSelectableFlags_AllowItemOverlap))
+						{
+							file       = pair;
+							open_modal = true;
+						}
+					}
+				}
+				ImGui::EndListBox();
+			}
+			ImGui::SameLine();
+			ImGui::BeginGroup();
+			{
+				static char vehicle_file_name_input[64]{};
+
+				ImGui::Text("Vehicle File Name");
+				ImGui::SetNextItemWidth(250);
+				ImGui::InputText("##vehiclefilename", vehicle_file_name_input, IM_ARRAYSIZE(vehicle_file_name_input));
+
+				if (folder.empty())
+				{
+					static char save_folder[50]{};
+					ImGui::Text("Vehicle Folder Name");
+					ImGui::SetNextItemWidth(250);
+					ImGui::InputText("##foldername", save_folder, IM_ARRAYSIZE(save_folder));
+					draw_save_vehicle_button(vehicle_file_name_input, save_folder);
+				}
+				else
+					draw_save_vehicle_button(vehicle_file_name_input, folder.c_str());
+			}
+			ImGui::EndGroup();
+
+			if (open_modal)
+				ImGui::OpenPopup("##spawncarmodel2");
+			if (ImGui::BeginPopupModal("##spawncarmodel2", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove))
+			{
+				ImGui::Text("Are you sure you want to spawn %s", file.c_str());
+				ImGui::Spacing();
+				if (ImGui::Button("Yes"))
+				{
+					Features::PersistCarService::Load(folder, file);
+					open_modal = false;
+					ImGui::CloseCurrentPopup();
+				}
+				ImGui::SameLine();
+				if (ImGui::Button("No"))
+				{
+					open_modal = false;
+					ImGui::CloseCurrentPopup();
+				}
+				ImGui::EndPopup();
+			}
+		}
+	};
 
 	class VehicleSubmenu : public Submenu
 	{
@@ -766,12 +901,14 @@ namespace YimMenu::Submenus
 		VehicleSubmenu() :
 		    Submenu("Vehicle")
 		{
-			auto main  = std::make_shared<VehicleMainCategory>("main");
-			auto spawn = std::make_shared<VehicleSpawnCategory>("spawn");
-			auto lsc   = std::make_shared<VehicleLSCCategory>("LSC");
+			auto main       = std::make_shared<VehicleMainCategory>("main");
+			auto spawn      = std::make_shared<VehicleSpawnCategory>("spawn");
+			auto lsc        = std::make_shared<VehicleLSCCategory>("LSC");
+			auto persistCar = std::make_shared<VehiclePersistCarCategory>("persistCar");
 			AddCategory(std::move(main));
 			AddCategory(std::move(spawn));
 			AddCategory(std::move(lsc));
+			AddCategory(std::move(persistCar));
 		};
 	};
 }

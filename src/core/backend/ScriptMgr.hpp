@@ -50,6 +50,7 @@ namespace YimMenu
 			GetInstance().TickImpl();
 		}
 
+		// get_current()->yield
 		static void Yield(std::optional<std::chrono::high_resolution_clock::duration> time = std::nullopt)
 		{
 			GetInstance().YieldImpl(time);
