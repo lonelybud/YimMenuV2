@@ -268,12 +268,12 @@ namespace YimMenu
 
 		constexpr auto readAttributePatchPtrn = Pattern<"75 70 EB 23">("ReadAttributesPatch");
 		scanner.Add(readAttributePatchPtrn, [this](PointerCalculator ptr) {
-			BytePatches::Add(ptr.As<void*>(), std::vector<std::uint8_t>{0x90, 0x90})->Apply();
+			BytePatches::Add(ptr.As<void*>(), std::to_array<std::uint8_t>({0x90, 0x90}))->Apply();
 		});
 
 		constexpr auto readAttributePatch2Ptrn = Pattern<"32 C0 EB ? C7 83">("ReadAttributesPatch2");
 		scanner.Add(readAttributePatch2Ptrn, [this](PointerCalculator ptr) {
-			BytePatches::Add(ptr.As<void*>(), std::vector<std::uint8_t>{0xB0, 0x01})->Apply(); 
+			BytePatches::Add(ptr.As<void*>(), std::to_array<std::uint8_t>({0xB0, 0x01}))->Apply(); 
 		});
 
 		if (!scanner.Scan())

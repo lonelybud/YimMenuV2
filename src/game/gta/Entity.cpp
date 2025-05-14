@@ -320,6 +320,14 @@ namespace YimMenu
 		return ENTITY::IS_ENTITY_DEAD(GetHandle(), true);
 	}
 
+	void Entity::Kill()
+	{
+		ENTITY_ASSERT_VALID();
+
+		if (HasControl())
+			ENTITY::SET_ENTITY_HEALTH(GetHandle(), 0, PLAYER::PLAYER_PED_ID(), 0);
+	}
+
 	int Entity::GetHealth()
 	{
 		ENTITY_ASSERT_VALID();

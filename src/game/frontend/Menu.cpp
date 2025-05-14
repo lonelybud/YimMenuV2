@@ -10,6 +10,7 @@
 #include "submenus/Recovery.hpp"
 #include "submenus/Self.hpp"
 #include "submenus/Vehicle.hpp"
+#include "submenus/World.hpp"
 
 namespace YimMenu
 {
@@ -19,6 +20,7 @@ namespace YimMenu
 		UIManager::AddSubmenu(std::make_shared<Submenus::SelfSubmenu>());
 		UIManager::AddSubmenu(std::make_shared<Submenus::VehicleSubmenu>());
 		UIManager::AddSubmenu(std::make_shared<Submenus::RecoverySubmenu>());
+		UIManager::AddSubmenu(std::make_shared<Submenus::WorldSubmenu>());
 
 		Renderer::AddRendererCallBack(
 		    [&] {
