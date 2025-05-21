@@ -13,7 +13,7 @@
 #include "game/backend/ScriptPatches.hpp"
 #include "game/backend/Self.hpp"
 #include "game/backend/Tunables.hpp"
-#include "game/features/recovery/GiveVehicleReward.hpp"
+#include "game/features/vehicle/SavePersonalVehicle.hpp"
 #include "game/frontend/GUI.hpp"
 #include "game/pointers/Pointers.hpp"
 
@@ -50,7 +50,7 @@ namespace YimMenu
 		ScriptMgr::AddScript(std::make_unique<Script>(&GUI::RunScript));
 		FiberPool::Init(16);
 		ScriptMgr::AddScript(std::make_unique<Script>(&LoopState::RunScript));
-		ScriptMgr::AddScript(std::make_unique<Script>(&GiveVehicleReward::RunScript));
+		ScriptMgr::AddScript(std::make_unique<Script>(&Features::SavePersonalVehicle::RunScript));
 
 		if (!Pointers.LateInit())
 			LOG(WARNING) << "Socialclub patterns failed to load";

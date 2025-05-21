@@ -1,6 +1,4 @@
 #include "core/backend/FiberPool.hpp"
-#include "game/backend/Self.hpp"
-#include "game/gta/Natives.hpp"
 #include "game/gta/Pools.hpp"
 
 namespace YimMenu::Features
@@ -22,44 +20,4 @@ namespace YimMenu::Features
 					ped.Kill();
 		});
 	}
-
-	inline void BringAllPeds()
-	{
-		FiberPool::Push([] {
-			auto pos = Self::GetPed().GetPosition();
-			for (auto ped : Pools::GetPeds())
-				if (!ped.IsPlayer())
-				{
-					ped.ForceControl();
-					ped.SetPosition(pos);
-				}
-		});
-	}
-
-	inline void BringAllObjs()
-	{
-		FiberPool::Push([] {
-			auto pos = Self::GetPed().GetPosition();
-			for (auto ped : Pools::GetObjects())
-				if (!ped.IsPlayer())
-				{
-					ped.ForceControl();
-					ped.SetPosition(pos);
-				}
-		});
-	}
-
-	inline void BringAllVehs()
-	{
-		FiberPool::Push([] {
-			auto pos = Self::GetPed().GetPosition();
-			for (auto ped : Pools::GetVehicles())
-				if (!ped.IsPlayer())
-				{
-					ped.ForceControl();
-					ped.SetPosition(pos);
-				}
-		});
-	}
-
 }

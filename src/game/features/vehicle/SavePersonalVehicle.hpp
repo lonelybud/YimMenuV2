@@ -5,13 +5,13 @@ namespace rage
 	class scrThread;
 }
 
-namespace YimMenu
+namespace YimMenu::Features
 {
-	class GiveVehicleReward
+	class SavePersonalVehicle
 	{
-		static GiveVehicleReward& GetInstance()
+		static SavePersonalVehicle& GetInstance()
 		{
-			static GiveVehicleReward instance;
+			static SavePersonalVehicle instance;
 			return instance;
 		}
 
@@ -21,17 +21,17 @@ namespace YimMenu
 		bool m_StartedByUs        = false;
 		rage::scrThread* m_Thread = nullptr;
 
-	public:
-		static bool IsSafeToRunScript();
+		static void SetShouldRunScript(bool run)
+		{
+			GetInstance().m_ShouldRunScript = run;
+		}
 
+	public:
 		static void RunScript()
 		{
 			GetInstance().RunScriptImpl();
 		}
 
-		static void SetShouldRunScript(bool run)
-		{
-			GetInstance().m_ShouldRunScript = run;
-		}
+		static void Save();
 	};
 }

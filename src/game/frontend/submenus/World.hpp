@@ -17,13 +17,6 @@ namespace YimMenu::Submenus
 				YimMenu::Features::KillAllPeds();
 			if (ImGui::Button("Kill enemies"))
 				YimMenu::Features::KillAllEnemies();
-			components::ver_space();
-			if (ImGui::Button("Bring all peds"))
-				YimMenu::Features::BringAllPeds();
-			if (ImGui::Button("Bring objects"))
-				YimMenu::Features::BringAllObjs();
-			if (ImGui::Button("Bring vehicles"))
-				YimMenu::Features::BringAllVehs();
 		}
 	};
 

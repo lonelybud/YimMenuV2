@@ -33,6 +33,8 @@ namespace YimMenu::Submenus
 					YimMenu::Features::RepairVehicle();
 				if (ImGui::Button("Enter Last Vehicle"))
 					YimMenu::Features::EnterLastVehicle();
+				if (ImGui::Button("Call Mechanic"))
+					YimMenu::Features::CallMechanic();
 			}
 			ImGui::EndGroup();
 		}

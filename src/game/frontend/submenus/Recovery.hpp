@@ -1,7 +1,7 @@
 #pragma once
 #include "core/frontend/manager/Submenu.hpp"
-#include "game/features/recovery/GiveVehicleReward.hpp"
 #include "game/features/recovery/PlayAllMissionsSolo.hpp"
+#include "game/features/vehicle/SavePersonalVehicle.hpp"
 #include "game/frontend/components/components.hpp"
 #include "game/gta/ScriptFunction.hpp"
 
@@ -13,9 +13,8 @@ namespace YimMenu::Submenus
 		void Draw()
 		{
 			if (ImGui::Button("Save This Vehicle as Personal Vehicle"))
-				if (GiveVehicleReward::IsSafeToRunScript())
-					GiveVehicleReward::SetShouldRunScript(true);
-				}
+				Features::SavePersonalVehicle::Save();
+		}
 	};
 
 

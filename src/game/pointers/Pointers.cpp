@@ -233,6 +233,16 @@ namespace YimMenu
 			HttpStartRequest = ptr.As<PVOID>();
 		});
 
+		constexpr auto networkTimePtrn = Pattern<"89 05 ? ? ? ? 80 3D ? ? ? ? ? 0F 84 ? ? ? ? E9">("NetworkTime");
+		scanner.Add(networkTimePtrn, [this](PointerCalculator ptr) {
+			NetworkTime = ptr.Add(2).Rip().As<std::uint32_t*>();
+		});
+
+		constexpr auto gameTimerPtrn = Pattern<"3B 2D ? ? ? ? 76">("GameTimer");
+		scanner.Add(gameTimerPtrn, [this](PointerCalculator ptr) {
+			GameTimer = ptr.Add(2).Rip().As<std::uint32_t*>();
+		});
+
 		if (!scanner.Scan())
 		{
 			LOG(FATAL) << "Some patterns could not be found, unloading.";

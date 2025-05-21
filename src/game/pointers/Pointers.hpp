@@ -109,6 +109,8 @@ namespace YimMenu
 		PoolEncryption* ObjectPool;
 		rage::fwVehiclePool*** VehiclePool;
 		PVOID HttpStartRequest;
+		std::uint32_t* NetworkTime;
+		std::uint32_t* GameTimer;
 	};
 
 	struct Pointers : PointerData
