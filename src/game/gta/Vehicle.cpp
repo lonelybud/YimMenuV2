@@ -3,6 +3,7 @@
 #include "core/backend/ScriptMgr.hpp"
 #include "game/gta/Natives.hpp"
 #include "game/gta/data/VehicleValues.hpp"
+#include "game/gta/data/vehicles.hpp"
 #include "game/pointers/Pointers.hpp"
 
 namespace YimMenu
@@ -144,29 +145,46 @@ namespace YimMenu
 			owned_mods[(int)CustomVehicleModType::MOD_XENON_COL] = (int8_t)VEHICLE::GET_VEHICLE_XENON_LIGHT_COLOR_INDEX(vehicle);
 		}
 
-		owned_mods[(int)CustomVehicleModType::MOD_NEON_LEFT_ON]  = VEHICLE::GET_VEHICLE_NEON_ENABLED(vehicle, (int)NeonLightLocations::NEON_LEFT);
+		owned_mods[(int)CustomVehicleModType::MOD_NEON_LEFT_ON] = VEHICLE::GET_VEHICLE_NEON_ENABLED(vehicle, (int)NeonLightLocations::NEON_LEFT);
 		owned_mods[(int)CustomVehicleModType::MOD_NEON_RIGHT_ON] = VEHICLE::GET_VEHICLE_NEON_ENABLED(vehicle, (int)NeonLightLocations::NEON_RIGHT);
 		owned_mods[(int)CustomVehicleModType::MOD_NEON_FRONT_ON] = VEHICLE::GET_VEHICLE_NEON_ENABLED(vehicle, (int)NeonLightLocations::NEON_FRONT);
-		owned_mods[(int)CustomVehicleModType::MOD_NEON_BACK_ON]  = VEHICLE::GET_VEHICLE_NEON_ENABLED(vehicle, (int)NeonLightLocations::NEON_BACK);
+		owned_mods[(int)CustomVehicleModType::MOD_NEON_BACK_ON] = VEHICLE::GET_VEHICLE_NEON_ENABLED(vehicle, (int)NeonLightLocations::NEON_BACK);
 		VEHICLE::GET_VEHICLE_NEON_COLOUR(vehicle, &owned_mods[(int)CustomVehicleModType::MOD_NEON_COL_R], &owned_mods[(int)CustomVehicleModType::MOD_NEON_COL_G], &owned_mods[(int)CustomVehicleModType::MOD_NEON_COL_B]);
 
 		owned_mods[(int)CustomVehicleModType::MOD_TIRE_CAN_BURST] = VEHICLE::GET_VEHICLE_TYRES_CAN_BURST(vehicle);
 		owned_mods[(int)CustomVehicleModType::MOD_DRIFT_TIRE]     = VEHICLE::GET_DRIFT_TYRES_SET(vehicle);
-		owned_mods[(int)VehicleModType::MOD_TURBO]          = VEHICLE::IS_TOGGLE_MOD_ON(vehicle, (int)VehicleModType::MOD_TURBO);
+		owned_mods[(int)VehicleModType::MOD_TURBO] = VEHICLE::IS_TOGGLE_MOD_ON(vehicle, (int)VehicleModType::MOD_TURBO);
 
 		owned_mods[(int)CustomVehicleModType::MOD_FRONTWHEEL_VAR] = VEHICLE::GET_VEHICLE_MOD_VARIATION(vehicle, (int)VehicleModType::MOD_FRONTWHEEL);
-		owned_mods[(int)CustomVehicleModType::MOD_REARWHEEL_VAR]  = VEHICLE::GET_VEHICLE_MOD_VARIATION(vehicle, (int)VehicleModType::MOD_REARWHEEL);
+		owned_mods[(int)CustomVehicleModType::MOD_REARWHEEL_VAR] = VEHICLE::GET_VEHICLE_MOD_VARIATION(vehicle, (int)VehicleModType::MOD_REARWHEEL);
 
 		for (int slot = (int)VehicleModType::MOD_SPOILERS; slot <= (int)VehicleModType::MOD_LIGHTBAR; slot++)
 			if (VEHICLE::GET_NUM_VEHICLE_MODS(vehicle, slot) > 0)
 				owned_mods[slot] = VEHICLE::GET_VEHICLE_MOD(vehicle, slot);
 
 		for (int extra = (int)CustomVehicleModType::MOD_EXTRA_14; extra <= (int)CustomVehicleModType::MOD_EXTRA_1; ++extra)
-			if (auto id = (extra -(int)CustomVehicleModType:: MOD_EXTRA_1) * -1; VEHICLE::DOES_EXTRA_EXIST(vehicle, id))
+			if (auto id = (extra - (int)CustomVehicleModType::MOD_EXTRA_1) * -1; VEHICLE::DOES_EXTRA_EXIST(vehicle, id))
 				owned_mods[extra] = VEHICLE::IS_VEHICLE_EXTRA_TURNED_ON(vehicle, id);
 
 		return owned_mods;
 	}
 
+	std::string Vehicle::get_vehicle_fullname()
+	{
+		auto model          = ENTITY::GET_ENTITY_MODEL(GetHandle());
+		std::string gxt     = VEHICLE::GET_DISPLAY_NAME_FROM_VEHICLE_MODEL(model);
+		std::string display = HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION(gxt.c_str());
+
+		std::string finalName = display == "NULL" ? gxt : display;
+
+		std::string maker = HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION(VEHICLE::GET_MAKE_NAME_FROM_VEHICLE_MODEL(model));
+		if (maker != "NULL")
+			finalName = maker + " " + finalName;
+
+		int id    = VEHICLE::GET_VEHICLE_CLASS_FROM_NAME(model);
+		finalName = std::string(g_VehicleClassNames[id]) + " " + finalName;
+
+		return finalName;
+	}
 
 }

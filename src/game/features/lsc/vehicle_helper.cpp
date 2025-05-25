@@ -1,9 +1,8 @@
 #include "vehicle_helper.hpp"
 
+#include "core/util/Joaat.hpp"
 #include "game/gta/Natives.hpp"
 #include "game/gta/data/VehicleValues.hpp"
-#include "game/gta/data/vehicles.hpp"
-// #include "core/backend/FiberPool.hpp"
 
 namespace YimMenu::Features
 {
@@ -29,7 +28,7 @@ namespace YimMenu::Features
 		case VehicleModType::MOD_PLATEHOLDER: return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S0");
 		case VehicleModType::MOD_VANITYPLATES: return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S1");
 		case VehicleModType::MOD_TRIMDESIGN:
-			if (model == VEHICLE_SULTANRS)
+			if (model == "SULTANRS"_J)
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S2b");
 			else
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S2");
@@ -46,48 +45,48 @@ namespace YimMenu::Features
 		case VehicleModType::MOD_HYDRO: return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S13");
 		case VehicleModType::MOD_ENGINEBLOCK: return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S14");
 		case VehicleModType::MOD_AIRFILTER:
-			if (model == VEHICLE_SULTANRS)
+			if (model == "SULTANRS"_J)
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S15b");
 			else
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S15");
 		case VehicleModType::MOD_STRUTS:
-			if (model == VEHICLE_SULTANRS || model == VEHICLE_BANSHEE2)
+			if (model == "SULTANRS"_J || model == "BANSHEE2"_J)
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S16b");
 			else
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S16");
 		case VehicleModType::MOD_ARCHCOVER:
-			if (model == VEHICLE_SULTANRS)
+			if (model == "SULTANRS"_J)
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S17b");
 			else
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S17");
 		case VehicleModType::MOD_AERIALS:
-			if (model == VEHICLE_SULTANRS)
+			if (model == "SULTANRS"_J)
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S18b");
-			else if (model == VEHICLE_BTYPE3)
+			else if (model == "BTYPE3"_J)
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S18c");
 			else
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S18");
 		case VehicleModType::MOD_TRIM:
-			if (model == VEHICLE_SULTANRS)
+			if (model == "SULTANRS"_J)
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S19b");
-			else if (model == VEHICLE_BTYPE3)
+			else if (model == "BTYPE3"_J)
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S19c");
-			else if (model == VEHICLE_VIRGO2)
+			else if (model == "VIRGO2"_J)
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S19d");
 			else
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S19");
 		case VehicleModType::MOD_TANK:
-			if (model == VEHICLE_SLAMVAN3)
+			if (model == "SLAMVAN3"_J)
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S27");
 			else
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S20");
 		case VehicleModType::MOD_WINDOWS:
-			if (model == VEHICLE_BTYPE3)
+			if (model == "BTYPE3"_J)
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S21b");
 			else
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S21");
 		case VehicleModType::MOD_DOORS:
-			if (model == VEHICLE_SLAMVAN3)
+			if (model == "SLAMVAN3"_J)
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("SLVAN3_RDOOR");
 			else
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMM_MOD_S22");
@@ -215,9 +214,9 @@ namespace YimMenu::Features
 			case (int)VehicleModType::MOD_STRUTS:
 				switch (model)
 				{
-				case VEHICLE_BANSHEE:
-				case VEHICLE_BANSHEE2:
-				case VEHICLE_SULTANRS: return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMOD_COL5_41");
+				case "BANSHEE"_J:
+				case "BANSHEE2"_J :
+				case "SULTANRS"_J: return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CMOD_COL5_41");
 				}
 				break;
 			}
@@ -226,8 +225,8 @@ namespace YimMenu::Features
 	}
 
 	static const std::map<Hash, std::map<int, std::vector<int32_t>>> mod_blacklists = {
-	    {VEHICLE_BANSHEE, {{(int)VehicleModType::MOD_SPOILERS, {3, 4}}, {(int)VehicleModType::MOD_COLUMNSHIFTERLEVERS, {0, 1, 2, 3}}, {(int)VehicleModType::MOD_SPEAKERS, {0}}, {(int)VehicleModType::MOD_LIVERY, {15, 16}}}},
-	    {VEHICLE_SENTINEL, {{(int)VehicleModType::MOD_SPOILERS, {4, 5}}, {(int)VehicleModType::MOD_COLUMNSHIFTERLEVERS, {0, 1, 2, 3}}, {(int)VehicleModType::MOD_SPEAKERS, {0}}, {(int)VehicleModType::MOD_LIVERY, {0, 1}}}},
+	    {"BANSHEE"_J, {{(int)VehicleModType::MOD_SPOILERS, {3, 4}}, {(int)VehicleModType::MOD_COLUMNSHIFTERLEVERS, {0, 1, 2, 3}}, {(int)VehicleModType::MOD_SPEAKERS, {0}}, {(int)VehicleModType::MOD_LIVERY, {15, 16}}}},
+	    {"SENTINEL"_J, {{(int)VehicleModType::MOD_SPOILERS, {4, 5}}, {(int)VehicleModType::MOD_COLUMNSHIFTERLEVERS, {0, 1, 2, 3}}, {(int)VehicleModType::MOD_SPEAKERS, {0}}, {(int)VehicleModType::MOD_LIVERY, {0, 1}}}},
 	};
 
 	bool VehicleHelper::check_mod_blacklist(Hash model, int mod_slot, int mod)

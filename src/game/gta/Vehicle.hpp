@@ -17,8 +17,10 @@ namespace YimMenu
 		void SetPlateText(const char* plate);
 		bool is_bennys();
 		std::map<int, int32_t> get_owned_mods();
-	
+
 		// seats
 		bool IsSeatFree(int seat);
+
+		std::string get_vehicle_fullname();
 	};
 }
