@@ -10,6 +10,7 @@
 #include "game/gta/data/StackSizes.hpp"
 #include "game/gta/data/VehicleValues.hpp"
 #include "types/script/Timer.hpp"
+#include "types/script/globals/MPSV.hpp"
 
 namespace YimMenu::Features
 {
@@ -58,6 +59,18 @@ namespace YimMenu::Features
 		});
 	}
 
+	inline void _ResetVehDeliveryCooldown()
+	{
+		ScriptGlobal(2685663).At(4344).At(251).At(7, 2).As<TIMER*>()->Destroy();
+	}
+
+	inline void ResetVehDeliveryCooldown()
+	{
+		FiberPool::Push([] {
+			_ResetVehDeliveryCooldown();
+		});
+	}
+
 	inline void CallMechanic()
 	{
 		FiberPool::Push([] {
@@ -87,7 +100,7 @@ namespace YimMenu::Features
 					if (auto thread = Scripts::FindScriptThreadByID(id))
 					{
 						*ScriptLocal(thread, 519).As<int*>() = 1;
-						ScriptGlobal(2685663).At(4344).At(251).At(7, 2).As<TIMER*>()->Destroy();
+						_ResetVehDeliveryCooldown();
 					}
 				}
 				else
@@ -96,6 +109,33 @@ namespace YimMenu::Features
 				}
 
 				SCRIPT::SET_SCRIPT_WITH_NAME_HASH_AS_NO_LONGER_NEEDED("AM_CONTACT_REQUESTS"_J);
+			}
+		});
+	}
+
+	inline void FixAllVehicles()
+	{
+		FiberPool::Push([] {
+			if (auto mpsv = MPSV::Get())
+			{
+				int count = 0;
+				for (int i = 0; i < *(int*)mpsv; i++)
+				{
+					if (mpsv->Entries[i].PersonalVehicleFlags.IsSet(1) && mpsv->Entries[i].PersonalVehicleFlags.IsSet(2))
+					{
+						mpsv->Entries[i].PersonalVehicleFlags.Clear(1);
+						mpsv->Entries[i].PersonalVehicleFlags.Clear(6);
+						mpsv->Entries[i].PersonalVehicleFlags.Clear(16);
+						mpsv->Entries[i].PersonalVehicleFlags.Set(0);
+						mpsv->Entries[i].PersonalVehicleFlags.Set(11);
+						count++;
+					}
+				}
+
+				if (count > 0)
+					Notifications::Show("Fix All Vehicles", std::format("{} vehicles fixed.", count), NotificationType::Success);
+				else
+					Notifications::Show("Fix All Vehicles", "No vehicles to fix.");
 			}
 		});
 	}

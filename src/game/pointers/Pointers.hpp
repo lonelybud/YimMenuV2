@@ -40,6 +40,7 @@ class PoolEncryption;
 class CStatsMgr;
 class CNetShopTransaction;
 class CNetworkSession;
+class CStatsMpCharacterMappingData;
 
 namespace YimMenu
 {

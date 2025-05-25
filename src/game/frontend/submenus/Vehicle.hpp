@@ -31,10 +31,14 @@ namespace YimMenu::Submenus
 			{
 				if (ImGui::Button("Repair Vehicle"))
 					YimMenu::Features::RepairVehicle();
+				if (ImGui::Button("Fix All Vehicles"))
+					YimMenu::Features::FixAllVehicles();
 				if (ImGui::Button("Enter Last Vehicle"))
 					YimMenu::Features::EnterLastVehicle();
 				if (ImGui::Button("Call Mechanic"))
 					YimMenu::Features::CallMechanic();
+				if (ImGui::Button("Reset Vehicle Delivery Cooldown"))
+					YimMenu::Features::ResetVehDeliveryCooldown();
 			}
 			ImGui::EndGroup();
 		}
