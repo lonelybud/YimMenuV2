@@ -9,7 +9,7 @@
 #include "game/pointers/Pointers.hpp"
 #include "submenus/Recovery.hpp"
 #include "submenus/Self.hpp"
-#include "submenus/Vehicle.hpp"
+#include "submenus/vehicle/Vehicle.hpp"
 #include "submenus/World.hpp"
 
 namespace YimMenu
