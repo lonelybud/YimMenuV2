@@ -1,6 +1,7 @@
 #pragma once
 #include "core/frontend/manager/Submenu.hpp"
 #include "game/features/recovery/PlayAllMissionsSolo.hpp"
+#include "game/features/recovery/Simple.hpp"
 #include "game/features/vehicle/SavePersonalVehicle.hpp"
 #include "game/frontend/components/components.hpp"
 #include "game/gta/ScriptFunction.hpp"
@@ -36,6 +37,27 @@ namespace YimMenu::Submenus
 		}
 	};
 
+	class RecoveryBusinessCategory : public SubmenuMenuCategory
+	{
+		using SubmenuMenuCategory::SubmenuMenuCategory;
+		void Draw()
+		{
+			static std::pair<Features::eAppVinewoodMenuSafe, const char*> business_type = Features::businessNames[0];
+
+			ImGui::SetNextItemWidth(200.f);
+			if (ImGui::BeginCombo("Business##earnings", business_type.second))
+			{
+				for (auto& business : Features::businessNames)
+					if (ImGui::Selectable(business.second, business_type.first == business.first))
+						business_type = business;
+				ImGui::EndCombo();
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("Claim Earnings"))
+				Features::ClaimSafeEarnings(business_type.first);
+		}
+	};
+
 	class RecoverySubmenu : public Submenu
 	{
 	public:
@@ -46,6 +68,8 @@ namespace YimMenu::Submenus
 			AddCategory(std::move(shopping));
 			auto heist = std::make_shared<RecoveryHeistCategory>("Heist");
 			AddCategory(std::move(heist));
+			auto business = std::make_shared<RecoveryBusinessCategory>("Business");
+			AddCategory(std::move(business));
 		}
 	};
 }
