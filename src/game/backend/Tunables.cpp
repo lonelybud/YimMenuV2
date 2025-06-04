@@ -141,4 +141,17 @@ namespace YimMenu
 			}
 		}
 	}
+
+	bool Tunable::IsReady()
+	{
+		if (m_Global)
+			return true;
+
+		m_Global = Tunables::GetTunable(m_Hash);
+
+		if (m_Global)
+			return true;
+
+		return false;
+	}
 }

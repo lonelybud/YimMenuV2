@@ -112,6 +112,8 @@ namespace YimMenu
 		PVOID HttpStartRequest;
 		std::uint32_t* NetworkTime;
 		std::uint32_t* GameTimer;
+		int* HasGTAPlus;
+		PVOID BattlEyeServerProcessPlayerJoin;
 	};
 
 	struct Pointers : PointerData

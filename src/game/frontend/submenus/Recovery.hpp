@@ -2,12 +2,23 @@
 #include "core/frontend/manager/Submenu.hpp"
 #include "game/features/recovery/PlayAllMissionsSolo.hpp"
 #include "game/features/recovery/Simple.hpp"
+#include "game/features/recovery/UnlockGTAPlus.hpp"
 #include "game/features/vehicle/SavePersonalVehicle.hpp"
 #include "game/frontend/components/components.hpp"
 #include "game/gta/ScriptFunction.hpp"
 
 namespace YimMenu::Submenus
 {
+
+	class RecoveryGeneralCategory : public SubmenuMenuCategory
+	{
+		using SubmenuMenuCategory::SubmenuMenuCategory;
+		void Draw()
+		{
+			components::checkbox(YimMenu::Features::_UnlockGTAPlus);
+		}
+	};
+
 	class RecoveryShoppingCategory : public SubmenuMenuCategory
 	{
 		using SubmenuMenuCategory::SubmenuMenuCategory;
@@ -64,6 +75,8 @@ namespace YimMenu::Submenus
 		RecoverySubmenu() :
 		    Submenu("Recovery")
 		{
+			auto general = std::make_shared<RecoveryGeneralCategory>("General");
+			AddCategory(std::move(general));
 			auto shopping = std::make_shared<RecoveryShoppingCategory>("Shopping");
 			AddCategory(std::move(shopping));
 			auto heist = std::make_shared<RecoveryHeistCategory>("Heist");

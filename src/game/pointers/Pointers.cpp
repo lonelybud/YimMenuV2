@@ -243,6 +243,16 @@ namespace YimMenu
 			GameTimer = ptr.Add(2).Rip().As<std::uint32_t*>();
 		});
 
+		static constexpr auto scMembershipStuffPtrn = Pattern<"48 8D 15 ? ? ? ? 41 B8 18 02 00 00 E8">("ScMembershipStuff");
+		scanner.Add(scMembershipStuffPtrn, [this](PointerCalculator addr) {
+			HasGTAPlus = addr.Add(3).Rip().As<int*>();
+		});
+
+		constexpr auto battlEyeServerProcessPlayerJoinPtrn = Pattern<"BA 2D AD 45 3F">("BattlEyeServerProcessPlayerJoin");
+		scanner.Add(battlEyeServerProcessPlayerJoinPtrn, [this](PointerCalculator ptr) {
+			BattlEyeServerProcessPlayerJoin = ptr.Sub(0x72).As<PVOID>();
+		});
+
 		if (!scanner.Scan())
 		{
 			LOG(FATAL) << "Some patterns could not be found, unloading.";

@@ -46,7 +46,7 @@ namespace YimMenu::Features
 	inline void GiveAllWeapons()
 	{
 		FiberPool::Push([] {
-			for (auto weapon : Data::Weapons)
+			for (auto weapon : g_WeaponHashes)
 				Self::GetPed().GiveWeapon(weapon);
 		});
 	}
@@ -54,7 +54,7 @@ namespace YimMenu::Features
 	inline void RefillAllWeapons()
 	{
 		FiberPool::Push([] {
-			for (auto weapon : Data::Weapons)
+			for (auto weapon : g_WeaponHashes)
 			{
 				int ammo_in;
 				WEAPON::GET_MAX_AMMO(Self::GetPed().GetHandle(), weapon, &ammo_in);
