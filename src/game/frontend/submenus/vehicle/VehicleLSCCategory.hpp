@@ -672,6 +672,19 @@ namespace YimMenu::Submenus
 										});
 									}
 								}
+
+								for (const auto& [color, name] : lsc_chameleon_colors)
+								{
+									if (ImGui::Selectable(name.c_str(), selected_color == color))
+									{
+										selected_color                                                      = color;
+										Features::LSC::owned_mods[(int)CustomVehicleModType::MOD_WHEEL_COL] = color;
+										FiberPool::Push([] {
+											VEHICLE::SET_VEHICLE_EXTRA_COLOURS(Features::LSC::current_veh, Features::LSC::owned_mods[(int)CustomVehicleModType::MOD_PEARLESCENT_COL], Features::LSC::owned_mods[(int)CustomVehicleModType::MOD_WHEEL_COL]);
+										});
+									}
+								}
+
 								break;
 							}
 							case 10: //Interior Color
