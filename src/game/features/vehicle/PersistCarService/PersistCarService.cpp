@@ -3,6 +3,7 @@
 #include "core/backend/FiberPool.hpp"
 #include "core/backend/ScriptMgr.hpp"
 #include "core/frontend/Notifications.hpp"
+#include "core/util/VehicleHelper.hpp"
 #include "game/backend/Self.hpp"
 #include "game/gta/Natives.hpp"
 #include "game/gta/Vehicle.hpp"
@@ -42,7 +43,7 @@ namespace YimMenu::Features
 		auto vehicle      = veh.GetHandle();
 		Hash vehicle_hash = veh.GetModel();
 		std::map<int, int> vehicle_extras;
-		auto is_bennys = veh.is_bennys();
+		auto is_bennys = VehicleHelper::is_bennys(vehicle);
 
 		for (int slot = (int)VehicleModType::MOD_SPOILERS; slot <= (int)VehicleModType::MOD_LIGHTBAR; slot++)
 			if (VEHICLE::GET_NUM_VEHICLE_MODS(vehicle, slot) > 0)

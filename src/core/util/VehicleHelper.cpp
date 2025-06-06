@@ -1,10 +1,10 @@
-#include "vehicle_helper.hpp"
+#include "VehicleHelper.hpp"
 
 #include "core/util/Joaat.hpp"
 #include "game/gta/Natives.hpp"
 #include "game/gta/data/VehicleValues.hpp"
 
-namespace YimMenu::Features
+namespace YimMenu
 {
 	const char* VehicleHelper::get_mod_slot_name(Hash model, int vehicle, int mod_slot)
 	{
@@ -249,5 +249,11 @@ namespace YimMenu::Features
 		}
 
 		return false;
+	}
+
+	bool VehicleHelper::is_bennys(int veh)
+	{
+		auto v = (WheelTypes)VEHICLE::GET_VEHICLE_WHEEL_TYPE(veh);
+		return v == WheelTypes::WHEEL_TYPE_BENNYS_ORIGINAL || v == WheelTypes::WHEEL_TYPE_BENNYS_BESPOKE || v == WheelTypes::WHEEL_TYPE_OPEN_WHEEL || v == WheelTypes::WHEEL_TYPE_STREET || v == WheelTypes::WHEEL_TYPE_TRACK;
 	}
 }

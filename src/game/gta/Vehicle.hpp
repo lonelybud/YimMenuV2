@@ -15,7 +15,6 @@ namespace YimMenu
 		// mods
 		void Upgrade();
 		void SetPlateText(const char* plate);
-		bool is_bennys();
 		std::map<int, int32_t> get_owned_mods();
 
 		// seats

@@ -1,5 +1,5 @@
 #pragma once
-#include "VehicleLSCCategory.hpp"
+#include "VehicleEditorCategory.hpp"
 #include "VehiclePersistCarCategory.hpp"
 #include "core/frontend/Notifications.hpp"
 #include "core/frontend/manager/Submenu.hpp"
@@ -69,13 +69,13 @@ namespace YimMenu::Submenus
 		VehicleSubmenu() :
 		    Submenu("Vehicle")
 		{
-			auto main       = std::make_shared<VehicleMainCategory>("main");
-			auto spawn      = std::make_shared<VehicleSpawnCategory>("spawn");
-			auto lsc        = std::make_shared<VehicleLSCCategory>("LSC");
-			auto persistCar = std::make_shared<VehiclePersistCarCategory>("persistCar");
+			auto main          = std::make_shared<VehicleMainCategory>("main");
+			auto spawn         = std::make_shared<VehicleSpawnCategory>("spawn");
+			auto vehicleEditor = std::make_shared<VehicleEditorCategory>();
+			auto persistCar    = std::make_shared<VehiclePersistCarCategory>("persistCar");
 			AddCategory(std::move(main));
 			AddCategory(std::move(spawn));
-			AddCategory(std::move(lsc));
+			AddCategory(std::move(vehicleEditor));
 			AddCategory(std::move(persistCar));
 		};
 	};

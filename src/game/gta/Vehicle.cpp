@@ -94,12 +94,6 @@ namespace YimMenu
 		return VEHICLE::IS_VEHICLE_SEAT_FREE(GetHandle(), seat, true);
 	}
 
-	bool Vehicle::is_bennys()
-	{
-		auto v = (WheelTypes)VEHICLE::GET_VEHICLE_WHEEL_TYPE(GetHandle());
-		return v == WheelTypes::WHEEL_TYPE_BENNYS_ORIGINAL || v == WheelTypes::WHEEL_TYPE_BENNYS_BESPOKE || v == WheelTypes::WHEEL_TYPE_OPEN_WHEEL || v == WheelTypes::WHEEL_TYPE_STREET || v == WheelTypes::WHEEL_TYPE_TRACK;
-	}
-
 	std::map<int, int32_t> Vehicle::get_owned_mods()
 	{
 		auto vehicle = GetHandle();
