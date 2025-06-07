@@ -2,13 +2,13 @@
 #include "core/backend/FiberPool.hpp"
 #include "core/frontend/manager/SubmenuMenuCategory.hpp"
 #include "core/util/strings.hpp"
-#include "game/features/vehicle/PersistCarService/PersistCarService.hpp"
+#include "game/backend/SavedVehicles.hpp"
 #include "game/gta/Vehicle.hpp"
 #include "misc/cpp/imgui_stdlib.h"
 
 namespace YimMenu::Submenus
 {
-	class VehiclePersistCarCategory : public SubmenuMenuCategory
+	class SavedVehiclesCategory : public SubmenuMenuCategory
 	{
 		using SubmenuMenuCategory::SubmenuMenuCategory;
 
@@ -27,15 +27,15 @@ namespace YimMenu::Submenus
 
 				if (!trimString(yo).size())
 				{
-					Notifications::Show("Persist Car", "Filename empty!", NotificationType::Warning);
+					Notifications::Show("Saved Vehicles", "Filename empty!", NotificationType::Warning);
 					return;
 				}
 
 				replace_string(yo, ".", ""); // so that .. does not throw error by custom file system when it sees say bob..json
 				yo += ".json";
 
-				Features::PersistCarService::Save(save_folder, yo);
-				Features::PersistCarService::RefreshList(folder, folders, files);
+				Features::SavedVehicles::Save(save_folder, yo);
+				Features::SavedVehicles::RefreshList(folder, folders, files);
 			}
 			ImGui::SameLine();
 			if (ImGui::Button("Populate Name"))
@@ -48,7 +48,7 @@ namespace YimMenu::Submenus
 		void Draw()
 		{
 			if (ImGui::Button("Refresh List"))
-				Features::PersistCarService::RefreshList(folder, folders, files);
+				Features::SavedVehicles::RefreshList(folder, folders, files);
 
 			ImGui::SetNextItemWidth(300.f);
 			auto folder_display = folder.empty() ? "Root" : folder.c_str();
@@ -57,14 +57,14 @@ namespace YimMenu::Submenus
 				if (ImGui::Selectable("Root", folder == ""))
 				{
 					folder.clear();
-					Features::PersistCarService::RefreshList(folder, folders, files);
+					Features::SavedVehicles::RefreshList(folder, folders, files);
 				}
 
 				for (std::string folder_name : folders)
 					if (ImGui::Selectable(folder_name.c_str(), folder == folder_name))
 					{
 						folder = folder_name;
-						Features::PersistCarService::RefreshList(folder, folders, files);
+						Features::SavedVehicles::RefreshList(folder, folders, files);
 					}
 
 				ImGui::EndCombo();
@@ -130,7 +130,7 @@ namespace YimMenu::Submenus
 				ImGui::Spacing();
 				if (ImGui::Button("Yes"))
 				{
-					Features::PersistCarService::Load(folder, file);
+					Features::SavedVehicles::Load(folder, file);
 					open_modal = false;
 					ImGui::CloseCurrentPopup();
 				}

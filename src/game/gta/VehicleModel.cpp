@@ -1,4 +1,4 @@
-#include "VehicleHelper.hpp"
+#include "VehicleModel.hpp"
 
 #include "core/util/Joaat.hpp"
 #include "game/gta/Natives.hpp"
@@ -6,7 +6,7 @@
 
 namespace YimMenu
 {
-	const char* VehicleHelper::get_mod_slot_name(Hash model, int vehicle, int mod_slot)
+	const char* VehicleModel::get_mod_slot_name(Hash model, int vehicle, int mod_slot)
 	{
 		switch ((VehicleModType)mod_slot)
 		{
@@ -146,7 +146,7 @@ namespace YimMenu
 	    {47, "HORN_XM15_2"},
 	    {48, "HORN_XM15_3"}};
 
-	const char* VehicleHelper::get_mod_name(Hash model, int vehicle, int mod_slot, int mod, int mod_count)
+	const char* VehicleModel::get_mod_name(Hash model, int vehicle, int mod_slot, int mod, int mod_count)
 	{
 		if (mod_count == 0)
 			return "";
@@ -229,7 +229,7 @@ namespace YimMenu
 	    {"SENTINEL"_J, {{(int)VehicleModType::MOD_SPOILERS, {4, 5}}, {(int)VehicleModType::MOD_COLUMNSHIFTERLEVERS, {0, 1, 2, 3}}, {(int)VehicleModType::MOD_SPEAKERS, {0}}, {(int)VehicleModType::MOD_LIVERY, {0, 1}}}},
 	};
 
-	bool VehicleHelper::check_mod_blacklist(Hash model, int mod_slot, int mod)
+	bool VehicleModel::check_mod_blacklist(Hash model, int mod_slot, int mod)
 	{
 		if (mod_blacklists.find(model) == mod_blacklists.end())
 		{
@@ -251,7 +251,7 @@ namespace YimMenu
 		return false;
 	}
 
-	bool VehicleHelper::is_bennys(int veh)
+	bool VehicleModel::is_bennys(int veh)
 	{
 		auto v = (WheelTypes)VEHICLE::GET_VEHICLE_WHEEL_TYPE(veh);
 		return v == WheelTypes::WHEEL_TYPE_BENNYS_ORIGINAL || v == WheelTypes::WHEEL_TYPE_BENNYS_BESPOKE || v == WheelTypes::WHEEL_TYPE_OPEN_WHEEL || v == WheelTypes::WHEEL_TYPE_STREET || v == WheelTypes::WHEEL_TYPE_TRACK;

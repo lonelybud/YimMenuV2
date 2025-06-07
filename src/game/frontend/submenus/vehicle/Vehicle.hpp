@@ -1,6 +1,6 @@
 #pragma once
 #include "VehicleEditorCategory.hpp"
-#include "VehiclePersistCarCategory.hpp"
+#include "SavedVehiclesCategory.hpp"
 #include "core/frontend/Notifications.hpp"
 #include "core/frontend/manager/Submenu.hpp"
 #include "game/features/vehicle/Godmode.hpp"
@@ -72,7 +72,7 @@ namespace YimMenu::Submenus
 			auto main          = std::make_shared<VehicleMainCategory>("main");
 			auto spawn         = std::make_shared<VehicleSpawnCategory>("spawn");
 			auto vehicleEditor = std::make_shared<VehicleEditorCategory>();
-			auto persistCar    = std::make_shared<VehiclePersistCarCategory>("persistCar");
+			auto persistCar    = std::make_shared<SavedVehiclesCategory>("Saved Vehicles");
 			AddCategory(std::move(main));
 			AddCategory(std::move(spawn));
 			AddCategory(std::move(vehicleEditor));

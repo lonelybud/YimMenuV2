@@ -3,7 +3,7 @@
 
 namespace YimMenu
 {
-	class VehicleHelper
+	class VehicleModel
 	{
 	public:
 		static bool check_mod_blacklist(Hash model, int mod_slot, int mod);

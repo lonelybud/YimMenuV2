@@ -4,7 +4,7 @@
 
 namespace YimMenu::Features
 {
-	class PersistCarService
+	class SavedVehicles
 	{
 	public:
 		static constexpr auto vehicle_model_hash_key = "vehicle_model_hash";
