@@ -6,9 +6,9 @@ namespace YimMenu
 	class VehicleModel
 	{
 	public:
-		static bool check_mod_blacklist(Hash model, int mod_slot, int mod);
-		static const char* get_mod_slot_name(Hash model, int vehicle, int mod_slot);
-		static const char* get_mod_name(Hash model, int vehicle, int mod_slot, int mod, int mod_count);
-		static bool is_bennys(int veh);
+		static bool CheckModBlacklist(Hash model, int mod_slot, int mod);
+		static const char* GetModSlotName(Hash model, int vehicle, int mod_slot);
+		static const char* GetModName(Hash model, int vehicle, int mod_slot, int mod, int mod_count);
+		static bool IsBennys(int veh);
 	};
 }

@@ -25,13 +25,13 @@ namespace YimMenu::Submenus
 				std::string yo = vehicle_file_name_input;
 				ZeroMemory(vehicle_file_name_input, sizeof(vehicle_file_name_input));
 
-				if (!trimString(yo).size())
+				if (!TrimString(yo).size())
 				{
 					Notifications::Show("Saved Vehicles", "Filename empty!", NotificationType::Warning);
 					return;
 				}
 
-				replace_string(yo, ".", ""); // so that .. does not throw error by custom file system when it sees say bob..json
+				ReplaceString(yo, ".", ""); // so that .. does not throw error by custom file system when it sees say bob..json
 				yo += ".json";
 
 				Features::SavedVehicles::Save(save_folder, yo);

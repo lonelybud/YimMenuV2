@@ -6,7 +6,7 @@
 
 namespace YimMenu
 {
-	const char* VehicleModel::get_mod_slot_name(Hash model, int vehicle, int mod_slot)
+	const char* VehicleModel::GetModSlotName(Hash model, int vehicle, int mod_slot)
 	{
 		switch ((VehicleModType)mod_slot)
 		{
@@ -146,7 +146,7 @@ namespace YimMenu
 	    {47, "HORN_XM15_2"},
 	    {48, "HORN_XM15_3"}};
 
-	const char* VehicleModel::get_mod_name(Hash model, int vehicle, int mod_slot, int mod, int mod_count)
+	const char* VehicleModel::GetModName(Hash model, int vehicle, int mod_slot, int mod, int mod_count)
 	{
 		if (mod_count == 0)
 			return "";
@@ -172,8 +172,7 @@ namespace YimMenu
 			}
 			if (mod >= mod_count / 2)
 				//return std::format("{} {}", HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION("CHROME"), HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION(VEHICLE::GET_MOD_TEXT_LABEL(vehicle, mod_slot, mod))).c_str(); //Bug with FMT library? Returns Chrome Chrome...
-				return std::format("Chrome {}", HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION(VEHICLE::GET_MOD_TEXT_LABEL(vehicle, mod_slot, mod)))
-				    .c_str();
+				return std::format("Chrome {}", HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION(VEHICLE::GET_MOD_TEXT_LABEL(vehicle, mod_slot, mod))).c_str(); 
 			else
 				return HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION(VEHICLE::GET_MOD_TEXT_LABEL(vehicle, mod_slot, mod));
 		}
@@ -229,7 +228,7 @@ namespace YimMenu
 	    {"SENTINEL"_J, {{(int)VehicleModType::MOD_SPOILERS, {4, 5}}, {(int)VehicleModType::MOD_COLUMNSHIFTERLEVERS, {0, 1, 2, 3}}, {(int)VehicleModType::MOD_SPEAKERS, {0}}, {(int)VehicleModType::MOD_LIVERY, {0, 1}}}},
 	};
 
-	bool VehicleModel::check_mod_blacklist(Hash model, int mod_slot, int mod)
+	bool VehicleModel::CheckModBlacklist(Hash model, int mod_slot, int mod)
 	{
 		if (mod_blacklists.find(model) == mod_blacklists.end())
 		{
@@ -251,7 +250,7 @@ namespace YimMenu
 		return false;
 	}
 
-	bool VehicleModel::is_bennys(int veh)
+	bool VehicleModel::IsBennys(int veh)
 	{
 		auto v = (WheelTypes)VEHICLE::GET_VEHICLE_WHEEL_TYPE(veh);
 		return v == WheelTypes::WHEEL_TYPE_BENNYS_ORIGINAL || v == WheelTypes::WHEEL_TYPE_BENNYS_BESPOKE || v == WheelTypes::WHEEL_TYPE_OPEN_WHEEL || v == WheelTypes::WHEEL_TYPE_STREET || v == WheelTypes::WHEEL_TYPE_TRACK;

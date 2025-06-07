@@ -43,7 +43,7 @@ namespace YimMenu::Features
 		auto vehicle      = veh.GetHandle();
 		Hash vehicle_hash = veh.GetModel();
 		std::map<int, int> vehicle_extras;
-		auto is_bennys = VehicleModel::is_bennys(vehicle);
+		auto is_bennys = VehicleModel::IsBennys(vehicle);
 
 		for (int slot = (int)VehicleModType::MOD_SPOILERS; slot <= (int)VehicleModType::MOD_LIGHTBAR; slot++)
 			if (VEHICLE::GET_NUM_VEHICLE_MODS(vehicle, slot) > 0)

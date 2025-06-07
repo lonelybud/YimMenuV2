@@ -1,4 +1,3 @@
-
 #pragma once
 #include <iostream>
 #include <string>
@@ -6,7 +5,7 @@
 namespace YimMenu
 {
 	// Function to trim leading and trailing whitespace from a string
-	inline std::string trimString(std::string& str)
+	inline std::string TrimString(std::string& str)
 	{
 		auto start = str.begin();
 		auto end   = str.end();
@@ -26,7 +25,7 @@ namespace YimMenu
 		return std::string(start, end);
 	}
 
-	inline void strcpy_safe(char* dest, const char* src, int dest_size)
+	inline void StrCpySafe(char* dest, const char* src, int dest_size)
 	{
 		auto len = dest_size - 1;
 		strncpy(dest, src, len);
@@ -34,7 +33,7 @@ namespace YimMenu
 			dest[len] = '\0';
 	}
 
-	inline void replace_string(std::string& str, const char* str1, const char* str2)
+	inline void ReplaceString(std::string& str, const char* str1, const char* str2)
 	{
 		size_t pos = 0;
 		while ((pos = str.find(str1, pos)) != std::string::npos)

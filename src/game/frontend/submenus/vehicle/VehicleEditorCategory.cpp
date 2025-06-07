@@ -33,7 +33,7 @@ namespace YimMenu::Submenus
 
 			veh_name   = Self::GetVehicle().get_vehicle_fullname();
 			owned_mods = Self::GetVehicle().get_owned_mods();
-			is_bennys  = VehicleModel::is_bennys(current_veh);
+			is_bennys  = VehicleModel::IsBennys(current_veh);
 
 			VEHICLE::SET_VEHICLE_MOD_KIT(current_veh, 0);
 
@@ -46,12 +46,12 @@ namespace YimMenu::Submenus
 			tmp_slot_display_names[(int)CustomVehicleModType::MOD_WINDOW_TINT] = "Window Tint";
 			tmp_slot_display_names[(int)CustomVehicleModType::MOD_WHEEL_TYPE]  = "Wheel Type";
 
-			tmp_mod_display_names[(int)CustomVehicleModType::MOD_PLATE_STYLE].insert(lsc_plate_styles.begin(),
-			    lsc_plate_styles.end());
-			tmp_mod_display_names[(int)CustomVehicleModType::MOD_WINDOW_TINT].insert(lsc_window_tint_types.begin(),
-			    lsc_window_tint_types.end());
-			tmp_mod_display_names[(int)CustomVehicleModType::MOD_WHEEL_TYPE].insert(lsc_wheel_styles.begin(),
-			    lsc_wheel_styles.end());
+			tmp_mod_display_names[(int)CustomVehicleModType::MOD_PLATE_STYLE].insert(lscPlateStyles.begin(),
+			    lscPlateStyles.end());
+			tmp_mod_display_names[(int)CustomVehicleModType::MOD_WINDOW_TINT].insert(lscWindowTintTypes.begin(),
+			    lscWindowTintTypes.end());
+			tmp_mod_display_names[(int)CustomVehicleModType::MOD_WHEEL_TYPE].insert(lscWheelStyles.begin(),
+			    lscWheelStyles.end());
 
 			for (int slot = (int)VehicleModType::MOD_SPOILERS; slot <= (int)VehicleModType::MOD_LIGHTBAR; slot++)
 			{
@@ -60,7 +60,7 @@ namespace YimMenu::Submenus
 				{
 					int owner_mod = owned_mods[slot];
 
-					std::string slot_name = VehicleModel::get_mod_slot_name(model, current_veh, slot);
+					std::string slot_name = VehicleModel::GetModSlotName(model, current_veh, slot);
 					if (slot_name.empty())
 						continue;
 
@@ -71,12 +71,12 @@ namespace YimMenu::Submenus
 
 					for (int mod = -1; mod < count; mod++)
 					{
-						if (VehicleModel::check_mod_blacklist(model, slot, mod))
+						if (VehicleModel::CheckModBlacklist(model, slot, mod))
 							continue;
 
 						bool is_repeated = false;
 
-						std::string mod_name = VehicleModel::get_mod_name(model, current_veh, slot, mod, count);
+						std::string mod_name = VehicleModel::GetModName(model, current_veh, slot, mod, count);
 
 						if (mod_name.empty() || mod_name == "NULL")
 							continue;
@@ -125,8 +125,8 @@ namespace YimMenu::Submenus
 			}
 
 			if (tmp_mod_display_names.count((int)VehicleModType::MOD_HORNS) > 0)
-				tmp_mod_display_names[(int)VehicleModType::MOD_HORNS].insert(lsc_missing_horns.begin(),
-				    lsc_missing_horns.end());
+				tmp_mod_display_names[(int)VehicleModType::MOD_HORNS].insert(lscMissingHorns.begin(),
+				    lscMissingHorns.end());
 
 			slot_display_names = tmp_slot_display_names;
 			mod_display_names  = tmp_mod_display_names;
@@ -536,7 +536,7 @@ namespace YimMenu::Submenus
 						ImGui::SameLine();
 						if (ImGui::BeginListBox("##tire_smoke_rgb", ImVec2(140, 254)))
 						{
-							for (const auto& it : lsc_tire_smoke_rgb)
+							for (const auto& it : lscTireSmokeRgb)
 							{
 								auto& name = it.first;
 								auto& rgb  = it.second;
@@ -560,7 +560,7 @@ namespace YimMenu::Submenus
 						ImGui::SameLine();
 						if (ImGui::BeginListBox("##neon_rgb", ImVec2(140, 254)))
 						{
-							for (const auto& it : lsc_neon_rgb)
+							for (const auto& it : lscNeonRgb)
 							{
 								auto& name = it.first;
 								auto& rgb  = it.second;
@@ -644,7 +644,7 @@ namespace YimMenu::Submenus
 						}
 						case 1: //Classic
 						{
-							for (const auto& [color, name] : lsc_classic_colors)
+							for (const auto& [color, name] : lscClassicColors)
 							{
 								if (ImGui::Selectable(name, selected_color == color))
 								{
@@ -662,7 +662,7 @@ namespace YimMenu::Submenus
 						}
 						case 2: //Matte
 						{
-							for (const auto& [color, name] : lsc_matte_colors)
+							for (const auto& [color, name] : lscMatteColors)
 							{
 								if (ImGui::Selectable(name, selected_color == color))
 								{
@@ -680,7 +680,7 @@ namespace YimMenu::Submenus
 						}
 						case 3: //Metals
 						{
-							for (const auto& [color, name] : lsc_metal_colors)
+							for (const auto& [color, name] : lscMetalColors)
 							{
 								if (ImGui::Selectable(name, selected_color == color))
 								{
@@ -698,7 +698,7 @@ namespace YimMenu::Submenus
 						}
 						case 4: //Util
 						{
-							for (const auto& [color, name] : lsc_util_colors)
+							for (const auto& [color, name] : lscUtilColors)
 							{
 								if (ImGui::Selectable(name, selected_color == color))
 								{
@@ -716,7 +716,7 @@ namespace YimMenu::Submenus
 						}
 						case 5: //Worn
 						{
-							for (const auto& [color, name] : lsc_worn_colors)
+							for (const auto& [color, name] : lscWornColors)
 							{
 								if (ImGui::Selectable(name, selected_color == color))
 								{
@@ -734,7 +734,7 @@ namespace YimMenu::Submenus
 						}
 						case 6: //Chameleon
 						{
-							for (const auto& [color, name] : lsc_chameleon_colors)
+							for (const auto& [color, name] : lscChameleonColors)
 							{
 								if (ImGui::Selectable(name, selected_color == color))
 								{
@@ -752,7 +752,7 @@ namespace YimMenu::Submenus
 						}
 						case 7: //Pearlescent
 						{
-							for (const auto& [color, name] : lsc_classic_colors)
+							for (const auto& [color, name] : lscClassicColors)
 							{
 								if (ImGui::Selectable(name, selected_color == color))
 								{
@@ -778,7 +778,7 @@ namespace YimMenu::Submenus
 								});
 							}
 
-							for (const auto& [color, name] : lsc_classic_colors)
+							for (const auto& [color, name] : lscClassicColors)
 							{
 								if (ImGui::Selectable(name, selected_color == color))
 								{
@@ -790,7 +790,7 @@ namespace YimMenu::Submenus
 								}
 							}
 
-							for (const auto& [color, name] : lsc_chameleon_colors)
+							for (const auto& [color, name] : lscChameleonColors)
 							{
 								if (ImGui::Selectable(name, selected_color == color))
 								{
@@ -806,7 +806,7 @@ namespace YimMenu::Submenus
 						}
 						case 10: //Interior Color
 						{
-							for (const auto& [color, name] : lsc_classic_colors)
+							for (const auto& [color, name] : lscClassicColors)
 							{
 								if (ImGui::Selectable(name, selected_color == color))
 								{
@@ -821,7 +821,7 @@ namespace YimMenu::Submenus
 						}
 						case 11: //Dashboard Color
 						{
-							for (const auto& [color, name] : lsc_classic_colors)
+							for (const auto& [color, name] : lscClassicColors)
 							{
 								if (ImGui::Selectable(name, selected_color == color))
 								{
@@ -836,7 +836,7 @@ namespace YimMenu::Submenus
 						}
 						case 12: //Headlight Color
 						{
-							for (const auto& [color, name] : lsc_headlight_colors)
+							for (const auto& [color, name] : lscHeadlightColors)
 							{
 								if (ImGui::Selectable(name, selected_color == color))
 								{

@@ -32,7 +32,7 @@ namespace YimMenu::Features
 
 	inline void SpawnVehicle(std::string _model, bool spawn_in, bool max_upgade)
 	{
-		auto model = trimString(_model);
+		auto model = TrimString(_model);
 
 		if (!model.length())
 		{
