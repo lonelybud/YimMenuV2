@@ -119,9 +119,10 @@ namespace YimMenu
 			WriteNodeData = ptr.As<PVOID>();
 		});
 
-		constexpr auto shouldUseNodeCachePtrn = Pattern<"83 FA 20 74 1D 48 89 CE">("ShouldUseNodeCache");
+		constexpr auto shouldUseNodeCachePtrn = Pattern<"83 FA 20 74 1D 48 89 CE">("ShouldUseNodeCache&Nullsub");
 		scanner.Add(shouldUseNodeCachePtrn, [this](PointerCalculator ptr) {
 			ShouldUseNodeCache = ptr.Sub(5).As<PVOID>();
+			Nullsub = ptr.Add(0x29).As<PVOID>();
 		});
 
 		constexpr auto isNodeInScopePtrn = Pattern<"41 83 F9 02 74 22 48 8B 06">("IsNodeInScope");
@@ -251,6 +252,11 @@ namespace YimMenu
 		constexpr auto battlEyeServerProcessPlayerJoinPtrn = Pattern<"BA 2D AD 45 3F">("BattlEyeServerProcessPlayerJoin");
 		scanner.Add(battlEyeServerProcessPlayerJoinPtrn, [this](PointerCalculator ptr) {
 			BattlEyeServerProcessPlayerJoin = ptr.Sub(0x72).As<PVOID>();
+		});
+
+		constexpr auto gameSkeletonPtrn = Pattern<"0F B6 C0 8D 14 00 83 C2 02">("GameSkeleton");
+		scanner.Add(gameSkeletonPtrn, [this](PointerCalculator ptr) {
+			GameSkeleton = ptr.Add(0x9).Add(3).Rip().As<rage::gameSkeleton*>();
 		});
 
 		if (!scanner.Scan())

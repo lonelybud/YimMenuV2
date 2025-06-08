@@ -30,6 +30,7 @@ namespace rage
 	class rlQueryAccountsResult;
 	class rlGetAvatarsContext;
 	class rlGetAvatarsPlayerList;
+	struct gameSkeleton;
 }
 class CPedFactory;
 class CNetGamePlayer;
@@ -114,6 +115,8 @@ namespace YimMenu
 		std::uint32_t* GameTimer;
 		int* HasGTAPlus;
 		PVOID BattlEyeServerProcessPlayerJoin;
+		rage::gameSkeleton* GameSkeleton;
+		PVOID Nullsub;
 	};
 
 	struct Pointers : PointerData
