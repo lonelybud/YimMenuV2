@@ -26,6 +26,8 @@ namespace YimMenu
 
 		LogHelper::Init("LonelyMuddingV2", FileMgr::GetProjectFile("./cout.log"));
 
+		LOGF(INFO, "Welcome to LonelyMuddingV2! Build date: {} at {}", __DATE__, __TIME__);
+
 		if (!ModuleMgr.LoadModules())
 			goto EARLY_UNLOAD;
 

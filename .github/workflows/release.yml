@@ -108,8 +108,8 @@ jobs:
           echo "build_sha=$(cat sha256.checksum)" >> $GITHUB_OUTPUT
           cat sha256.checksum
 
-      - name: Github Release
-        uses: softprops/action-gh-release@v2
+      - name: Nightly Release
+        uses: softprops/action-gh-release@v2.2.2
         with:
           name: latest
           tag_name: release-latest
