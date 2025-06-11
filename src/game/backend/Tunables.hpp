@@ -77,24 +77,24 @@ namespace YimMenu
 
 	public:
 		constexpr Tunable(joaat_t hash) :
-			m_Hash(hash),
-			m_Global(std::nullopt)
+		    m_Hash(hash),
+		    m_Global(std::nullopt)
 		{
 		}
 
-		bool IsReady();
-	
-		// make sure to call IsReady before accessing tunables
 		template<typename T>
 		T Get()
 		{
+			if (m_Global == std::nullopt)
+				m_Global = Tunables::GetTunable(m_Hash);
 			return *m_Global->As<T*>();
 		}
 
-		// make sure to call IsReady before accessing tunables
 		template<typename T>
 		void Set(T new_value)
 		{
+			if (m_Global == std::nullopt)
+				m_Global = Tunables::GetTunable(m_Hash);
 			*m_Global->As<T*>() = new_value;
 		}
 	};

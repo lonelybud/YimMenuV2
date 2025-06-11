@@ -1,7 +1,7 @@
 
 #include "core/backend/FiberPool.hpp"
 #include "core/frontend/manager/SubmenuMenuCategory.hpp"
-#include "core/util/strings.hpp"
+#include "core/util/Strings.hpp"
 #include "game/backend/SavedVehicles.hpp"
 #include "game/gta/Vehicle.hpp"
 #include "misc/cpp/imgui_stdlib.h"

@@ -1,7 +1,7 @@
 #include "core/backend/FiberPool.hpp"
 #include "core/backend/ScriptMgr.hpp"
 #include "core/frontend/Notifications.hpp"
-#include "core/util/strings.hpp"
+#include "core/util/Strings.hpp"
 #include "game/backend/Self.hpp"
 #include "game/gta/Natives.hpp"
 #include "game/gta/ScriptGlobal.hpp"
