@@ -165,8 +165,8 @@ namespace YimMenu
 
 	std::string Vehicle::get_vehicle_fullname()
 	{
-		auto model          = ENTITY::GET_ENTITY_MODEL(GetHandle());
-		std::string gxt     = VEHICLE::GET_DISPLAY_NAME_FROM_VEHICLE_MODEL(model);
+		auto model = ENTITY::GET_ENTITY_MODEL(GetHandle());
+		std::string gxt = VEHICLE::GET_DISPLAY_NAME_FROM_VEHICLE_MODEL(model);
 		std::string display = HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION(gxt.c_str());
 
 		std::string finalName = display == "NULL" ? gxt : display;
@@ -175,7 +175,7 @@ namespace YimMenu
 		if (maker != "NULL")
 			finalName = maker + " " + finalName;
 
-		int id    = VEHICLE::GET_VEHICLE_CLASS_FROM_NAME(model);
+		int id = VEHICLE::GET_VEHICLE_CLASS_FROM_NAME(model);
 		finalName = std::string(g_VehicleClassNames[id]) + " " + finalName;
 
 		return finalName;

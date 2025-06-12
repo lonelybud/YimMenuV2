@@ -32,7 +32,7 @@ namespace YimMenu
 
 	void ScriptPatches::Patch::Apply()
 	{
-		auto pc   = GetPC();
+		auto pc = GetPC();
 		auto data = GetInstance().GetDataImpl(m_Hash);
 
 		if (!pc || !data)
@@ -53,7 +53,7 @@ namespace YimMenu
 		if (m_OriginalBytes.size() == 0)
 			return; // nothing to restore
 
-		auto pc   = GetPC();
+		auto pc = GetPC();
 		auto data = GetInstance().GetDataImpl(m_Hash);
 
 		if (!pc || !data)
@@ -182,14 +182,14 @@ namespace YimMenu
 		}
 
 		m_CurrentlyReplacedBytecode = program->m_CodeBlocks;
-		program->m_CodeBlocks       = data->GetData();
+		program->m_CodeBlocks = data->GetData();
 	}
 
 	void ScriptPatches::OnScriptVMLeaveImpl(rage::scrProgram* program)
 	{
 		if (m_CurrentlyReplacedBytecode)
 		{
-			program->m_CodeBlocks       = m_CurrentlyReplacedBytecode;
+			program->m_CodeBlocks = m_CurrentlyReplacedBytecode;
 			m_CurrentlyReplacedBytecode = nullptr;
 		}
 	}

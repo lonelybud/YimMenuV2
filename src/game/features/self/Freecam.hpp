@@ -22,8 +22,8 @@ namespace YimMenu::Features
 		virtual void OnEnable()
 		{
 			camEntity = CAM::CREATE_CAM("DEFAULT_SCRIPTED_CAMERA", 0);
-			position  = CAM::GET_GAMEPLAY_CAM_COORD();
-			rotation  = CAM::GET_GAMEPLAY_CAM_ROT(2);
+			position = CAM::GET_GAMEPLAY_CAM_COORD();
+			rotation = CAM::GET_GAMEPLAY_CAM_ROT(2);
 
 			CAM::SET_CAM_COORD(camEntity, position.x, position.y, position.z);
 			CAM::SET_CAM_ROT(camEntity, rotation.x, rotation.y, rotation.z, 2);

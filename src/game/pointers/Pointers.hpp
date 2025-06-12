@@ -53,9 +53,9 @@ namespace YimMenu
 		using GetSyncTreeForType = rage::netSyncTree* (*)(void* netObjMgr, uint16_t type);
 		using QueuePacket = void(*)(rage::netConnectionManager* mgr, int msg_id, void* data, int size, int flags, std::uint16_t* out_seq_id);
 		using GetNetObjectById = rage::netObject* (*)(uint16_t id);
-		using RequestControl = void(*)(rage::netObject* object);
-		using EventAck = bool(*)(uintptr_t data, CNetGamePlayer* target_player, uint32_t event_index, uint32_t event_handled_bitset);
-		using SendEventAck = void(*)(rage::netEventMgr* event_manager, CNetGamePlayer* source_player);
+		using RequestControl = void (*)(rage::netObject* object);
+		using EventAck = bool (*)(uintptr_t data, CNetGamePlayer* target_player, uint32_t event_index, uint32_t event_handled_bitset);
+		using SendEventAck = void (*)(rage::netEventMgr* event_manager, CNetGamePlayer* source_player);
 		using ScriptVM = int (*)(uint64_t* stack, int64_t** scr_globals, rage::scrProgram* program, void* ctx);
 		using GetPackedStatData = void(*)(int index, int* row, bool* is_bool, bool* unk);
 	}
@@ -90,7 +90,7 @@ namespace YimMenu
 		PVOID WriteSyncTree;
 		CNetworkPlayerMgr** NetworkPlayerMgr;
 		Functions::QueuePacket QueuePacket;
-		Functions::GetNetObjectById GetNetObjectById;	
+		Functions::GetNetObjectById GetNetObjectById;
 		Functions::RequestControl RequestControl;
 		BytePatch ModelSpawnBypass;
 		BytePatch SpectatePatch; // used to patch the code that prevents you from spawning network objects when spectating

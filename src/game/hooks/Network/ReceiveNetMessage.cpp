@@ -30,7 +30,7 @@ namespace YimMenu::Hooks
 		// TODO: port security ID stuff from V1
 		auto fr_evt = reinterpret_cast<rage::netEventFrameReceived*>(event);
 		rage::datBitBuffer buffer(fr_evt->m_Data, fr_evt->m_Length, true);
-		
+
 		rage::netMessage::Type type = ReadType(buffer).value_or(rage::netMessage::Type::Invalid);
 
 		switch (type)
@@ -88,7 +88,7 @@ namespace YimMenu::Hooks
 			}
 			break;
 		}
-		default: 
+		default:
 			break;
 		}
 

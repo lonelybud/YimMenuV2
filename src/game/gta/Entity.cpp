@@ -75,7 +75,6 @@ namespace YimMenu
 		if (auto ptr = GetPointer<rage::fwEntity*>())
 			return ptr->IsPed();
 		return false;
-
 	}
 
 	bool Entity::IsVehicle()
@@ -104,7 +103,7 @@ namespace YimMenu
 
 
 	bool Entity::IsMissionEntity()
-	{ 
+	{
 		ENTITY_ASSERT_VALID();
 		return ENTITY::IS_ENTITY_A_MISSION_ENTITY(GetHandle()); // TODO: detect more mission states
 	}
@@ -225,8 +224,8 @@ namespace YimMenu
 		return GetPointer<CDynamicEntity*>()->m_NetObject;
 	}
 
-	int Entity::GetOwner() 
-	{ 
+	int Entity::GetOwner()
+	{
 		if (!IsNetworked())
 			return -1;
 
