@@ -84,8 +84,11 @@ namespace YimMenu::Submenus
 		{
 			ImGui::BeginGroup();
 			{
-				if (ImGui::Button("Tp To Waypoint"))
+				if (ImGui::Button("Waypoint"))
 					YimMenu::Features::TpToWaypoint();
+					ImGui::SameLine();
+				if (ImGui::Button("Objective"))
+					YimMenu::Features::TpToObjective();
 			}
 			ImGui::EndGroup();
 		}
