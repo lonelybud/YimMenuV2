@@ -75,7 +75,7 @@ namespace YimMenu::Features
 			Vector3 location;
 			for (const auto sprite : sprites)
 			{
-				if (GetBlipLocationOfType(location, sprite))
+				if (GetBlipLocationOfType(location, static_cast<int>(sprite)))
 				{
 					Self::GetPed().TeleportTo(location);
 					return;
