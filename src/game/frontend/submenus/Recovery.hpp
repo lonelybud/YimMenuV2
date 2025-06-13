@@ -5,7 +5,9 @@
 #include "game/features/recovery/UnlockGTAPlus.hpp"
 #include "game/features/vehicle/SavePersonalVehicle.hpp"
 #include "game/frontend/components/components.hpp"
+#include "game/features/recovery/RpMultiplier.hpp"
 #include "game/gta/ScriptFunction.hpp"
+#include "game/features/recovery/LSCCustomsBypass.hpp"
 
 namespace YimMenu::Submenus
 {
@@ -16,6 +18,14 @@ namespace YimMenu::Submenus
 		void Draw()
 		{
 			components::checkbox(YimMenu::Features::_UnlockGTAPlus);
+
+			components::checkbox(YimMenu::Features::_OverrideRPMultiplier);
+			if (YimMenu::Features::_OverrideRPMultiplier.m_State)
+			{
+				ImGui::SameLine();
+				ImGui::SetNextItemWidth(200);
+				ImGui::SliderFloat("Value###rp_mult_val", &YimMenu::Features::_OverrideRPMultiplier._RpMultiplierInput, 1, 10);
+			}
 		}
 	};
 
@@ -26,6 +36,33 @@ namespace YimMenu::Submenus
 		{
 			if (ImGui::Button("Save This Vehicle as Personal Vehicle"))
 				Features::SavePersonalVehicle::Save();
+
+			components::ver_space();
+
+			components::checkbox(YimMenu::Features::_LSCCustomsBypass);
+
+			components::ver_space();
+
+			ImGui::Text("Gun Van -");
+			static int selected_slot = 0, selected_weap_slot = 0;
+			ImGui::SetNextItemWidth(200.f);
+			if (ImGui::BeginCombo("Slot##allowedGunVanSlots", Features::allowedGunVanSlots[selected_slot]))
+			{
+				for (int i = 0; i < Features::allowedGunVanSlots.size(); ++i)
+					if (ImGui::Selectable(Features::allowedGunVanSlots[i], selected_slot == i))
+						selected_slot = i;
+				ImGui::EndCombo();
+			}
+			ImGui::SetNextItemWidth(300.f);
+			if (ImGui::BeginCombo("Weapon##allowedGunVanWeapons", Features::allowedGunVanWeapons[selected_weap_slot]))
+			{
+				for (int i = 0; i < Features::allowedGunVanWeapons.size(); ++i)
+					if (ImGui::Selectable(Features::allowedGunVanWeapons[i], selected_weap_slot == i))
+						selected_weap_slot = i;
+				ImGui::EndCombo();
+			}
+			if (ImGui::Button("Set Gun Van Weapon"))
+				Features::SetGunvanWeapon(Features::allowedGunVanWeapons[selected_weap_slot], selected_slot + 1);
 		}
 	};
 
