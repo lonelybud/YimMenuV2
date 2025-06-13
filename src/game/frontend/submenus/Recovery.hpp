@@ -8,6 +8,7 @@
 #include "game/features/recovery/RpMultiplier.hpp"
 #include "game/gta/ScriptFunction.hpp"
 #include "game/features/recovery/LSCCustomsBypass.hpp"
+#include "Recovery/DailyActivitiesCategory.hpp"
 
 namespace YimMenu::Submenus
 {
@@ -120,6 +121,8 @@ namespace YimMenu::Submenus
 			AddCategory(std::move(heist));
 			auto business = std::make_shared<RecoveryBusinessCategory>("Business");
 			AddCategory(std::move(business));
+			auto dailyActivities = std::make_shared<DailyActivitiesCategory>("DailyActivities");
+			AddCategory(std::move(dailyActivities));
 		}
 	};
 }

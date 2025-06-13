@@ -1,6 +1,6 @@
 #pragma once
 #include "core/componentStates/BoolState.hpp"
-
+#include "core/componentStates/CallCode.hpp"
 #include <imgui.h>
 
 namespace YimMenu
@@ -27,6 +27,15 @@ namespace YimMenu
 					ImGui::SetTooltip(desc.c_str());
 
 			return updated;
+		}
+
+		static void button(CallCode& code)
+		{
+			if (ImGui::Button(code.GetLabel().c_str()))
+				code.call();
+			if (ImGui::IsItemHovered())
+				if (auto desc = code.GetDescription(); desc.length())
+					ImGui::SetTooltip(desc.c_str());
 		}
 	};
 }
