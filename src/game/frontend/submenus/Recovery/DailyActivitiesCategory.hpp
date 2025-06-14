@@ -62,6 +62,13 @@ namespace YimMenu::Submenus
 			ImGui::SliderInt("Index###lsTagIndex", &YimMenu::Features::_SprayLSTag.lsTagIndex, 0, 4);
 			ImGui::SameLine();
 			components::button(YimMenu::Features::_SprayLSTag);
+
+			components::ver_space();
+
+			ImGui::SetNextItemWidth(200);
+			ImGui::SliderInt("Index###animalIndex", &YimMenu::Features::_PhotographAnimal.animalIndex, 0, 2);
+			ImGui::SameLine();
+			components::button(YimMenu::Features::_PhotographAnimal);
 		}
 	};
 }

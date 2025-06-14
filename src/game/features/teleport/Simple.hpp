@@ -6,7 +6,6 @@
 #include "types/blip/BlipSprite.hpp"
 
 
-
 namespace YimMenu::Features
 {
 	static void ResolveZCoordinate(Vector3& vec)
@@ -14,6 +13,7 @@ namespace YimMenu::Features
 		constexpr float max_ground_check = 1000.f;
 		float ground_z = vec.z;
 		int current_attempts = 0;
+		bool found_ground = false;
 
 		do
 		{
@@ -21,7 +21,8 @@ namespace YimMenu::Features
 			if (MISC::GET_GROUND_Z_FOR_3D_COORD(vec.x, vec.y, max_ground_check, &ground_z, false, false))
 			{
 				vec.z = ground_z + 1.0f;
-				return;
+				found_ground = true;
+				break;
 			}
 
 			if (current_attempts % 3 == 0)
@@ -40,7 +41,8 @@ namespace YimMenu::Features
 			return;
 		}
 
-		vec.z = PATHFIND::GET_APPROX_HEIGHT_FOR_POINT(vec.x, vec.y); // fallback value
+		if (!found_ground)
+			vec.z = PATHFIND::GET_APPROX_HEIGHT_FOR_POINT(vec.x, vec.y); // fallback value
 	}
 
 	static bool GetBlipLocationOfType(Vector3& location, int sprite)

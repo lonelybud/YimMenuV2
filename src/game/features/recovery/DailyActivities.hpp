@@ -424,6 +424,59 @@ namespace YimMenu::Features
 		int lsTagIndex = 0;
 	};
 
+	static constexpr auto wildlifePhotographyAnimalHashes = std::to_array({
+	    "A_C_Boar"_J,
+	    "A_C_Cat_01"_J,
+	    "A_C_Cow"_J,
+	    "A_C_Coyote"_J,
+	    "A_C_Deer"_J,
+	    "A_C_Husky"_J,
+	    "A_C_MtLion"_J,
+	    "A_C_Pig"_J,
+	    "A_C_Poodle"_J,
+	    "A_C_Pug"_J,
+	    "A_C_Rabbit_01"_J,
+	    "A_C_Retriever"_J,
+	    "A_C_Rottweiler"_J,
+	    "A_C_shepherd"_J,
+	    "A_C_Westy"_J,
+	    "A_C_Chickenhawk"_J,
+	    "A_C_Cormorant"_J,
+	    "A_C_Crow"_J,
+	    "A_C_Hen"_J,
+	    "A_C_Seagull"_J
+	});
+
+	class PhotographAnimal : public CallCode
+	{
+		using CallCode::CallCode;
+
+		virtual void OnCall() override
+		{
+			if (!*Pointers.IsSessionStarted)
+				return;
+
+			if (!Stats::GetPackedBool(42059 + animalIndex))
+			{
+				int index = Stats::GetPackedInt(28091 + animalIndex);
+				if (index < 0 || index >= wildlifePhotographyAnimalHashes.size())
+					return;
+
+				ScriptGlobal(2708543).At(544).As<SCR_BITSET<uint64_t>*>()->Set(6);
+				*ScriptGlobal(2708543).At(547).As<joaat_t*>() = wildlifePhotographyAnimalHashes[index];
+				*ScriptGlobal(2708543).At(548).As<int*>()     = *Pointers.GameTimer - 1; // bypass 2 sec delay
+			}
+			else
+			{
+				Notifications::Show("Shoot Animals Photography", "This animal has already been photographed.", NotificationType::Error);
+			}
+		}
+
+	public:
+		// 0 - 2
+		int animalIndex = 0;
+	};
+
 	inline EnableTreasureChestInLS _EnableTreasureChestInLS{"enabletreasurechestinls", "Enable Treasure Chests in LS", "Enables Treasure Chests in Los Santos, so you don't have to go to Cayo Perico."};
 	inline EnableBuriedStashInLS _EnableBuriedStashInLS{"enableburiedstashinls", "Enable Buried Stashes in LS", "Enables Buried Stashes in Los Santos, so you don't have to go to Cayo Perico."};
 
@@ -438,4 +491,5 @@ namespace YimMenu::Features
 	inline CollectDeadDrop _CollectDeadDrop{"collectdeaddrop", "Collect G's Cache", "Collects G's Cache."};
 	inline EnterStashHouseSafeCode _EnterStashHouseSafeCode{"enterstashhousesafecode", "Enter Stash House Safe Code", "Enters the Stash House safe code."};
 	inline SprayLSTag _SprayLSTag{"spraylstag", "Spray LS Tag", "Sprays the selected LS Tag."};
+	inline PhotographAnimal _PhotographAnimal{"photographanimal", "Photograph Animal", "Photographs the selected animal."};
 }
