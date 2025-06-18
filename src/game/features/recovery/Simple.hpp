@@ -124,7 +124,7 @@ namespace YimMenu::Features
 			if (!*Pointers.IsSessionStarted)
 				return;
 
-			switch (static_cast<eAppVinewoodMenuSafe>(_SelectedBusiness.GetState()))
+			switch (type)
 			{
 			case eAppVinewoodMenuSafe::NIGHTCLUB:
 			{
