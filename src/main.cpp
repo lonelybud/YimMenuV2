@@ -37,6 +37,8 @@ namespace YimMenu
 		if (!Pointers.Init())
 			goto EARLY_UNLOAD;
 
+		AnticheatBypass::RunOnStartup();
+
 		if (!Renderer::Init())
 			goto EARLY_UNLOAD;
 

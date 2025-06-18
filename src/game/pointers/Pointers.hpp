@@ -3,6 +3,7 @@
 #include <dxgi1_4.h>
 #include <windows.h>
 #include "types/script/scrNativeHandler.hpp"
+#include "types/rage/ObfVar.hpp"
 #include "core/memory/BytePatches.hpp"
 
 namespace rage
@@ -117,6 +118,8 @@ namespace YimMenu
 		PVOID BattlEyeServerProcessPlayerJoin;
 		rage::gameSkeleton* GameSkeleton;
 		PVOID Nullsub;
+		rage::Obf32** AnticheatInitializedHash;
+		PVOID GetAnticheatInitializedHash;
 	};
 
 	struct Pointers : PointerData

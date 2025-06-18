@@ -259,6 +259,12 @@ namespace YimMenu
 			GameSkeleton = ptr.Add(0x9).Add(3).Rip().As<rage::gameSkeleton*>();
 		});
 
+		constexpr auto anticheatInitializedHashPtrn = Pattern<"89 9E C8 00 00 00 48 8B 0D ? ? ? ? 48 85 C9 74 46">("AnticheatInitializedHash");
+		scanner.Add(anticheatInitializedHashPtrn, [this](PointerCalculator ptr) {
+			AnticheatInitializedHash = ptr.Add(9).Rip().As<rage::Obf32**>();
+			GetAnticheatInitializedHash = ptr.Add(0x13).Rip().As<PVOID>();
+		});
+
 		if (!scanner.Scan())
 		{
 			LOG(FATAL) << "Some patterns could not be found, unloading.";
