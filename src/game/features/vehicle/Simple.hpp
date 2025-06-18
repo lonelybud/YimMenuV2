@@ -61,7 +61,7 @@ namespace YimMenu::Features
 
 	inline void _ResetVehDeliveryCooldown()
 	{
-		ScriptGlobal(2685663).At(4344).At(251).At(7, 2).As<TIMER*>()->Destroy();
+		ScriptGlobal(2685690).At(4347).At(254).At(7, 2).As<TIMER*>()->Destroy();
 	}
 
 	inline void ResetVehDeliveryCooldown()

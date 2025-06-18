@@ -42,13 +42,13 @@ namespace YimMenu::Features
 
 	static joaat_t GetNextExoticExportsVehicleHash()
 	{
-		constexpr ScriptGlobal order(1944094);
+		constexpr ScriptGlobal order(1946095);
 		for (int i = 1; i <= 10; i++)
 		{
 			auto offset = *order.At(i).As<int*>();
 			if (!GPBD_Flow::Get()->Entries[Self::GetPlayer().GetId()].TunerCBVDeliveredFlags.IsSet(offset))
 			{
-				auto hash = *ScriptGlobal(1944083 + (offset + 1)).As<joaat_t*>();
+				auto hash = *ScriptGlobal(1946084 + (offset + 1)).As<joaat_t*>();
 				return hash;
 			}
 		}
@@ -232,13 +232,13 @@ namespace YimMenu::Features
 			bool partime = Stats::GetPackedInt(34838 + (index * 4)) == location;
 			bool landing = Stats::GetPackedInt(34839 + (index * 4)) == location;
 
-			*ScriptGlobal(1973628).As<int*>() = 1;
-			*ScriptGlobal(1973628).At(1).As<int*>() = 1;
-			*ScriptGlobal(1973628).At(3).As<int*>() = 5;
-			*ScriptGlobal(1973628).At(4).As<int*>() = location + 1;
-			*ScriptGlobal(1973628).At(8).At(1).As<int*>() = checkpointReward.Get<int>() / (1 + (checkpoints * 9));
-			*ScriptGlobal(1973628).At(8).At(2).As<int*>() = parTimeReward.Get<int>() / (1 + (partime * 9));
-			*ScriptGlobal(1973628).At(8).At(3).As<int*>() = landingReward.Get<int>() / (1 + (landing * 9));
+			*ScriptGlobal(1975726).As<int*>() = 1;
+			*ScriptGlobal(1975726).At(1).As<int*>() = 1;
+			*ScriptGlobal(1975726).At(3).As<int*>() = 5;
+			*ScriptGlobal(1975726).At(4).As<int*>() = location + 1;
+			*ScriptGlobal(1975726).At(8).At(1).As<int*>() = checkpointReward.Get<int>() / (1 + (checkpoints * 9));
+			*ScriptGlobal(1975726).At(8).At(2).As<int*>() = parTimeReward.Get<int>() / (1 + (partime * 9));
+			*ScriptGlobal(1975726).At(8).At(3).As<int*>() = landingReward.Get<int>() / (1 + (landing * 9));
 
 			SET_SKYDIVE_COMPLETED data;
 			data.SkydiveIndex = index;
@@ -248,7 +248,7 @@ namespace YimMenu::Features
 			data.AccurateLanding = TRUE;
 			data.Send();
 
-			ScriptGlobal(1977574).At(4).As<SCR_BITSET<uint64_t>*>()->Clear(3);
+			ScriptGlobal(1979681).At(4).As<SCR_BITSET<uint64_t>*>()->Clear(3);
 		}
 
 	public:
@@ -462,9 +462,9 @@ namespace YimMenu::Features
 				if (index < 0 || index >= wildlifePhotographyAnimalHashes.size())
 					return;
 
-				ScriptGlobal(2708543).At(544).As<SCR_BITSET<uint64_t>*>()->Set(6);
-				*ScriptGlobal(2708543).At(547).As<joaat_t*>() = wildlifePhotographyAnimalHashes[index];
-				*ScriptGlobal(2708543).At(548).As<int*>()     = *Pointers.GameTimer - 1; // bypass 2 sec delay
+				ScriptGlobal(2708777).At(544).As<SCR_BITSET<uint64_t>*>()->Set(6);
+				*ScriptGlobal(2708777).At(547).As<joaat_t*>() = wildlifePhotographyAnimalHashes[index];
+				*ScriptGlobal(2708777).At(548).As<int*>() = *Pointers.GameTimer - 1; // bypass 2 sec delay
 			}
 			else
 			{
