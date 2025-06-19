@@ -43,6 +43,7 @@ class CStatsMgr;
 class CNetShopTransaction;
 class CNetworkSession;
 class CStatsMpCharacterMappingData;
+class CAnticheatContext;
 
 namespace YimMenu
 {
@@ -120,6 +121,8 @@ namespace YimMenu
 		PVOID Nullsub;
 		rage::Obf32** AnticheatInitializedHash;
 		PVOID GetAnticheatInitializedHash;
+		PVOID GetAnticheatInitializedHash2;
+		CAnticheatContext** AnticheatContext;
 	};
 
 	struct Pointers : PointerData
