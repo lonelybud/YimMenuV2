@@ -476,6 +476,36 @@ namespace YimMenu::Features
 		int animalIndex = 0;
 	};
 
+	class CollectProduct : public CallCode
+	{
+		using CallCode::CallCode;
+
+		virtual void OnCall() override
+		{
+			if (!*Pointers.IsSessionStarted)
+				return;
+
+			if (Stats::GetInt("MPX_SB_WEED_SHOP_OWNED") == 0)
+			{
+				Notifications::Show("Smoke on the Water", "You must own a Smoke on the Water property.", NotificationType::Error);
+				return;
+			}
+
+			if (!Stats::GetPackedBool(54672 + productIndex))
+			{
+				CollectCollectable(SCRIPT_EVENT_COLLECT_COLLECTABLE::eCollectables::SmokeOnTheWater, productIndex);
+			}
+			else
+			{
+				Notifications::Show("Smoke on the Water", "This product has already been collected.", NotificationType::Error);
+			}
+		}
+
+	public:
+		// 0 - 9
+		int productIndex = 0;
+	};
+
 	inline EnableTreasureChestInLS _EnableTreasureChestInLS{"enabletreasurechestinls", "Enable Treasure Chests in LS", "Enables Treasure Chests in Los Santos, so you don't have to go to Cayo Perico."};
 	inline EnableBuriedStashInLS _EnableBuriedStashInLS{"enableburiedstashinls", "Enable Buried Stashes in LS", "Enables Buried Stashes in Los Santos, so you don't have to go to Cayo Perico."};
 
@@ -491,4 +521,5 @@ namespace YimMenu::Features
 	inline EnterStashHouseSafeCode _EnterStashHouseSafeCode{"enterstashhousesafecode", "Enter Stash House Safe Code", "Enters the Stash House safe code."};
 	inline SprayLSTag _SprayLSTag{"spraylstag", "Spray LS Tag", "Sprays the selected LS Tag."};
 	inline PhotographAnimal _PhotographAnimal{"photographanimal", "Photograph Animal", "Photographs the selected animal."};
+	inline CollectProduct _CollectProduct{"collectproduct", "Collect Product", "Collects the selected product."};
 }
