@@ -305,7 +305,7 @@ namespace YimMenu::Features
 					beatStandardTimeTrial.Call<void>(ttData);
 				}
 			}
-			else if (timeTrialIndex== 1)
+			else if (timeTrialIndex == 1)
 			{
 				if (auto rcttData = RCBanditoTimeTrialData::Get(thread))
 				{
@@ -318,9 +318,10 @@ namespace YimMenu::Features
 			{
 				thread->m_Context.m_State = rage::scrThread::State::PAUSED;
 
-				*ScriptLocal(thread, 3060).At(130).At(1).As<int*>() = FreemodeGeneral::Get()->DailyReset.Seed % 14; // if we don't init this, the par time duration function will return 0 and the COMPLETED stat will be set to 0, which is bad
-				*ScriptLocal(thread, 142).At(4).As<int*>() = 0;
-				static ScriptFunction onBTTEnd("fm_content_bicycle_time_trial"_J, ScriptPointer("OnBTTEnd", "64 ? ? ? 5D ? ? ? 75 77").Add(1).Rip());
+				*ScriptLocal(thread, 3088).At(131).At(1).As<int*>() = FreemodeGeneral::Get()->DailyReset.Seed % 14; // if we don't init this, the par time duration function will return 0 and the COMPLETED stat will be set to 0, which is bad
+				*ScriptLocal(thread, 144).At(4).As<int*>() = 0;
+				static ScriptFunction onBTTEnd("fm_content_bicycle_time_trial"_J,
+				    ScriptPointer("OnBTTEnd", "64 ? ? ? 5D ? ? ? 75 77").Add(1).Rip());
 				onBTTEnd.Call<void>();
 
 				thread->m_Context.m_State = rage::scrThread::State::KILLED;
@@ -393,8 +394,8 @@ namespace YimMenu::Features
 			{
 				for (int i = 0; i < 3; i++)
 				{
-					int combination = *ScriptLocal(thread, 142).At(22).At(i, 2).At(1).As<int*>();
-					*ScriptLocal(thread, 142).At(22).At(i, 2).As<float*>() = combination;
+					int combination = *ScriptLocal(thread, 144).At(22).At(i, 2).At(1).As<int*>();
+					*ScriptLocal(thread, 144).At(22).At(i, 2).As<float*>() = combination;
 				}
 			}
 		}
@@ -424,8 +425,7 @@ namespace YimMenu::Features
 		int lsTagIndex = 0;
 	};
 
-	static constexpr auto wildlifePhotographyAnimalHashes = std::to_array({
-	    "A_C_Boar"_J,
+	static constexpr auto wildlifePhotographyAnimalHashes = std::to_array({"A_C_Boar"_J,
 	    "A_C_Cat_01"_J,
 	    "A_C_Cow"_J,
 	    "A_C_Coyote"_J,
@@ -444,8 +444,7 @@ namespace YimMenu::Features
 	    "A_C_Cormorant"_J,
 	    "A_C_Crow"_J,
 	    "A_C_Hen"_J,
-	    "A_C_Seagull"_J
-	});
+	    "A_C_Seagull"_J});
 
 	class PhotographAnimal : public CallCode
 	{

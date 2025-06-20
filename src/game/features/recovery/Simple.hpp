@@ -4,7 +4,7 @@
 #include "game/pointers/Pointers.hpp"
 #include "types/script/globals/GPBD_FM.hpp"
 #include "game/backend/Tunables.hpp"
-
+#include "types/script/globals/GPBD_FM_2.hpp"
 
 namespace YimMenu::Features
 {
@@ -15,7 +15,8 @@ namespace YimMenu::Features
 		AGENCY,
 		SALVAGE_YARD,
 		BAIL_OFFICE,
-		GARMENT_FACTORY
+		GARMENT_FACTORY,
+		HANDS_ON_CAR_WASH
 	};
 
 	inline std::vector<std::pair<eAppVinewoodMenuSafe, const char*>> businessNames = {
@@ -25,7 +26,7 @@ namespace YimMenu::Features
 	    {eAppVinewoodMenuSafe::SALVAGE_YARD, "Salvage Yard"},
 	    {eAppVinewoodMenuSafe::BAIL_OFFICE, "Bail Office"},
 	    {eAppVinewoodMenuSafe::GARMENT_FACTORY, "Garment Factory"},
-	};
+	    {eAppVinewoodMenuSafe::HANDS_ON_CAR_WASH, "Hands on Car Wash"}};
 
 	inline constexpr auto allowedGunVanWeapons = std::to_array({"WEAPON_KNIFE",
 	    "WEAPON_NIGHTSTICK",
@@ -147,7 +148,7 @@ namespace YimMenu::Features
 			case eAppVinewoodMenuSafe::SALVAGE_YARD:
 			{
 				if (GPBD_FM::Get()->Entries[Self::GetPlayer().GetId()].PropertyData.SalvageYardData.TotalEarnings > 0)
-					*ScriptGlobal(2708252).As<BOOL*>() = TRUE;
+					*ScriptGlobal(2708228).As<BOOL*>() = TRUE;
 				break;
 			}
 			case eAppVinewoodMenuSafe::BAIL_OFFICE:
@@ -159,7 +160,13 @@ namespace YimMenu::Features
 			case eAppVinewoodMenuSafe::GARMENT_FACTORY:
 			{
 				if (GPBD_FM::Get()->Entries[Self::GetPlayer().GetId()].PropertyData.HackerDenData.SafeCashValue > 0)
-					*ScriptGlobal(2708240).As<BOOL*>() = TRUE;
+					*ScriptGlobal(2708246).As<BOOL*>() = TRUE;
+				break;
+			}
+			case eAppVinewoodMenuSafe::HANDS_ON_CAR_WASH:
+			{
+				if (GPBD_FM_2::Get()->Entries[Self::GetPlayer().GetId()].SYVehSaleData.HOWCData.SafeCashValue > 0)
+					*ScriptGlobal(2708259).As<BOOL*>() = TRUE;
 				break;
 			}
 			}

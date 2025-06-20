@@ -24,6 +24,8 @@ namespace YimMenu
 			    Notifications::Draw();
 		    },
 		    -2);
+
+		Renderer::SetSafeToRender();
 	}
 
 	GUI::~GUI()

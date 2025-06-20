@@ -82,8 +82,8 @@ namespace YimMenu::Features
 
 			if (auto freemode = Scripts::FindScriptThread("freemode"_J))
 			{
-				auto data = ScriptLocal(freemode, 8732);
-				*data.At(3).As<int*>()        = 215;
+				auto data = ScriptLocal(freemode, 8748);
+				*data.At(3).As<int*>() = 223;
 				*data.At(3).At(16).As<int*>() = Self::GetPlayer().GetId();
 				*data.At(3).At(1).As<int*>()  = 89;
 				*data.At(2).As<int*>()        = "AM_CONTACT_REQUESTS"_J;
@@ -93,7 +93,7 @@ namespace YimMenu::Features
 				{
 					if (auto thread = Scripts::FindScriptThreadByID(id))
 					{
-						*ScriptLocal(thread, 519).As<int*>() = 1;
+						*ScriptLocal(thread, 521).As<int*>() = 1;
 						_ResetVehDeliveryCooldown();
 					}
 				}
