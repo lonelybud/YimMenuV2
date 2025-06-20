@@ -14,7 +14,7 @@
 #include "game/pointers/Pointers.hpp"
 // #include "types/blip/BlipSprite.hpp"
 #include "types/script/ScriptEvent.hpp"
-// #include "types/script/MPScriptData.hpp"
+#include "types/script/MPScriptData.hpp"
 #include "types/script/globals/GPBD_Flow.hpp"
 #include "types/script/globals/g_SavedMPGlobals.hpp"
 #include "types/script/globals/DailyObjectivesState.hpp"

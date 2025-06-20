@@ -1,16 +1,9 @@
 #include "core/backend/FiberPool.hpp"
-#include "core/backend/ScriptMgr.hpp"
 #include "core/frontend/Notifications.hpp"
 #include "core/util/Strings.hpp"
 #include "game/backend/Self.hpp"
 #include "game/gta/Natives.hpp"
-#include "game/gta/ScriptGlobal.hpp"
-#include "game/gta/ScriptLocal.hpp"
-#include "game/gta/Scripts.hpp"
 #include "game/gta/data/VehicleValues.hpp"
-#include "types/script/Timer.hpp"
-#include "game/pointers/Pointers.hpp"
-#include "types/script/globals/MPSV.hpp"
 
 namespace YimMenu::Features
 {
@@ -30,6 +23,7 @@ namespace YimMenu::Features
 		});
 	}
 
+	// src/game/features/world/Spawn.cpp
 	inline void SpawnVehicle(std::string _model, bool spawn_in, bool max_upgade)
 	{
 		auto model = TrimString(_model);
@@ -59,76 +53,4 @@ namespace YimMenu::Features
 		});
 	}
 
-	inline void _ResetVehDeliveryCooldown()
-	{
-		ScriptGlobal(2685690).At(4347).At(254).At(7, 2).As<TIMER*>()->Destroy();
-	}
-
-	inline void ResetVehDeliveryCooldown()
-	{
-		FiberPool::Push([] {
-			_ResetVehDeliveryCooldown();
-		});
-	}
-
-	inline void CallMechanic()
-	{
-		FiberPool::Push([] {
-			if (!*Pointers.IsSessionStarted || Scripts::IsScriptActive("AM_CONTACT_REQUESTS"_J))
-			{
-				Notifications::Show("Mechanic", "Not safe to call the mechanic at the moment.", NotificationType::Error);
-				return;
-			}
-
-			if (auto freemode = Scripts::FindScriptThread("freemode"_J))
-			{
-				auto data = ScriptLocal(freemode, 8748);
-				*data.At(3).As<int*>() = 223;
-				*data.At(3).At(16).As<int*>() = Self::GetPlayer().GetId();
-				*data.At(3).At(1).As<int*>()  = 89;
-				*data.At(2).As<int*>()        = "AM_CONTACT_REQUESTS"_J;
-
-				auto args = data.At(3).As<void*>();
-				if (auto id = Scripts::StartScript("AM_CONTACT_REQUESTS"_J, eStackSizes::SCRIPT_XML, args, 21))
-				{
-					if (auto thread = Scripts::FindScriptThreadByID(id))
-					{
-						*ScriptLocal(thread, 521).As<int*>() = 1;
-						_ResetVehDeliveryCooldown();
-					}
-				}
-				else
-				{
-					Notifications::Show("Mechanic", "Failed to call the mechanic.", NotificationType::Error);
-				}
-			}
-		});
-	}
-
-	inline void FixAllVehicles()
-	{
-		FiberPool::Push([] {
-			if (auto mpsv = MPSV::Get())
-			{
-				int count = 0;
-				for (int i = 0; i < *(int*)mpsv; i++)
-				{
-					if (mpsv->Entries[i].PersonalVehicleFlags.IsSet(1) && mpsv->Entries[i].PersonalVehicleFlags.IsSet(2))
-					{
-						mpsv->Entries[i].PersonalVehicleFlags.Clear(1);
-						mpsv->Entries[i].PersonalVehicleFlags.Clear(6);
-						mpsv->Entries[i].PersonalVehicleFlags.Clear(16);
-						mpsv->Entries[i].PersonalVehicleFlags.Set(0);
-						mpsv->Entries[i].PersonalVehicleFlags.Set(11);
-						count++;
-					}
-				}
-
-				if (count > 0)
-					Notifications::Show("Fix All Vehicles", std::format("{} vehicles fixed.", count), NotificationType::Success);
-				else
-					Notifications::Show("Fix All Vehicles", "No vehicles to fix.");
-			}
-		});
-	}
 }

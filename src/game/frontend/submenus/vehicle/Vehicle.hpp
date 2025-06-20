@@ -6,6 +6,8 @@
 #include "game/features/vehicle/Godmode.hpp"
 #include "game/features/vehicle/Seatbelt.hpp"
 #include "game/features/vehicle/Simple.hpp"
+#include "game/features/vehicle/CallMechanic.hpp"
+#include "game/features/vehicle/FixAllVehicles.hpp"
 #include "game/frontend/components/components.hpp"
 #include "misc/cpp/imgui_stdlib.h"
 
@@ -27,12 +29,10 @@ namespace YimMenu::Submenus
 			{
 				if (ImGui::Button("Repair Vehicle"))
 					YimMenu::Features::RepairVehicle();
-				if (ImGui::Button("Fix All Vehicles"))
-					YimMenu::Features::FixAllVehicles();
+				components::button(YimMenu::Features::_FixAllVehicles);
 				if (ImGui::Button("Enter Last Vehicle"))
 					YimMenu::Features::EnterLastVehicle();
-				if (ImGui::Button("Call Mechanic"))
-					YimMenu::Features::CallMechanic();
+				components::button(YimMenu::Features::_CallMechanic);
 				if (ImGui::Button("Reset Vehicle Delivery Cooldown"))
 					YimMenu::Features::ResetVehDeliveryCooldown();
 			}
@@ -69,10 +69,10 @@ namespace YimMenu::Submenus
 		VehicleSubmenu() :
 		    Submenu("Vehicle")
 		{
-			auto main          = std::make_shared<VehicleMainCategory>("main");
-			auto spawn         = std::make_shared<VehicleSpawnCategory>("spawn");
+			auto main = std::make_shared<VehicleMainCategory>("main");
+			auto spawn = std::make_shared<VehicleSpawnCategory>("spawn");
 			auto vehicleEditor = std::make_shared<VehicleEditorCategory>();
-			auto persistCar    = std::make_shared<SavedVehiclesCategory>("Saved Vehicles");
+			auto persistCar = std::make_shared<SavedVehiclesCategory>("Saved Vehicles");
 			AddCategory(std::move(main));
 			AddCategory(std::move(spawn));
 			AddCategory(std::move(vehicleEditor));

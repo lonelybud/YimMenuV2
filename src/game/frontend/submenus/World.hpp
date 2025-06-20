@@ -1,7 +1,7 @@
 #pragma once
 #include "core/frontend/manager/Submenu.hpp"
 #include "game/features/world/Pedsignore.hpp"
-#include "game/features/world/Simple.hpp"
+#include "game/features/world/Kill.hpp"
 #include "game/frontend/components/components.hpp"
 
 namespace YimMenu::Submenus
@@ -13,10 +13,8 @@ namespace YimMenu::Submenus
 		{
 			components::checkbox(YimMenu::Features::_PedIgnore);
 			components::ver_space();
-			if (ImGui::Button("Kill all"))
-				YimMenu::Features::KillAllPeds();
-			if (ImGui::Button("Kill enemies"))
-				YimMenu::Features::KillAllEnemies();
+			components::button(YimMenu::Features::_KillAll);
+			components::button(YimMenu::Features::_KillAllEnemies);
 		}
 	};
 

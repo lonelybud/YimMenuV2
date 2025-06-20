@@ -10,7 +10,9 @@
 #include "game/features/self/SuperJump.hpp"
 #include "game/features/self/UnlimitedOxygen.hpp"
 #include "game/features/self/Wanted.hpp"
-#include "game/features/teleport/Simple.hpp"
+#include "game/features/self/OpenWardrobe.hpp"
+#include "game/features/teleport/TpToObjective.hpp"
+#include "game/features/teleport/TpToWaypoint.hpp"
 #include "game/frontend/components/components.hpp"
 
 
@@ -45,8 +47,7 @@ namespace YimMenu::Submenus
 					YimMenu::Features::ClearSelfDamage();
 				if (ImGui::Button("fill inventory"))
 					YimMenu::Features::FillInventory();
-				if (ImGui::Button("Open Wardrobe"))
-					YimMenu::Features::OpenWardrobe();
+				components::button(YimMenu::Features::_OpenWardrobe);
 			}
 			ImGui::EndGroup();
 		}
@@ -84,11 +85,9 @@ namespace YimMenu::Submenus
 		{
 			ImGui::BeginGroup();
 			{
-				if (ImGui::Button("Waypoint"))
-					YimMenu::Features::TpToWaypoint();
-					ImGui::SameLine();
-				if (ImGui::Button("Objective"))
-					YimMenu::Features::TpToObjective();
+				components::button(YimMenu::Features::_TpToWaypoint);
+				ImGui::SameLine();
+				components::button(YimMenu::Features::_TpToObjective);
 			}
 			ImGui::EndGroup();
 		}
@@ -100,8 +99,8 @@ namespace YimMenu::Submenus
 		SelfSubmenu() :
 		    Submenu("Self")
 		{
-			auto main     = std::make_shared<SelfMainCategory>("Main");
-			auto weapon   = std::make_shared<SelfWeaponCategory>("Weapon");
+			auto main = std::make_shared<SelfMainCategory>("Main");
+			auto weapon = std::make_shared<SelfWeaponCategory>("Weapon");
 			auto teleport = std::make_shared<SelfTeleportCategory>("Teleport");
 			AddCategory(std::move(main));
 			AddCategory(std::move(weapon));

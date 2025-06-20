@@ -9,6 +9,7 @@
 #include "game/gta/ScriptFunction.hpp"
 #include "game/features/recovery/LSCCustomsBypass.hpp"
 #include "Recovery/DailyActivitiesCategory.hpp"
+#include "game/features/recovery/ClaimSafeEarnings.hpp"
 
 namespace YimMenu::Submenus
 {
@@ -91,19 +92,16 @@ namespace YimMenu::Submenus
 		using SubmenuMenuCategory::SubmenuMenuCategory;
 		void Draw()
 		{
-			static std::pair<Features::eAppVinewoodMenuSafe, const char*> business_type = Features::businessNames[0];
-
 			ImGui::SetNextItemWidth(200.f);
-			if (ImGui::BeginCombo("Business##earnings", business_type.second))
+			if (ImGui::BeginCombo("Business##earnings", Features::_ClaimSafeEarnings.selected_business.second))
 			{
 				for (auto& business : Features::businessNames)
-					if (ImGui::Selectable(business.second, business_type.first == business.first))
-						business_type = business;
+					if (ImGui::Selectable(business.second, Features::_ClaimSafeEarnings.selected_business.first == business.first))
+						Features::_ClaimSafeEarnings.selected_business = business;
 				ImGui::EndCombo();
 			}
 			ImGui::SameLine();
-			if (ImGui::Button("Claim Earnings"))
-				Features::ClaimSafeEarnings(business_type.first);
+			components::button(YimMenu::Features::_ClaimSafeEarnings);
 		}
 	};
 
