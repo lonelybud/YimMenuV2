@@ -206,7 +206,16 @@ namespace YimMenu
 
 		constexpr auto battlEyeStatusUpdatePatchPtrn = Pattern<"80 B9 92 0A 00 00 01">("BattlEyeStatusUpdatePatch");
 		scanner.Add(battlEyeStatusUpdatePatchPtrn, [this](PointerCalculator ptr) {
-			BattlEyeStatusUpdatePatch = BytePatches::Add(ptr.Sub(0x26).As<std::uint8_t*>(), 0xC3);
+			BattlEyeStatusUpdatePatch = BytePatches::Add(ptr.As<void*>(), 
+				// since arxan obfuscated this subroutine, return mid-function instead
+				// TODO: this might break in a later update
+				std::to_array<std::uint8_t>({
+					0x48, 0x83, 0xC4, 0x38, // add rsp, 38h
+					0x5F,                   // pop rdi
+					0x5E,                   // pop rsi
+					0xC3                    // ret
+				})
+			);
 		});
 
 		constexpr auto getPackedStatDataPtrn = Pattern<"8D 81 37 FE FF FF">("GetPackedStatData");

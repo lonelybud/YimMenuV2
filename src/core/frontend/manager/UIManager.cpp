@@ -11,9 +11,9 @@ namespace YimMenu
 		m_Submenus.push_back(std::move(submenu));
 	}
 
-	void UIManager::SetActiveSubmenuImpl(const std::shared_ptr<Submenu> Submenu)
+	void UIManager::SetActiveSubmenuImpl(const std::shared_ptr<Submenu> submenu)
 	{
-		m_ActiveSubmenu = Submenu;
+		m_ActiveSubmenu = submenu;
 	}
 
 	void UIManager::DrawImpl()
@@ -45,12 +45,7 @@ namespace YimMenu
 
 	std::shared_ptr<Submenu> UIManager::GetActiveSubmenuImpl()
 	{
-		if (m_ActiveSubmenu)
-		{
-			return m_ActiveSubmenu;
-		}
-
-		return nullptr;
+		return m_ActiveSubmenu;
 	}
 
 	std::shared_ptr<SubmenuMenuCategory> UIManager::GetActiveCategoryImpl()
