@@ -23,7 +23,7 @@ namespace rage
 	class fwVehiclePool;
 	class rlSessionInfo;
 	class rlGamerHandle;
-	class rlTaskStatus;
+	struct rlTaskStatus;
 	class rlScTaskStatus;
 	class rlSessionByGamerTaskResult;
 	class rlQueryPresenceAttributesContext;

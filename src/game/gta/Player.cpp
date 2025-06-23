@@ -208,6 +208,11 @@ namespace YimMenu
 		return PLAYER::GET_PLAYER_MAX_ARMOUR(GetId()); // Not checking IsValid to let GetId return 0 in SP
 	}
 
+	int Player::GetGroup()
+	{
+		return PLAYER::GET_PLAYER_GROUP(GetId());
+	}
+
 	bool Player::operator==(Player other)
 	{
 		return m_Handle == other.m_Handle;

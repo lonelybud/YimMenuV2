@@ -72,6 +72,13 @@ namespace YimMenu
 		PED::SET_PED_CONFIG_FLAG(GetHandle(), (int)flag, value);
 	}
 
+	void Ped::SetCombatAttribute(PedCombatAttribute attribute, bool value)
+	{
+		ENTITY_ASSERT_VALID();
+		ENTITY_ASSERT_CONTROL();
+		PED::SET_PED_COMBAT_ATTRIBUTES(GetHandle(), (int)attribute, value);
+	}
+
 	bool Ped::IsEnemy()
 	{
 		ENTITY_ASSERT_VALID();
@@ -180,12 +187,50 @@ namespace YimMenu
 	void Ped::SetArmour(int amount)
 	{
 		ENTITY_ASSERT_VALID();
+		ENTITY_ASSERT_CONTROL();
 		PED::SET_PED_ARMOUR(GetHandle(), amount);
+	}
+
+	void Ped::SetLeaderOfGroup(int group)
+	{
+		ENTITY_ASSERT_VALID();
+		PED::SET_PED_AS_GROUP_LEADER(GetHandle(), group);
+	}
+
+	void Ped::AddToGroup(int group)
+	{
+		ENTITY_ASSERT_VALID();
+		PED::SET_PED_AS_GROUP_MEMBER(GetHandle(), group);
+	}
+
+	void Ped::RemoveFromGroup()
+	{
+		ENTITY_ASSERT_VALID();
+		PED::REMOVE_PED_FROM_GROUP(GetHandle());
+	}
+
+	bool Ped::IsMemberOfGroup(int group)
+	{
+		ENTITY_ASSERT_VALID();
+		return PED::IS_PED_GROUP_MEMBER(GetHandle(), group);
+	}
+
+	void Ped::StartScenario(std::string_view name, int duration, bool entry_anim)
+	{
+		ENTITY_ASSERT_VALID();
+		TASK::TASK_START_SCENARIO_IN_PLACE(GetHandle(), name.data(), duration, entry_anim);
+	}
+
+	void Ped::SetKeepTask(bool keep)
+	{
+		ENTITY_ASSERT_VALID();
+		PED::SET_PED_KEEP_TASK(GetHandle(), keep);
 	}
 
 	void Ped::ClearDamage()
 	{
 		ENTITY_ASSERT_VALID();
+		ENTITY_ASSERT_CONTROL();
 		PED::CLEAR_PED_BLOOD_DAMAGE(GetHandle());
 		PED::CLEAR_PED_WETNESS(GetHandle());
 		PED::CLEAR_PED_ENV_DIRT(GetHandle());
@@ -196,6 +241,14 @@ namespace YimMenu
 	void Ped::SetMaxTimeUnderwater(int time)
 	{
 		ENTITY_ASSERT_VALID();
+		ENTITY_ASSERT_CONTROL();
 		PED::SET_PED_MAX_TIME_UNDERWATER(GetHandle(), time);
+	}
+
+	void Ped::SetAsCop()
+	{
+		ENTITY_ASSERT_VALID();
+		ENTITY_ASSERT_CONTROL();
+		PED::SET_PED_AS_COP(GetHandle(), true);
 	}
 }
