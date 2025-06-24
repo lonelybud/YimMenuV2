@@ -20,11 +20,11 @@ namespace YimMenu
 		static bool checkbox(BoolState& state)
 		{
 			bool updated;
-			if (updated = ImGui::Checkbox(state.GetLabel().data(), &state.m_State))
+			if ((updated = ImGui::Checkbox(state.GetLabel().data(), &state.m_State)))
 				state.Refresh();
 			if (ImGui::IsItemHovered())
 				if (auto desc = state.GetDescription(); desc.length())
-					ImGui::SetTooltip(desc.c_str());
+					ImGui::SetTooltip("%s", desc.c_str());
 
 			return updated;
 		}
@@ -35,7 +35,7 @@ namespace YimMenu
 				code.call();
 			if (ImGui::IsItemHovered())
 				if (auto desc = code.GetDescription(); desc.length())
-					ImGui::SetTooltip(desc.c_str());
+					ImGui::SetTooltip("%s", desc.c_str());
 		}
 	};
 }

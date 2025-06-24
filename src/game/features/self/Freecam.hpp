@@ -19,7 +19,7 @@ namespace YimMenu::Features
 		Vector3 position{};
 		Vector3 rotation{};
 
-		virtual void OnEnable()
+		virtual void OnEnable() override
 		{
 			camEntity = CAM::CREATE_CAM("DEFAULT_SCRIPTED_CAMERA", 0);
 			position = CAM::GET_GAMEPLAY_CAM_COORD();
