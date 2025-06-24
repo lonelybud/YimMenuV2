@@ -10,6 +10,7 @@
 #include "game/features/vehicle/FixAllVehicles.hpp"
 #include "game/frontend/components/components.hpp"
 #include "misc/cpp/imgui_stdlib.h"
+#include "core/backend/FiberPool.hpp"
 
 namespace YimMenu::Submenus
 {
@@ -63,6 +64,44 @@ namespace YimMenu::Submenus
 		}
 	};
 
+	class VehicleFunCategory : public SubmenuMenuCategory
+	{
+		using SubmenuMenuCategory::SubmenuMenuCategory;
+		void Draw()
+		{
+			if (!Self::GetVehicle())
+			{
+				ImGui::Text("Please enter a vehicle.");
+				return;
+			}
+
+			ImGui::Text("Lowrider Controls -");
+			static float maxWheelRaiseFactor = 2;
+			ImGui::SetNextItemWidth(150);
+			ImGui::SliderFloat("Wheel Raise Factor", &maxWheelRaiseFactor, 1, 3);
+
+			for (int i = 0; i < 4; ++i)
+			{
+				auto label = "Raise W" + std::to_string(i + 1);
+				if (ImGui::Button(label.c_str()))
+					FiberPool::Push([=] {
+						Self::GetVehicle().RaiseHydraulicWheel(i, maxWheelRaiseFactor);
+					});
+				ImGui::SameLine();
+			}
+			ImGui::NewLine();
+			for (int i = 0; i < 4; ++i)
+			{
+				auto label = "Lower W" + std::to_string(i + 1);
+				if (ImGui::Button(label.c_str()))
+					FiberPool::Push([=] {
+						Self::GetVehicle().LowerHydraulicWheel(i, maxWheelRaiseFactor);
+					});
+				ImGui::SameLine();
+			}
+		}
+	};
+
 	class VehicleSubmenu : public Submenu
 	{
 	public:
@@ -70,10 +109,12 @@ namespace YimMenu::Submenus
 		    Submenu("Vehicle")
 		{
 			auto main = std::make_shared<VehicleMainCategory>("main");
+			auto fun = std::make_shared<VehicleFunCategory>("Fun");
 			auto spawn = std::make_shared<VehicleSpawnCategory>("spawn");
 			auto vehicleEditor = std::make_shared<VehicleEditorCategory>();
 			auto persistCar = std::make_shared<SavedVehiclesCategory>("Saved Vehicles");
 			AddCategory(std::move(main));
+			AddCategory(std::move(fun));
 			AddCategory(std::move(spawn));
 			AddCategory(std::move(vehicleEditor));
 			AddCategory(std::move(persistCar));

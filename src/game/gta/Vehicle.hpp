@@ -21,5 +21,9 @@ namespace YimMenu
 		bool IsSeatFree(int seat);
 
 		std::string get_vehicle_fullname();
+
+		bool HasHydraulics();
+		void RaiseHydraulicWheel(int wheelIndex, float raiseFactor);
+		void LowerHydraulicWheel(int wheelIndex, float raiseFactor);
 	};
 }

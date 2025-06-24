@@ -108,7 +108,7 @@ namespace YimMenu
 
 		owned_mods[(int)CustomVehicleModType::MOD_PLATE_STYLE] = VEHICLE::GET_VEHICLE_NUMBER_PLATE_TEXT_INDEX(vehicle);
 		owned_mods[(int)CustomVehicleModType::MOD_WINDOW_TINT] = VEHICLE::GET_VEHICLE_WINDOW_TINT(vehicle);
-		owned_mods[(int)CustomVehicleModType::MOD_WHEEL_TYPE]  = VEHICLE::GET_VEHICLE_WHEEL_TYPE(vehicle);
+		owned_mods[(int)CustomVehicleModType::MOD_WHEEL_TYPE] = VEHICLE::GET_VEHICLE_WHEEL_TYPE(vehicle);
 
 		VEHICLE::GET_VEHICLE_COLOURS(vehicle, &owned_mods[(int)CustomVehicleModType::MOD_PRIMARY_COL], &owned_mods[(int)CustomVehicleModType::MOD_SECONDARY_COL]);
 		VEHICLE::GET_VEHICLE_EXTRA_COLOURS(vehicle, &owned_mods[(int)CustomVehicleModType::MOD_PEARLESCENT_COL], &owned_mods[(int)CustomVehicleModType::MOD_WHEEL_COL]);
@@ -146,7 +146,7 @@ namespace YimMenu
 		VEHICLE::GET_VEHICLE_NEON_COLOUR(vehicle, &owned_mods[(int)CustomVehicleModType::MOD_NEON_COL_R], &owned_mods[(int)CustomVehicleModType::MOD_NEON_COL_G], &owned_mods[(int)CustomVehicleModType::MOD_NEON_COL_B]);
 
 		owned_mods[(int)CustomVehicleModType::MOD_TIRE_CAN_BURST] = VEHICLE::GET_VEHICLE_TYRES_CAN_BURST(vehicle);
-		owned_mods[(int)CustomVehicleModType::MOD_DRIFT_TIRE]     = VEHICLE::GET_DRIFT_TYRES_SET(vehicle);
+		owned_mods[(int)CustomVehicleModType::MOD_DRIFT_TIRE] = VEHICLE::GET_DRIFT_TYRES_SET(vehicle);
 		owned_mods[(int)VehicleModType::MOD_TURBO] = VEHICLE::IS_TOGGLE_MOD_ON(vehicle, (int)VehicleModType::MOD_TURBO);
 
 		owned_mods[(int)CustomVehicleModType::MOD_FRONTWHEEL_VAR] = VEHICLE::GET_VEHICLE_MOD_VARIATION(vehicle, (int)VehicleModType::MOD_FRONTWHEEL);
@@ -181,4 +181,29 @@ namespace YimMenu
 		return finalName;
 	}
 
+	constexpr int hydraulicWheelIndexes[4]{0, 1, 4, 5};
+	bool Vehicle::HasHydraulics()
+	{
+		return VEHICLE::GET_NUM_VEHICLE_MODS(GetHandle(), (int)VehicleModType::MOD_HYDRAULICS) > 0;
+	}
+	void Vehicle::RaiseHydraulicWheel(int wheelIndex, float raiseFactor)
+	{
+		if (!HasHydraulics())
+			return;
+		auto vehicle = GetHandle();
+		auto wheelId = hydraulicWheelIndexes[wheelIndex];
+
+		VEHICLE::SET_HYDRAULIC_WHEEL_STATE(vehicle, wheelId, 4, raiseFactor, 1);
+		ScriptMgr::Yield(250ms);
+		VEHICLE::SET_HYDRAULIC_WHEEL_STATE(vehicle, wheelId, 1, raiseFactor, 1);
+	}
+	void Vehicle::LowerHydraulicWheel(int wheelIndex, float raiseFactor)
+	{
+		if (!HasHydraulics())
+			return;
+		auto vehicle = GetHandle();
+		auto wheelId = hydraulicWheelIndexes[wheelIndex];
+
+		VEHICLE::SET_HYDRAULIC_WHEEL_STATE(vehicle, wheelId, 0, raiseFactor, 1);
+	}
 }
