@@ -14,32 +14,44 @@ namespace YimMenu::Submenus
 
 		inline static std::string folder{}, file{};
 		inline static std::vector<std::string> folders{}, files{};
+		inline static char vehicle_file_name_input[64]{};
+		inline static char newFolder[50]{};
 
-		void draw_save_vehicle_button(char* vehicle_file_name_input, const char* save_folder)
+		void draw_save_vehicle_button(bool saveToNewFolder)
 		{
 			if (!Self::GetVehicle() || !Self::GetVehicle().IsValid())
 				return;
 
 			if (ImGui::Button("Save Veh"))
 			{
-				std::string yo = vehicle_file_name_input;
-				ZeroMemory(vehicle_file_name_input, sizeof(vehicle_file_name_input));
+				std::string fileName = vehicle_file_name_input;
+				strcpy(vehicle_file_name_input, "");
 
-				if (!TrimString(yo).size())
+				if (!TrimString(fileName).size())
 				{
 					Notifications::Show("Saved Vehicles", "Filename empty!", NotificationType::Warning);
 					return;
 				}
 
-				ReplaceString(yo, ".", ""); // so that .. does not throw error by custom file system when it sees say bob..json
-				yo += ".json";
+				ReplaceString(fileName, ".", ""); // filename say "bob.." will throw relative path error from Folder::GetFile
+				fileName += ".json";
 
-				Features::SavedVehicles::Save(save_folder, yo);
-				Features::SavedVehicles::RefreshList(folder, folders, files);
+				Features::SavedVehicles::Save(saveToNewFolder ? newFolder : folder, fileName);
+
+				if (saveToNewFolder)
+				{
+					folder = newFolder;
+					strcpy(newFolder, "");
+				}
+
+				FiberPool::Push([] {
+					ScriptMgr::Yield(1000ms); // wait for files to save and then refresh
+					Features::SavedVehicles::RefreshList(folder, folders, files);
+				});
 			}
 			ImGui::SameLine();
 			if (ImGui::Button("Populate Name"))
-				FiberPool::Push([vehicle_file_name_input] {
+				FiberPool::Push([] {
 					std::string name = Self::GetVehicle().get_vehicle_fullname();
 					strcpy(vehicle_file_name_input, name.c_str());
 				});
@@ -103,22 +115,19 @@ namespace YimMenu::Submenus
 			ImGui::SameLine();
 			ImGui::BeginGroup();
 			{
-				static char vehicle_file_name_input[64]{};
-
 				ImGui::Text("Vehicle File Name");
 				ImGui::SetNextItemWidth(250);
 				ImGui::InputText("##vehiclefilename", vehicle_file_name_input, IM_ARRAYSIZE(vehicle_file_name_input));
 
 				if (folder.empty())
 				{
-					static char save_folder[50]{};
 					ImGui::Text("Vehicle Folder Name");
 					ImGui::SetNextItemWidth(250);
-					ImGui::InputText("##foldername", save_folder, IM_ARRAYSIZE(save_folder));
-					draw_save_vehicle_button(vehicle_file_name_input, save_folder);
+					ImGui::InputText("##foldername", newFolder, IM_ARRAYSIZE(newFolder));
+					draw_save_vehicle_button(true);
 				}
 				else
-					draw_save_vehicle_button(vehicle_file_name_input, folder.c_str());
+					draw_save_vehicle_button(false);
 			}
 			ImGui::EndGroup();
 

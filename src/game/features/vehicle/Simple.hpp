@@ -23,7 +23,6 @@ namespace YimMenu::Features
 		});
 	}
 
-	// src/game/features/world/Spawn.cpp
 	inline void SpawnVehicle(std::string _model, bool spawn_in, bool max_upgade)
 	{
 		auto model = TrimString(_model);
