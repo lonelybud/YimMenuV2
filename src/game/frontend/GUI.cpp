@@ -34,7 +34,7 @@ namespace YimMenu
 
 	void GUI::ToggleMouse()
 	{
-		auto& io           = ImGui::GetIO();
+		auto& io = ImGui::GetIO();
 		io.MouseDrawCursor = GUI::IsOpen();
 		GUI::IsOpen() ? io.ConfigFlags &= ~ImGuiConfigFlags_NoMouse : io.ConfigFlags |= ImGuiConfigFlags_NoMouse;
 	}
@@ -65,7 +65,7 @@ namespace YimMenu
 		{
 			if (GUI::IsOpen())
 			{
-				if (GUI::IsUsingKeyboard())
+				if (GUI::IsUsingKeyboard() && PAD::IS_USING_KEYBOARD_AND_MOUSE(0))
 				{
 					PAD::DISABLE_ALL_CONTROL_ACTIONS(0);
 				}

@@ -3,6 +3,7 @@
 #include "game/features/world/Pedsignore.hpp"
 #include "game/features/world/Kill.hpp"
 #include "game/frontend/components/components.hpp"
+#include "game/features/network/ForceThunder.hpp"
 
 namespace YimMenu::Submenus
 {
@@ -11,6 +12,7 @@ namespace YimMenu::Submenus
 		using SubmenuMenuCategory::SubmenuMenuCategory;
 		void Draw()
 		{
+			components::checkbox(YimMenu::Features::_ForceThunder);
 			components::checkbox(YimMenu::Features::_PedIgnore);
 			components::ver_space();
 			components::button(YimMenu::Features::_KillAll);
