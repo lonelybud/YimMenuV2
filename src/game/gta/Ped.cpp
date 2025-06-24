@@ -215,6 +215,13 @@ namespace YimMenu
 		return PED::IS_PED_GROUP_MEMBER(GetHandle(), group);
 	}
 
+	void Ped::RandomizeOutfit()
+	{
+		ENTITY_ASSERT_VALID();
+		ENTITY_ASSERT_CONTROL();
+		PED::SET_PED_RANDOM_COMPONENT_VARIATION(GetHandle(), 0);
+	}
+
 	void Ped::StartScenario(std::string_view name, int duration, bool entry_anim)
 	{
 		ENTITY_ASSERT_VALID();
@@ -224,6 +231,7 @@ namespace YimMenu
 	void Ped::SetKeepTask(bool keep)
 	{
 		ENTITY_ASSERT_VALID();
+		ENTITY_ASSERT_CONTROL();
 		PED::SET_PED_KEEP_TASK(GetHandle(), keep);
 	}
 

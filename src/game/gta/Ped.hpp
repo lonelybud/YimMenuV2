@@ -66,6 +66,9 @@ namespace YimMenu
 		void RemoveFromGroup();
 		bool IsMemberOfGroup(int group);
 
+		// outfits
+		void RandomizeOutfit();
+
 		// tasks
 		void StartScenario(std::string_view name, int duration = -1, bool entry_anim = true);
 		void SetKeepTask(bool keep);

@@ -1,6 +1,8 @@
 
 #include "core/backend/FiberPool.hpp"
 #include "core/frontend/manager/SubmenuMenuCategory.hpp"
+#include "core/backend/ScriptMgr.hpp"
+#include "core/frontend/Notifications.hpp"
 #include "core/util/Strings.hpp"
 #include "game/backend/SavedVehicles.hpp"
 #include "game/gta/Vehicle.hpp"

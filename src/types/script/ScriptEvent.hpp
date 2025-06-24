@@ -5,12 +5,12 @@
 	constexpr static auto EVENT_INDEX = ScriptEventIndex::indexType;           \
 	classType()                                                                \
 	{                                                                          \
-		memset(reinterpret_cast<classType*>(this), 0, sizeof(classType));      \
+		memset(reinterpret_cast<void*>(this), 0, sizeof(classType));           \
 		EventIndex = static_cast<int>(EVENT_INDEX);                            \
 	}                                                                          \
 	classType(const classType& other)                                          \
 	{                                                                          \
-		memcpy(reinterpret_cast<classType*>(this), &other, sizeof(classType)); \
+		memcpy(reinterpret_cast<void*>(this), &other, sizeof(classType));      \
 		EventIndex = static_cast<int>(EVENT_INDEX);                            \
 	}                                                                          \
 	static constexpr size_t GetSize()                                          \
