@@ -5,7 +5,6 @@
 #include "game/frontend/components/components.hpp"
 #include "game/features/network/ForceThunder.hpp"
 #include "game/features/world/TimeControl.hpp"
-#include "game/features/world/Weather.hpp"
 
 namespace YimMenu::Submenus
 {
@@ -21,20 +20,6 @@ namespace YimMenu::Submenus
 			components::button(YimMenu::Features::_SetNetworkTime);
 			ImGui::SameLine();
 			components::button(YimMenu::Features::_ClearNetworkTime);
-
-			components::ver_space();
-
-			ImGui::Text("Local Weather -");
-			ImGui::SetNextItemWidth(200.f);
-			if (ImGui::BeginCombo("Select##weather", Features::_SetWeather.weatherType))
-			{
-				for (auto weatherType : Features::g_WeatherCodes)
-					if (ImGui::Selectable(weatherType, weatherType == Features::_SetWeather.weatherType))
-						Features::_SetWeather.weatherType = weatherType;
-				ImGui::EndCombo();
-			}
-			ImGui::SameLine();
-			components::button(YimMenu::Features::_SetWeather);
 
 			components::ver_space();
 
