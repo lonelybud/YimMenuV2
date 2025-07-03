@@ -14,16 +14,23 @@ namespace YimMenu
 
 		// mods
 		void Upgrade();
-		void SetPlateText(const char* plate);
-		std::map<int, int32_t> get_owned_mods();
+		std::string GetPlateText();
+		void SetPlateText(std::string_view text);
+		std::map<int, int32_t> GetOwnedMods();
 
 		// seats
 		bool IsSeatFree(int seat);
 
-		std::string get_vehicle_fullname();
-
 		bool HasHydraulics();
 		void RaiseHydraulicWheel(int wheelIndex, float raiseFactor);
 		void LowerHydraulicWheel(int wheelIndex, float raiseFactor);
+
+		// stance
+		void LowerStance(bool lower);
+
+		void BringToHalt(float distance = 1.0f, int duration = 1);
+		bool SetOnGroundProperly();
+
+		std::string GetFullName();
 	};
 }

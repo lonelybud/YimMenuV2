@@ -89,13 +89,24 @@ namespace YimMenu
 		VEHICLE::SET_VEHICLE_TYRES_CAN_BURST(veh, false);
 	}
 
-	void Vehicle::SetPlateText(const char* plate)
+	std::string Vehicle::GetPlateText()
+	{
+		ENTITY_ASSERT_VALID();
+
+		return VEHICLE::GET_VEHICLE_NUMBER_PLATE_TEXT(GetHandle());
+	}
+
+	void Vehicle::SetPlateText(std::string_view text)
 	{
 		ENTITY_ASSERT_VALID();
 		ENTITY_ASSERT_CONTROL();
 
-		if (plate != nullptr && plate[0] != 0)
-			VEHICLE::SET_VEHICLE_NUMBER_PLATE_TEXT(GetHandle(), plate);
+		if (text.length() > 8)
+		{
+			return;
+		}
+
+		VEHICLE::SET_VEHICLE_NUMBER_PLATE_TEXT(GetHandle(), text.data());
 	}
 
 	bool Vehicle::IsSeatFree(int seat)
@@ -105,7 +116,7 @@ namespace YimMenu
 		return VEHICLE::IS_VEHICLE_SEAT_FREE(GetHandle(), seat, true);
 	}
 
-	std::map<int, int32_t> Vehicle::get_owned_mods()
+	std::map<int, int32_t> Vehicle::GetOwnedMods()
 	{
 		auto vehicle = GetHandle();
 		std::map<int, int32_t> owned_mods;
@@ -174,7 +185,28 @@ namespace YimMenu
 		return owned_mods;
 	}
 
-	std::string Vehicle::get_vehicle_fullname()
+	void Vehicle::LowerStance(bool lower)
+	{
+		ENTITY_ASSERT_VALID();
+
+		VEHICLE::SET_REDUCED_SUSPENSION_FORCE(GetHandle(), lower);
+	}
+
+	void Vehicle::BringToHalt(float distance, int duration)
+	{
+		ENTITY_ASSERT_VALID();
+
+		VEHICLE::BRING_VEHICLE_TO_HALT(GetHandle(), distance, duration, FALSE);
+	}
+
+	bool Vehicle::SetOnGroundProperly()
+	{
+		ENTITY_ASSERT_VALID();
+
+		return VEHICLE::SET_VEHICLE_ON_GROUND_PROPERLY(GetHandle(), 5.f);
+	}
+
+	std::string Vehicle::GetFullName()
 	{
 		auto model = ENTITY::GET_ENTITY_MODEL(GetHandle());
 		std::string gxt = VEHICLE::GET_DISPLAY_NAME_FROM_VEHICLE_MODEL(model);

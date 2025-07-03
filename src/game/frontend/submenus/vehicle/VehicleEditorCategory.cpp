@@ -31,8 +31,8 @@ namespace YimMenu::Submenus
 				ScriptMgr::Yield();
 			}
 
-			veh_name   = Self::GetVehicle().get_vehicle_fullname();
-			owned_mods = Self::GetVehicle().get_owned_mods();
+			veh_name   = Self::GetVehicle().GetFullName();
+			owned_mods = Self::GetVehicle().GetOwnedMods();
 			is_bennys  = VehicleModel::IsBennys(current_veh);
 
 			VEHICLE::SET_VEHICLE_MOD_KIT(current_veh, 0);
