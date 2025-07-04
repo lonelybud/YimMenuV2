@@ -13,6 +13,7 @@
 #include "game/features/self/OpenWardrobe.hpp"
 #include "game/features/teleport/TpToObjective.hpp"
 #include "game/features/teleport/TpToWaypoint.hpp"
+#include "Self/OutfitEditorCategory.hpp"
 #include "game/frontend/components/components.hpp"
 
 
@@ -102,9 +103,11 @@ namespace YimMenu::Submenus
 			auto main = std::make_shared<SelfMainCategory>("Main");
 			auto weapon = std::make_shared<SelfWeaponCategory>("Weapon");
 			auto teleport = std::make_shared<SelfTeleportCategory>("Teleport");
+			auto outfit = std::make_shared<OutfitEditorCategory>("Outfit");
 			AddCategory(std::move(main));
 			AddCategory(std::move(weapon));
 			AddCategory(std::move(teleport));
+			AddCategory(std::move(outfit));
 		};
 	};
 }
