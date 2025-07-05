@@ -1,4 +1,3 @@
-
 #include "core/backend/FiberPool.hpp"
 #include "core/frontend/manager/SubmenuMenuCategory.hpp"
 #include "core/frontend/Notifications.hpp"
