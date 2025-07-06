@@ -259,4 +259,9 @@ namespace YimMenu
 		ENTITY_ASSERT_CONTROL();
 		PED::SET_PED_AS_COP(GetHandle(), true);
 	}
+
+	bool Ped::IsMale() {
+		ENTITY_ASSERT_VALID();
+		return GetModel() == "mp_m_freemode_01"_J;
+	}
 }

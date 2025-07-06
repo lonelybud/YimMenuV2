@@ -1,6 +1,7 @@
 #pragma once
 #include "Entity.hpp"
 #include "Vehicle.hpp"
+#include "core/util/Joaat.hpp"
 
 enum class PedConfigFlag : std::uint32_t;
 enum class PedCombatAttribute : std::uint32_t;
@@ -77,5 +78,6 @@ namespace YimMenu
 		void ClearDamage();
 		void SetMaxTimeUnderwater(int time);
 		void SetAsCop();
+		bool IsMale();
 	};
 }

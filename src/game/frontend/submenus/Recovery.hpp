@@ -2,6 +2,7 @@
 #include "core/frontend/manager/Submenu.hpp"
 #include "game/features/recovery/PlayAllMissionsSolo.hpp"
 #include "game/features/recovery/Simple.hpp"
+#include "game/features/recovery/UnlockEverything.hpp"
 #include "game/features/recovery/UnlockGTAPlus.hpp"
 #include "game/features/vehicle/SavePersonalVehicle.hpp"
 #include "game/frontend/components/components.hpp"
@@ -68,6 +69,65 @@ namespace YimMenu::Submenus
 		}
 	};
 
+	class UnlockEverythingCategory : public SubmenuMenuCategory
+	{
+		using SubmenuMenuCategory::SubmenuMenuCategory;
+		void Draw()
+		{
+			if (ImGui::Button("unlock_packed_bools_simple"))
+				UnlockEverything::unlock_packed_bools_simple();
+
+			if (ImGui::Button("unlock_paints"))
+				UnlockEverything::unlock_paints();
+
+			if (ImGui::Button("set_misc"))
+				UnlockEverything::set_misc();
+
+			static int int_index = 0, bool_index = 0, float_index = 0,
+			           packed_stat_int_index = 0, packed_stat_bool_index = 0,
+			           packed_stat_bool_range_index, int_bit_index, ints_bit_range_index;
+
+			if (ImGui::Button("set_int"))
+				UnlockEverything::set_int(int_index);
+			ImGui::SameLine();
+			ImGui::Text("Done: %d/%llu", int_index, UnlockEverything::_ints.size());
+
+			if (ImGui::Button("set_bool"))
+				UnlockEverything::set_bool(bool_index);
+			ImGui::SameLine();
+			ImGui::Text("Done: %d/%llu", bool_index, UnlockEverything::_bools.size());
+
+			if (ImGui::Button("set_float"))
+				UnlockEverything::set_float(float_index);
+			ImGui::SameLine();
+			ImGui::Text("Done: %d/%llu", float_index, UnlockEverything::_floats.size());
+
+			if (ImGui::Button("set_packed_stat_int"))
+				UnlockEverything::set_packed_stat_int(packed_stat_int_index);
+			ImGui::SameLine();
+			ImGui::Text("Done: %d/%llu", packed_stat_int_index, UnlockEverything::_packed_stat_ints.size());
+
+			if (ImGui::Button("set_packed_stat_bool"))
+				UnlockEverything::set_packed_stat_bool(packed_stat_bool_index);
+			ImGui::SameLine();
+			ImGui::Text("Done: %d/%llu", packed_stat_bool_index, UnlockEverything::_packed_stat_bools.size());
+
+			if (ImGui::Button("set_packed_stat_bool_range"))
+				UnlockEverything::set_packed_stat_bool_range(packed_stat_bool_range_index);
+			ImGui::SameLine();
+			ImGui::Text("Done: %d/%llu", packed_stat_bool_range_index, UnlockEverything::_packed_stat_bools_range.size());
+
+			if (ImGui::Button("set_int_bit"))
+				UnlockEverything::set_int_bit(int_bit_index);
+			ImGui::SameLine();
+			ImGui::Text("Done: %d/%llu", int_bit_index, UnlockEverything::_ints_bits.size());
+
+			if (ImGui::Button("set_ints_bit_range"))
+				UnlockEverything::set_ints_bit_range(ints_bit_range_index);
+			ImGui::SameLine();
+			ImGui::Text("Done: %d/%llu", ints_bit_range_index, UnlockEverything::_ints_bits_range.size());
+		}
+	};
 
 	class RecoveryHeistCategory : public SubmenuMenuCategory
 	{
@@ -121,6 +181,8 @@ namespace YimMenu::Submenus
 			AddCategory(std::move(business));
 			auto dailyActivities = std::make_shared<DailyActivitiesCategory>("DailyActivities");
 			AddCategory(std::move(dailyActivities));
+			auto unlockEverything = std::make_shared<UnlockEverythingCategory>("UnlockEverything");
+			AddCategory(std::move(unlockEverything));
 		}
 	};
 }
