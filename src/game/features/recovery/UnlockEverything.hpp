@@ -18,6 +18,7 @@
 // https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-25.html#post4361972
 // https://www.unknowncheats.me/forum/4367678-post551.html
 // https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-33.html#post4411199
+// https://github.com/YimMenu-Lua/UnlockEverything
 
 namespace YimMenu
 {
