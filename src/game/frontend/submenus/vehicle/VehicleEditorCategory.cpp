@@ -146,14 +146,14 @@ namespace YimMenu::Submenus
 			return;
 		}
 
+		if (preparing_veh)
+			return;
+
 		if (current_veh != Self::GetVehicle().GetHandle())
 		{
 			prepare_vehicle();
 			return;
 		}
-
-		if (preparing_veh)
-			return;
 
 		ImGui::BeginGroup();
 		{

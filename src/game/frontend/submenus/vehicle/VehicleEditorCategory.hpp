@@ -4,6 +4,8 @@ namespace YimMenu::Submenus
 {
 	class VehicleEditorCategory : public SubmenuMenuCategory
 	{
+		using SubmenuMenuCategory::SubmenuMenuCategory;
+
 		int current_veh      = 0;
 		std::string veh_name = "";
 		bool preparing_veh   = false;
@@ -20,12 +22,6 @@ namespace YimMenu::Submenus
 		int rear_wheel_stock_mod  = -1;
 
 		void prepare_vehicle();
-
-	public:
-		VehicleEditorCategory() :
-		    SubmenuMenuCategory("vehicleEditor")
-		{
-		}
 
 		void Draw() override;
 	};

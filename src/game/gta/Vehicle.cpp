@@ -112,8 +112,26 @@ namespace YimMenu
 	bool Vehicle::IsSeatFree(int seat)
 	{
 		ENTITY_ASSERT_VALID();
-
 		return VEHICLE::IS_VEHICLE_SEAT_FREE(GetHandle(), seat, true);
+	}
+
+	// Gets the number of passengers, NOT including the driver.
+	int Vehicle::GetMaxNumOfPassengers()
+	{
+		ENTITY_ASSERT_VALID();
+		return VEHICLE::GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS(GetHandle());
+	}
+
+	void Vehicle::ToggleAllDoors(bool open)
+	{
+		ENTITY_ASSERT_VALID();
+
+		auto veh = GetHandle();
+		for (int i = 0; i < 6; i++)
+			if (open)
+				VEHICLE::SET_VEHICLE_DOOR_OPEN(veh, i, false, false);
+			else
+				VEHICLE::SET_VEHICLE_DOOR_SHUT(veh, i, false);
 	}
 
 	std::map<int, int32_t> Vehicle::GetOwnedMods()

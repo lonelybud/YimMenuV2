@@ -6,7 +6,7 @@ namespace YimMenu
 	{
 	public:
 		std::string m_Name;
-		constexpr SubmenuMenuCategory(std::string_view name) :
+		SubmenuMenuCategory(std::string_view name) :
 		    m_Name(name)
 		{
 		}

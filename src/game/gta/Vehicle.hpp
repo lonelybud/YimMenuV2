@@ -26,7 +26,12 @@ namespace YimMenu
 
 		// seats
 		bool IsSeatFree(int seat);
+		int GetMaxNumOfPassengers();
 
+		// doors
+		void ToggleAllDoors(bool open);
+
+		// Hydraulics
 		bool HasHydraulics();
 		void RaiseHydraulicWheel(int wheelIndex, float raiseFactor);
 		void LowerHydraulicWheel(int wheelIndex, float raiseFactor);
