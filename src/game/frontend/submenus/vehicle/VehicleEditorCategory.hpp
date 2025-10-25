@@ -20,6 +20,7 @@ namespace YimMenu::Submenus
 		std::map<std::string, std::vector<int>> rear_wheel_map{};
 		int front_wheel_stock_mod = -1;
 		int rear_wheel_stock_mod  = -1;
+		char plate[9] = "";
 
 		void prepare_vehicle();
 

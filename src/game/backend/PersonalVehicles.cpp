@@ -18,10 +18,12 @@
 namespace YimMenu
 {
 	PersonalVehicles::PersonalVehicle::PersonalVehicle(int id, MPSV_Entry* data) :
-		m_Id(id),
-		m_Data(data)
+	    m_Id(id),
+	    m_Data(data)
 	{
-		m_Name  = std::format("{} ({})", HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION(VEHICLE::GET_DISPLAY_NAME_FROM_VEHICLE_MODEL( m_Data->VehicleModel)), m_Data->NumberPlateText.Data);
+		m_Model = m_Data->VehicleModel;
+		m_Plate = m_Data->NumberPlateText;
+		m_Name = std::format("{} ({})", HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION(VEHICLE::GET_DISPLAY_NAME_FROM_VEHICLE_MODEL(m_Model)), m_Plate);
 	}
 
 	int PersonalVehicles::PersonalVehicle::GetId()
@@ -52,10 +54,37 @@ namespace YimMenu
 		return false;
 	}
 
+	bool PersonalVehicles::PersonalVehicle::Request()
+	{
+		if (auto freemodeGeneral = FreemodeGeneral::Get())
+		{
+			if (freemodeGeneral->RequestedPersonalVehicleId != -1)
+				return false;
+
+			// a pv already exists despawn it first.
+			if (auto veh = GetCurrentHandle(); veh.IsValid())
+				return false;
+
+			ScriptMgr::Yield(100ms);
+
+			freemodeGeneral->PersonalVehicleRequested = TRUE; // am_pi_menu also sets the field 956 but I guess we don't need that
+			freemodeGeneral->Exec1Impound = FALSE;            // not really sure what this does
+			freemodeGeneral->RequestedPersonalVehicleId = m_Id;
+
+			ScriptMgr::Yield(100ms);
+
+			*ScriptLocal("freemode"_J, 19447).At(176).As<int*>() = 0;
+
+			return true;
+		}
+
+		return false;
+	}
+
 	std::unique_ptr<PersonalVehicles::PersonalVehicle> PersonalVehicles::GetCurrentImpl()
 	{
 		auto savedMPGlobals = g_SavedMPGlobals::Get();
-		auto MPSV           = MPSV::Get();
+		auto MPSV = MPSV::Get();
 		if (savedMPGlobals && MPSV)
 		{
 			auto id = savedMPGlobals->Entries[0].GeneralSaved.LastSavedCar;
@@ -91,7 +120,7 @@ namespace YimMenu
 					ScriptMgr::Yield();
 
 				auto data = &MPSV::Get()->Entries[i];
-				const auto model  = data->VehicleModel;
+				const auto model = data->VehicleModel;
 
 				if (STREAMING::IS_MODEL_A_VEHICLE(model))
 				{
@@ -100,5 +129,30 @@ namespace YimMenu
 				}
 			}
 		}
+	}
+
+	bool PersonalVehicles::PersonalVehicle::IsBlacklistedVehicle() const
+	{
+		switch (m_Model)
+		{
+		case "avenger"_J:
+		case "avenger3"_J:
+		case "hauler2"_J:
+		case "phantom3"_J:
+		case "trailersmall2"_J:
+		case "khanjali"_J:
+		case "chernobog"_J:
+		case "riot2"_J:
+		case "thruster"_J:
+		case "brickade2"_J:
+		case "manchez3"_J:
+		case "terbyte"_J:
+		case "speedo4"_J:
+		case "mule4"_J:
+		case "pounder2"_J:
+		case "rcbandito"_J:
+		case "minitank"_J: return true;
+		}
+		return false;
 	}
 }

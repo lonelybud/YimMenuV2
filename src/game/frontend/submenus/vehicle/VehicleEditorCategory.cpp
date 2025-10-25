@@ -23,6 +23,10 @@ namespace YimMenu::Submenus
 			auto model            = Self::GetVehicle().GetModel();
 			front_wheel_stock_mod = -1;
 			rear_wheel_stock_mod  = -1;
+			veh_name   = Self::GetVehicle().GetFullName();
+			owned_mods = Self::GetVehicle().GetOwnedMods();
+			is_bennys  = VehicleModel::IsBennys(current_veh);
+			strcpy(plate, Self::GetVehicle().GetPlateText().c_str());
 
 			if (!HUD::HAS_THIS_ADDITIONAL_TEXT_LOADED("MOD_MNU", 10))
 			{
@@ -30,10 +34,6 @@ namespace YimMenu::Submenus
 				HUD::REQUEST_ADDITIONAL_TEXT("MOD_MNU", 10);
 				ScriptMgr::Yield();
 			}
-
-			veh_name   = Self::GetVehicle().GetFullName();
-			owned_mods = Self::GetVehicle().GetOwnedMods();
-			is_bennys  = VehicleModel::IsBennys(current_veh);
 
 			VEHICLE::SET_VEHICLE_MOD_KIT(current_veh, 0);
 
@@ -165,8 +165,7 @@ namespace YimMenu::Submenus
 				});
 
 			ImGui::Spacing();
-			{
-				static char plate[9];
+			{	
 				ImGui::SetNextItemWidth(150);
 				ImGui::InputTextWithHint("##plate", "Plate Number", plate, sizeof(plate), ImGuiInputTextFlags_None);
 				ImGui::SameLine();

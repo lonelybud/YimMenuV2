@@ -12,6 +12,7 @@
 #include "misc/cpp/imgui_stdlib.h"
 #include "core/backend/FiberPool.hpp"
 #include "VehicleFunCategory.hpp"
+#include "PVCategory.hpp"
 
 namespace YimMenu::Submenus
 {
@@ -76,11 +77,13 @@ namespace YimMenu::Submenus
 			auto spawn = std::make_shared<VehicleSpawnCategory>("spawn");
 			auto vehicleEditor = std::make_shared<VehicleEditorCategory>("vehicleEditor");
 			auto persistCar = std::make_shared<SavedVehiclesCategory>("Saved Vehicles");
+			auto pv = std::make_shared<PVCategory>("PV");
 			AddCategory(std::move(main));
 			AddCategory(std::move(fun));
 			AddCategory(std::move(spawn));
 			AddCategory(std::move(vehicleEditor));
 			AddCategory(std::move(persistCar));
+			AddCategory(std::move(pv));
 		};
 	};
 }

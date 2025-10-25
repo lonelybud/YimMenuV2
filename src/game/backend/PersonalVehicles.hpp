@@ -15,7 +15,9 @@ namespace YimMenu
 		{
 			int m_Id;
 			MPSV_Entry* m_Data;
+			joaat_t m_Model;
 			std::string m_Name;
+			std::string m_Plate;
 
 		public:
 			PersonalVehicle(int id, MPSV_Entry* data);
@@ -25,6 +27,8 @@ namespace YimMenu
 			std::string GetName();
 
 			bool Repair();
+			bool Request();
+			bool IsBlacklistedVehicle() const;
 		};
 
 		static std::unique_ptr<PersonalVehicle> GetCurrent()
