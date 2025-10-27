@@ -2,6 +2,14 @@ namespace YimMenu::UnlockEverything
 {
 	// Stats::SetInt
 	static constexpr auto _ints = std::to_array<std::pair<const char*, int>>({
+	    {"MPX_AWD_DOGSDINNER", 4},
+	    {"MPX_AWD_HEATAROUDC", 25},
+	    {"MPX_AWD_TYCOON", 2000000},
+	    {"MPX_AWD_CASHCLEAN", 500000},
+	    {"MPX_AWD_MEDICOURI", 20},
+	    {"MPX_AWD_TRANSPORT", 20},
+	    {"MPX_AWD_SUNBURNED", 15},
+	    {"MPX_AWD_UNDEADPARTY", 60},
 	    {"MPPLY_AWD_FM_CR_RACES_MADE", 25},
 	    {"MPPLY_AWD_FM_CR_DM_MADE", 25},
 	    {"MPPLY_AWD_FM_CR_PLAYED_BY_PEEP", 100},
@@ -44,7 +52,6 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_DB_PLAYER_KILLS", 100},
 	    {"MPX_PASS_DB_PLAYER_KILLS", 100},
 	    {"MPX_AIR_LAUNCHES_OVER_40M", 25},
-	    {"MPX_MOST_ARM_WRESTLING_WINS", 25},
 	    {"MPX_KILLS_PLAYERS", 1000},
 	    {"MPX_CHAR_WANTED_LEVEL_TIME5STAR", 7200000},
 	    {"MPX_MOST_FLIPS_IN_ONE_JUMP", 5},
@@ -446,7 +453,6 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_FIXER_SC_ASSETS_PROTECTED", 100},
 	    {"MPX_FIXER_SC_EQ_DESTROYED", 100},
 	    {"MPX_FIXER_COUNT", 600},
-	    {"MPX_FIXER_EARNINGS", 26340756},
 	    {"MPX_PAYPHONE_BONUS_KILL_METHOD", -1},
 	    {"MPX_FIXER_COMPLETED_BS", -1},
 	    {"MPX_REV_NV_KILLS", 50},
@@ -507,7 +513,6 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_LIFETIME_BKR_SELL_EARNINGS2", 25000000},
 	    {"MPX_LIFETIME_BKR_SELL_EARNINGS3", 25000000},
 	    {"MPX_LIFETIME_BKR_SELL_EARNINGS4", 25000000},
-	    {"MPX_LFETIME_BIKER_BUY_COMPLET6", 10},
 	    {"MPX_LFETIME_BIKER_SELL_COMPLET6", 10},
 	    {"MPX_LIFETIME_BKR_SELL_EARNINGS6", 1000000},
 	    {"MPX_XMAS2023_ADV_MODE_WINS", 6},
@@ -533,7 +538,6 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_AWD_FMHORDWAVESSURVIVE", 10},
 	    {"MPX_AWD_FM_TENNIS_WON", 25},
 	    {"MPX_MOST_ARM_WRESTLING_WINS", 25},
-	    {"MPX_AWD_FM_RACES_FASTEST_LAP", 50},
 	    {"MPX_AWD_WIN_AT_DARTS", 25},
 	    {"MPX_AWD_FM_SHOOTRANG_TG_WON", 25},
 	    {"MPX_AWD_FM_GOLF_WON", 25},
@@ -720,7 +724,6 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_PROG_HUB_SALV23_EARN_PERF", 5},          // PROGRESSHUB_SALVAGEYARD_TIER3_OBJ_02 (0x8571336A): Sell 5 vehicles in perfect condition from Salvage Yard Robberies
 	    {"MPX_PROG_HUB_SALV23_EARN_SALV", 2500000},    // PROGRESSHUB_SALVAGEYARD_TIER4_OBJ_02 (0xA6CFAFA2): Earn $2,500,000 from salvaging vehicles
 	    {"MPX_PROG_HUB_SALV23_EARN_SELL", 10000000},   // PROGRESSHUB_SALVAGEYARD_TIER4_OBJ_04 (0x1C3E9A9A): Earn $10,000,000 from selling stolen vehicles
-	    {"MPX_LFETIME_BIKER_BUY_COMPLET6", 100},       // PROGRESSHUB_LSDRUGWARS_TIER1_OBJ_03 (0x6E064EF4): Complete 10 Source Supplies missions for the Acid Lab
 	    {"MPX_LIFETIME_BKR_SELL_EARNINGS6", 10000000}, // PROGRESSHUB_LSDRUGWARS_TIER2_OBJ_03 (0x348591F): Earn $1,000,000 selling Acid
 	    {"MPX_LFETIME_BIKER_BUY_COMPLET6", 10},        // PROGRESSHUB_LSDRUGWARS_TIER3_OBJ_01 (0xE171F2E2): Unlock all custom acid names
 	    {"MPX_LFETIME_BIKER_SELL_COMPLET6", 10},       // PROGRESSHUB_LSDRUGWARS_TIER3_OBJ_01 (0xE171F2E2): Unlock all custom acid names
@@ -831,6 +834,19 @@ namespace YimMenu::UnlockEverything
 
 	// Stats::SetBool
 	static constexpr auto _bools = std::to_array<const char*>({
+	    "MPX_AWD_JUNKSEARCH",
+	    "MPX_AWD_CASASS",
+	    "MPX_AWD_LOCKUPINT",
+	    "MPX_AWD_ESCORTFLATBED",
+	    "MPX_AWD_LEFT4DEAD",
+	    "MPX_AWD_TRACKER",
+	    "MPX_AWD_CLEARCOMP",
+	    "MPX_AWD_CASHBONUS",
+	    "MPX_AWD_BUSINEXPAND",
+	    "MPX_AWD_LOSTPRODUC",
+	    "MPX_AWD_EMERGENCYSERV",
+	    "MPX_AWD_SECUREDEL",
+	    "MPX_AWD_TWOOFAKIND",
 	    "MPPLY_AWD_FLEECA_FIN",
 	    "MPPLY_AWD_PRISON_FIN",
 	    "MPPLY_AWD_HUMANE_FIN",
@@ -1478,24 +1494,16 @@ namespace YimMenu::UnlockEverything
 		int third;
 	};
 
-    // SET_MP_INT_CHARACTER_STAT_BITS
+	// SET_MP_INT_CHARACTER_STAT_BITS
 	static constexpr auto _ints_bits_range = std::to_array<CHARACTER_STAT_BITS>({
-	    {"MPX_SUM23_AVOP_PROGRESS", 0, 11},         // PROGRESSHUB_SUMMER2023_TIER1_OBJ_01 (0x50A8428E): Complete a Project Overthrow mission for Charlie Reed
 	    {"MPX_SUM23_AVOP_PROGRESS", 0, 11},         // PROGRESSHUB_SUMMER2023_TIER2_OBJ_02 (0x85E4C62C): Complete all Project Overthrow missions
-	    {"MPX_ULP_MISSION_PROGRESS", 0, 13},        // PROGRESSHUB_PAPERTRAIL_TIER1_OBJ_01 (0xA7357299): Complete an Operation Paper Trail mission for Agent ULP
 	    {"MPX_ULP_MISSION_PROGRESS", 0, 13},        // PROGRESSHUB_PAPERTRAIL_TIER2_OBJ_02 (0xC32F13FD): Complete all Operation Paper Trail missions
-	    {"MPX_YACHT_MISSION_FLOW", 4, 15},          // PROGRESSHUB_SUPERYACHTLIFE_TIER1_OBJ_01 (0x65DB5CAE): Complete a Superyacht Life mission for Brendan Darcy
 	    {"MPX_YACHT_MISSION_FLOW", 4, 15},          // PROGRESSHUB_SUPERYACHTLIFE_TIER2_OBJ_02 (0x49975D60): Complete all Superyacht Life missions
 	    {"MPX_HACKER24_GEN_BS", 5, 12},             // PROGRESSHUB_HACKERDEN_TIER3_OBJ_01 (0x17512D21): Complete all the Files
-	    {"MPX_XM22_MISSIONS_SA", 0, 16},            // PROGRESSHUB_LSDRUGWARS_TIER1_OBJ_01 (0x6152B58D): Complete all missions for The First Dose
-	    {"MPX_XM22_MISSIONS_SA", 6, 10},            // PROGRESSHUB_LSDRUGWARS_TIER2_OBJ_01 (0xB0DE344C): Complete all missions for The Last Dose
 	    {"MPX_XM22_MISSIONS_SA", 17, 21},           // PROGRESSHUB_LSDRUGWARS_TIER2_OBJ_01 (0xB0DE344C): Complete all missions for The Last Dose
 	    {"MPX_XM22_FLOW", 20, 24},                  // PROGRESSHUB_LSDRUGWARS_TIER2_OBJ_02 (0x3025B2D5): Complete all Fooligan Jobs
-	    {"MPX_SR_WEAPON_BIT_SET", 1, 17},           // PROGRESSHUB_GUNRUNNING_TIER3_OBJ_01 (0x722F9B5A): Complete all Challenges for 1 weapon at the Bunker Shooting Range
 	    {"MPX_SR_WEAPON_BIT_SET", 1, 17},           // PROGRESSHUB_GUNRUNNING_TIER4_OBJ_02 (0xCB723D93): Complete all challenges at the Bunker Shooting Range
-	    {"MPX_TUNER_COMP_BS", 0, 7},                // PROGRESSHUB_LSTUNERS_TIER2_OBJ_01 (0xB5797E1D): Complete any Robbery Contract
 	    {"MPX_TUNER_COMP_BS", 0, 7},                // PROGRESSHUB_LSTUNERS_TIER3_OBJ_01 (0xC83B7E72): Complete all Robbery Contracts
-	    {"MPX_H4_H4_DJ_MISSIONS", 0, 6},            // PROGRESSHUB_CAYOPERICOHEIST_TIER2_OBJ_02 (0xCFD12E4A): Help Tom Connors or English Dave with a DJ request
 	    {"MPX_H4_H4_DJ_MISSIONS", 0, 6},            // PROGRESSHUB_CAYOPERICOHEIST_TIER3_OBJ_03 (0x5DD5375E): Complete all DJ requests for Tom Connors and English Dave
 	    {"MPX_H4_PROGRESS", 6, 11},                 // PROGRESSHUB_CAYOPERICOHEIST_TIER4_OBJ_02 (0x873DD6A7): Steal 5 variations of the primary target
 	    {"MPX_CAS_HEIST_FLOW", 11, 13},             // PROGRESSHUB_DIAMONDCASINOHEIST_TIER3_OBJ_01 (0xF356C153): Complete The Diamond Casino Heist using all approaches

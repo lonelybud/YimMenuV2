@@ -19,6 +19,7 @@
 // https://www.unknowncheats.me/forum/4367678-post551.html
 // https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-33.html#post4411199
 // https://github.com/YimMenu-Lua/UnlockEverything
+// https://www.unknowncheats.me/forum/grand-theft-auto-v/701294-gta-online-enhanced-awards-stats-3.html
 
 namespace YimMenu
 {
@@ -32,6 +33,7 @@ namespace YimMenu
 	{
 		auto val = Stats::GetInt(statName);
 		val |= bit;
+		// val |= 2^bit;
 		Stats::SetInt(statName, val);
 	}
 	void SET_MP_INT_CHARACTER_STAT_BITS(std::string statName, int fromBit, int toBit)
@@ -39,6 +41,7 @@ namespace YimMenu
 		auto val = Stats::GetInt(statName);
 		for (int i = fromBit; i <= toBit; i++)
 			val |= i;
+			// val |= 2^i;
 		Stats::SetInt(statName, val);
 	}
 }
@@ -428,7 +431,8 @@ namespace YimMenu::UnlockEverything
 			if (index >= _ints_bits.size())
 				return;
 
-			SET_MP_INT_CHARACTER_STAT_BIT(_ints_bits[index].first, _ints_bits[index].second);
+			Stats::SetInt(_ints_bits[index].first, -1); // https://www.unknowncheats.me/forum/grand-theft-auto-v/701294-gta-online-enhanced-awards-stats-3.html
+			// SET_MP_INT_CHARACTER_STAT_BIT(_ints_bits[index].first, _ints_bits[index].second);
 			// LOG(VERBOSE) << index << " " << _ints_bits[index].first << " " << _ints_bits[index].second;
 			++index;
 		});
@@ -441,7 +445,8 @@ namespace YimMenu::UnlockEverything
 			if (index >= _ints_bits_range.size())
 				return;
 
-			SET_MP_INT_CHARACTER_STAT_BITS(_ints_bits_range[index].first, _ints_bits_range[index].second, _ints_bits_range[index].third);
+			Stats::SetInt(_ints_bits_range[index].first, -1); // https://www.unknowncheats.me/forum/grand-theft-auto-v/701294-gta-online-enhanced-awards-stats-3.html
+			// SET_MP_INT_CHARACTER_STAT_BITS(_ints_bits_range[index].first, _ints_bits_range[index].second, _ints_bits_range[index].third);
 			// LOG(VERBOSE) << index << " " << _ints_bits_range[index].first << " " << _ints_bits_range[index].second << " " << _ints_bits_range[index].third;
 			++index;
 		});
