@@ -2,6 +2,21 @@ namespace YimMenu::UnlockEverything
 {
 	// Stats::SetInt
 	static constexpr auto _ints = std::to_array<std::pair<const char*, int>>({
+	    {"MPX_SUM23_AVOP_PROGRESS", -1},
+	    {"MPX_ULP_MISSION_PROGRESS", -1},
+	    {"MPX_HACKER24_GEN_BS", -1},
+	    {"MPX_SR_WEAPON_BIT_SET", -1},
+	    {"MPX_H4_H4_DJ_MISSIONS", -1},
+	    {"MPX_CAS_HEIST_FLOW", -1},
+	    {"MPX_GANGOPS_FLOW_BITSET_MISS0", -1},
+	    {"MPX_PROG_HUB_T_TRIAL_PAR_TIME", -1},
+	    {"MPX_PROG_HUB_T_TRL_PAR_TIME_RC", -1},
+	    {"MPX_PROG_HUB_T_TRL_PAR_TIME_HSW", -1},
+	    {"MPX_PROG_HUB_T_TRL_PAR_TIME_BKE", -1},
+	    {"MPX_XM22_MISSIONS_SA", -1},
+	    {"MPX_FIXER_GENERAL_BS", -1},
+	    {"MPX_H4_MISSIONS", -1},
+	    {"MPX_H4_PROGRESS", -1},
 	    {"MPX_AWD_DOGSDINNER", 4},
 	    {"MPX_AWD_HEATAROUDC", 25},
 	    {"MPX_AWD_TYCOON", 2000000},
@@ -38,9 +53,7 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_BICYCLE_EXPLODED", 100},
 	    {"MPX_SUBMARINE_EXPLODED", 100},
 	    {"MPX_TRAIN_EXPLODED", 100},
-	    {"MPX_CARS_EXPLODED", 100},
 	    {"MPX_CARS_COPS_EXPLODED", 100},
-	    {"MPX_NUMBER_STOLEN_CARS", 100},
 	    {"MPX_NUMBER_STOLEN_BIKES", 100},
 	    {"MPX_NUMBER_STOLEN_BOATS", 100},
 	    {"MPX_NUMBER_STOLEN_HELIS", 100},
@@ -50,10 +63,7 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_NUMBER_STOLEN_SUBMARINES", 100},
 	    {"MPX_NO_STOLEN_VEH_SCRIPT", 100},
 	    {"MPX_DB_PLAYER_KILLS", 100},
-	    {"MPX_PASS_DB_PLAYER_KILLS", 100},
-	    {"MPX_AIR_LAUNCHES_OVER_40M", 25},
 	    {"MPX_KILLS_PLAYERS", 1000},
-	    {"MPX_CHAR_WANTED_LEVEL_TIME5STAR", 7200000},
 	    {"MPX_MOST_FLIPS_IN_ONE_JUMP", 5},
 	    {"MPX_MOST_SPINS_IN_ONE_JUMP", 5},
 	    {"MPX_HOLDUPS_BITSET", -1},
@@ -73,7 +83,6 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_CHAR_FM_WEAP_UNLOCKED5", -1},
 	    {"MPX_CHAR_FM_WEAP_UNLOCKED6", -1},
 	    {"MPX_GCLUB_FM_AMMO_BOUGHT", 1},
-	    {"MPX_CHAR_WEAP_EQUIPPED", -1},
 	    {"MPX_CHAR_WEAP_EQUIPPED", -1},
 	    {"MPX_CHAR_FM_WEAP_EQUIPPED", -1},
 	    {"MPX_CHAR_FM_WEAP_EQUIPPED2", -1},
@@ -263,7 +272,6 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_GRNLAUNCH_ENEMY_KILLS", 600},
 	    {"MPX_RPG_ENEMY_KILLS", 600},
 	    {"MPX_MINIGUNS_ENEMY_KILLS", 600},
-	    {"MPX_SR_WEAPON_BIT_SET", 262143},
 	    {"MPX_PILOT_SCHOOL_MEDAL_0", 3},
 	    {"MPX_PILOT_SCHOOL_MEDAL_1", 3},
 	    {"MPX_PILOT_SCHOOL_MEDAL_2", 3},
@@ -288,8 +296,6 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_PILOT_CHECKPOINTCOUNT_9", 27},
 	    {"MPX_CAR_CLUB_REP", 997430},
 	    {"MPX_CHAR_HEIST_1_UNLCK", -1},
-	    {"MPX_CHAR_FM_VEHICLE_1_UNLCK", -1},
-	    {"MPX_CHAR_FM_VEHICLE_2_UNLCK", -1},
 	    {"MPX_CRHEIST", 50},
 	    {"MPX_CR_BANKHEIST1", 10},
 	    {"MPX_CR_COUNTHEIST1", 10},
@@ -329,7 +335,6 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_SCRIPT_INCREASE_LUNG", 100},
 	    {"MPX_SCRIPT_INCREASE_DRIV", 100},
 	    {"MPX_SCRIPT_INCREASE_SHO", 100},
-	    {"MPX_AWD_DANCE_TO_SOLOMUN", 360},
 	    {"MPX_AWD_DANCE_TO_TALEOFUS", 360},
 	    {"MPX_AWD_DANCE_TO_DIXON", 360},
 	    {"MPX_AWD_DANCE_TO_BLKMAD", 360},
@@ -402,13 +407,9 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_ARN_VEH_DEATHBIKE", 500},
 	    {"MPX_ARN_VEH_DEATHBIKE2", 400},
 	    {"MPX_ARN_VEH_DEATHBIKE3", 400},
-	    {"MPX_AWD_WATCH_YOUR_STEP", 20},
 	    {"MPX_AWD_TOWER_OFFENSE", 50},
 	    {"MPX_AWD_THROUGH_A_LENS", 60},
 	    {"MPX_AWD_SPINNER", 80},
-	    {"MPX_AWD_YOUMEANBOOBYTRAPS", 25},
-	    {"MPX_AWD_MASTER_BANDITO", 20},
-	    {"MPX_AWD_SITTING_DUCK", 30},
 	    {"MPX_AWD_CROWDPARTICIPATION", 80},
 	    {"MPX_AWD_KILL_OR_BE_KILLED", 60},
 	    {"MPX_AWD_MASSIVE_SHUNT", 60},
@@ -442,7 +443,6 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_LAST_ANIMAL", 108},
 	    {"MPX_CH_ARC_CAB_CLAW_TROPHY", -1},
 	    {"MPX_CH_ARC_CAB_LOVE_TROPHY", -1},
-	    {"MPX_AWD_FACES_OF_DEATH", 50},
 	    {"MPX_AWD_COLD_CALLER", 50},
 	    {"MPX_AWD_PRODUCER", 60},
 	    {"MPX_AWD_CONTRACTOR", 50},
@@ -479,11 +479,9 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_TUNER_COMP_BS", -1},
 	    {"MPX_GANGOPS_FM_MISSION_PROG", -1},
 	    {"MPX_GANGOPS_FM_BITSET_MISS0", -1},
-	    {"MPX_LIFETIME_BUY_COMPLETE", 1025},
 	    {"MPX_LIFETIME_BUY_UNDERTAKEN", 1025},
 	    {"MPX_LIFETIME_SELL_COMPLETE", 1025},
 	    {"MPX_LIFETIME_SELL_UNDERTAKEN", 1025},
-	    {"MPX_LIFETIME_CONTRA_EARNINGS", 25000000},
 	    {"MPX_LFETIME_BIKER_BUY_COMPLET", 1025},
 	    {"MPX_LFETIME_BIKER_BUY_UNDERTA", 1025},
 	    {"MPX_LFETIME_BIKER_SELL_COMPLET", 1025},
@@ -508,34 +506,26 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_LFETIME_BIKER_BUY_UNDERTA5", 1025},
 	    {"MPX_LFETIME_BIKER_SELL_COMPLET5", 1025},
 	    {"MPX_LFETIME_BIKER_SELL_UNDERTA5", 1025},
-	    {"MPX_LIFETIME_BKR_SELL_EARNINGS0", 25000000},
 	    {"MPX_LIFETIME_BKR_SELL_EARNINGS1", 25000000},
 	    {"MPX_LIFETIME_BKR_SELL_EARNINGS2", 25000000},
 	    {"MPX_LIFETIME_BKR_SELL_EARNINGS3", 25000000},
 	    {"MPX_LIFETIME_BKR_SELL_EARNINGS4", 25000000},
 	    {"MPX_LFETIME_BIKER_SELL_COMPLET6", 10},
-	    {"MPX_LIFETIME_BKR_SELL_EARNINGS6", 1000000},
 	    {"MPX_XMAS2023_ADV_MODE_WINS", 6},
 	    {"MPPLY_XMAS23_PLATES0", 3},
 	    {"MPX_COUNT_HOTRING_RACE", 20},
-	    {"MPX_PROG_HUB_BOUNTIES_ALIVE_BS", -1},
 	    {"MPX_TIMES_PREV_PLAY_AS_BOSS", 500},
 	    {"MPX_GBTELTIMESPLAYEDGOONPREV", 500},
 	    {"MPX_LOW_FLOW_CURRENT_PROG", 9},
 	    {"MPX_LOW_FLOW_CURRENT_CALL", 9},
 	    {"MPX_YACHT_MISSION_FLOW", -1},
-	    {"MPX_AWD_FM_DM_WINS", 50},
-	    {"MPX_AWD_FMWINAIRRACE", 25},
-	    {"MPX_AWD_FMRALLYWONDRIVE", 25},
 	    {"MPX_AWD_FMRALLYWONNAV", 25},
-	    {"MPX_AWD_FMWINSEARACE", 25},
 	    {"MPX_AWD_FM_TDM_WINS", 50},
 	    {"MPX_AWD_FM_TDM_MVP", 50},
 	    {"MPX_AWD_FM_GTA_RACES_WON", 50},
 	    {"MPX_AWD_FMWINRACETOPOINTS", 25},
 	    {"MPX_AWD_RACES_WON", 50},
 	    {"MPX_AWD_FM_RACE_LAST_FIRST", 25},
-	    {"MPX_AWD_FMHORDWAVESSURVIVE", 10},
 	    {"MPX_AWD_FM_TENNIS_WON", 25},
 	    {"MPX_MOST_ARM_WRESTLING_WINS", 25},
 	    {"MPX_AWD_WIN_AT_DARTS", 25},
@@ -557,12 +547,10 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_AWD_LAPDANCES", 25},
 	    {"MPX_AWD_FM_GOLF_BIRDIES", 25},
 	    {"MPX_AWD_PARACHUTE_JUMPS_50M", 25},
-	    {"MPPLY_AWD_FM_CR_DM_MADE", 25},
 	    {"MPX_AWD_DROPOFF_CAP_PACKAGES", 100},
 	    {"MPX_AWD_PICKUP_CAP_PACKAGES", 100},
 	    {"MPX_AWD_NO_HAIRCUTS", 25},
 	    {"MPX_AWD_MENTALSTATE_TO_NORMAL", 50},
-	    {"MPPLY_AWD_FM_CR_PLAYED_BY_PEEP", 100},
 	    {"MPX_AWD_TRADE_IN_YOUR_PROPERTY", 25},
 	    {"MPX_COMPLETEDAILYOBJ", 100},
 	    {"MPX_COMPLETEDAILYOBJTOTAL", 100},
@@ -590,33 +578,24 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_PASS_DB_PLAYER_KILLS", 100},
 	    {"MPX_CARS_EXPLODED", 500},
 	    {"MPX_AWD_TIME_IN_HELICOPTER", 4},
-	    {"MPX_MOST_SPINS_IN_ONE_JUMP", 5},
 	    {"MPX_AWD_CARS_EXPORTED", 50},
 	    {"MPX_AWD_FMDRIVEWITHOUTCRASH", 30},
 	    {"MPX_AIR_LAUNCHES_OVER_40M", 25},
-	    {"MPX_MOST_FLIPS_IN_ONE_JUMP", 5},
 	    {"MPX_AWD_PASSENGERTIME", 4},
 	    {"MPX_AWD_100_HEADSHOTS", 500},
 	    {"MPX_AWD_FM_DM_KILLSTREAK", 100},
 	    {"MPX_AWD_FM_DM_STOLENKILL", 50},
-	    {"MPX_KILLS_PLAYERS", 1000},
 	    {"MPX_AWD_FMKILLBOUNTY", 25},
 	    {"MPX_AWD_FM_DM_TOTALKILLS", 500},
 	    {"MPX_AWD_FMREVENGEKILLSDM", 50},
 	    {"MPX_PISTOL50_ENEMY_KILLS", 500},
 	    {"MPX_AWD_FM_DM_3KILLSAMEGUY", 50},
 	    {"MPX_AWD_100_KILLS_SMG", 500},
-	    {"MPX_CMBTMG_ENEMY_KILLS", 500},
 	    {"MPX_UNARMED_ENEMY_KILLS", 50},
 	    {"MPX_AWD_CAR_BOMBS_ENEMY_KILLS", 25},
 	    {"MPX_AWD_25_KILLS_STICKYBOMBS", 50},
-	    {"MPX_ASLTSHTGN_ENEMY_KILLS", 500},
-	    {"MPX_ASLTRIFLE_ENEMY_KILLS", 500},
-	    {"MPX_GRENADE_ENEMY_KILLS", 50},
 	    {"MPX_AWD_KILL_CARRIER_CAPTURE", 100},
 	    {"MPX_AWD_NIGHTVISION_KILLS", 100},
-	    {"MPX_RPG_ENEMY_KILLS", 500},
-	    {"MPX_SNIPERRFL_ENEMY_KILLS", 500},
 	    {"MPX_AWD_KILL_PSYCHOPATHS", 100},
 	    {"MPX_AWD_FINISH_HEISTS", 50},
 	    {"MPX_AWD_FINISH_HEIST_SETUP_JOB", 50},
@@ -625,41 +604,17 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_AWD_CONTROL_CROWDS", 25},
 	    {"MPX_AWD_DO_HEIST_AS_MEMBER", 25},
 	    {"MPX_AWD_CLUB_DRUNK", 200},
-	    {"MPX_AWD_DANCE_TO_TALEOFUS", 100},
-	    {"MPX_AWD_DANCE_TO_DIXON", 100},
 	    {"MPX_DANCEPERFECTOWNCLUB", 100},
 	    {"MPX_NIGHTCLUB_PLAYER_APPEAR", 500},
-	    {"MPX_AWD_DANCE_TO_BLKMAD", 100},
 	    {"MPX_DANCETODIFFDJS", 4},
 	    {"MPX_AWD_DANCE_TO_SOLOMUN", 360},
-	    {"MPX_AWD_CAREER_WINNER", 1000},
-	    {"MPX_AWD_WEVE_GOT_ONE", 50},
-	    {"MPX_AWD_CROWDPARTICIPATION", 50},
 	    {"MPX_AWD_SITTING_DUCK", 50},
-	    {"MPX_AWD_YOURE_OUTTA_HERE", 200},
-	    {"MPX_AWD_TOP_SCORE", 500000},
-	    {"MPX_AWD_TIME_SERVED", 1000},
-	    {"MPX_AWD_MASSIVE_SHUNT", 50},
 	    {"MPX_AWD_MASTER_BANDITO", 50},
 	    {"MPX_AWD_YOUMEANBOOBYTRAPS", 50},
-	    {"MPX_AWD_KILL_OR_BE_KILLED", 50},
-	    {"MPX_AWD_ARENA_WAGEWORKER", 20000000},
-	    {"MPX_AWD_SPINNER", 50},
-	    {"MPX_AWD_TOWER_OFFENSE", 50},
-	    {"MPX_AWD_THROUGH_A_LENS", 50},
-	    {"MPX_AWD_READY_FOR_WAR", 50},
 	    {"MPX_AWD_WATCH_YOUR_STEP", 50},
-	    {"MPX_AWD_ODD_JOBS", 52},
 	    {"MPX_AWD_PREPARATION", 40},
 	    {"MPX_AWD_BIGBRO", 40},
-	    {"MPX_AWD_SHARPSHOOTER", 40},
-	    {"MPX_AWD_RACECHAMP", 40},
 	    {"MPX_AWD_ASLEEPONJOB", 20},
-	    {"MPX_AWD_DAICASHCRAB", 100000},
-	    {"MPX_AWD_MASTERFUL", 40000},
-	    {"MPX_AWD_ASTROCHIMP", 3000000},
-	    {"MPX_AWD_BATSWORD", 1000000},
-	    {"MPX_AWD_COINPURSE", 950000},
 	    {"MPX_AWD_WELL_PREPARED", 50},
 	    {"MPX_AWD_FILL_YOUR_BAGS", 20000000},
 	    {"MPX_AWD_WRECK_DIVING", 1000000},
@@ -678,9 +633,6 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_AWD_STREETRACER", 250},
 	    {"MPX_AWD_ROBBERY_CONTRACT", 100},
 	    {"MPX_AWD_FACES_OF_DEATH", 250},
-	    {"MPX_AWD_CONTRACTOR", 50},
-	    {"MPX_AWD_COLD_CALLER", 50},
-	    {"MPX_AWD_PRODUCER", 60},
 	    {"MPX_AWD_RUNRABBITRUN", 5},
 	    {"MPX_AWD_CALLME", 50},
 	    {"MPX_AWD_CHEMCOMPOUNDS", 50},
@@ -713,54 +665,36 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_PROG_HUB_MFH_EARNINGS", 5000000},        // PROGRESSHUB_FIELDHANGAR_TIER4_OBJ_01 (0x387BDCC1): Earn $5,000,000 from Oscar Guzman Flies Again
 	    {"MPX_PROG_HUB_CBR_EARNINGS", 5000000},        // PROGRESSHUB_CHICKEN_TIER4_OBJ_01 (0x1AE77398): Earn $5,000,000 from The Cluckin' Bell Farm Raid
 	    {"MPX_HACKER_DEN_OWNED", 1},                   // PROGRESSHUB_HACKERDEN_TIER1_OBJ_01 (0x9426660C): Acquire the Garment Factory
-	    {"MPX_PROG_HUB_DEN24_SAFEEARNINGS", 100000},   // PROGRESSHUB_HACKERDEN_TIER2_OBJ_03 (0x921EC44C): Earn $25,000 in additional Garment Factory earnings
 	    {"MPX_PROG_HUB_DEN24_SAFEEARNINGS", 100000},   // PROGRESSHUB_HACKERDEN_TIER4_OBJ_04 (0x68701953): Earn $100,000 in additional Garment Factory earnings
 	    {"MPX_BAIL_OFFICE_OWNED", 1},                  // PROGRESSHUB_BAILOFFICE_TIER1_OBJ_01 (0x33593A74): Set up a Bail Office
 	    {"MPX_PROG_HUB_BOUNTY_EARNINGS", 5000000},     // PROGRESSHUB_BAILOFFICE_TIER2_OBJ_03 (0x89C00175): Earn $250,000 from securing or eliminating bounty targets
-	    {"MPX_PROG_HUB_BOUNTIES_ALIVE_BS", 31},        // PROGRESSHUB_BAILOFFICE_TIER4_OBJ_02 (0x5F98E61E): Secure all bounty targets alive
+	    {"MPX_PROG_HUB_BOUNTIES_ALIVE_BS", -1},        // PROGRESSHUB_BAILOFFICE_TIER4_OBJ_02 (0x5F98E61E): Secure all bounty targets alive
 	    {"MPX_BAIL_PROPERTY_EARNINGS", 1000000},       // PROGRESSHUB_BAILOFFICE_TIER4_OBJ_03 (0x4DD24291): Earn $1,000,000 in additional income from your Bail Office Agents
 	    {"MPX_SALVAGE_YARD_OWNED", 1},                 // PROGRESSHUB_SALVAGEYARD_TIER1_OBJ_01 (0x45031EB8): Set up a Salvage Yard
-	    {"MPX_PROG_HUB_SALV23_EARN_SALV", 2500000},    // PROGRESSHUB_SALVAGEYARD_TIER2_OBJ_03 (0xAB899B02): Earn $250,000 from salvaging vehicles
 	    {"MPX_PROG_HUB_SALV23_EARN_PERF", 5},          // PROGRESSHUB_SALVAGEYARD_TIER3_OBJ_02 (0x8571336A): Sell 5 vehicles in perfect condition from Salvage Yard Robberies
 	    {"MPX_PROG_HUB_SALV23_EARN_SALV", 2500000},    // PROGRESSHUB_SALVAGEYARD_TIER4_OBJ_02 (0xA6CFAFA2): Earn $2,500,000 from salvaging vehicles
 	    {"MPX_PROG_HUB_SALV23_EARN_SELL", 10000000},   // PROGRESSHUB_SALVAGEYARD_TIER4_OBJ_04 (0x1C3E9A9A): Earn $10,000,000 from selling stolen vehicles
 	    {"MPX_LIFETIME_BKR_SELL_EARNINGS6", 10000000}, // PROGRESSHUB_LSDRUGWARS_TIER2_OBJ_03 (0x348591F): Earn $1,000,000 selling Acid
-	    {"MPX_LFETIME_BIKER_BUY_COMPLET6", 10},        // PROGRESSHUB_LSDRUGWARS_TIER3_OBJ_01 (0xE171F2E2): Unlock all custom acid names
-	    {"MPX_LFETIME_BIKER_SELL_COMPLET6", 10},       // PROGRESSHUB_LSDRUGWARS_TIER3_OBJ_01 (0xE171F2E2): Unlock all custom acid names
-	    {"MPX_LIFETIME_BKR_SELL_EARNINGS6", 1000000},  // PROGRESSHUB_LSDRUGWARS_TIER3_OBJ_01 (0xE171F2E2): Unlock all custom acid names
 	    {"MPX_PROG_HUB_LSDW_FJ_NO_DEATHS", 25},        // PROGRESSHUB_LSDRUGWARS_TIER3_OBJ_02 (0xCFB6CF6C): Complete 25 Fooligan Jobs without dying
 	    {"MPX_PROG_HUB_DAX_CLONE_KILLS", 100},         // PROGRESSHUB_LSDRUGWARS_TIER3_OBJ_03 (0x2E910D1F): Take out 100 hostile versions of yourself in The Last Dose - Checking In
 	    {"MPX_LFETIME_BIKER_BUY_COMPLET6", 100},       // PROGRESSHUB_LSDRUGWARS_TIER4_OBJ_02 (0xFEC8F2B0): Complete 100 Source Supplies missions for the Acid Lab
-	    {"MPX_LIFETIME_BKR_SELL_EARNINGS6", 10000000}, // PROGRESSHUB_LSDRUGWARS_TIER4_OBJ_04 (0xF0DBD722): Earn $10,000,000 selling Acid
-	    {"MPX_FIXER_COUNT", 100},                      // PROGRESSHUB_CONTRACT_TIER1_OBJ_02 (0x9ACD2C1C): Complete a Security Contract
-	    {"MPX_FIXER_COUNT", 100},                      // PROGRESSHUB_CONTRACT_TIER2_OBJ_03 (0xECA80D20): Complete 10 Security Contracts
-	    {"MPX_PROG_HUB_FXER_PAY_HIT_BONUS", 100},      // PROGRESSHUB_CONTRACT_TIER3_OBJ_02 (0xBB22098E): Complete 25 Payphone Hits with the Assassination Bonus
 	    {"MPX_PROG_HUB_FIXER_SEC_CON_SPEC", 100},      // PROGRESSHUB_CONTRACT_TIER4_OBJ_02 (0x5560692): Complete 100 Security Contracts on Specialist or Specialist+ difficulty
 	    {"MPX_PROG_HUB_FXER_PAY_HIT_BONUS", 100},      // PROGRESSHUB_CONTRACT_TIER4_OBJ_03 (0x3348E277): Complete 100 Payphone Hits with the Assassination Bonus
 	    {"MPX_FIXER_EARNINGS", 5000000},               // PROGRESSHUB_CONTRACT_TIER4_OBJ_04 (0x69EA4FB9): Earn $5,000,000 from Security Contracts
-	    {"MPX_NIGHTCLUB_JOBS_DONE", 25},               // PROGRESSHUB_AFTERHOURS_TIER1_OBJ_02 (0x8C0A8A5F): Complete a Club Management mission
 	    {"MPX_PROG_HUB_DANCE_DUR", 5},                 // PROGRESSHUB_AFTERHOURS_TIER1_OBJ_03 (0x9AE42812): Dance for 5 minutes inside a Nightclub
 	    {"MPX_NIGHTCLUB_JOBS_DONE", 25},               // PROGRESSHUB_AFTERHOURS_TIER3_OBJ_03 (0x4CCCBEF8): Complete 25 Club Management missions
 	    {"MPX_NIGHTCLUB_VIP_APPEAR", 25},              // PROGRESSHUB_AFTERHOURS_TIER4_OBJ_02 (0x442D16A7): Have 25 celebrity appearances at your Nightclub
 	    {"MPX_PROG_HUB_NCLUB_POP_MAX_TME", 600},       // PROGRESSHUB_AFTERHOURS_TIER4_OBJ_03 (0xDA37C2BA): Keep your Nightclub popularity at 100% for 10 hours
 	    {"MPX_HUB_EARNINGS", 50000000},                // PROGRESSHUB_AFTERHOURS_TIER4_OBJ_04 (0xCDC9A9DE): Earn a total of $50,000,000 or more
-	    {"MPX_LFETIME_HANGAR_BUY_COMPLET", 100},       // PROGRESSHUB_SMUGGLERSRUN_TIER1_OBJ_02 (0xE8D721E2): Complete a Source Cargo mission
-	    {"MPX_LFETIME_HANGAR_BUY_COMPLET", 100},       // PROGRESSHUB_SMUGGLERSRUN_TIER2_OBJ_02 (0x9241C3FF): Complete 10 Source Cargo missions
 	    {"MPX_LFETIME_HANGAR_SEL_COMPLET", 1},         // PROGRESSHUB_SMUGGLERSRUN_TIER2_OBJ_03 (0x8513A96B): Complete an Air-Freight Cargo Sell mission
-	    {"MPX_LFETIME_HANGAR_BUY_COMPLET", 100},       // PROGRESSHUB_SMUGGLERSRUN_TIER3_OBJ_01 (0x4EEEBB02): Complete 25 Source Cargo missions
 	    {"MPX_LFETIME_HANGAR_BUY_COMPLET", 100},       // PROGRESSHUB_SMUGGLERSRUN_TIER4_OBJ_01 (0x7E859A3E): Complete 100 Source Cargo missions
 	    {"MPX_PROG_HUB_SMUGGLER_CRATES", 1000},        // PROGRESSHUB_SMUGGLERSRUN_TIER4_OBJ_02 (0xAD63F7FA): Sell 1,000 crates of Air-Freight Cargo
 	    {"MPX_LFETIME_HANGAR_EARNINGS", 50000000},     // PROGRESSHUB_SMUGGLERSRUN_TIER4_OBJ_04 (0xB6028937): Earn $50,000,000 selling Air-Freight Cargo
 	    {"MPX_FACTORYSETUP5", 1},                      // PROGRESSHUB_GUNRUNNING_TIER1_OBJ_01 (0xC0AAAE31): Set up a Bunker
-	    {"MPX_LFETIME_BIKER_BUY_COMPLET5", 2},         // PROGRESSHUB_GUNRUNNING_TIER1_OBJ_02 (0xE353F383): Complete a Resupply mission
-	    {"MPX_WVM_FLOW_BITSET_MISSIONS0", 1},          // PROGRESSHUB_GUNRUNNING_TIER2_OBJ_02 (0xB55D1ACB): Complete a Mobile Operation
 	    {"MPX_LIFETIME_BKR_SEL_COMPLETBC5", 1},        // PROGRESSHUB_GUNRUNNING_TIER2_OBJ_03 (0xA336F67F): Complete a Sell mission
 	    {"MPX_LFETIME_BIKER_SELL_COMPLET5", 1},        // PROGRESSHUB_GUNRUNNING_TIER2_OBJ_03 (0xA336F67F): Complete a Sell mission
-	    {"MPX_LFETIME_BIKER_BUY_COMPLET5", 25},        // PROGRESSHUB_GUNRUNNING_TIER3_OBJ_02 (0xE0E1F8C1): Complete 25 Resupply missions
 	    {"MPX_LIFETIME_BKR_SELL_EARNINGS5", 25000000}, // PROGRESSHUB_GUNRUNNING_TIER4_OBJ_04 (0xE01DE6EA): Earn $25,000,000 selling Weapons
 	    {"MPX_OWNED_IE_WAREHOUSE", 1},                 // PROGRESSHUB_IMPORTEXPORT_TIER1_OBJ_01 (0x88B82CED): Own a Vehicle Warehouse
-	    {"MPX_LFETIME_IE_EXPORT_COMPLETED", 25},       // PROGRESSHUB_IMPORTEXPORT_TIER1_OBJ_02 (0xD2AAC0B9): Complete a Vehicle Cargo mission
-	    {"MPX_PROG_HUB_VEH_CARGO_SELL_PER", 50},       // PROGRESSHUB_IMPORTEXPORT_TIER2_OBJ_02 (0xEB13853): Sell 1 vehicle in perfect condition
 	    {"MPX_PROG_HUB_VEH_CARGO_SPECIAL", 5},         // PROGRESSHUB_IMPORTEXPORT_TIER2_OBJ_03 (0xFC7E13ED): Sell 5 vehicles to Specialist Dealers
 	    {"MPX_LFETIME_IE_EXPORT_COMPLETED", 25},       // PROGRESSHUB_IMPORTEXPORT_TIER3_OBJ_01 (0x15D3E92C): Complete 25 Vehicle Cargo missions
 	    {"MPX_PROG_HUB_VEH_CARGO_SELL_PER", 50},       // PROGRESSHUB_IMPORTEXPORT_TIER4_OBJ_03 (0xE3B5F31D): Sell 50 vehicles in perfect condition
@@ -794,18 +728,10 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_PROG_HUB_DOOM_PRP_NO_DEATHS", 14},       // PROGRESSHUB_DOOMSDAY_TIER3_OBJ_03 (0x69C499C8): Complete 14 prep missions without dying
 	    {"MPX_PROG_HUB_DOOMSDAY_ACTS", 15},            // PROGRESSHUB_DOOMSDAY_TIER4_OBJ_04 (0xC90F227): Complete 15 Acts as a leader
 	    {"MPX_PROG_HUB_HEIST_EARNINGS", 50000000},     // PROGRESSHUB_HEISTS_TIER4_OBJ_02 (0x1BB56D99): Earn $50,000,000 across all heists
-	    {"MPX_ARENAWARS_AP_TIER", 50},                 // PROGRESSHUB_ARENAWAR_TIER3_OBJ_01 (0x4BED6034): Reach Sponsorship Tier 25
-	    {"MPX_ARENAWARS_AP_TIER", 50},                 // PROGRESSHUB_ARENAWAR_TIER4_OBJ_03 (0xA84FA0E7): Reach Sponsorship Tier 50
-	    {"MPX_PROG_HUB_ADV_WINS", 50},                 // PROGRESSHUB_ADVERSARYMODE_TIER2_OBJ_02 (0x26E86D91): Win 5 Adversary Modes
-	    {"MPX_PROG_HUB_ADV_WINS", 50},                 // PROGRESSHUB_ADVERSARYMODE_TIER3_OBJ_02 (0xEDD52BA6): Win 20 Adversary Modes
 	    {"MPX_PROG_HUB_ADV_WINS", 50},                 // PROGRESSHUB_ADVERSARYMODE_TIER4_OBJ_02 (0x508E1316): Win 50 Adversary Modes
 	    {"MPX_PROG_HUB_SURVIVALS_PLAYED", 1},          // PROGRESSHUB_SURVIVALS_TIER1_OBJ_01 (0x49A11C56): Play a Survival mode
-	    {"MPX_PROG_HUB_SURV_WAVES", 50},               // PROGRESSHUB_SURVIVALS_TIER2_OBJ_02 (0xE563C9EB): Clear 50 waves in Survival
 	    {"MPX_PROG_HUB_SURV_WAVES", 250},              // PROGRESSHUB_SURVIVALS_TIER4_OBJ_03 (0xE5A5F86B): Clear 250 waves in Survival
-	    {"MPX_RACES_WON", 50},                         // PROGRESSHUB_RACING_TIER2_OBJ_02 (0xB55EAA4F): Win 5 Races against another player
-	    {"MPX_RACES_WON", 50},                         // PROGRESSHUB_RACING_TIER3_OBJ_01 (0xDD1D6E9D): Win 25 Races against another player
 	    {"MPX_PROG_HUB_FST_LPS_RSTAR_RAC", 50},        // PROGRESSHUB_RACING_TIER4_OBJ_02 (0x8E04C939): Achieve the fastest lap 50 times on any Rockstar-created Race
-	    {"MPX_RACES_WON", 50},                         // PROGRESSHUB_RACING_TIER4_OBJ_03 (0xA0B96EA2): Win 50 Races against another player
 	    {"MPX_DM_END", 1},                             // PROGRESSHUB_DEATHMATCHES_TIER1_OBJ_01 (0x68FBFC22): Participate in any Deathmatch
 	    {"MPX_PROG_HUB_DM_TDM_PLAYS", 1},              // PROGRESSHUB_DEATHMATCHES_TIER2_OBJ_01 (0xDB824EF5): Participate in a Team Deathmatch
 	    {"MPX_PROG_HUB_DM_COMMUNITY_PLAYS", 10},       // PROGRESSHUB_DEATHMATCHES_TIER3_OBJ_01 (0xA492ACB9): Play 10 Deathmatches in the Community Series
@@ -814,19 +740,10 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_VEHICLES_CUSTOMISED", 50},               // PROGRESSHUB_VEHICLE_TIER4_OBJ_04 (0x5F0010AE): Customize 50 vehicles
 	    {"MPX_PROG_HUB_WEAP_TYPE_ANSR", -1},           // PROGRESSHUB_WEAPONS_TIER3_OBJ_01 (0x366B9C10): Win a Challenge for each weapon type against another player in the Ammu-Nation Shooting Range
 	    {"MPX_PROG_HUB_10_CHAL_ANSR", 10},             // PROGRESSHUB_WEAPONS_TIER4_OBJ_01 (0x41DD0B75): Win 10 Challenges against another player in the Ammu-Nation Shooting Range
-	    {"MPX_AWD_COLD_CALLER", 10},                   // PROGRESSHUB_CONTRACT_TIER2_OBJ_02 (0x3667A09E): Complete 10 Payphone Hits
-	    {"MPX_AWD_AUTO_SHOP", 10},                     // PROGRESSHUB_LSTUNERS_TIER2_OBJ_02 (0x80CF14C9): Service and deliver 10 customer vehicles
-	    {"MPX_AWD_CAR_CLUB_MEM", 100},                 // PROGRESSHUB_LSTUNERS_TIER2_OBJ_03 (0x8EEFB10A): Reach LS Car Meet reputation level 10
-	    {"MPX_AWD_GROUNDWORK", 1},                     // PROGRESSHUB_LSTUNERS_TIER3_OBJ_03 (0x5C0325FF): Deliver all 10 Exotic Exports vehicles in a day
-	    {"MPX_AWD_CAR_CLUB_MEM", 100},                 // PROGRESSHUB_LSTUNERS_TIER4_OBJ_04 (0x989886C3): Reach LS Car Meet reputation level 100
-	    {"MPX_AWD_ODD_JOBS", 100},                     // PROGRESSHUB_DIAMONDCASINO_TIER2_OBJ_03 (0xAC8A861E): Complete Casino Work for Agatha Baker
 	    {"MPX_AWD_ODD_JOBS", 100},                     // PROGRESSHUB_DIAMONDCASINO_TIER4_OBJ_04 (0x7275F0DE): Complete 100 Casino Work missions for Agatha Baker
 	    {"MPX_AWD_TREASURE_HUNTER", 10},               // PROGRESSHUB_CAYOPERICOHEIST_TIER2_OBJ_03 (0xDE02CAAD): Find 10 treasure chests on Cayo Perico
-	    {"MPX_AWD_PREPARATION", 25},                   // PROGRESSHUB_DIAMONDCASINOHEIST_TIER2_OBJ_02 (0x111C8BDC): Complete 25 prep missions
 	    {"MPX_AWD_DAICASHCRAB", 100000},               // PROGRESSHUB_DIAMONDCASINOHEIST_TIER4_OBJ_04 (0x5578ADC): Steal $100,000 from the Daily Vault
 	    {"MPX_AWD_FMHORDWAVESSURVIVE", 10},            // PROGRESSHUB_SURVIVALS_TIER3_OBJ_01 (0xEE2FFDE6): Survive 10 waves in Survival without dying
-	    {"MPX_AWD_FM_DM_WINS", 50},                    // PROGRESSHUB_DEATHMATCHES_TIER2_OBJ_02 (0xC928AA42): Win 5 Deathmatches
-	    {"MPX_AWD_FM_DM_WINS", 50},                    // PROGRESSHUB_DEATHMATCHES_TIER3_OBJ_02 (0x8E4F8033): Win 20 Deathmatches
 	    {"MPX_AWD_FM_DM_WINS", 50},                    // PROGRESSHUB_DEATHMATCHES_TIER4_OBJ_02 (0x4325B99C): Win 50 Deathmatches
 	    {"MPX_PROG_HUB_TYCOON25_EARNINGS", 2000000},   // Earn $2,000,000 from mcompleting jobs at the Hands On Car Wash, Smoke on the Water, or Higgins Helitours
 	    {"MPX_PROG_HUB_CWASH_SAFEEARNINGS", 500000},   // Collect $500,000 from the safe inside the Hands On Car Wash
@@ -910,8 +827,6 @@ namespace YimMenu::UnlockEverything
 	    "MPX_AWD_WRECKER",
 	    "MPX_AWD_CRASH_COURSE",
 	    "MPX_AWD_ARENA_LEGEND",
-	    "MPX_AWD_PEGASUS",
-	    "MPX_AWD_DEADEYE",
 	    "MPX_AWD_PISTOLSATDAWN",
 	    "MPX_AWD_TRAFFICAVOI",
 	    "MPX_AWD_CANTCATCHBRA",
@@ -937,14 +852,11 @@ namespace YimMenu::UnlockEverything
 	    "MPX_AWD_GOFOR11TH",
 	    "MPX_AWD_STRAIGHT_TO_VIDEO",
 	    "MPX_AWD_MONKEY_C_MONKEY_DO",
-	    "MPX_AWD_TRAINED_TO_KILL",
-	    "MPX_AWD_DIRECTOR",
 	    "MPX_AWD_TEEING_OFF",
 	    "MPX_AWD_STUDIO_TOUR",
 	    "MPX_AWD_DONT_MESS_DRE",
 	    "MPX_AWD_BACKUP",
 	    "MPX_AWD_CONTR_KILLER",
-	    "MPX_AWD_DOGS_BEST_FRIEND",
 	    "MPX_AWD_MUSIC_STUDIO",
 	    "MPX_BS_IMANI_D_APP_SETUP",
 	    "MPX_BS_IMANI_D_APP_STRAND",
@@ -985,54 +897,11 @@ namespace YimMenu::UnlockEverything
 	    "MPX_AWD_FMMOSTKILLSGANGHIDE",
 	    "MPX_AWD_FMMOSTKILLSSURVIVE",
 	    "MPX_AWD_FMKILLSTREAKSDM",
-	    "MPPLY_AWD_SERIESA_FIN",
-	    "MPPLY_AWD_HST_SAME_TEAM",
-	    "MPPLY_AWD_HST_ULT_CHAL",
-	    "MPPLY_AWD_PACIFIC_FIN",
-	    "MPPLY_AWD_FLEECA_FIN",
-	    "MPPLY_AWD_PRISON_FIN",
 	    "MPX_AWD_FINISH_HEIST_NO_DAMAGE",
-	    "MPPLY_AWD_HST_ORDER",
-	    "MPPLY_AWD_HUMANE_FIN",
 	    "MPX_AWD_ACTIVATE_2_PERSON_KEY",
 	    "MPX_AWD_ALL_ROLES_HEIST",
-	    "MPPLY_AWD_COMPLET_HEIST_MEM",
-	    "MPPLY_AWD_COMPLET_HEIST_1STPER",
 	    "MPX_AWD_SPLIT_HEIST_TAKE_EVENLY",
-	    "MPPLY_AWD_GANGOPS_IAA",
-	    "MPPLY_AWD_GANGOPS_LOYALTY2",
-	    "MPPLY_AWD_GANGOPS_CRIMMASMD3",
-	    "MPPLY_AWD_GANGOPS_CRIMMASMD",
-	    "MPPLY_AWD_GANGOPS_LOYALTY3",
-	    "MPPLY_AWD_GANGOPS_SUBMARINE",
-	    "MPPLY_AWD_GANGOPS_MISSILE",
-	    "MPPLY_AWD_GANGOPS_LOYALTY",
-	    "MPPLY_AWD_GANGOPS_SUPPORT",
-	    "MPPLY_AWD_GANGOPS_CRIMMASMD2",
-	    "MPPLY_AWD_GANGOPS_ALLINORDER",
-	    "MPX_AWD_CONTACT_SPORT",
-	    "MPX_AWD_BEGINNER",
-	    "MPX_AWD_FIELD_FILLER",
-	    "MPX_AWD_ARMCHAIR_RACER",
-	    "MPX_AWD_LEARNER",
 	    "MPX_AWD_PEGASUS",
-	    "MPX_AWD_UNSTOPPABLE",
-	    "MPX_AWD_SUNDAY_DRIVER",
-	    "MPX_AWD_DOOR_SLAMMER",
-	    "MPX_AWD_SHUNTER",
-	    "MPX_AWD_JOCK",
-	    "MPX_AWD_HOT_LAP",
-	    "MPX_AWD_THE_ROOKIE",
-	    "MPX_AWD_BUMP_AND_RUN",
-	    "MPX_AWD_ARENA_AMATEUR",
-	    "MPX_AWD_WARRIOR",
-	    "MPX_AWD_T_BONE",
-	    "MPX_AWD_PAINT_TRADER",
-	    "MPX_AWD_GEAR_HEAD",
-	    "MPX_AWD_MAYHEM",
-	    "MPX_AWD_WRECKER",
-	    "MPX_AWD_CRASH_COURSE",
-	    "MPX_AWD_ARENA_LEGEND",
 	    "MPX_AWD_FIRST_TIME1",
 	    "MPX_AWD_FIRST_TIME5",
 	    "MPX_AWD_SUPPORTING_ROLE",
@@ -1057,23 +926,6 @@ namespace YimMenu::UnlockEverything
 	    "MPX_AWD_COLLECTOR",
 	    "MPX_AWD_SHAFTED",
 	    "MPX_AWD_DEADEYE",
-	    "MPX_AWD_TRAFFICAVOI",
-	    "MPX_AWD_CANTCATCHBRA",
-	    "MPX_AWD_PISTOLSATDAWN",
-	    "MPX_AWD_WIZHARD",
-	    "MPX_AWD_MONKEYKIND",
-	    "MPX_AWD_TRUELOVE",
-	    "MPX_AWD_AQUAAPE",
-	    "MPX_AWD_NEMESIS",
-	    "MPX_AWD_FRIENDZONED",
-	    "MPX_AWD_KEEPFAITH",
-	    "MPX_AWD_APEESCAPE",
-	    "MPX_AWD_KINGOFQUB3D",
-	    "MPX_AWD_ELEVENELEVEN",
-	    "MPX_AWD_GOFOR11TH",
-	    "MPX_AWD_QUBISM",
-	    "MPX_AWD_GODOFQUB3D",
-	    "MPX_AWD_QUIBITS",
 	    "MPX_AWD_INTELGATHER",
 	    "MPX_AWD_MAX_DISRUPT",
 	    "MPX_AWD_MIXING_UP",
@@ -1098,21 +950,13 @@ namespace YimMenu::UnlockEverything
 	    "MPX_AWD_MILITARY_CONVOY",
 	    "MPX_AWD_UNION_DEPOSITORY",
 	    "MPX_AWD_METH_JOB",
-	    "MPX_AWD_STRAIGHT_TO_VIDEO",
-	    "MPX_AWD_MONKEY_C_MONKEY_DO",
 	    "MPX_AWD_BUNKER_RAID",
 	    "MPX_AWD_FREIGHT_TRAIN",
 	    "MPX_AWD_BOLINGBROKE_[removed]",
 	    "MPX_AWD_TRAINED_TO_KILL",
 	    "MPX_AWD_DIRECTOR",
 	    "MPX_AWD_IAA_RAID",
-	    "MPX_AWD_TEEING_OFF",
-	    "MPX_AWD_STUDIO_TOUR",
-	    "MPX_AWD_DONT_MESS_DRE",
-	    "MPX_AWD_BACKUP",
 	    "MPX_AWD_DOGS_BEST_FRIEND",
-	    "MPX_AWD_MUSIC_STUDIO",
-	    "MPX_AWD_CONTR_KILLER",
 	    "MPX_AWD_ACELIQUOR",
 	    "MPX_AWD_TRUCKAMBUSH",
 	    "MPX_AWD_LOSTCAMPREV",
@@ -1176,7 +1020,6 @@ namespace YimMenu::UnlockEverything
 	    "MPX_AWD_SHORTLAMAR_2",      // PROGRESSHUB_CONTRACT_TIER3_OBJ_03 (0xEB28E99B): Complete all Short Trips playing as Franklin and Lamar
 	    "MPX_AWD_SHORTLAMAR_3",      // PROGRESSHUB_CONTRACT_TIER3_OBJ_03 (0xEB28E99B): Complete all Short Trips playing as Franklin and Lamar
 	    "MPX_AWD_CREWEDUP",          // PROGRESSHUB_DIAMONDCASINOHEIST_TIER3_OBJ_02 (0x808EDBD9): Unlock all crew members
-
 	});
 
 	// Stats::SetFloat
@@ -1241,7 +1084,6 @@ namespace YimMenu::UnlockEverything
 	    {42084, 24}, // PROGRESSHUB_LSDRUGWARS_TIER4_OBJ_01 (0xB874E609): Unlock all Platinum Awards for Los Santos Drug Wars
 	    {42085, 10}, // PROGRESSHUB_CONTRACT_TIER4_OBJ_01 (0xCC9C151F): Unlock 10 Platinum Awards for The Contract
 	    {42089, 8},  // PROGRESSHUB_AFTERHOURS_TIER4_OBJ_01 (0x4EC62BD9): Unlock 8 Platinum Awards for After Hours
-	    {9359, 25},  // PROGRESSHUB_GUNRUNNING_TIER1_OBJ_03 (0x9D30E73A): Complete a research project
 	    {9359, 25},  // PROGRESSHUB_GUNRUNNING_TIER4_OBJ_03 (0xD932D914): Research 25 projects
 	    {30226, 10}, // PROGRESSHUB_LSTUNERS_TIER4_OBJ_01 (0xCA34E9FB): Unlock 10 Platinum Awards for Los Santos Tuners
 	    {42093, 11}, // PROGRESSHUB_DIAMONDCASINO_TIER4_OBJ_01 (0xFC33845B): Unlock 11 Platinum Awards for The Diamond Casino & Resort
@@ -1387,7 +1229,6 @@ namespace YimMenu::UnlockEverything
 
 	// unlock_packed_bools
 	static constexpr auto _packed_stat_bools_range = std::to_array<std::pair<int, int>>({
-	    {51286, 51291}, // PROGRESSHUB_FIELDHANGAR_TIER3_OBJ_01 (0xFBFB3926): Complete an Oscar Guzman Flies Again mission on Hard
 	    {51286, 51291}, // PROGRESSHUB_FIELDHANGAR_TIER3_OBJ_02 (0xAF55702): Complete all Oscar Guzman Flies Again missions on Hard
 	    {51292, 51297}, // PROGRESSHUB_FIELDHANGAR_TIER4_OBJ_02 (0x48747CB2): Complete all Oscar Guzman Flies Again missions on Hard without using snacks or armor
 	    {28283, 28284}, // PROGRESSHUB_CHICKEN_TIER3_OBJ_02 (0x49ABCB50): Complete Scene of the Crime using both approaches
@@ -1405,25 +1246,21 @@ namespace YimMenu::UnlockEverything
 	    {41386, 41391}, // PROGRESSHUB_SUPERYACHTLIFE_TIER4_OBJ_01 (0xBAB08C3A): Complete all Superyacht Life missions on Hard difficulty without using snacks or armor
 	    {41392, 41397}, // PROGRESSHUB_SUPERYACHTLIFE_TIER4_OBJ_02 (0xDE92D3FE): Complete all Superyacht Life missions taking less than 50% damage
 	    {41398, 41403}, // PROGRESSHUB_SUPERYACHTLIFE_TIER4_OBJ_03 (0xF0357743): Complete all Superyacht Life missions with over 80% accuracy
-	    {41404, 41409}, // PROGRESSHUB_GERALDSLASTPLAY_TIER1_OBJ_01 (0x3953C1F6): Complete a Last Play mission for Gerald
 	    {41404, 41409}, // PROGRESSHUB_GERALDSLASTPLAY_TIER2_OBJ_02 (0xCB0274FF): Complete all Last Play missions
 	    {41411, 41416}, // PROGRESSHUB_GERALDSLASTPLAY_TIER3_OBJ_02 (0x5C394B38): Complete all Last Play missions on Hard difficulty
 	    {41417, 41422}, // PROGRESSHUB_GERALDSLASTPLAY_TIER4_OBJ_01 (0x85DD8573): Complete all Last Play missions on Hard difficulty without using snacks or armor
 	    {41423, 41428}, // PROGRESSHUB_GERALDSLASTPLAY_TIER4_OBJ_02 (0x96642680): Complete all Last Play missions taking less than 50% damage
 	    {41429, 41434}, // PROGRESSHUB_GERALDSLASTPLAY_TIER4_OBJ_03 (0xE8CECB54): Complete all Last Play missions with over 80% accuracy
-	    {41436, 41443}, // PROGRESSHUB_SIMEONREPO_TIER1_OBJ_01 (0xE73534B9): Complete a Repo Work mission for Simeon Yetarian
 	    {41436, 41443}, // PROGRESSHUB_SIMEONREPO_TIER2_OBJ_02 (0xEE6223C1): Complete all Repo Work missions
 	    {41444, 41451}, // PROGRESSHUB_SIMEONREPO_TIER3_OBJ_02 (0x3D1B09A7): Complete all Repo Work missions on Hard difficulty
 	    {41452, 41459}, // PROGRESSHUB_SIMEONREPO_TIER4_OBJ_01 (0xD7810FC7): Complete all Repo Work missions on Hard difficulty without using snacks or armor
 	    {41460, 41467}, // PROGRESSHUB_SIMEONREPO_TIER4_OBJ_02 (0x5F6183): Complete all Repo Work missions taking less than 50% damage
 	    {41468, 41475}, // PROGRESSHUB_SIMEONREPO_TIER4_OBJ_03 (0xF31BC6FC): Complete all Repo Work missions with over 80% accuracy
-	    {41476, 41481}, // PROGRESSHUB_MADRAZODISPATCH_TIER1_OBJ_01 (0x2D8A303B): Complete a Dispatch Mission for Martin Madrazo
 	    {41476, 41481}, // PROGRESSHUB_MADRAZODISPATCH_TIER2_OBJ_02 (0x8C7322BA): Complete all Dispatch Missions
 	    {41482, 41487}, // PROGRESSHUB_MADRAZODISPATCH_TIER3_OBJ_02 (0xDC230D85): Complete all Dispatch Missions on Hard difficulty
 	    {41488, 41493}, // PROGRESSHUB_MADRAZODISPATCH_TIER4_OBJ_01 (0x78CB3BA5): Complete all Dispatch Missions on Hard difficulty without using snacks or armor
 	    {41494, 41499}, // PROGRESSHUB_MADRAZODISPATCH_TIER4_OBJ_02 (0xA2740EEA): Complete all Dispatch Missions taking less than 50% damage
 	    {41500, 41505}, // PROGRESSHUB_MADRAZODISPATCH_TIER4_OBJ_03 (0xD4307262): Complete all Dispatch Missions with over 80% accuracy
-	    {42015, 42022}, // PROGRESSHUB_LOWRIDERS_TIER1_OBJ_01 (0x5626D333): Complete a Lowrider mission for Lamar
 	    {42015, 42022}, // PROGRESSHUB_LOWRIDERS_TIER2_OBJ_02 (0xC20E67): Complete all Lowrider missions
 	    {41507, 41514}, // PROGRESSHUB_LOWRIDERS_TIER3_OBJ_02 (0x769B62CB): Complete all Lowrider missions on Hard difficulty
 	    {41515, 41522}, // PROGRESSHUB_LOWRIDERS_TIER4_OBJ_01 (0xFAE70B8A): Complete all Lowrider missions on Hard difficulty without using snacks or armor
@@ -1457,60 +1294,29 @@ namespace YimMenu::UnlockEverything
 	    {41701, 41704}, // PROGRESSHUB_HEISTS_TIER4_OBJ_03 (0xDBD51A9): Complete the Elite Challenge for each heist
 	    {41647, 41655}, // PROGRESSHUB_ARENAWAR_TIER2_OBJ_01 (0xDF6BF844): Win an Arena Mode
 	    {41647, 41655}, // PROGRESSHUB_ARENAWAR_TIER3_OBJ_02 (0x3D0FC279): Win all the Arena Modes
-	    {41594, 41646}, // PROGRESSHUB_ADVERSARYMODE_TIER1_OBJ_01 (0xC50A7197): Participate in any Adversary Mode
-	    {41594, 41646}, // PROGRESSHUB_ADVERSARYMODE_TIER3_OBJ_01 (0xB48238FD): Participate in 10 different Adversary Modes
 	    {41594, 41646}, // PROGRESSHUB_ADVERSARYMODE_TIER4_OBJ_01 (0xC0189FE): Participate in 25 different Adversary Modes
 	    {41656, 41646}, // PROGRESSHUB_ADVERSARYMODE_TIER4_OBJ_01 (0xC0189FE): Participate in 25 different Adversary Modes
 	    {51339, 41646}, // PROGRESSHUB_ADVERSARYMODE_TIER4_OBJ_01 (0xC0189FE): Participate in 25 different Adversary Modes
 	    {41363, 42151}, // PROGRESSHUB_RACING_TIER2_OBJ_01 (0xA6E80D62): Win a Race in 5 different race types
 	    {41842, 41862}, // PROGRESSHUB_VEHICLE_TIER4_OBJ_03 (0x75323D12): Own a vehicle in each of the 15 different vehicle classes
-	    {42002, 42013}, // PROGRESSHUB_WEAPONS_TIER4_OBJ_02 (0xB39B6EF0): Own all of the Mk II weapons
 	    {15456, 15460}, // PROGRESSHUB_WEAPONS_TIER4_OBJ_04 (0x8ECEA557): Unlock all Mk II ammo types
 	    {28313, 28318}, // Obtain the maximum possible bonus in all Mr Faber Works
 	});
 
-	// SET_MP_INT_CHARACTER_STAT_BIT
-	static constexpr auto _ints_bits = std::to_array<std::pair<const char*, int>>({
-	    {"MPX_XM22_FLOW", 0},          // PROGRESSHUB_LSDRUGWARS_TIER3_OBJ_01 (0xE171F2E2): Unlock all custom acid names
-	    {"MPX_XM22_MISSIONS_SA", 5},   // PROGRESSHUB_LSDRUGWARS_TIER3_OBJ_01 (0xE171F2E2): Unlock all custom acid names
-	    {"MPX_XM22_MISSIONS_SA", 10},  // PROGRESSHUB_LSDRUGWARS_TIER3_OBJ_01 (0xE171F2E2): Unlock all custom acid names
-	    {"MPX_XM22_MISSIONS_SA", 26},  // PROGRESSHUB_LSDRUGWARS_TIER3_OBJ_01 (0xE171F2E2): Unlock all custom acid names
-	    {"MPX_FIXER_GENERAL_BS", 0},   // PROGRESSHUB_CONTRACT_TIER1_OBJ_03 (0xA91CC8BB): Meet the VIP
-	    {"MPX_FIXER_GENERAL_BS", 2},   // PROGRESSHUB_CONTRACT_TIER3_OBJ_01 (0xCD51ADED): Complete the VIP Contract
-	    {"MPX_VCM_FLOW_PROGRESS", 6},  // PROGRESSHUB_DIAMONDCASINO_TIER1_OBJ_03 (0x366E749F): Complete Loose Cheng
-	    {"MPX_VCM_FLOW_PROGRESS", 12}, // PROGRESSHUB_DIAMONDCASINO_TIER1_OBJ_03 (0x366E749F): Complete Loose Cheng
-	    {"MPX_VCM_FLOW_PROGRESS", 11}, // PROGRESSHUB_DIAMONDCASINO_TIER2_OBJ_01 (0xD82D5D63): Complete Cashing Out
-	    {"MPX_VCM_FLOW_PROGRESS", 17}, // PROGRESSHUB_DIAMONDCASINO_TIER2_OBJ_01 (0xD82D5D63): Complete Cashing Out
-	    {"MPX_H4_MISSIONS", 0},        // PROGRESSHUB_CAYOPERICOHEIST_TIER1_OBJ_03 (0x22FA3117): Find where the Madrazo files are being held
-	    {"MPX_H4_PROGRESS", 1},        // PROGRESSHUB_CAYOPERICOHEIST_TIER2_OBJ_01 (0x4A342312): Complete The Cayo Perico Heist as a leader
-	    {"MPX_CAS_HEIST_FLOW", 1},     // PROGRESSHUB_DIAMONDCASINOHEIST_TIER1_OBJ_01 (0xCFF037D0): Meet Lester Crest at Mirror Park
-	    {"MPX_CAS_HEIST_FLOW", 10},    // PROGRESSHUB_DIAMONDCASINOHEIST_TIER2_OBJ_01 (0x86FF77BC): Complete The Diamond Casino Heist as a leader
-	});
+	// // SET_MP_INT_CHARACTER_STAT_BIT
+	// static constexpr auto _ints_bits = std::to_array<std::pair<const char*, int>>({
+	// 	{"MPX_XM22_FLOW", 0}, 
+	// });
 
-	struct CHARACTER_STAT_BITS
-	{
-		const char* first;
-		int second;
-		int third;
-	};
+	// struct CHARACTER_STAT_BITS
+	// {
+	// 	const char* first;
+	// 	int second;
+	// 	int third;
+	// };
 
-	// SET_MP_INT_CHARACTER_STAT_BITS
-	static constexpr auto _ints_bits_range = std::to_array<CHARACTER_STAT_BITS>({
-	    {"MPX_SUM23_AVOP_PROGRESS", 0, 11},         // PROGRESSHUB_SUMMER2023_TIER2_OBJ_02 (0x85E4C62C): Complete all Project Overthrow missions
-	    {"MPX_ULP_MISSION_PROGRESS", 0, 13},        // PROGRESSHUB_PAPERTRAIL_TIER2_OBJ_02 (0xC32F13FD): Complete all Operation Paper Trail missions
-	    {"MPX_YACHT_MISSION_FLOW", 4, 15},          // PROGRESSHUB_SUPERYACHTLIFE_TIER2_OBJ_02 (0x49975D60): Complete all Superyacht Life missions
-	    {"MPX_HACKER24_GEN_BS", 5, 12},             // PROGRESSHUB_HACKERDEN_TIER3_OBJ_01 (0x17512D21): Complete all the Files
-	    {"MPX_XM22_MISSIONS_SA", 17, 21},           // PROGRESSHUB_LSDRUGWARS_TIER2_OBJ_01 (0xB0DE344C): Complete all missions for The Last Dose
-	    {"MPX_XM22_FLOW", 20, 24},                  // PROGRESSHUB_LSDRUGWARS_TIER2_OBJ_02 (0x3025B2D5): Complete all Fooligan Jobs
-	    {"MPX_SR_WEAPON_BIT_SET", 1, 17},           // PROGRESSHUB_GUNRUNNING_TIER4_OBJ_02 (0xCB723D93): Complete all challenges at the Bunker Shooting Range
-	    {"MPX_TUNER_COMP_BS", 0, 7},                // PROGRESSHUB_LSTUNERS_TIER3_OBJ_01 (0xC83B7E72): Complete all Robbery Contracts
-	    {"MPX_H4_H4_DJ_MISSIONS", 0, 6},            // PROGRESSHUB_CAYOPERICOHEIST_TIER3_OBJ_03 (0x5DD5375E): Complete all DJ requests for Tom Connors and English Dave
-	    {"MPX_H4_PROGRESS", 6, 11},                 // PROGRESSHUB_CAYOPERICOHEIST_TIER4_OBJ_02 (0x873DD6A7): Steal 5 variations of the primary target
-	    {"MPX_CAS_HEIST_FLOW", 11, 13},             // PROGRESSHUB_DIAMONDCASINOHEIST_TIER3_OBJ_01 (0xF356C153): Complete The Diamond Casino Heist using all approaches
-	    {"MPX_GANGOPS_FLOW_BITSET_MISS0", 0, 2},    // PROGRESSHUB_DOOMSDAY_TIER1_OBJ_03 (0x19481B54): Complete any Setup for The Data Breaches
-	    {"MPX_PROG_HUB_T_TRIAL_PAR_TIME", 0, 25},   // PROGRESSHUB_RACING_TIER3_OBJ_02 (0xE5ED123): Beat the par time in 25 Time Trials
-	    {"MPX_PROG_HUB_T_TRL_PAR_TIME_RC", 0, 25},  // PROGRESSHUB_RACING_TIER3_OBJ_02 (0xE5ED123): Beat the par time in 25 Time Trials
-	    {"MPX_PROG_HUB_T_TRL_PAR_TIME_HSW", 0, 25}, // PROGRESSHUB_RACING_TIER3_OBJ_02 (0xE5ED123): Beat the par time in 25 Time Trials
-	    {"MPX_PROG_HUB_T_TRL_PAR_TIME_BKE", 0, 25}, // PROGRESSHUB_RACING_TIER3_OBJ_02 (0xE5ED123): Beat the par time in 25 Time Trials
-	});
+	// // SET_MP_INT_CHARACTER_STAT_BITS
+	// static constexpr auto _ints_bits_range = std::to_array<CHARACTER_STAT_BITS>({
+	// 	{"MPX_TUNER_COMP_BS", 0, 7},
+	// });
 }

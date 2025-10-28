@@ -29,21 +29,19 @@ namespace YimMenu
 			Stats::SetPackedBool(i, true);
 	};
 
-	void SET_MP_INT_CHARACTER_STAT_BIT(std::string statName, int bit)
-	{
-		auto val = Stats::GetInt(statName);
-		val |= bit;
-		// val |= 2^bit;
-		Stats::SetInt(statName, val);
-	}
-	void SET_MP_INT_CHARACTER_STAT_BITS(std::string statName, int fromBit, int toBit)
-	{
-		auto val = Stats::GetInt(statName);
-		for (int i = fromBit; i <= toBit; i++)
-			val |= i;
-			// val |= 2^i;
-		Stats::SetInt(statName, val);
-	}
+	// void SET_MP_INT_CHARACTER_STAT_BIT(std::string statName, int bit)
+	// {
+	// 	auto val = Stats::GetInt(statName);
+	// 	val |= 2^bit;
+	// 	Stats::SetInt(statName, val);
+	// }
+	// void SET_MP_INT_CHARACTER_STAT_BITS(std::string statName, int fromBit, int toBit)
+	// {
+	// 	auto val = Stats::GetInt(statName);
+	// 	for (int i = fromBit; i <= toBit; i++)
+	// 		val |= 2^i;
+	// 	Stats::SetInt(statName, val);
+	// }
 }
 
 namespace YimMenu::UnlockEverything
@@ -424,31 +422,29 @@ namespace YimMenu::UnlockEverything
 		});
 	}
 
-	// _ints_bits
-	inline void set_int_bit(int& index)
-	{
-		FiberPool::Push([&] {
-			if (index >= _ints_bits.size())
-				return;
+	// // _ints_bits
+	// inline void set_int_bit(int& index)
+	// {
+	// 	FiberPool::Push([&] {
+	// 		if (index >= _ints_bits.size())
+	// 			return;
 
-			Stats::SetInt(_ints_bits[index].first, -1); // https://www.unknowncheats.me/forum/grand-theft-auto-v/701294-gta-online-enhanced-awards-stats-3.html
-			// SET_MP_INT_CHARACTER_STAT_BIT(_ints_bits[index].first, _ints_bits[index].second);
-			// LOG(VERBOSE) << index << " " << _ints_bits[index].first << " " << _ints_bits[index].second;
-			++index;
-		});
-	}
+	// 		SET_MP_INT_CHARACTER_STAT_BIT(_ints_bits[index].first, _ints_bits[index].second);
+	// 		// LOG(VERBOSE) << index << " " << _ints_bits[index].first << " " << _ints_bits[index].second;
+	// 		++index;
+	// 	});
+	// }
 
-	// _ints_bits_range
-	inline void set_ints_bit_range(int& index)
-	{
-		FiberPool::Push([&] {
-			if (index >= _ints_bits_range.size())
-				return;
+	// // _ints_bits_range
+	// inline void set_ints_bit_range(int& index)
+	// {
+	// 	FiberPool::Push([&] {
+	// 		if (index >= _ints_bits_range.size())
+	// 			return;
 
-			Stats::SetInt(_ints_bits_range[index].first, -1); // https://www.unknowncheats.me/forum/grand-theft-auto-v/701294-gta-online-enhanced-awards-stats-3.html
-			// SET_MP_INT_CHARACTER_STAT_BITS(_ints_bits_range[index].first, _ints_bits_range[index].second, _ints_bits_range[index].third);
-			// LOG(VERBOSE) << index << " " << _ints_bits_range[index].first << " " << _ints_bits_range[index].second << " " << _ints_bits_range[index].third;
-			++index;
-		});
-	}
+	// 		SET_MP_INT_CHARACTER_STAT_BITS(_ints_bits_range[index].first, _ints_bits_range[index].second, _ints_bits_range[index].third);
+	// 		// LOG(VERBOSE) << index << " " << _ints_bits_range[index].first << " " << _ints_bits_range[index].second << " " << _ints_bits_range[index].third;
+	// 		++index;
+	// 	});
+	// }
 }

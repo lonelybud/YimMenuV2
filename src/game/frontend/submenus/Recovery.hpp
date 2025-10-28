@@ -117,15 +117,15 @@ namespace YimMenu::Submenus
 			ImGui::SameLine();
 			ImGui::Text("Done: %d/%llu", packed_stat_bool_range_index, UnlockEverything::_packed_stat_bools_range.size());
 
-			if (ImGui::Button("set_int_bit"))
-				UnlockEverything::set_int_bit(int_bit_index);
-			ImGui::SameLine();
-			ImGui::Text("Done: %d/%llu", int_bit_index, UnlockEverything::_ints_bits.size());
+			// if (ImGui::Button("set_int_bit"))
+			// 	UnlockEverything::set_int_bit(int_bit_index);
+			// ImGui::SameLine();
+			// ImGui::Text("Done: %d/%llu", int_bit_index, UnlockEverything::_ints_bits.size());
 
-			if (ImGui::Button("set_ints_bit_range"))
-				UnlockEverything::set_ints_bit_range(ints_bit_range_index);
-			ImGui::SameLine();
-			ImGui::Text("Done: %d/%llu", ints_bit_range_index, UnlockEverything::_ints_bits_range.size());
+			// if (ImGui::Button("set_ints_bit_range"))
+			// 	UnlockEverything::set_ints_bit_range(ints_bit_range_index);
+			// ImGui::SameLine();
+			// ImGui::Text("Done: %d/%llu", ints_bit_range_index, UnlockEverything::_ints_bits_range.size());
 		}
 	};
 
