@@ -2,6 +2,9 @@ namespace YimMenu::UnlockEverything
 {
 	// Stats::SetInt
 	static constexpr auto _ints = std::to_array<std::pair<const char*, int>>({
+		{"MPX_SB_CAR_WASH_OWNED", 1},
+		{"MPX_SB_HELI_TOURS_OWNED", 1},
+		{"MPX_SB_WEED_SHOP_OWNED", 1},
 	    {"MPX_SUM23_AVOP_PROGRESS", -1},
 	    {"MPX_ULP_MISSION_PROGRESS", -1},
 	    {"MPX_HACKER24_GEN_BS", -1},
@@ -1225,6 +1228,9 @@ namespace YimMenu::UnlockEverything
 	    36941, // PROGRESSHUB_WEAPONS_TIER4_OBJ_03 (0x9CFC41B2): Own 50 weapons
 	    54653, // Meet Mr Faber
 	    54664, // clothing
+		36839, // https://www.unknowncheats.me/forum/grand-theft-auto-v/696116-career-unlock-yimmenu-v2-2.html
+		36843, // https://www.unknowncheats.me/forum/grand-theft-auto-v/696116-career-unlock-yimmenu-v2-2.html
+		36841, // https://www.unknowncheats.me/forum/grand-theft-auto-v/696116-career-unlock-yimmenu-v2-2.html
 	});
 
 	// unlock_packed_bools
