@@ -8,18 +8,22 @@ namespace YimMenu::Submenus
 	{
 		using SubmenuMenuCategory::SubmenuMenuCategory;
 
-		bool delivering_veh;
+		bool delivering_veh = false;
 
 		void Draw()
 		{
+			auto &pvs = PersonalVehicles::GetPersonalVehicles();
+
 			if (ImGui::Button("Refresh"))
 				FiberPool::Push([] {
 					PersonalVehicles::RegisterVehicles();
 				});
+			ImGui::SameLine();
+			ImGui::Text(" %d", pvs.size());
 
 			if (!delivering_veh && ImGui::BeginListBox("###personal_veh_list", {500, 300}))
 			{
-				for (const auto& it : PersonalVehicles::GetPersonalVehicles())
+				for (const auto& it : pvs)
 					if (!it.second->IsBlacklistedVehicle() && ImGui::Selectable(it.first.c_str(), false))
 						FiberPool::Push([&] {
 							delivering_veh = true;

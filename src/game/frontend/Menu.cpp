@@ -8,7 +8,8 @@
 #include "game/frontend/fonts/Fonts.hpp"
 #include "game/pointers/Pointers.hpp"
 #include "submenus/Recovery.hpp"
-#include "submenus/Self.hpp"
+#include "submenus/Self/Self.hpp"
+#include "submenus/Teleport/Teleport.hpp"
 #include "submenus/vehicle/Vehicle.hpp"
 #include "submenus/World.hpp"
 
@@ -18,6 +19,7 @@ namespace YimMenu
 	{
 		// Arguably the only place this file should be edited at for more menus
 		UIManager::AddSubmenu(std::make_shared<Submenus::SelfSubmenu>());
+		UIManager::AddSubmenu(std::make_shared<Submenus::TeleportSubmenu>());
 		UIManager::AddSubmenu(std::make_shared<Submenus::VehicleSubmenu>());
 		UIManager::AddSubmenu(std::make_shared<Submenus::RecoverySubmenu>());
 		UIManager::AddSubmenu(std::make_shared<Submenus::WorldSubmenu>());
