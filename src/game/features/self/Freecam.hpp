@@ -1,6 +1,6 @@
 #include "core/componentStates/LoopState.hpp"
 #include "core/util/Math.hpp"
-#include "game/backend/Self.hpp"
+// #include "game/backend/Self.hpp"
 #include "game/frontend/GUI.hpp"
 #include "game/gta/Natives.hpp"
 #include "types/pad/ControllerInputs.hpp"
@@ -80,11 +80,11 @@ namespace YimMenu::Features
 			rotation = CAM::GET_GAMEPLAY_CAM_ROT(2);
 			CAM::SET_CAM_ROT(camEntity, rotation.x, rotation.y, rotation.z, 2);
 
-			TASK::CLEAR_PED_TASKS(Self::GetPed().GetHandle());
-			TASK::CLEAR_PED_SECONDARY_TASK(Self::GetPed().GetHandle());
-			TASK::CLEAR_PED_TASKS_IMMEDIATELY(Self::GetPed().GetHandle());
-			Self::GetPed().SetFrozen(true);
-			Self::GetPed().SetVisible(false);
+			// TASK::CLEAR_PED_TASKS(Self::GetPed().GetHandle());
+			// TASK::CLEAR_PED_SECONDARY_TASK(Self::GetPed().GetHandle());
+			// TASK::CLEAR_PED_TASKS_IMMEDIATELY(Self::GetPed().GetHandle());
+			// Self::GetPed().SetFrozen(true);
+			// Self::GetPed().SetVisible(false);
 
 			if (!GUI::IsOpen())
 			{
@@ -112,12 +112,12 @@ namespace YimMenu::Features
 			CAM::DESTROY_CAM(camEntity, false);
 			STREAMING::CLEAR_FOCUS();
 
-			Self::GetPed().SetFrozen(false);
-			Self::GetPed().SetVisible(true);
+			// Self::GetPed().SetFrozen(false);
+			// Self::GetPed().SetVisible(true);
 
 			camEntity = 0;
 		}
 	};
 
-	inline Freecam _Freecam{"freecam", "Freecam", "Detaches your camera and allows you to go anywhere!"};
+	inline Freecam _Freecam{"freecam", "Freecam", "Move camera only"};
 }

@@ -76,6 +76,12 @@ namespace YimMenu::Submenus
 			ImGui::SliderInt("Index###productIndex", &YimMenu::Features::_CollectProduct.productIndex, 0, 9);
 			ImGui::SameLine();
 			components::button(YimMenu::Features::_CollectProduct);
+
+			components::ver_space();
+
+			components::button(YimMenu::Features::_TeleportToMadrazoHit);
+			ImGui::SameLine();
+			components::button(YimMenu::Features::_TeleportToMadrazoHitTarget);
 		}
 	};
 }

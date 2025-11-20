@@ -12,7 +12,7 @@
 #include "game/gta/ScriptLocal.hpp"
 #include "game/gta/ScriptGlobal.hpp"
 #include "game/pointers/Pointers.hpp"
-// #include "types/blip/BlipSprite.hpp"
+#include "types/blip/BlipSprite.hpp"
 #include "types/script/ScriptEvent.hpp"
 #include "types/script/MPScriptData.hpp"
 #include "types/script/globals/GPBD_Flow.hpp"
@@ -327,7 +327,7 @@ namespace YimMenu::Features
 				thread->m_Context.m_State = rage::scrThread::State::KILLED;
 			}
 		}
-	
+
 	public:
 		// 0 - 2
 		int timeTrialIndex = 0;
@@ -506,6 +506,56 @@ namespace YimMenu::Features
 		int productIndex = 0;
 	};
 
+	class TeleportToMadrazoHit : public CallCode
+	{
+		using CallCode::CallCode;
+
+		virtual void OnCall() override
+		{
+			if (!*Pointers.IsSessionStarted)
+				return;
+
+			if (Stats::GetInt("MPX_BAIL_OFFICE_OWNED") == 0)
+			{
+				Notifications::Show("Madrazo Hits", "You must own a Bail Office.", NotificationType::Error);
+				return;
+			}
+
+			if (!Stats::GetPackedBool(42269))
+			{
+				auto blip = HUD::GET_FIRST_BLIP_INFO_ID(static_cast<int>(BlipSprite::RADAR_DAILY_BOUNTY));
+				if (HUD::DOES_BLIP_EXIST(blip))
+				{
+					if (auto coords = HUD::GET_BLIP_COORDS(blip))
+						Self::GetPed().TeleportTo(coords);
+				}
+			}
+			else
+			{
+				Notifications::Show("Madrazo Hits", "Madrazo Hit has already been completed.", NotificationType::Error);
+			}
+		}
+	};
+
+	class TeleportToMadrazoHitTarget : public CallCode
+	{
+		using CallCode::CallCode;
+
+		virtual void OnCall() override
+		{
+			if (!*Pointers.IsSessionStarted)
+				return;
+
+			if (auto thread = Scripts::FindScriptThread("fm_content_daily_bounty"_J))
+			{
+				if (auto coords = *ScriptLocal(thread, 241).At(434).At(1).At(0, 4).As<Vector3*>())
+				{
+					Self::GetPed().TeleportTo(coords);
+				}
+			}
+		}
+	};
+
 	inline EnableTreasureChestInLS _EnableTreasureChestInLS{"enabletreasurechestinls", "Enable Treasure Chests in LS", "Enables Treasure Chests in Los Santos, so you don't have to go to Cayo Perico."};
 	inline EnableBuriedStashInLS _EnableBuriedStashInLS{"enableburiedstashinls", "Enable Buried Stashes in LS", "Enables Buried Stashes in Los Santos, so you don't have to go to Cayo Perico."};
 
@@ -522,4 +572,6 @@ namespace YimMenu::Features
 	inline SprayLSTag _SprayLSTag{"spraylstag", "Spray LS Tag", "Sprays the selected LS Tag."};
 	inline PhotographAnimal _PhotographAnimal{"photographanimal", "Photograph Animal", "Photographs the selected animal."};
 	inline CollectProduct _CollectProduct{"collectproduct", "Collect Product", "Collects the selected product."};
+	inline TeleportToMadrazoHit _TeleportToMadrazoHit{"tptomadrazohit", "TP to Madrazo Hit", "Teleports to Madrazo Hit."};
+	inline TeleportToMadrazoHitTarget _TeleportToMadrazoHitTarget{"tptomadrazohittarget", "TP to Madrazo Hit Target", "Teleports to Madrazo Hit Target."};
 }
