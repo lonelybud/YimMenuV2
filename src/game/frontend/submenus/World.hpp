@@ -28,7 +28,7 @@ namespace YimMenu::Submenus
 
 			components::ver_space();
 
-			components::button(YimMenu::Features::_KillAll);
+			// components::button(YimMenu::Features::_KillAll);
 			components::button(YimMenu::Features::_KillAllEnemies);
 		}
 	};

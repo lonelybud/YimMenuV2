@@ -11,13 +11,13 @@ namespace YimMenu::Features
 
 		static void RefreshList(std::string folder_name, std::vector<std::string>& folders, std::vector<std::string>& files);
 		static void Save(std::string folder_name, std::string file_name);
-		static void Load(std::string folder_name, std::string file_name);
+		static void Load(std::string folderName, std::string fileName, bool spawnInside);
 		// static void Clone(Vehicle vehicle);
 
 	private:
 		static nlohmann::json GetJson(Vehicle vehicle);
 		static Folder CheckFolder(std::string folder_name = "");
-		static bool SpawnFromJson(nlohmann::json vehicle_json);
+		static Vehicle SpawnFromJson(nlohmann::json vehicle_json);
 
 	private:
 		static constexpr auto plate_text_key = "plate_text";

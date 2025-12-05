@@ -61,6 +61,11 @@ namespace YimMenu::Submenus
 					Features::SavedVehicles::RefreshList(folder, folders, files);
 				});
 
+			components::ver_space();
+			static bool spawn_in;
+			ImGui::Checkbox("Tp in after spawn", &spawn_in);
+			components::ver_space();
+
 			ImGui::SetNextItemWidth(300.f);
 			auto folder_display = folder.empty() ? "Root" : folder.c_str();
 			if (ImGui::BeginCombo("Folder", folder_display))
@@ -143,7 +148,7 @@ namespace YimMenu::Submenus
 				if (ImGui::Button("Yes"))
 				{
 					FiberPool::Push([] {
-						Features::SavedVehicles::Load(folder, file);
+						Features::SavedVehicles::Load(folder, file, spawn_in);
 					});
 					open_modal = false;
 					ImGui::CloseCurrentPopup();

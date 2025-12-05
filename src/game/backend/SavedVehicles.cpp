@@ -140,7 +140,7 @@ namespace YimMenu::Features
 			Notifications::Show("Saved Vehicles", "Tried to save a vehicle which does not exist", NotificationType::Warning);
 	}
 
-	void SavedVehicles::Load(std::string folder_name, std::string file_name)
+	void SavedVehicles::Load(std::string folder_name, std::string file_name, bool spawnInside)
 	{
 		if (!file_name.empty())
 		{
@@ -158,8 +158,12 @@ namespace YimMenu::Features
 			try
 			{
 				file_stream >> vehicle_json;
-				if (SpawnFromJson(vehicle_json))
+				if (auto veh = SpawnFromJson(vehicle_json))
+				{
+					if (spawnInside)
+						Self::GetPed().SetInVehicle(veh.GetHandle());
 					Notifications::Show("Saved Vehicles", std::format("Spawned {}", file_name), NotificationType::Success);
+				}
 				else
 					Notifications::Show("Saved Vehicles", std::format("Unable to spawn {}", file_name), NotificationType::Error);
 			}
@@ -174,7 +178,7 @@ namespace YimMenu::Features
 			Notifications::Show("Saved Vehicles", "Select a file first", NotificationType::Warning);
 	}
 
-	bool SavedVehicles::SpawnFromJson(nlohmann::json vehicle_json)
+	Vehicle SavedVehicles::SpawnFromJson(nlohmann::json vehicle_json)
 	{
 		const Hash vehicle_hash = vehicle_json[vehicle_model_hash_key];
 		auto veh = Vehicle::Create(vehicle_hash, Self::GetPed().GetPosition(), Self::GetPed().GetHeading());
@@ -268,10 +272,8 @@ namespace YimMenu::Features
 				for (const auto& [extra, extra_enabled] : vehicle_extras)
 					VEHICLE::SET_VEHICLE_EXTRA(vehicle, extra, extra_enabled ? 0 : 1);
 			}
-
-			return true;
 		}
 
-		return false;
+		return veh;
 	}
 }
