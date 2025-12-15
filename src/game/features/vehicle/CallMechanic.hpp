@@ -13,7 +13,7 @@ namespace YimMenu::Features
 {
 	inline void _ResetVehDeliveryCooldown()
 	{
-		ScriptGlobal(2685690).At(4347).At(254).At(7, 2).As<TIMER*>()->Destroy();
+		ScriptGlobal(2686095).At(4357).At(260).At(7, 2).As<TIMER*>()->Destroy();
 	}
 
 	inline void ResetVehDeliveryCooldown()
@@ -37,8 +37,8 @@ namespace YimMenu::Features
 
 			if (auto freemode = Scripts::FindScriptThread("freemode"_J))
 			{
-				auto data = ScriptLocal(freemode, 8748);
-				*data.At(3).As<int*>() = 223;
+				auto data = ScriptLocal(freemode, 8819);
+				*data.At(3).As<int*>() = 230;
 				*data.At(3).At(16).As<int*>() = Self::GetPlayer().GetId();
 				*data.At(3).At(1).As<int*>() = 89;
 				*data.At(2).As<int*>() = "AM_CONTACT_REQUESTS"_J;
@@ -48,7 +48,7 @@ namespace YimMenu::Features
 				{
 					if (auto thread = Scripts::FindScriptThreadByID(id))
 					{
-						*ScriptLocal(thread, 521).As<int*>() = 1;
+						*ScriptLocal(thread, 528).As<int*>() = 1;
 						_ResetVehDeliveryCooldown();
 					}
 				}

@@ -13,8 +13,6 @@
 #include "types/script/globals/FreemodeGeneral.hpp"
 #include "types/script/globals/g_SavedMPGlobals.hpp"
 
-#define MAX_GARAGE_NUM 33
-
 namespace YimMenu
 {
 	PersonalVehicles::PersonalVehicle::PersonalVehicle(int id, MPSV_Entry* data) :
@@ -73,7 +71,7 @@ namespace YimMenu
 
 			ScriptMgr::Yield(100ms);
 
-			*ScriptLocal("freemode"_J, 19447).At(176).As<int*>() = 0;
+			*ScriptLocal("freemode"_J, 19633).At(176).As<int*>() = 0;
 
 			return true;
 		}

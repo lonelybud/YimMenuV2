@@ -82,6 +82,10 @@ namespace YimMenu::Submenus
 			components::button(YimMenu::Features::_TeleportToMadrazoHit);
 			ImGui::SameLine();
 			components::button(YimMenu::Features::_TeleportToMadrazoHitTarget);
+
+			components::ver_space();
+
+			components::button(YimMenu::Features::_CollectGoldenClover);
 		}
 	};
 }
