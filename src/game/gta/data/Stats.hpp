@@ -1,10 +1,30 @@
+// notes:
+// SET_MP_INT_CHARACTER_STAT = STATS::STAT_SET_INT
+// MP_INT_STAT_ = MPX_
+// SET_MP_BOOL_AWD_CHARACTER_STAT = STATS::STAT_SET_BOOL
+// MP_BOOL_AWARD_ = MPX_AWD_
+// SET_MP_INT_AWD_CHARACTER_STAT = STATS::STAT_SET_INT
+// MP_INT_AWARD_ = MPX_AWD_
+
+// important links:
+// https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-25.html#post4361972
+// https://www.unknowncheats.me/forum/4367678-post551.html
+// https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-33.html#post4411199
+// https://github.com/YimMenu-Lua/UnlockEverything
+// https://www.unknowncheats.me/forum/grand-theft-auto-v/701294-gta-online-enhanced-awards-stats-3.html
+// https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-45.html#post4540660
+// https://www.unknowncheats.me/forum/grand-theft-auto-v/707419-lua-scripts-yimmenuv2-collection-thread-12.html#post4539651
+// https://www.unknowncheats.me/forum/grand-theft-auto-v/500059-globals-locals-discussion-read-page-1-a-37.html#post4539636
+// https://www.unknowncheats.me/forum/grand-theft-auto-v/701294-gta-online-enhanced-awards-stats-7.html#post4539241
+
+
 namespace YimMenu::UnlockEverything
 {
 	// Stats::SetInt
 	static constexpr auto _ints = std::to_array<std::pair<const char*, int>>({
-		{"MPX_SB_CAR_WASH_OWNED", 1},
-		{"MPX_SB_HELI_TOURS_OWNED", 1},
-		{"MPX_SB_WEED_SHOP_OWNED", 1},
+	    {"MPX_SB_CAR_WASH_OWNED", 1},
+	    {"MPX_SB_HELI_TOURS_OWNED", 1},
+	    {"MPX_SB_WEED_SHOP_OWNED", 1},
 	    {"MPX_SUM23_AVOP_PROGRESS", -1},
 	    {"MPX_ULP_MISSION_PROGRESS", -1},
 	    {"MPX_HACKER24_GEN_BS", -1},
@@ -338,9 +358,6 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_SCRIPT_INCREASE_LUNG", 100},
 	    {"MPX_SCRIPT_INCREASE_DRIV", 100},
 	    {"MPX_SCRIPT_INCREASE_SHO", 100},
-	    {"MPX_AWD_DANCE_TO_TALEOFUS", 360},
-	    {"MPX_AWD_DANCE_TO_DIXON", 360},
-	    {"MPX_AWD_DANCE_TO_BLKMAD", 360},
 	    {"MPX_NIGHTCLUB_HOTSPOT_TIME_MS", 40320000},
 	    {"MPX_CASINO_DECORATION_GIFT_1", -1},
 	    {"MPX_ARENAWARS_AP_LIFETIME", 5055000},
@@ -596,7 +613,7 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_AWD_100_KILLS_SMG", 500},
 	    {"MPX_UNARMED_ENEMY_KILLS", 50},
 	    {"MPX_AWD_CAR_BOMBS_ENEMY_KILLS", 25},
-	    {"MPX_AWD_25_KILLS_STICKYBOMBS", 50},
+	    {"MPX_AWD_25_KILLS_STICKYBOMBS", 51},
 	    {"MPX_AWD_KILL_CARRIER_CAPTURE", 100},
 	    {"MPX_AWD_NIGHTVISION_KILLS", 100},
 	    {"MPX_AWD_KILL_PSYCHOPATHS", 100},
@@ -606,11 +623,6 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_AWD_DO_HEIST_AS_THE_LEADER", 25},
 	    {"MPX_AWD_CONTROL_CROWDS", 25},
 	    {"MPX_AWD_DO_HEIST_AS_MEMBER", 25},
-	    {"MPX_AWD_CLUB_DRUNK", 200},
-	    {"MPX_DANCEPERFECTOWNCLUB", 100},
-	    {"MPX_NIGHTCLUB_PLAYER_APPEAR", 500},
-	    {"MPX_DANCETODIFFDJS", 4},
-	    {"MPX_AWD_DANCE_TO_SOLOMUN", 360},
 	    {"MPX_AWD_SITTING_DUCK", 50},
 	    {"MPX_AWD_MASTER_BANDITO", 50},
 	    {"MPX_AWD_YOUMEANBOOBYTRAPS", 50},
@@ -750,6 +762,22 @@ namespace YimMenu::UnlockEverything
 	    {"MPX_AWD_FM_DM_WINS", 50},                    // PROGRESSHUB_DEATHMATCHES_TIER4_OBJ_02 (0x4325B99C): Win 50 Deathmatches
 	    {"MPX_PROG_HUB_TYCOON25_EARNINGS", 2000000},   // Earn $2,000,000 from mcompleting jobs at the Hands On Car Wash, Smoke on the Water, or Higgins Helitours
 	    {"MPX_PROG_HUB_CWASH_SAFEEARNINGS", 500000},   // Collect $500,000 from the safe inside the Hands On Car Wash
+	    {"MPX_AWD_CLUB_DRUNK", 200},
+	    {"MPX_DANCEPERFECTOWNCLUB", 100},
+	    {"MPX_NIGHTCLUB_PLAYER_APPEAR", 501},
+	    {"MPX_AWD_DANCE_TO_SOLOMUN", 360},
+	    {"MPX_AWD_DANCE_TO_TALEOFUS", 360},
+	    {"MPX_AWD_DANCE_TO_DIXON", 360},
+	    {"MPX_AWD_DANCE_TO_BLKMAD", 360},
+	    {"MPX_DANCETODIFFDJS", 4},
+	    {"MPX_PROG_HUB_KNOWAY_EARNINGS", 5000000}, // Earn $5,000,000 from KnoWay Out
+	    {"MPX_AWD_YOGA", 50},                      // Namaste
+	    {"MPX_AWD_JUICEDUP", 100},                 // Pumped
+	    {"MPX_AWD_MANADVERSARYDEFUSE", 10},        // Bomb Squad
+	    {"MPX_AWD_FIREFIGHTER", 20},               // Knockdown
+	    {"MPX_AWD_ALPHAMAIL", 20},                 // Alpha Mail
+	    {"MPX_AWD_LOSSANTOSMETEOR", 20},           // Meteoric
+	    {"MPX_AWD_TAXIDESTRUCTION", 20},           // No Way KnoWay
 	});
 
 	// Stats::SetBool
@@ -777,17 +805,6 @@ namespace YimMenu::UnlockEverything
 	    "MPPLY_AWD_HST_ULT_CHAL",
 	    "MPPLY_AWD_COMPLET_HEIST_1STPER",
 	    "MPPLY_AWD_COMPLET_HEIST_MEM",
-	    "MPPLY_AWD_GANGOPS_IAA",
-	    "MPPLY_AWD_GANGOPS_SUBMARINE",
-	    "MPPLY_AWD_GANGOPS_ALLINORDER",
-	    "MPPLY_AWD_GANGOPS_LOYALTY",
-	    "MPPLY_AWD_GANGOPS_CRIMMASMD",
-	    "MPPLY_AWD_GANGOPS_MISSILE",
-	    "MPPLY_AWD_GANGOPS_LOYALTY2",
-	    "MPPLY_AWD_GANGOPS_LOYALTY3",
-	    "MPPLY_AWD_GANGOPS_CRIMMASMD2",
-	    "MPPLY_AWD_GANGOPS_CRIMMASMD3",
-	    "MPPLY_AWD_GANGOPS_SUPPORT",
 	    "MPX_SR_TIER_1_REWARD",
 	    "MPX_SR_INCREASE_THROW_CAP",
 	    "MPX_SR_TIER_3_REWARD",
@@ -1023,6 +1040,34 @@ namespace YimMenu::UnlockEverything
 	    "MPX_AWD_SHORTLAMAR_2",      // PROGRESSHUB_CONTRACT_TIER3_OBJ_03 (0xEB28E99B): Complete all Short Trips playing as Franklin and Lamar
 	    "MPX_AWD_SHORTLAMAR_3",      // PROGRESSHUB_CONTRACT_TIER3_OBJ_03 (0xEB28E99B): Complete all Short Trips playing as Franklin and Lamar
 	    "MPX_AWD_CREWEDUP",          // PROGRESSHUB_DIAMONDCASINOHEIST_TIER3_OBJ_02 (0x808EDBD9): Unlock all crew members
+	    "MPPLY_AWD_GANGOPS_IAA",
+	    "MPPLY_AWD_GANGOPS_SUBMARINE",
+	    "MPPLY_AWD_GANGOPS_MISSILE",
+	    "MPPLY_AWD_GANGOPS_ALLINORDER",
+	    "MPPLY_AWD_GANGOPS_LOYALTY",
+	    "MPPLY_AWD_GANGOPS_LOYALTY2",
+	    "MPPLY_AWD_GANGOPS_LOYALTY3",
+	    "MPPLY_AWD_GANGOPS_CRIMMASMD",
+	    "MPPLY_AWD_GANGOPS_CRIMMASMD2",
+	    "MPPLY_AWD_GANGOPS_CRIMMASMD3",
+	    "MPPLY_AWD_GANGOPS_SUPPORT",
+	    "MPX_AWD_NEGATIVEPRESS",      // Negative Press
+	    "MPX_AWD_USESELFDRIVINGVEH",  // Autonomous
+	    "MPX_AWD_LIONSDEN",           // Inside Job
+	    "MPX_AWD_TAKEOUTLEADEXPLO",   // Explosive Leadership
+	    "MPX_AWD_SUBWAYTRAIN",        // Tunnel Vision
+	    "MPX_AWD_SUBWAYSTUNTJUMP",    // Subway Stunt
+	    "MPX_AWD_TRASHCOLLECTORS",    // Trash Talking
+	    "MPX_AWD_ALLTRASHCOLLECTED",  // Waste Not
+	    "MPX_AWD_FIBFINALE",          // A Clean Break
+	    "MPX_AWD_HELPER",             // Willing Accomplice
+	    "MPX_AWD_FIBFINALECHALLENGE", // The Cleanest Break
+	    "MPX_AWD_MANSIONDEFEND",      // Home Sweet Home
+	    "MPX_AWD_DEFLOWMOTIONKILLS",  // Dead Slow
+	    "MPX_AWD_YOUVEMADEIT",        // A place like this
+	    "MPX_AWD_ANIMALLOVER",        // Animal Instincts
+	    "MPX_AWD_MANSADVERSARYWIN",   // Mansion Raid
+	    "MPX_AWD_ONTHECLOCK",         // Hot Off The Press
 	});
 
 	// Stats::SetFloat
@@ -1228,9 +1273,16 @@ namespace YimMenu::UnlockEverything
 	    36941, // PROGRESSHUB_WEAPONS_TIER4_OBJ_03 (0x9CFC41B2): Own 50 weapons
 	    54653, // Meet Mr Faber
 	    54664, // clothing
-		36839, // https://www.unknowncheats.me/forum/grand-theft-auto-v/696116-career-unlock-yimmenu-v2-2.html
-		36843, // https://www.unknowncheats.me/forum/grand-theft-auto-v/696116-career-unlock-yimmenu-v2-2.html
-		36841, // https://www.unknowncheats.me/forum/grand-theft-auto-v/696116-career-unlock-yimmenu-v2-2.html
+	    36839, // https://www.unknowncheats.me/forum/grand-theft-auto-v/696116-career-unlock-yimmenu-v2-2.html
+	    36843, // https://www.unknowncheats.me/forum/grand-theft-auto-v/696116-career-unlock-yimmenu-v2-2.html
+	    36841, // https://www.unknowncheats.me/forum/grand-theft-auto-v/696116-career-unlock-yimmenu-v2-2.html
+	    54786, // Complete KnoWay Out in under 60 minutes
+	    28344, // Lucky Clover Outfit
+	    28345, // Golden Clover Outfit
+	    28351, // High Life 420 Outfit
+	    59971, // The Forklift Certified
+	    54787, // Trade price for polbuffalo (Buffalo Cruiser)
+	    54817, // Trade price for polbuffalo6 (Buffalo STX Pursuit)
 	});
 
 	// unlock_packed_bools
@@ -1307,11 +1359,19 @@ namespace YimMenu::UnlockEverything
 	    {41842, 41862}, // PROGRESSHUB_VEHICLE_TIER4_OBJ_03 (0x75323D12): Own a vehicle in each of the 15 different vehicle classes
 	    {15456, 15460}, // PROGRESSHUB_WEAPONS_TIER4_OBJ_04 (0x8ECEA557): Unlock all Mk II ammo types
 	    {28313, 28318}, // Obtain the maximum possible bonus in all Mr Faber Works
+	    {54773, 54775}, // Complete Negative Press, A Clean Break, a KnoWay Out mission without dying
+	    {54776, 54780}, // Complete all KnoWay Out missions on Hard
+	    {54781, 54785}, // Complete all KnoWay Out missions on Hard without using snacks or armor
+	    // {54787, 54817}, // Mansion Trophies
+	    {51365, 51378}, // Red Year of the Horse Tee, New Year Fireworks Bodysuit, Valentines Onesie, Season's Greetings Sweater, Burgundy Rockstar Varsity Crewneck, Black Rockstar Varsity Crewneck, Navy Rockstar Varsity Crewneck, Los Santos Soccer Jersey, Junk x Jackal Wide, Bigness Crowned Wide, Bigness Crowned Varsity, LS Golf Club Varsity, Pfister Chore Jacket, Feud Anniversary Baseball Shirt
+	    {54769, 54772}, // KnoWay Hoodie, FIB Bomber, KnoWay Tee, The Hacker
+	    {59978, 59980}, // Junk x Jackal Tee, Orange Camo Yeti Tee, Burger Shot Tracksuit
+	    {54737, 54761}, // Lucky Clover
 	});
 
 	// // SET_MP_INT_CHARACTER_STAT_BIT
 	// static constexpr auto _ints_bits = std::to_array<std::pair<const char*, int>>({
-	// 	{"MPX_XM22_FLOW", 0}, 
+	// 	{"MPX_XM22_FLOW", 0},
 	// });
 
 	// struct CHARACTER_STAT_BITS

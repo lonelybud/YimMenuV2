@@ -33,6 +33,10 @@ namespace YimMenu::Features
 
 			// others
 			Stats::SetInt("MPX_CLUB_POPULARITY", 1000);
+
+			// https://www.unknowncheats.me/forum/grand-theft-auto-v/707419-lua-scripts-yimmenuv2-collection-thread-12.html#post4539651
+			for (int i = 24924; i <= 24926; ++i)
+				Stats::SetPackedInt(i, 0); // Money Fronts Businesses Heat Removed!
 		});
 	}
 

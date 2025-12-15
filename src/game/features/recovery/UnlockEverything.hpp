@@ -6,21 +6,6 @@
 
 #include <array>
 
-// notes:
-// SET_MP_INT_CHARACTER_STAT = STATS::STAT_SET_INT
-// MP_INT_STAT_ = MPX_
-// SET_MP_BOOL_AWD_CHARACTER_STAT = STATS::STAT_SET_BOOL
-// MP_BOOL_AWARD_ = MPX_AWD_
-// SET_MP_INT_AWD_CHARACTER_STAT = STATS::STAT_SET_INT
-// MP_INT_AWARD_ = MPX_AWD_
-
-// important links:
-// https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-25.html#post4361972
-// https://www.unknowncheats.me/forum/4367678-post551.html
-// https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-33.html#post4411199
-// https://github.com/YimMenu-Lua/UnlockEverything
-// https://www.unknowncheats.me/forum/grand-theft-auto-v/701294-gta-online-enhanced-awards-stats-3.html
-
 namespace YimMenu
 {
 	void unlock_packed_bools(int from, int to)
@@ -447,4 +432,13 @@ namespace YimMenu::UnlockEverything
 	// 		++index;
 	// 	});
 	// }
+
+	inline void unlock_achievement(int i)
+	{
+		FiberPool::Push([&] {
+			// https://www.unknowncheats.me/forum/grand-theft-auto-v/699311-achievement-unlocker-fo-gta-enhanced.html
+			// https://www.unknowncheats.me/forum/grand-theft-auto-v/500059-globals-locals-discussion-read-page-1-a-37.html#post4539636
+			*ScriptGlobal(4525144).At(1).As<int*>() = i;
+		});
+	}
 }

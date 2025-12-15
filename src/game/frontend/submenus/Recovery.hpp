@@ -117,6 +117,15 @@ namespace YimMenu::Submenus
 			ImGui::SameLine();
 			ImGui::Text("Done: %d/%llu", packed_stat_bool_range_index, UnlockEverything::_packed_stat_bools_range.size());
 
+
+			components::ver_space();
+
+			static int achievmentNo = 1;
+			ImGui::SetNextItemWidth(200);
+			ImGui::SliderInt("Achievment ID", &achievmentNo, 1, 77);
+			if (ImGui::Button("Unlock#achievment"))
+				UnlockEverything::unlock_achievement(achievmentNo);
+
 			// if (ImGui::Button("set_int_bit"))
 			// 	UnlockEverything::set_int_bit(int_bit_index);
 			// ImGui::SameLine();
