@@ -27,14 +27,14 @@ namespace YimMenu::Submenus
 					std::string fileName = vehicle_file_name_input;
 					strcpy(vehicle_file_name_input, "");
 
-					if (!TrimString(fileName).size())
-					{
-						Notifications::Show("Saved Vehicles", "Filename empty!", NotificationType::Warning);
-						return;
-					}
+						if (!TrimString(fileName).size())
+						{
+							Notifications::Show("Saved Vehicles", "Filename empty!", NotificationType::Warning);
+							return;
+						}
 
-					ReplaceString(fileName, ".", ""); // filename say "bob.." will throw relative path error from Folder::GetFile
-					fileName += ".json";
+						ReplaceString(fileName, ".", ""); // filename say "bob.." will throw relative path error from Folder::GetFile
+						fileName += ".json";
 
 					Features::SavedVehicles::Save(saveToNewFolder ? newFolder : folder, fileName);
 
