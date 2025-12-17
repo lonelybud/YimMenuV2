@@ -80,9 +80,6 @@ namespace YimMenu::Submenus
 			if (ImGui::Button("unlock_paints"))
 				UnlockEverything::unlock_paints();
 
-			if (ImGui::Button("set_misc"))
-				UnlockEverything::set_misc();
-
 			static int int_index = 0, bool_index = 0, float_index = 0,
 			           packed_stat_int_index = 0, packed_stat_bool_index = 0,
 			           packed_stat_bool_range_index, int_bit_index, ints_bit_range_index;
@@ -117,6 +114,8 @@ namespace YimMenu::Submenus
 			ImGui::SameLine();
 			ImGui::Text("Done: %d/%llu", packed_stat_bool_range_index, UnlockEverything::_packed_stat_bools_range.size());
 
+			if (ImGui::Button("set_misc"))
+				UnlockEverything::set_misc();
 
 			components::ver_space();
 

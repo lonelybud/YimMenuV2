@@ -33,6 +33,8 @@ namespace YimMenu::UnlockEverything
 {
 	inline void unlock_packed_bools_simple()
 	{
+		// https://github.com/YimMenu-Lua/UnlockEverything
+		// https://www.unknowncheats.me/forum/4376740-post582.html
 		FiberPool::Push([] {
 			unlock_packed_bools(110, 113);     //--Red Check Pajamas, Green Check Pajamas, Black Check Pajamas, I Heart LC T-shirt
 			unlock_packed_bools(3593, 3599);   //--'Statue Of Happiness' T-shirt, 'Pisswasser' Beer Hat, 'Benedict' Beer Hat, 'J Lager' Beer Hat, 'Patriot' Beer Hat, 'Blarneys' Beer Hat, 'Supa Wet' Beer Hat
@@ -174,13 +176,15 @@ namespace YimMenu::UnlockEverything
 			unlock_packed_bools(41656, 41659); //--Squaddie (Trade Price), Suede Bucks Finish, Employee of the Month Finish, Uncle T Finish
 			unlock_packed_bools(41671, 41671); //--Manchez Scout (Trade Price)
 			unlock_packed_bools(41802, 41802); //--Johnny On The Spot Polo
-			unlock_packed_bools(41894, 41894); //--Hinterland Work T-Shirt
+			unlock_packed_bools(41885, 41893); // PRB Shorts, Bleedin' Tasty Shorts, Cluckin' Bell Cuffed Sweats, Santo Capra x Manor Chinos, Hinterland Shorts, Monochrome Striped Suit, Skeleton Bodysuit, Gray Camo Yeti Suit, Festive Flannel Suit
+			unlock_packed_bools(41894, 41896); //--Hinterland Work T-Shirt, The Fist Fury (Female), Love Fist Shortsleeve
 			unlock_packed_bools(41897, 41902); //--Love Fist T-Shirt, San Andreas Federal Reserve T-Shirt, Los Santos, San Andreas T-Shirt, Heist Mask T-Shirt, Los Santos Map T-Shirt, PRB T-Shirt
+			unlock_packed_bools(41903, 41913); // Republican Space Rangers Tee, You Own Los Santos Hoodie, PRB Hoodie, Cluckin' Bell Hoodie, Bleedin' Tasty Hoodie, Rockstar Warp Hoodie, Santo Capra x Manor Chore, Rockstar Gothic Sweater, Rockstar Red Logo Sweater, Rockstar Atomic Logo Sweater, Rockstar Festive Boom Sweater
 			unlock_packed_bools(41915, 41980); //--LS Pounders Cap, Vom Feuer Camo Cap, Western MC Cap, Red & White Ammu-Nation Cap, Santo Capra Cap, Alpine Hat, Alien Tracksuit Pants, Scarlet Vintage Devil Mask, Amber Vintage Devil Mask, Green Vintage Devil Mask, Green Vintage Witch Mask, Yellow Vintage Witch Mask, Orange Vintage Witch Mask, Green Vintage Skull Mask, White Vintage Skull Mask, Brown Vintage Skull Mask, Orange Vintage Werewolf Mask, Blue Vintage Werewolf Mask, Brown Vintage Werewolf Mask, Green Vintage Zombie Mask, Brown Vintage Zombie Mask, Teal Vintage Zombie Mask, Turkey Mask, Royal Calacas Mask, Maritime Calacas Mask, Romance Calacas Mask, Floral Calacas Mask, Stanier LE Cruiser (Trade Price), The Homie, The Retired Criminal, The Groupie, Black SC Ornate Mini Dress, Dark Manor Racing Suit, Bright Manor Racing Suit, Hinterland Bomber Jacket, Red Happy Moon T-Shirt, Black Happy Moon T-Shirt, White Happy Moon T-Shirt, Rockstar Says Relax Tucked T-Shirt, Trevor Heist Mask Tucked T-Shirt, Franklin Heist Mask Tucked T-Shirt, Michael Heist Mask Tucked T-Shirt, Bugstars Tucked T-Shirt, STD Contractors Tucked T-Shirt, Black Los Santos Tucked T-Shirt, San Andreas Republic Tucked T-Shirt, Go Go Space Monkey Tucked T-Shirt, Vom Feuer Camo Tucked T-Shirt, Black SC Ornate Tucked T-Shirt, Warstock Tucked T-Shirt, Western San Andreas Tucked T-Shirt, Ride or Die Tucked T-Shirt, Bourgeoix Tucked T-Shirt, Blêuter'd Tucked T-Shirt, Cherenkov Tucked T-Shirt, Moodymann Portrait Tucked T-Shirt, Rockstar Silver Jubilee Tucked T-Shirt, Rockstar NY Hoodie, Dollar Daggers Hoodie, Merryweather Hoodie, Go Go Space Monkey Hoodie, Rockstar Lion Crest T-Shirt, Ammu-Nation Baseball T-Shirt, Alien Hooded Tracksuit Top, Manor Benefactor Surano T-Shirt, LS Smoking Jacket
 			unlock_packed_bools(41994, 41994); //--Junk Energy Racing Suit
 			unlock_packed_bools(41996, 41996); //--??? T-Shirt
 			unlock_packed_bools(42054, 42054); //--Strapz Bandana
-			unlock_packed_bools(42063, 42063); //--The LS Panic
+			unlock_packed_bools(42062, 42063); //--The Zoophilist, The LS Panic
 			unlock_packed_bools(42068, 42069); //--Snowman Finish, Santa's Helper Finish
 			unlock_packed_bools(42111, 42111); //--The Coast Guard
 			unlock_packed_bools(42119, 42123); //--Yeti Outfit, Snowman Finish, Santa's Helper Finish, Skull Santa Finish, riot unlocked
@@ -188,7 +192,7 @@ namespace YimMenu::UnlockEverything
 			unlock_packed_bools(42128, 42146); //--eCola Festive Sweater, Sprunk Festive Sweater, 1 Party Hat, 2 Party Hat, 3 Party Hat, 4 Party Hat, 5 Party Hat, 6 Party Hat, 7 Party Hat, 8 Party Hat, 9 Party Hat, 10 Party Hat, 11 Party Hat, 12 Party Hat, 13 Party Hat, 14 Party Hat, 15 Party Hat, Bronze Party Outfit, Silver Party Outfit
 			unlock_packed_bools(42148, 42149); //--Snowball Launcher, DâM-FunK - Even the Score
 			unlock_packed_bools(42152, 42190); //--The LSDS, The McTony Security, Wooden Dragon Mask, Contrast Dragon Mask, Regal Dragon Mask, Midnight Dragon Mask, Pink Heart Shades, Red Heart Shades, Orange Heart Shades, Yellow Heart Shades, Green Heart Shades, Blue Heart Shades, Purple Heart Shades, Black Heart Shades, Fireworks Bucket Hat, Stars and Stripes Bucket Hat, Lady Liberty Bucket Hat, Green Festive Tree Hat, Red Festive Tree Hat, Brown Festive Reindeer Hat, White Festive Reindeer Hat, Bronze New Year's Hat, Gold New Year's Hat, Silver New Year's Hat, Sprunk x eCola Bodysuit, Rockstar Racing Suit, Rockstar Helmet, Coil Earth Day Tee, IR Earth Day Tee, White High Brass Tee, Black High Brass Tee, Black Lunar New Year Tee, Bigness Carnival Sports Tee, Green 420 Dress, Red Lunar New Year Dress, Carnival Sun Dress, Carnival Bandana, Bigness Carnival Bucket Hat, Black 420 Forwards Cap
-			unlock_packed_bools(42217, 42217); //--Cluckin' Bell Forwards Cap
+			unlock_packed_bools(42191, 42217); // Cinco de Mayo Tee, Cinco de Mayo Mask, Black Lunar New Year Shirt, Red Lunar New Year Shirt, Black Lunar New Year Pants, Red Lunar New Year Pants, New Year's Jacket, New Year's Pants, Western MC Jacket, Western MC Pants, Heartbreakers Jacket, Heartbreakers Cap, St. Patrick's Day Jacket, St. Patrick's Day Pants, Graffiti Jean Jacket, Graffiti Jeans, Fooligan Vest, Fooligan Tee, Coil Cyclone Tee, Black Los Stantos Cap, Black LS Customs Tee, Black LS Customs Cap, Black LS Customs Neck Gaiter, Vespucci Beach Tee, Vespucci Beach Flip-Flops, Independence Day Jacket, Independence Day Pants, Cluckin' Bell Forwards Cap
 			unlock_packed_bools(42233, 42234); //--BOXVILLE6, BENSON2
 			unlock_packed_bools(42239, 42242); //--CAVALCADE3, IMPALER5, POLGAUNTLET, DORADO
 			unlock_packed_bools(42244, 42247); //--BALLER8, TERMINUS, BOXVILLE6, BENSON2
@@ -314,7 +318,7 @@ namespace YimMenu::UnlockEverything
 	}
 
 	inline void set_misc()
-	{
+	{ // https://github.com/YimMenu-Lua/UnlockEverything/blob/main/WasabiWords.lua
 		FiberPool::Push([] {
 			Stats::SetInt("MPX_HEIST_SAVED_STRAND_0", Tunable("ROOT_ID_HASH_THE_FLECCA_JOB"_J).Get<int>());
 			Stats::SetInt("MPX_HEIST_SAVED_STRAND_0_L", 5);
