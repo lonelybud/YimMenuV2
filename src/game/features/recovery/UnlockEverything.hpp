@@ -337,6 +337,13 @@ namespace YimMenu::UnlockEverything
 	inline void set_int(int& index)
 	{
 		FiberPool::Push([&] {
+			if (index == -1)
+			{
+				for (int i = 0; i < _ints.size(); ++i)
+					Stats::SetInt(_ints[i].first, _ints[i].second);
+				return;
+			}
+
 			if (index >= _ints.size())
 				return;
 
@@ -350,6 +357,13 @@ namespace YimMenu::UnlockEverything
 	inline void set_bool(int& index)
 	{
 		FiberPool::Push([&] {
+			if (index == -1)
+			{
+				for (int i = 0; i < _bools.size(); ++i)
+					Stats::SetBool(_bools[i], true);
+				return;
+			}
+
 			if (index >= _bools.size())
 				return;
 
@@ -363,6 +377,13 @@ namespace YimMenu::UnlockEverything
 	inline void set_float(int& index)
 	{
 		FiberPool::Push([&] {
+			if (index == -1)
+			{
+				for (int i = 0; i < _floats.size(); ++i)
+					Stats::SetFloat(_floats[i].first, _floats[i].second);
+				return;
+			}
+
 			if (index >= _floats.size())
 				return;
 
@@ -376,6 +397,13 @@ namespace YimMenu::UnlockEverything
 	inline void set_packed_stat_int(int& index)
 	{
 		FiberPool::Push([&] {
+			if (index == -1)
+			{
+				for (int i = 0; i < _packed_stat_ints.size(); ++i)
+					Stats::SetPackedInt(_packed_stat_ints[i].first, _packed_stat_ints[i].second);
+				return;
+			}
+
 			if (index >= _packed_stat_ints.size())
 				return;
 
@@ -389,6 +417,13 @@ namespace YimMenu::UnlockEverything
 	inline void set_packed_stat_bool(int& index)
 	{
 		FiberPool::Push([&] {
+			if (index == -1)
+			{
+				for (int i = 0; i < _packed_stat_bools.size(); ++i)
+					Stats::SetPackedBool(_packed_stat_bools[i], true);
+				return;
+			}
+
 			if (index >= _packed_stat_bools.size())
 				return;
 
@@ -402,6 +437,13 @@ namespace YimMenu::UnlockEverything
 	inline void set_packed_stat_bool_range(int& index)
 	{
 		FiberPool::Push([&] {
+			if (index == -1)
+			{
+				for (int i = 0; i < _packed_stat_bools_range.size(); ++i)
+					unlock_packed_bools(_packed_stat_bools_range[i].first, _packed_stat_bools_range[i].second);
+				return;
+			}
+
 			if (index >= _packed_stat_bools_range.size())
 				return;
 
