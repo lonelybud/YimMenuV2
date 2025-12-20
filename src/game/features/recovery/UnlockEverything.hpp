@@ -8,6 +8,14 @@
 
 namespace YimMenu
 {
+	bool check_packed_bools(int from, int to)
+	{
+		for (int i = from; i <= to; ++i)
+			if (!Stats::GetPackedBool(i))
+				return false;
+		return true;
+	};
+
 	void unlock_packed_bools(int from, int to)
 	{
 		for (int i = from; i <= to; ++i)
@@ -283,6 +291,13 @@ namespace YimMenu::UnlockEverything
 			unlock_packed_bools(28319, 28321); // Gen9 clothes
 			unlock_packed_bools(54682, 54707); // stuffs clothings mostly
 			unlock_packed_bools(54711, 54712); // stuffs clothings mostly
+			Stats::SetPackedBool(54664, true); // clothing
+			Stats::SetPackedBool(28344, true); // Lucky Clover Outfit
+			Stats::SetPackedBool(28345, true); // Golden Clover Outfit
+			Stats::SetPackedBool(28351, true); // High Life 420 Outfit
+			unlock_packed_bools(51365, 51378); // Red Year of the Horse Tee, New Year Fireworks Bodysuit, Valentines Onesie, Season's Greetings Sweater, Burgundy Rockstar Varsity Crewneck, Black Rockstar Varsity Crewneck, Navy Rockstar Varsity Crewneck, Los Santos Soccer Jersey, Junk x Jackal Wide, Bigness Crowned Wide, Bigness Crowned Varsity, LS Golf Club Varsity, Pfister Chore Jacket, Feud Anniversary Baseball Shirt
+			unlock_packed_bools(54769, 54772); // KnoWay Hoodie, FIB Bomber, KnoWay Tee, The Hacker
+			unlock_packed_bools(59978, 59980); // Junk x Jackal Tee, Orange Camo Yeti Tee, Burger Shot Tracksuit
 		});
 	}
 
@@ -333,125 +348,152 @@ namespace YimMenu::UnlockEverything
 		});
 	}
 
-	// _ints
-	inline void set_int(int& index)
+	class _StatUnlockMech
 	{
-		FiberPool::Push([&] {
-			if (index == -1)
+		std::vector<int> arr;
+		bool initiated = false, initiating = false;
+
+		bool checkIfStatSame(int index)
+		{
+			auto* base = allStats[index].get();
+			switch (base->type)
 			{
-				for (int i = 0; i < _ints.size(); ++i)
-					Stats::SetInt(_ints[i].first, _ints[i].second);
+			case StatType::Int:
+			{
+				auto* derived = static_cast<IntStat*>(base);
+				return Stats::GetInt(derived->name) == derived->value;
+			}
+			case StatType::Bool:
+			{
+				auto* derived = static_cast<BoolStat*>(base);
+				return Stats::GetBool(derived->name);
+			}
+			case StatType::Float:
+			{
+				auto* derived = static_cast<FloatStat*>(base);
+				return Stats::GetFloat(derived->name) == derived->value;
+			}
+			case StatType::PackedInt:
+			{
+				auto* derived = static_cast<PackedIntStat*>(base);
+				return Stats::GetPackedInt(derived->index) == derived->value;
+			}
+			case StatType::PackedBool:
+			{
+				auto* derived = static_cast<PackedBoolStat*>(base);
+				return Stats::GetPackedBool(derived->index);
+			}
+			case StatType::PackedBoolRange:
+			{
+				auto* derived = static_cast<PackedBoolRangeStat*>(base);
+				return check_packed_bools(derived->from, derived->to);
+			}
+			default:
+			{
+				LOGF(WARNING, "Unknown Stat encountered {}, {}", index, (int)base->type);
+				return true;
+			}
+			}
+		}
+
+		void setStatValue(int index)
+		{
+			auto* base = allStats[index].get();
+			switch (base->type)
+			{
+			case StatType::Int:
+			{
+				auto* derived = static_cast<IntStat*>(base);
+				Stats::SetInt(derived->name, derived->value);
+				LOG(VERBOSE) << index << " " << derived->name << " " << derived->value;
 				return;
 			}
-
-			if (index >= _ints.size())
-				return;
-
-			Stats::SetInt(_ints[index].first, _ints[index].second);
-			// LOG(VERBOSE) << index << " " << _ints[index].first << " " << _ints[index].second;
-			++index;
-		});
-	}
-
-	// _bools
-	inline void set_bool(int& index)
-	{
-		FiberPool::Push([&] {
-			if (index == -1)
+			case StatType::Bool:
 			{
-				for (int i = 0; i < _bools.size(); ++i)
-					Stats::SetBool(_bools[i], true);
+				auto* derived = static_cast<BoolStat*>(base);
+				Stats::SetBool(derived->name, true);
+				LOG(VERBOSE) << index << " " << derived->name;
 				return;
 			}
-
-			if (index >= _bools.size())
-				return;
-
-			Stats::SetBool(_bools[index], true);
-			// LOG(VERBOSE) << index << " " << _bools[index];
-			++index;
-		});
-	}
-
-	// _floats
-	inline void set_float(int& index)
-	{
-		FiberPool::Push([&] {
-			if (index == -1)
+			case StatType::Float:
 			{
-				for (int i = 0; i < _floats.size(); ++i)
-					Stats::SetFloat(_floats[i].first, _floats[i].second);
+				auto* derived = static_cast<FloatStat*>(base);
+				Stats::SetFloat(derived->name, derived->value);
+				LOG(VERBOSE) << index << " " << derived->name << " " << derived->value;
 				return;
 			}
-
-			if (index >= _floats.size())
-				return;
-
-			Stats::SetFloat(_floats[index].first, _floats[index].second);
-			// LOG(VERBOSE) << index << " " << _floats[index].first << " " << _floats[index].second;
-			++index;
-		});
-	}
-
-	// _packed_stat_ints
-	inline void set_packed_stat_int(int& index)
-	{
-		FiberPool::Push([&] {
-			if (index == -1)
+			case StatType::PackedInt:
 			{
-				for (int i = 0; i < _packed_stat_ints.size(); ++i)
-					Stats::SetPackedInt(_packed_stat_ints[i].first, _packed_stat_ints[i].second);
+				auto* derived = static_cast<PackedIntStat*>(base);
+				Stats::SetPackedInt(derived->index, derived->value);
+				LOG(VERBOSE) << index << " " << derived->index << " " << derived->value;
 				return;
 			}
-
-			if (index >= _packed_stat_ints.size())
-				return;
-
-			Stats::SetPackedInt(_packed_stat_ints[index].first, _packed_stat_ints[index].second);
-			// LOG(VERBOSE) << index << " " << _packed_stat_ints[index].first << " " << _packed_stat_ints[index].second;
-			++index;
-		});
-	}
-
-	// _packed_stat_bools
-	inline void set_packed_stat_bool(int& index)
-	{
-		FiberPool::Push([&] {
-			if (index == -1)
+			case StatType::PackedBool:
 			{
-				for (int i = 0; i < _packed_stat_bools.size(); ++i)
-					Stats::SetPackedBool(_packed_stat_bools[i], true);
+				auto* derived = static_cast<PackedBoolStat*>(base);
+				Stats::SetPackedBool(derived->index, true);
+				LOG(VERBOSE) << index << " " << derived->index;
 				return;
 			}
-
-			if (index >= _packed_stat_bools.size())
-				return;
-
-			Stats::SetPackedBool(_packed_stat_bools[index], true);
-			// LOG(VERBOSE) << index << " " << _packed_stat_bools[index];
-			++index;
-		});
-	}
-
-	// _packed_stat_bools_range
-	inline void set_packed_stat_bool_range(int& index)
-	{
-		FiberPool::Push([&] {
-			if (index == -1)
+			case StatType::PackedBoolRange:
 			{
-				for (int i = 0; i < _packed_stat_bools_range.size(); ++i)
-					unlock_packed_bools(_packed_stat_bools_range[i].first, _packed_stat_bools_range[i].second);
+				auto* derived = static_cast<PackedBoolRangeStat*>(base);
+				unlock_packed_bools(derived->from, derived->to);
+				LOG(VERBOSE) << index << " " << derived->from << " " << derived->to;
 				return;
 			}
+			default:
+			{
+				LOGF(WARNING, "Unknown Stat encountered {}, {}", index, (int)base->type);
+				return;
+			}
+			}
+		}
 
-			if (index >= _packed_stat_bools_range.size())
+		int arrMaxCount = 0, arrPos = 0;
+
+	public:
+		int statsUnlocked = 0;
+
+		void setStat()
+		{
+			if (initiating)
 				return;
 
-			unlock_packed_bools(_packed_stat_bools_range[index].first, _packed_stat_bools_range[index].second);
-			// LOG(VERBOSE) << index << " " << _packed_stat_bools_range[index].first << " " << _packed_stat_bools_range[index].second;
-			++index;
-		});
-	}
+			if (!initiated)
+				initiating = true;
+
+			FiberPool::Push([this] {
+				if (initiating)
+				{
+					auto arrSize = allStats.size();
+					arr.resize(arrSize);
+					int loopcount = 0;
+
+					for (int i = 0; i < arrSize; ++i)
+					{
+						if (!checkIfStatSame(i))
+							arr[arrMaxCount++] = i;
+
+						if (loopcount++ % 50 == 0)
+							ScriptMgr::Yield();
+					}
+
+					statsUnlocked = arrSize - arrMaxCount;
+					initiated = true;
+					initiating = false;
+				}
+
+				if (arrPos >= arrMaxCount)
+					return;
+				setStatValue(arr[arrPos]);
+				++arrPos;
+				++statsUnlocked;
+			});
+		}
+	};
+	inline _StatUnlockMech StatUnlockMech;
 
 	// // _ints_bits
 	// inline void set_int_bit(int& index)
@@ -481,7 +523,7 @@ namespace YimMenu::UnlockEverything
 
 	inline void unlock_achievement(int i)
 	{
-		FiberPool::Push([&] {
+		FiberPool::Push([i] {
 			// https://www.unknowncheats.me/forum/grand-theft-auto-v/699311-achievement-unlocker-fo-gta-enhanced.html
 			// https://www.unknowncheats.me/forum/grand-theft-auto-v/500059-globals-locals-discussion-read-page-1-a-37.html#post4539636
 			*ScriptGlobal(4525144).At(1).As<int*>() = i;

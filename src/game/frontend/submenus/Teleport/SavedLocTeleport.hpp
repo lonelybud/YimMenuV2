@@ -14,7 +14,7 @@ namespace YimMenu::Submenus
 
 		std::string new_locname{}, search{}, selected_category = "";
 		SavedLocation selected_telloc;
-		bool delete_modal;
+		bool delete_modal = false;
 
 		void update_telelocations()
 		{

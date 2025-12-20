@@ -73,8 +73,6 @@ namespace YimMenu::Submenus
 	{
 		using SubmenuMenuCategory::SubmenuMenuCategory;
 
-		int dummyMinusOne = -1;
-
 		void Draw()
 		{
 			if (ImGui::Button("unlock_packed_bools_simple"))
@@ -86,57 +84,10 @@ namespace YimMenu::Submenus
 			if (ImGui::Button("set_misc"))
 				UnlockEverything::set_misc();
 
-			static int int_index = 0, bool_index = 0, float_index = 0,
-			           packed_stat_int_index = 0, packed_stat_bool_index = 0,
-			           packed_stat_bool_range_index, int_bit_index, ints_bit_range_index;
-
-			if (ImGui::Button("set_packed_stat_bool"))
-				UnlockEverything::set_packed_stat_bool(packed_stat_bool_index);
+			if (ImGui::Button("unlock_stats"))
+				UnlockEverything::StatUnlockMech.setStat();
 			ImGui::SameLine();
-			// if (ImGui::Button("set_packed_stat_bool_all"))
-			// 	UnlockEverything::set_packed_stat_bool(dummyMinusOne);
-			// ImGui::SameLine();
-			ImGui::Text("Done: %d/%llu", packed_stat_bool_index, UnlockEverything::_packed_stat_bools.size());
-
-			if (ImGui::Button("set_packed_stat_bool_range"))
-				UnlockEverything::set_packed_stat_bool_range(packed_stat_bool_range_index);
-			ImGui::SameLine();
-			// if (ImGui::Button("set_packed_stat_bool_range_all"))
-			// 	UnlockEverything::set_packed_stat_bool_range(dummyMinusOne);
-			// ImGui::SameLine();
-			ImGui::Text("Done: %d/%llu", packed_stat_bool_range_index, UnlockEverything::_packed_stat_bools_range.size());
-
-			if (ImGui::Button("set_packed_stat_int"))
-				UnlockEverything::set_packed_stat_int(packed_stat_int_index);
-			ImGui::SameLine();
-			// if (ImGui::Button("set_packed_stat_int_all"))
-			// 	UnlockEverything::set_packed_stat_int(dummyMinusOne);
-			// ImGui::SameLine();
-			ImGui::Text("Done: %d/%llu", packed_stat_int_index, UnlockEverything::_packed_stat_ints.size());
-
-			if (ImGui::Button("set_int"))
-				UnlockEverything::set_int(int_index);
-			ImGui::SameLine();
-			// if (ImGui::Button("set_int_all"))
-			// 	UnlockEverything::set_int(dummyMinusOne);
-			// ImGui::SameLine();
-			ImGui::Text("Done: %d/%llu", int_index, UnlockEverything::_ints.size());
-
-			if (ImGui::Button("set_bool"))
-				UnlockEverything::set_bool(bool_index);
-			ImGui::SameLine();
-			// if (ImGui::Button("set_bool_all"))
-			// 	UnlockEverything::set_bool(dummyMinusOne);
-			// ImGui::SameLine();
-			ImGui::Text("Done: %d/%llu", bool_index, UnlockEverything::_bools.size());
-
-			if (ImGui::Button("set_float"))
-				UnlockEverything::set_float(float_index);
-			ImGui::SameLine();
-			// if (ImGui::Button("set_float_all"))
-			// 	UnlockEverything::set_float(dummyMinusOne);
-			// ImGui::SameLine();
-			ImGui::Text("Done: %d/%llu", float_index, UnlockEverything::_floats.size());
+			ImGui::Text("Done: %d/%llu", UnlockEverything::StatUnlockMech.statsUnlocked, UnlockEverything::allStats.size());
 
 			components::ver_space();
 
