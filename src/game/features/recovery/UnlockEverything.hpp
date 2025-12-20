@@ -8,12 +8,12 @@
 
 namespace YimMenu
 {
-	bool check_packed_bools(int from, int to)
+	int check_packed_bools(int from, int to)
 	{
 		for (int i = from; i <= to; ++i)
 			if (!Stats::GetPackedBool(i))
-				return false;
-		return true;
+				return i;
+		return -1;
 	};
 
 	void unlock_packed_bools(int from, int to)
@@ -335,6 +335,9 @@ namespace YimMenu::UnlockEverything
 	inline void set_misc()
 	{ // https://github.com/YimMenu-Lua/UnlockEverything/blob/main/WasabiWords.lua
 		FiberPool::Push([] {
+			for (int i = 0; i <= 53; ++i)
+				Stats::SetInt("MPX_TATTOO_FM_UNLOCKS_" + std::to_string(i), -1);
+
 			Stats::SetInt("MPX_HEIST_SAVED_STRAND_0", Tunable("ROOT_ID_HASH_THE_FLECCA_JOB"_J).Get<int>());
 			Stats::SetInt("MPX_HEIST_SAVED_STRAND_0_L", 5);
 			Stats::SetInt("MPX_HEIST_SAVED_STRAND_1", Tunable("ROOT_ID_HASH_THE_PRISON_BREAK"_J).Get<int>());
@@ -361,32 +364,54 @@ namespace YimMenu::UnlockEverything
 			case StatType::Int:
 			{
 				auto* derived = static_cast<IntStat*>(base);
-				return Stats::GetInt(derived->name) == derived->value;
+				auto v = Stats::GetInt(derived->name);
+				auto b = v >= derived->value;
+				// if (!b)
+				// 	LOGF(VERBOSE, "Mismatch StatType::Int {}, curr {}, req {}", derived->name, v, derived->value);
+				return b;
 			}
 			case StatType::Bool:
 			{
 				auto* derived = static_cast<BoolStat*>(base);
-				return Stats::GetBool(derived->name);
+				auto b = Stats::GetBool(derived->name);
+				// if (!b)
+				// 	LOGF(VERBOSE, "Mismatch StatType::Bool {}", derived->name);
+				return b;
 			}
 			case StatType::Float:
 			{
 				auto* derived = static_cast<FloatStat*>(base);
-				return Stats::GetFloat(derived->name) == derived->value;
+				auto v = Stats::GetFloat(derived->name);
+				auto b = v == derived->value;
+				// if (!b)
+				// 	LOGF(VERBOSE, "Mismatch StatType::Float {}, curr {}, req {}", derived->name, v, derived->value);
+				return b;
 			}
 			case StatType::PackedInt:
 			{
 				auto* derived = static_cast<PackedIntStat*>(base);
-				return Stats::GetPackedInt(derived->index) == derived->value;
+				auto v = Stats::GetPackedInt(derived->index);
+				auto b = v >= derived->value;
+				// if (!b)
+				// 	LOGF(VERBOSE, "Mismatch StatType::PackedInt {}, curr {}, req {}", derived->index, v, derived->value);
+				return b;
 			}
 			case StatType::PackedBool:
 			{
 				auto* derived = static_cast<PackedBoolStat*>(base);
-				return Stats::GetPackedBool(derived->index);
+				auto b = Stats::GetPackedBool(derived->index);
+				// if (!b)
+				// 	LOGF(VERBOSE, "Mismatch StatType::PackedBool {}", derived->index);
+				return b;
 			}
 			case StatType::PackedBoolRange:
 			{
 				auto* derived = static_cast<PackedBoolRangeStat*>(base);
-				return check_packed_bools(derived->from, derived->to);
+				auto v = check_packed_bools(derived->from, derived->to);
+				auto b = v == -1;
+				// if (!b)
+				// 	LOGF(VERBOSE, "Mismatch StatType::PackedBoolRange from {}, to {}, faulty {}", derived->from, derived->to, v);
+				return b;
 			}
 			default:
 			{
@@ -405,42 +430,42 @@ namespace YimMenu::UnlockEverything
 			{
 				auto* derived = static_cast<IntStat*>(base);
 				Stats::SetInt(derived->name, derived->value);
-				LOG(VERBOSE) << index << " " << derived->name << " " << derived->value;
+				// LOG(VERBOSE) << index << " " << derived->name << " " << derived->value;
 				return;
 			}
 			case StatType::Bool:
 			{
 				auto* derived = static_cast<BoolStat*>(base);
 				Stats::SetBool(derived->name, true);
-				LOG(VERBOSE) << index << " " << derived->name;
+				// LOG(VERBOSE) << index << " " << derived->name;
 				return;
 			}
 			case StatType::Float:
 			{
 				auto* derived = static_cast<FloatStat*>(base);
 				Stats::SetFloat(derived->name, derived->value);
-				LOG(VERBOSE) << index << " " << derived->name << " " << derived->value;
+				// LOG(VERBOSE) << index << " " << derived->name << " " << derived->value;
 				return;
 			}
 			case StatType::PackedInt:
 			{
 				auto* derived = static_cast<PackedIntStat*>(base);
 				Stats::SetPackedInt(derived->index, derived->value);
-				LOG(VERBOSE) << index << " " << derived->index << " " << derived->value;
+				// LOG(VERBOSE) << index << " " << derived->index << " " << derived->value;
 				return;
 			}
 			case StatType::PackedBool:
 			{
 				auto* derived = static_cast<PackedBoolStat*>(base);
 				Stats::SetPackedBool(derived->index, true);
-				LOG(VERBOSE) << index << " " << derived->index;
+				// LOG(VERBOSE) << index << " " << derived->index;
 				return;
 			}
 			case StatType::PackedBoolRange:
 			{
 				auto* derived = static_cast<PackedBoolRangeStat*>(base);
 				unlock_packed_bools(derived->from, derived->to);
-				LOG(VERBOSE) << index << " " << derived->from << " " << derived->to;
+				// LOG(VERBOSE) << index << " " << derived->from << " " << derived->to;
 				return;
 			}
 			default:
