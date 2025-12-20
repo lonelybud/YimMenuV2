@@ -7,7 +7,7 @@ Before using this menu I recommended using the official [YimMenuV2](https://gith
 
 - State: No setting will be saved to disc.
 - Folder: This menu creates different folder so it will not interfere with yim menu folder.
-- Lobbies & players: Only recommended to play with modders.
+- Lobbies & players: Multiplayer code removed. Play alone in private lobby. Play missions alone.
 - Features: Only few features exist.
 - Lua: No support. Do hard code.
 - Language: Only english
