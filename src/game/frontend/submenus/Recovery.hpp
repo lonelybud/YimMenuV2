@@ -87,7 +87,8 @@ namespace YimMenu::Submenus
 			if (ImGui::Button("unlock_stats"))
 				UnlockEverything::StatUnlockMech.setStat();
 			ImGui::SameLine();
-			ImGui::Text("Done: %d/%llu", UnlockEverything::StatUnlockMech.statsUnlocked, UnlockEverything::allStats.size());
+			ImGui::Checkbox("Log locked stats in console", &UnlockEverything::StatUnlockMech.logging);
+			ImGui::Text("Stats Done: %d/%llu", UnlockEverything::StatUnlockMech.statsUnlocked, UnlockEverything::allStats.size());
 
 			components::ver_space();
 

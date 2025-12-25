@@ -17,6 +17,8 @@
 // https://www.unknowncheats.me/forum/grand-theft-auto-v/500059-globals-locals-discussion-read-page-1-a-37.html#post4539636
 // https://www.unknowncheats.me/forum/grand-theft-auto-v/701294-gta-online-enhanced-awards-stats-7.html#post4539241
 
+// not implemented
+// https://www.unknowncheats.me/forum/grand-theft-auto-v/707419-lua-scripts-yimmenuv2-collection-thread-21.html#post4551843
 
 namespace YimMenu::UnlockEverything
 {
@@ -28,7 +30,8 @@ namespace YimMenu::UnlockEverything
 		Float,
 		PackedBool,
 		PackedInt,
-		PackedBoolRange
+		PackedBoolRange,
+		IntBit
 	};
 	class StatCommon
 	{
@@ -38,7 +41,6 @@ namespace YimMenu::UnlockEverything
 		    type(t)
 		{
 		}
-		
 	};
 	class IntStat : public StatCommon
 	{
@@ -105,6 +107,19 @@ namespace YimMenu::UnlockEverything
 		    StatCommon(StatType::PackedBoolRange),
 		    from(i),
 		    to(v)
+		{
+		}
+	};
+
+	class IntBitStat : public StatCommon
+	{
+	public:
+		std::string name;
+		int bit;
+		IntBitStat(std::string n, int b):
+		    StatCommon(StatType::IntBit),
+		    name(n),
+		    bit(b)
 		{
 		}
 	};
@@ -637,6 +652,8 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<PackedBoolRangeStat>(54776, 54780),
 	    std::make_shared<PackedBoolRangeStat>(54781, 54785),
 	    std::make_shared<PackedBoolRangeStat>(54737, 54761),
+	    std::make_shared<BoolStat>("MPPLY_FEATURED_COMMUNITY_JOB"), // https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-47.html#post4549660
+	    std::make_shared<PackedBoolRangeStat>(51192, 51195),        // https://www.unknowncheats.me/forum/grand-theft-auto-v/707419-lua-scripts-yimmenuv2-collection-thread-12.html#post4539651
 
 	    // career *******************************************************************************
 
@@ -893,8 +910,8 @@ namespace YimMenu::UnlockEverything
 	    // THE CAYO PERICO HEIST
 	    std::make_shared<PackedBoolStat>(30309),
 	    std::make_shared<PackedBoolStat>(30522),
-	    std::make_shared<IntStat>("MPX_H4_MISSIONS", -1),
-	    std::make_shared<IntStat>("MPX_H4_PROGRESS", -1),
+	    std::make_shared<IntBitStat>("MPX_H4_MISSIONS", 0),
+	    std::make_shared<IntBitStat>("MPX_H4_PROGRESS", 1),
 	    std::make_shared<IntStat>("MPX_H4_H4_DJ_MISSIONS", -1),
 	    std::make_shared<PackedBoolStat>(41677),
 	    std::make_shared<IntStat>("MPX_PROG_HUB_CAYO_PRP_NO_DEATHS", 25),
@@ -1493,5 +1510,4 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_AWD_TAXIDESTRUCTION", 20),
 	    std::make_shared<BoolStat>("MPX_AWD_ONTHECLOCK"),
 	};
-
 }

@@ -22,17 +22,17 @@ namespace YimMenu
 			Stats::SetPackedBool(i, true);
 	};
 
-	// void SET_MP_INT_CHARACTER_STAT_BIT(std::string statName, int bit)
-	// {
-	// 	auto val = Stats::GetInt(statName);
-	// 	val |= 2^bit;
-	// 	Stats::SetInt(statName, val);
-	// }
+	void SET_MP_INT_CHARACTER_STAT_BIT(std::string statName, int bit)
+	{
+		auto val = Stats::GetInt(statName);
+		val |= (1U << bit);
+		Stats::SetInt(statName, val);
+	}
 	// void SET_MP_INT_CHARACTER_STAT_BITS(std::string statName, int fromBit, int toBit)
 	// {
 	// 	auto val = Stats::GetInt(statName);
 	// 	for (int i = fromBit; i <= toBit; i++)
-	// 		val |= 2^i;
+	// 		val |= (1 << i);
 	// 	Stats::SetInt(statName, val);
 	// }
 }
@@ -366,16 +366,16 @@ namespace YimMenu::UnlockEverything
 				auto* derived = static_cast<IntStat*>(base);
 				auto v = Stats::GetInt(derived->name);
 				auto b = v >= derived->value;
-				// if (!b)
-				// 	LOGF(VERBOSE, "Mismatch StatType::Int {}, curr {}, req {}", derived->name, v, derived->value);
+				if (logging && !b)
+					LOGF(VERBOSE, "Mismatch StatType::Int {}, curr {}, req {}", derived->name, v, derived->value);
 				return b;
 			}
 			case StatType::Bool:
 			{
 				auto* derived = static_cast<BoolStat*>(base);
 				auto b = Stats::GetBool(derived->name);
-				// if (!b)
-				// 	LOGF(VERBOSE, "Mismatch StatType::Bool {}", derived->name);
+				if (logging && !b)
+					LOGF(VERBOSE, "Mismatch StatType::Bool {}", derived->name);
 				return b;
 			}
 			case StatType::Float:
@@ -383,8 +383,8 @@ namespace YimMenu::UnlockEverything
 				auto* derived = static_cast<FloatStat*>(base);
 				auto v = Stats::GetFloat(derived->name);
 				auto b = v == derived->value;
-				// if (!b)
-				// 	LOGF(VERBOSE, "Mismatch StatType::Float {}, curr {}, req {}", derived->name, v, derived->value);
+				if (logging && !b)
+					LOGF(VERBOSE, "Mismatch StatType::Float {}, curr {}, req {}", derived->name, v, derived->value);
 				return b;
 			}
 			case StatType::PackedInt:
@@ -392,16 +392,16 @@ namespace YimMenu::UnlockEverything
 				auto* derived = static_cast<PackedIntStat*>(base);
 				auto v = Stats::GetPackedInt(derived->index);
 				auto b = v >= derived->value;
-				// if (!b)
-				// 	LOGF(VERBOSE, "Mismatch StatType::PackedInt {}, curr {}, req {}", derived->index, v, derived->value);
+				if (logging && !b)
+					LOGF(VERBOSE, "Mismatch StatType::PackedInt {}, curr {}, req {}", derived->index, v, derived->value);
 				return b;
 			}
 			case StatType::PackedBool:
 			{
 				auto* derived = static_cast<PackedBoolStat*>(base);
 				auto b = Stats::GetPackedBool(derived->index);
-				// if (!b)
-				// 	LOGF(VERBOSE, "Mismatch StatType::PackedBool {}", derived->index);
+				if (logging && !b)
+					LOGF(VERBOSE, "Mismatch StatType::PackedBool {}", derived->index);
 				return b;
 			}
 			case StatType::PackedBoolRange:
@@ -409,8 +409,17 @@ namespace YimMenu::UnlockEverything
 				auto* derived = static_cast<PackedBoolRangeStat*>(base);
 				auto v = check_packed_bools(derived->from, derived->to);
 				auto b = v == -1;
-				// if (!b)
-				// 	LOGF(VERBOSE, "Mismatch StatType::PackedBoolRange from {}, to {}, faulty {}", derived->from, derived->to, v);
+				if (logging && !b)
+					LOGF(VERBOSE, "Mismatch StatType::PackedBoolRange from {}, to {}, faulty {}", derived->from, derived->to, v);
+				return b;
+			}
+			case StatType::IntBit:
+			{
+				auto* derived = static_cast<IntBitStat*>(base);
+				auto v = Stats::GetInt(derived->name);
+				auto b = (v >> derived->bit) & 1U;
+				if (logging && !b)
+					LOGF(VERBOSE, "Mismatch StatType::IntBit {}, value {}, req bit {}", derived->name, v, derived->bit);
 				return b;
 			}
 			default:
@@ -468,6 +477,14 @@ namespace YimMenu::UnlockEverything
 				// LOG(VERBOSE) << index << " " << derived->from << " " << derived->to;
 				return;
 			}
+			case StatType::IntBit:
+			{
+				auto* derived = static_cast<IntBitStat*>(base);
+				SET_MP_INT_CHARACTER_STAT_BIT(derived->name, derived->bit);
+				// LOG(VERBOSE) << index << " " << derived->name << " " << derived->bit;
+				return;
+			}
+
 			default:
 			{
 				LOGF(WARNING, "Unknown Stat encountered {}, {}", index, (int)base->type);
@@ -479,6 +496,7 @@ namespace YimMenu::UnlockEverything
 		int arrMaxCount = 0, arrPos = 0;
 
 	public:
+		bool logging = false;
 		int statsUnlocked = 0;
 
 		void setStat()
@@ -519,32 +537,6 @@ namespace YimMenu::UnlockEverything
 		}
 	};
 	inline _StatUnlockMech StatUnlockMech;
-
-	// // _ints_bits
-	// inline void set_int_bit(int& index)
-	// {
-	// 	FiberPool::Push([&] {
-	// 		if (index >= _ints_bits.size())
-	// 			return;
-
-	// 		SET_MP_INT_CHARACTER_STAT_BIT(_ints_bits[index].first, _ints_bits[index].second);
-	// 		// LOG(VERBOSE) << index << " " << _ints_bits[index].first << " " << _ints_bits[index].second;
-	// 		++index;
-	// 	});
-	// }
-
-	// // _ints_bits_range
-	// inline void set_ints_bit_range(int& index)
-	// {
-	// 	FiberPool::Push([&] {
-	// 		if (index >= _ints_bits_range.size())
-	// 			return;
-
-	// 		SET_MP_INT_CHARACTER_STAT_BITS(_ints_bits_range[index].first, _ints_bits_range[index].second, _ints_bits_range[index].third);
-	// 		// LOG(VERBOSE) << index << " " << _ints_bits_range[index].first << " " << _ints_bits_range[index].second << " " << _ints_bits_range[index].third;
-	// 		++index;
-	// 	});
-	// }
 
 	inline void unlock_achievement(int i)
 	{
