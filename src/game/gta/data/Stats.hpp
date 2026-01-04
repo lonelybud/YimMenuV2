@@ -654,6 +654,7 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<PackedBoolRangeStat>(54786, 54817),          // mantion tropies; Trade price for vehicles
 	    std::make_shared<IntStat>("MPPLY_MANSION_DISCOUNT_STATE", 1), // https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-45.html#post4540660
 	    std::make_shared<PackedBoolStat>(54670),                      // https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-45.html#post4540660
+	    std::make_shared<IntStat>("MPX_M25_GENERAL_BS", 16511),       // https://www.unknowncheats.me/forum/4539241-post138.html
 
 	    // career *******************************************************************************
 

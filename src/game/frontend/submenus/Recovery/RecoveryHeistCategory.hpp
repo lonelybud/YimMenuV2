@@ -66,6 +66,13 @@ namespace YimMenu::Submenus
 				});
 
 			components::ver_space();
+			// https://www.unknowncheats.me/forum/4539241-post138.html
+			if (ImGui::Button("KnoWay out preps skip"))
+				FiberPool::Push([] {
+					Stats::SetInt("MPX_M25_AVI_MISSION_CURRENT", 4);
+				});
+
+			components::ver_space();
 			// https://www.unknowncheats.me/forum/grand-theft-auto-v/699943-stats-editor-external-enhanced-12.html
 			static int contract = -1;
 			ImGui::Text("Select the contract on board first...");
