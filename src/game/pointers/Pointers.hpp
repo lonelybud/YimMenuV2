@@ -117,12 +117,12 @@ namespace YimMenu
 		std::uint32_t* GameTimer;
 		int* HasGTAPlus;
 		PVOID BattlEyeServerProcessPlayerJoin;
-		rage::gameSkeleton* GameSkeleton;
 		PVOID Nullsub;
 		rage::Obf32** AnticheatInitializedHash;
 		PVOID GetAnticheatInitializedHash;
 		PVOID GetAnticheatInitializedHash2;
 		CAnticheatContext** AnticheatContext;
+		PVOID GameSkeletonUpdate;
 	};
 
 	struct Pointers : PointerData

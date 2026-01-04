@@ -18,6 +18,7 @@ namespace rage
 	class datBitBuffer;
 	class JsonSerializer;
 	class rlMetric;
+	struct gameSkeleton;
 }
 
 namespace YimMenu
@@ -38,6 +39,7 @@ namespace YimMenu::Hooks
 	namespace Anticheat
 	{
 		extern void QueueDependency(__int64 a1);
+		extern void GameSkeletonUpdate(rage::gameSkeleton* skeleton, int type);
 		extern bool PrepareMetricForSending(rage::JsonSerializer* ser, void* a2, void* a3, rage::rlMetric* metric);
 		extern BOOL GetThreadContext(HANDLE hThread, LPCONTEXT lpContext);
 		extern void HttpStartRequest(void* request);
