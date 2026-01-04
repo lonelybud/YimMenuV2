@@ -24,7 +24,7 @@ namespace YimMenu
 		m_Name = std::format("{} ({})", HUD::GET_FILENAME_FOR_AUDIO_CONVERSATION(VEHICLE::GET_DISPLAY_NAME_FROM_VEHICLE_MODEL(m_Model)), m_Plate);
 	}
 
-	int PersonalVehicles::PersonalVehicle::GetId()
+	int PersonalVehicles::PersonalVehicle::GetId() const
 	{
 		return m_Id;
 	}

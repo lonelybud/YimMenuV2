@@ -7,7 +7,6 @@
 #include "game/gta/Natives.hpp"
 #include "types/rage/gameSkeleton.hpp"
 #include "types/anticheat/CAnticheatContext.hpp"
-#include "types/game_files/CGameDataHash.hpp"
 
 using FnGetVersion = int (*)();
 using FnLocalSaves = bool (*)();

@@ -22,7 +22,7 @@ namespace YimMenu
 		public:
 			PersonalVehicle(int id, MPSV_Entry* data);
 
-			int GetId();
+			int GetId() const;
 			MPSV_Entry* GetData();
 			std::string GetName();
 
