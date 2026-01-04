@@ -116,7 +116,7 @@ namespace YimMenu::UnlockEverything
 	public:
 		std::string name;
 		int bit;
-		IntBitStat(std::string n, int b):
+		IntBitStat(std::string n, int b) :
 		    StatCommon(StatType::IntBit),
 		    name(n),
 		    bit(b)
@@ -130,9 +130,6 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<PackedBoolStat>(36839),
 	    std::make_shared<PackedBoolStat>(36843),
 	    std::make_shared<PackedBoolStat>(36841),
-	    std::make_shared<PackedBoolStat>(54786),
-	    std::make_shared<PackedBoolStat>(54787),
-	    std::make_shared<PackedBoolStat>(54817),
 	    std::make_shared<PackedIntStat>(7315, 6),
 	    std::make_shared<PackedIntStat>(18981, 4),
 	    std::make_shared<PackedIntStat>(22051, 50),
@@ -652,8 +649,11 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<PackedBoolRangeStat>(54776, 54780),
 	    std::make_shared<PackedBoolRangeStat>(54781, 54785),
 	    std::make_shared<PackedBoolRangeStat>(54737, 54761),
-	    std::make_shared<BoolStat>("MPPLY_FEATURED_COMMUNITY_JOB"), // https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-47.html#post4549660
-	    std::make_shared<PackedBoolRangeStat>(51192, 51195),        // https://www.unknowncheats.me/forum/grand-theft-auto-v/707419-lua-scripts-yimmenuv2-collection-thread-12.html#post4539651
+	    std::make_shared<BoolStat>("MPPLY_FEATURED_COMMUNITY_JOB"),   // https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-47.html#post4549660
+	    std::make_shared<PackedBoolRangeStat>(51192, 51195),          // https://www.unknowncheats.me/forum/grand-theft-auto-v/707419-lua-scripts-yimmenuv2-collection-thread-12.html#post4539651
+	    std::make_shared<PackedBoolRangeStat>(54786, 54817),          // mantion tropies; Trade price for vehicles
+	    std::make_shared<IntStat>("MPPLY_MANSION_DISCOUNT_STATE", 1), // https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-45.html#post4540660
+	    std::make_shared<PackedBoolStat>(54670),                      // https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-45.html#post4540660
 
 	    // career *******************************************************************************
 

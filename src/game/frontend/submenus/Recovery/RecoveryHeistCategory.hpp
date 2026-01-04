@@ -15,6 +15,15 @@ namespace YimMenu::Submenus
 	    "Madrazo Files",
 	    "Panther Statue (1.9M)"};
 	const char* casino_targets[] = {"Money", "Gold", "Art", "Diamonds"};
+	const char* autoshop_contracts[] = {
+	    "The Union Depository",
+	    "The Superdollar Deal",
+	    "The Bank Contract",
+	    "The ECU Job",
+	    "The Prison Contract",
+	    "The Agency Deal",
+	    "The LOST Contract",
+	    "The Data Contract"};
 
 	class RecoveryHeistCategory : public SubmenuMenuCategory
 	{
@@ -41,7 +50,7 @@ namespace YimMenu::Submenus
 
 			components::ver_space();
 			// https://www.unknowncheats.me/forum/grand-theft-auto-v/461672-gtahax-1-70-external-thread-3-a-214.html
-			// https://github.com/SilentSalo/SilentNight/blob/1f7c02b31afa24f029a892f21d82c789fbc4189f/Yim/Silent_Night_v0.0.5.lua#L565
+			// https://github.com/SilentSalo/SilentNight/blob/1f7c02b31afa24f029a892f21d82c789fbc4189f/Yim/Silent_Night_v0.0.5.lua#L663
 			if (ImGui::Button("Cluckin Bell preps skip"))
 				FiberPool::Push([] {
 					Stats::SetInt("MPX_SALV23_INST_PROG", 31);
@@ -57,9 +66,30 @@ namespace YimMenu::Submenus
 				});
 
 			components::ver_space();
+			// https://www.unknowncheats.me/forum/grand-theft-auto-v/699943-stats-editor-external-enhanced-12.html
+			static int contract = -1;
+			ImGui::Text("Select the contract on board first...");
+			ImGui::SetNextItemWidth(200.f);
+			if (ImGui::BeginCombo("AutoShop Contract", contract == -1 ? "unkown" : autoshop_contracts[contract]))
+			{
+				for (int i = 0; i < 8; ++i)
+					if (ImGui::Selectable(autoshop_contracts[i], i == contract))
+						contract = i;
+				ImGui::EndCombo();
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("Set Contract"))
+				if (contract != -1)
+					FiberPool::Push([] {
+						Stats::SetInt("MPX_TUNER_CURRENT", contract);
+						Stats::SetInt("MPX_TUNER_GEN_BS", -1);
+					});
+
+			components::ver_space();
 			// https://www.unknowncheats.me/forum/grand-theft-auto-v/368204-skip-casino-heist-preps-using-gtahax.html
 			// https://github.com/YimMenu-Lua/Casino-Pacino/blob/main/CasinoPacino.lua
-			if (ImGui::Button("Casino Heist Prep Skip (Note: go scope & select approach next)"))
+			ImGui::Text("scope target in casino & select approach afterwards...");
+			if (ImGui::Button("Casino Heist Prep Skip"))
 				FiberPool::Push([] {
 					Stats::SetInt("MPX_H3OPT_POI", 1023);
 					Stats::SetInt("MPX_H3OPT_ACCESSPOINTS", 2047);
@@ -102,6 +132,7 @@ namespace YimMenu::Submenus
 						Stats::SetInt("MPX_H3OPT_BITSET0", 8388607); // 5767190
 					}
 				});
+			ImGui::SameLine();
 			if (ImGui::Button("Casino Heist LOG"))
 				FiberPool::Push([] {
 					auto casinoTarget = Stats::GetInt("MPX_H3OPT_TARGET");
@@ -114,7 +145,8 @@ namespace YimMenu::Submenus
 
 			components::ver_space();
 			// https: //www.unknowncheats.me/forum/grand-theft-auto-v/431801-cayo-perico-heist-click-61.html
-			if (ImGui::Button("Cayo Perico prep skip (Note: scope first)"))
+			ImGui::Text("scope the island first...");
+			if (ImGui::Button("Cayo Perico prep skip"))
 				FiberPool::Push([] {
 					Stats::SetInt("MPX_H4CNF_APPROACH", 223);  // unlock all approach vehicles (fixed)
 					Stats::SetInt("MPX_H4CNF_WEAPONS", 1);     // aggressor
@@ -139,6 +171,7 @@ namespace YimMenu::Submenus
 					// if (auto thread = Scripts::FindScriptThread("heist_island_planning"_J))
 					// 	*ScriptLocal(thread, 1570).As<int*>() = 2;
 				});
+			ImGui::SameLine();
 			if (ImGui::Button("Cayo Perico LOG"))
 				FiberPool::Push([] {
 					auto cayoTarget = Stats::GetInt("MPX_H4CNF_TARGET");

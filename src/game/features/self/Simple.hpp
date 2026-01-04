@@ -2,6 +2,7 @@
 #include "game/backend/Self.hpp"
 #include "game/gta/Natives.hpp"
 #include "game/gta/Stats.hpp"
+#include "game/backend/Tunables.hpp"
 #include "game/gta/data/Weapons.hpp"
 
 namespace YimMenu::Features
@@ -37,6 +38,8 @@ namespace YimMenu::Features
 			// https://www.unknowncheats.me/forum/grand-theft-auto-v/707419-lua-scripts-yimmenuv2-collection-thread-12.html#post4539651
 			for (int i = 24924; i <= 24926; ++i)
 				Stats::SetPackedInt(i, 0); // Money Fronts Businesses Heat Removed!
+
+			Tunable("CHARACTER_APPEARANCE_COOLDOWN"_J).Set(0);
 		});
 	}
 

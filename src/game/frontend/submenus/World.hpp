@@ -25,6 +25,11 @@ namespace YimMenu::Submenus
 
 			components::checkbox(YimMenu::Features::_ForceThunder);
 			components::checkbox(YimMenu::Features::_PedIgnore);
+			if (ImGui::Button("Toggle Snow"))
+				FiberPool::Push([] {
+					auto t = Tunable("TURN_SNOW_ON_OFF"_J);
+					t.Set(t.Get<int>() ? 0 : 1);
+				});
 
 			components::ver_space();
 
