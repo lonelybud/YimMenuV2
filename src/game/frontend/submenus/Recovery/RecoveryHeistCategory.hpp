@@ -15,6 +15,7 @@ namespace YimMenu::Submenus
 	    "Madrazo Files",
 	    "Panther Statue (1.9M)"};
 	const char* casino_targets[] = {"Money", "Gold", "Art", "Diamonds"};
+	const char* casino_approach[] = {"Unselected", "Silent & Sneaky", "The Big Con", "Aggressive"};
 	const char* autoshop_contracts[] = {
 	    "The Union Depository",
 	    "The Superdollar Deal",
@@ -95,15 +96,29 @@ namespace YimMenu::Submenus
 			components::ver_space();
 			// https://www.unknowncheats.me/forum/grand-theft-auto-v/368204-skip-casino-heist-preps-using-gtahax.html
 			// https://github.com/YimMenu-Lua/Casino-Pacino/blob/main/CasinoPacino.lua
-			ImGui::Text("scope target in casino & select approach afterwards...");
+			ImGui::Text("Dont use for hard mode!!! Pay the setup fees first...");
 			if (ImGui::Button("Casino Heist Prep Skip"))
 				FiberPool::Push([] {
 					Stats::SetInt("MPX_H3OPT_POI", 1023);
 					Stats::SetInt("MPX_H3OPT_ACCESSPOINTS", 2047);
+					Stats::SetInt("MPX_H3OPT_BITSET1", 1); // scope the vault
 
-					auto approach = Stats::GetInt("MPX_H3OPT_APPROACH"); // "Unselected", "Silent & Sneaky", "The Big Con", "Aggressive"
-					if (approach == 0)
+					auto casinoTarget = Stats::GetInt("MPX_H3OPT_TARGET");
+					auto lastApproach = Stats::GetInt("MPX_H3_LAST_APPROACH"); // "Unselected", "Silent & Sneaky", "The Big Con", "Aggressive"
+
+					LOG(VERBOSE) << "casinoTarget " << (casinoTarget == -1 ? "Unknown" : casino_targets[casinoTarget]);
+					LOG(VERBOSE) << "lastApproach " << casino_approach[lastApproach];
+
+					if (lastApproach == 1 || lastApproach == 3) // "Silent & Sneaky" ||  "Aggressive"
+						Stats::SetInt("MPX_H3OPT_APPROACH", 2); // "The Big Con"
+					else if (lastApproach == 2)                 // "The Big Con"
+						Stats::SetInt("MPX_H3OPT_APPROACH", 1); // "Silent & Sneaky"
+
+					auto approach = Stats::GetInt("MPX_H3OPT_APPROACH");
+					if (approach == 0) // no approach selected (please select manually)
 						return;
+
+					LOG(VERBOSE) << "currApproach " << casino_approach[approach];
 
 					Stats::SetInt("MPX_H3OPT_CREWDRIVER", 1); // Karim Denz
 					Stats::SetInt("MPX_H3OPT_CREWHACKER", 5); // Paige Harris
@@ -139,22 +154,27 @@ namespace YimMenu::Submenus
 						Stats::SetInt("MPX_H3OPT_BITSET0", 8388607); // 5767190
 					}
 				});
-			ImGui::SameLine();
-			if (ImGui::Button("Casino Heist LOG"))
-				FiberPool::Push([] {
-					auto casinoTarget = Stats::GetInt("MPX_H3OPT_TARGET");
-					LOG(VERBOSE) << "casinoTarget " << (casinoTarget == -1 ? "Unknown" : casino_targets[casinoTarget]);
-					// BITSET0 = Stats::GetInt("MPX_H3OPT_BITSET0");
-					// BITSET1 = Stats::GetInt("MPX_H3OPT_BITSET1");
-					// LOG(VERBOSE) << "MPX_H3OPT_BITSET1 " << BITSET1;
-					// LOG(VERBOSE) << "MPX_H3OPT_BITSET0 " << BITSET0;
-				});
 
 			components::ver_space();
 			// https: //www.unknowncheats.me/forum/grand-theft-auto-v/431801-cayo-perico-heist-click-61.html
-			ImGui::Text("scope the island first...");
+			static bool scope_cayo_island = false;
+			ImGui::Text("Dont use for hard mode!!! Pay the setup fees first...");
 			if (ImGui::Button("Cayo Perico prep skip"))
 				FiberPool::Push([] {
+					auto cayoTarget = Stats::GetInt("MPX_H4CNF_TARGET");
+					LOG(VERBOSE) << "CayoTarget " << (cayoTarget == -1 ? "Unknown" : cayo_targets[cayoTarget]);
+
+					if (scope_cayo_island)
+					{
+						Stats::SetInt("MPX_H4LOOT_CASH_I_SCOPED", Stats::GetInt("MPX_H4LOOT_CASH_I"));
+						Stats::SetInt("MPX_H4LOOT_COKE_I_SCOPED", Stats::GetInt("MPX_H4LOOT_COKE_I"));
+						Stats::SetInt("MPX_H4LOOT_WEED_I_SCOPED", Stats::GetInt("MPX_H4LOOT_WEED_I"));
+					}
+
+					Stats::SetInt("MPX_H4LOOT_CASH_C_SCOPED", Stats::GetInt("MPX_H4LOOT_CASH_C"));
+					Stats::SetInt("MPX_H4LOOT_GOLD_C_SCOPED", Stats::GetInt("MPX_H4LOOT_GOLD_C"));
+					Stats::SetInt("MPX_H4LOOT_PAINT_SCOPED", Stats::GetInt("MPX_H4LOOT_PAINT"));
+
 					Stats::SetInt("MPX_H4CNF_APPROACH", 223);  // unlock all approach vehicles (fixed)
 					Stats::SetInt("MPX_H4CNF_WEAPONS", 1);     // aggressor
 					Stats::SetInt("MPX_H4CNF_BS_GEN", 196608); // 196608, all points of interest (fixed)
@@ -165,7 +185,7 @@ namespace YimMenu::Submenus
 					Stats::SetInt("MPX_H4_MISSIONS", 65027); // all prep
 
 					ScriptMgr::Yield(500ms);
-					if (Stats::GetInt("MPX_H4CNF_TARGET") == 2) // Bearer Bonds
+					if (cayoTarget == 2) // Bearer Bonds
 						Stats::SetInt("MPX_H4_PROGRESS", 123051);
 					else
 						Stats::SetInt("MPX_H4_PROGRESS", 90147);
@@ -179,13 +199,7 @@ namespace YimMenu::Submenus
 					// 	*ScriptLocal(thread, 1570).As<int*>() = 2;
 				});
 			ImGui::SameLine();
-			if (ImGui::Button("Cayo Perico LOG"))
-				FiberPool::Push([] {
-					auto cayoTarget = Stats::GetInt("MPX_H4CNF_TARGET");
-					LOG(VERBOSE) << "cayoTarget " << (cayoTarget == -1 ? "Unknown" : cayo_targets[cayoTarget]);
-					// LOG(VERBOSE) << Stats::GetInt("MPX_H4_PROGRESS");
-					// LOG(VERBOSE) << Stats::GetInt("MPX_H4_MISSIONS");
-				});
+			ImGui::Checkbox("Scope Island targets?", &scope_cayo_island);
 
 			components::ver_space();
 			// https://github.com/YimMenu/YimMenuV2/blob/enhanced/src/game/features/recovery/Heist/DoomsdayHeist.cpp

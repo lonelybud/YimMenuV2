@@ -1,3 +1,4 @@
+#pragma once
 #include "core/backend/FiberPool.hpp"
 #include "game/gta/Stats.hpp"
 #include "game/gta/data/Stats.hpp"

@@ -12,6 +12,7 @@
 #include "submenus/Teleport/Teleport.hpp"
 #include "submenus/vehicle/Vehicle.hpp"
 #include "submenus/World.hpp"
+#include "submenus/Misc.hpp"
 
 namespace YimMenu
 {
@@ -23,6 +24,7 @@ namespace YimMenu
 		UIManager::AddSubmenu(std::make_shared<Submenus::VehicleSubmenu>());
 		UIManager::AddSubmenu(std::make_shared<Submenus::RecoverySubmenu>());
 		UIManager::AddSubmenu(std::make_shared<Submenus::WorldSubmenu>());
+		UIManager::AddSubmenu(std::make_shared<Submenus::MiscSubmenu>());
 
 		Renderer::AddRendererCallBack(
 		    [&] {
