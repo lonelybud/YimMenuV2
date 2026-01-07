@@ -4,6 +4,7 @@
 #include "core/backend/FiberPool.hpp"
 #include "game/gta/ScriptFunction.hpp"
 #include "game/gta/Stats.hpp"
+#include "types/script/globals/GPBD_FM_2.hpp"
 
 namespace YimMenu::Submenus
 {
@@ -61,6 +62,7 @@ namespace YimMenu::Submenus
 			// https://www.unknowncheats.me/forum/grand-theft-auto-v/699943-stats-editor-external-enhanced-12.html
 			// https://www.unknowncheats.me/forum/grand-theft-auto-v/698429-skip-cooldown-mission-selector-deguzman.html
 			// https://www.unknowncheats.me/forum/4349818-post4919.html
+			ImGui::Text("Do the first setup misson on hard mode...");
 			if (ImGui::Button("Oscar gunzman flies again preps skip"))
 				FiberPool::Push([] {
 					Stats::SetInt("MPX_HACKER24_INST_BS", 31);
@@ -237,6 +239,17 @@ namespace YimMenu::Submenus
 					// ScriptMgr::Yield(500ms);
 					// if (auto thread = Scripts::FindScriptThread("gb_gang_ops_planning"_J))
 					// 	*ScriptLocal(thread, 211).As<int*>() = 6;
+				});
+			ImGui::SameLine();
+			if (ImGui::Button("Forces all players Ready"))
+				FiberPool::Push([] {
+					if (auto gpbd_fm_2 = GPBD_FM_2::Get())
+					{
+						gpbd_fm_2->Entries[0].GangopsData.ArePlayersReady[0] = TRUE;
+						gpbd_fm_2->Entries[1].GangopsData.ArePlayersReady[1] = TRUE;
+						gpbd_fm_2->Entries[2].GangopsData.ArePlayersReady[2] = TRUE;
+						gpbd_fm_2->Entries[3].GangopsData.ArePlayersReady[3] = TRUE;
+					}
 				});
 		}
 	};
