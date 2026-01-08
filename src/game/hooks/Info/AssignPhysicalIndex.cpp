@@ -17,16 +17,11 @@ namespace YimMenu::Hooks
 			if (player->m_PlayerIndex != 255)
 				LOGF(WARNING, "Player {} changed their player index from {} to {}", player->GetName(), player->m_PlayerIndex, index);
 			BaseHook::Get<Info::AssignPhysicalIndex, DetourHook<decltype(&Info::AssignPhysicalIndex)>>()->Original()(mgr, player, index);
-			LOGF(INFO, "Player {} joined", player->GetName());
 
-			// prevent others from joining your lobby
-			if (player->m_PlayerIndex != Self::GetPlayer().GetId())
-			{
-				LOGF(WARNING, "Kicking player {} ...", player->GetName());
-				FiberPool::Push([id = player->m_PlayerIndex] {
-					NETWORK::NETWORK_SESSION_KICK_PLAYER(id);
-				});
-			}
+			if (player->m_PlayerIndex == Self::GetPlayer().GetId())
+				LOGF(INFO, "Player {} joined", player->GetName());
+			else
+				LOGF(WARNING, "Another player joining {} ...", player->GetName());
 		}
 		else
 		{

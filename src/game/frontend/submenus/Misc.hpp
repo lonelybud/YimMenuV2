@@ -5,6 +5,7 @@
 #include "core/util/Strings.hpp"
 #include "game/frontend/components/components.hpp"
 #include "game/features/recovery/UnlockEverything.hpp"
+#include "game/gta/Network.hpp"
 // #include "game/backend/Tunables.hpp"
 
 namespace YimMenu::Submenus
@@ -209,15 +210,34 @@ namespace YimMenu::Submenus
 		}
 	};
 
+	class MiscMainCategory : public SubmenuMenuCategory
+	{
+		using SubmenuMenuCategory::SubmenuMenuCategory;
+		void Draw()
+		{
+			if (ImGui::Button("Join Invite Only Session"))
+				FiberPool::Push([] {
+					Network::LaunchJoinType(Network::JoinType::INVITE_ONLY);
+				});
+			ImGui::Spacing();
+			if (ImGui::Button("Leave Session"))
+				FiberPool::Push([] {
+					Network::LaunchJoinType(Network::JoinType::LEAVE_ONLINE);
+				});
+		}
+	};
+
 	class MiscSubmenu : public Submenu
 	{
 	public:
 		MiscSubmenu() :
 		    Submenu("Misc")
 		{
+			auto main = std::make_shared<MiscMainCategory>("Main");
 			auto statEditor = std::make_shared<MiscStatEditorCategory>("Stat Editor");
 			auto globalEditor = std::make_shared<MiscGlobalEditorCategory>("Global Editor");
 			auto scriptEditor = std::make_shared<MiscScriptEditorCategory>("Script Editor");
+			AddCategory(std::move(main));
 			AddCategory(std::move(statEditor));
 			AddCategory(std::move(globalEditor));
 			AddCategory(std::move(scriptEditor));
