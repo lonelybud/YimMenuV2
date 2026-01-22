@@ -35,6 +35,8 @@ namespace YimMenu::Submenus
 				components::button(YimMenu::Features::_FixAllVehicles);
 				if (ImGui::Button("Enter Last Vehicle"))
 					YimMenu::Features::EnterLastVehicle();
+				if (ImGui::Button("Enter PV Vehicle"))
+					YimMenu::Features::EnterPV();
 				components::button(YimMenu::Features::_CallMechanic);
 				if (ImGui::Button("Reset Vehicle Delivery Cooldown"))
 					YimMenu::Features::ResetVehDeliveryCooldown();

@@ -158,6 +158,15 @@ namespace YimMenu::Submenus
 				});
 
 			components::ver_space();
+			// https://www.unknowncheats.me/forum/grand-theft-auto-v/368204-skip-casino-heist-preps-using-gtahax.html
+			// https://github.com/YimMenu-Lua/Casino-Pacino/blob/main/CasinoPacino.lua
+			ImGui::Text("Select the heist first...");
+			if (ImGui::Button("Apartment Heist Prep Skip"))
+				FiberPool::Push([] {
+					Stats::SetInt("MPX_HEIST_PLANNING_STAGE", -1);
+				});
+
+			components::ver_space();
 			// https: //www.unknowncheats.me/forum/grand-theft-auto-v/431801-cayo-perico-heist-click-61.html
 			static bool scope_cayo_island = false;
 			ImGui::Text("Dont use for hard mode!!! Pay the setup fees first...");

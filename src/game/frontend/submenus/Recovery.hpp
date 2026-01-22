@@ -125,31 +125,39 @@ namespace YimMenu::Submenus
 			ImGui::SameLine();
 			components::button(YimMenu::Features::_ClaimSafeEarnings);
 
-			components::ver_space();
-			// https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-47.html#post4549061
-			static int target = 1;
-			static constexpr const int targetsDeliveryBools[] = {51199, 51200, 5120};
-			static constexpr const int targetsSecureBools[] = {42274, 42275, 42276};
-			ImGui::SetNextItemWidth(150);
-			ImGui::InputInt("Bail Office Target", &target);
-			if (ImGui::Button("Deliver Target"))
-				FiberPool::Push([] {
-					Stats::SetPackedBool(targetsDeliveryBools[target - 1], true);
-				});
-			ImGui::SameLine();
-			if (ImGui::Button("Secure Target"))
-				FiberPool::Push([] {
-					Stats::SetPackedBool(targetsSecureBools[target - 1], true);
-				});
-			if (ImGui::Button("Deliver Most Wanted Target"))
-				FiberPool::Push([] {
-					Stats::SetPackedBool(51202, true);
-				});
-			ImGui::SameLine();
-			if (ImGui::Button("Secure Most Wanted Target"))
-				FiberPool::Push([] {
-					Stats::SetPackedBool(42251, true);
-				});
+			ImGui::Text("Nightclub Value: %d", GPBD_FM::Get()->Entries[Self::GetPlayer().GetId()].PropertyData.NightclubData.SafeCashValue);
+			ImGui::Text("Arcade Value: %d", GPBD_FM::Get()->Entries[Self::GetPlayer().GetId()].PropertyData.ArcadeData.SafeCashValue);
+			ImGui::Text("Agency Value: %d", GPBD_FM::Get()->Entries[Self::GetPlayer().GetId()].PropertyData.FixerHQData.SafeCashValue);
+			ImGui::Text("SalvageYard Value: %d", GPBD_FM::Get()->Entries[Self::GetPlayer().GetId()].PropertyData.SalvageYardData.TotalEarnings);
+			ImGui::Text("BailShop Value: %d", GPBD_FM::Get()->Entries[Self::GetPlayer().GetId()].PropertyData.BailShopData.SafeCashValue);
+			ImGui::Text("GarmentFactory Value: %d", GPBD_FM::Get()->Entries[Self::GetPlayer().GetId()].PropertyData.HackerDenData.SafeCashValue);
+			ImGui::Text("HandsOnCarWash Value: %d", GPBD_FM_2::Get()->Entries[Self::GetPlayer().GetId()].SYVehSaleData.HOWCData.SafeCashValue);
+
+			// components::ver_space();
+			// // https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-47.html#post4549061
+			// static int target = 1;
+			// static constexpr const int targetsDeliveryBools[] = {51199, 51200, 5120};
+			// static constexpr const int targetsSecureBools[] = {42274, 42275, 42276};
+			// ImGui::SetNextItemWidth(150);
+			// ImGui::InputInt("Bail Office Target", &target);
+			// if (ImGui::Button("Deliver Target"))
+			// 	FiberPool::Push([] {
+			// 		Stats::SetPackedBool(targetsDeliveryBools[target - 1], true);
+			// 	});
+			// ImGui::SameLine();
+			// if (ImGui::Button("Secure Target"))
+			// 	FiberPool::Push([] {
+			// 		Stats::SetPackedBool(targetsSecureBools[target - 1], true);
+			// 	});
+			// if (ImGui::Button("Deliver Most Wanted Target"))
+			// 	FiberPool::Push([] {
+			// 		Stats::SetPackedBool(51202, true);
+			// 	});
+			// ImGui::SameLine();
+			// if (ImGui::Button("Secure Most Wanted Target"))
+			// 	FiberPool::Push([] {
+			// 		Stats::SetPackedBool(42251, true);
+			// 	});
 		}
 	};
 

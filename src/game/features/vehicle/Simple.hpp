@@ -4,6 +4,7 @@
 #include "game/backend/Self.hpp"
 #include "game/gta/Natives.hpp"
 #include "game/gta/data/VehicleValues.hpp"
+#include "game/backend/PersonalVehicles.hpp"
 
 namespace YimMenu::Features
 {
@@ -12,6 +13,14 @@ namespace YimMenu::Features
 		FiberPool::Push([] {
 			if (auto last_veh = Self::GetPed().GetLastVehicle())
 				Self::GetPed().SetInVehicle(last_veh);
+		});
+	}
+	
+	inline void EnterPV()
+	{
+		FiberPool::Push([] {
+			if (auto veh = PersonalVehicles::GetCurrentHandle(); veh.IsValid())
+				Self::GetPed().SetInVehicle(veh);
 		});
 	}
 
