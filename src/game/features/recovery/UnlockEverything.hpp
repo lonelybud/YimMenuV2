@@ -366,7 +366,7 @@ namespace YimMenu::UnlockEverything
 			{
 				auto* derived = static_cast<IntStat*>(base);
 				auto v = Stats::GetInt(derived->name);
-				auto b = v >= derived->value;
+				auto b = derived->value == -1 ? (v == -1) : (v >= derived->value);
 				if (logging && !b)
 					LOGF(VERBOSE, "Mismatch StatType::Int {}, curr {}, req {}", derived->name, v, derived->value);
 				return b;

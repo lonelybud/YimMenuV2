@@ -643,15 +643,11 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_CR_DIFFERENT_RACES", 25),
 	    std::make_shared<IntStat>("MPX_PROG_HUB_TYCOON25_EARNINGS", 2000000),
 	    std::make_shared<IntStat>("MPX_PROG_HUB_CWASH_SAFEEARNINGS", 500000),
-	    std::make_shared<IntStat>("MPX_PROG_HUB_KNOWAY_EARNINGS", 5000000),
 	    std::make_shared<PackedBoolRangeStat>(28313, 28318),
-	    std::make_shared<PackedBoolRangeStat>(54773, 54775),
-	    std::make_shared<PackedBoolRangeStat>(54776, 54780),
-	    std::make_shared<PackedBoolRangeStat>(54781, 54785),
 	    std::make_shared<PackedBoolRangeStat>(54737, 54761),
-	    std::make_shared<BoolStat>("MPPLY_FEATURED_COMMUNITY_JOB"),   // https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-47.html#post4549660
+	    std::make_shared<BoolStat>("MPPLY_FEATURED_COMMUNITY_JOB"), // https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-47.html#post4549660
 	    // std::make_shared<PackedBoolRangeStat>(51192, 51195),          // https://www.unknowncheats.me/forum/grand-theft-auto-v/707419-lua-scripts-yimmenuv2-collection-thread-12.html#post4539651
-	    // std::make_shared<PackedBoolRangeStat>(54786, 54817),          // mantion tropies
+	    // std::make_shared<PackedBoolRangeStat>(54787, 54817),          // mantion tropies
 	    // std::make_shared<IntStat>("MPX_MTM_COUNT_0", 1),                  // Times completed Due Diligence, https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-45.html#post4540660
 	    // std::make_shared<IntStat>("MPX_MTM_COUNT_1", 1),                  // Times completed Fixes & Fittings, https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-45.html#post4540660
 	    // std::make_shared<IntStat>("MPX_MTM_COUNT_2", 1),                  // Times completed Hard Deadlines, https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-45.html#post4540660
@@ -1043,6 +1039,15 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_PROG_HUB_10_CHAL_ANSR", 10),
 	    std::make_shared<PackedBoolStat>(36941),
 	    std::make_shared<PackedBoolRangeStat>(15456, 15460),
+
+	    // A Safehouse In The Hills
+	    std::make_shared<PackedBoolStat>(54773),
+	    std::make_shared<PackedBoolStat>(54774),
+	    std::make_shared<PackedBoolStat>(54775),
+	    std::make_shared<PackedBoolRangeStat>(54776, 54780),
+	    std::make_shared<IntStat>("MPX_PROG_HUB_KNOWAY_EARNINGS", 5000000),
+	    std::make_shared<PackedBoolRangeStat>(54781, 54785),
+	    std::make_shared<PackedBoolStat>(54786),
 
 	    // awards *****************************************************************************************
 
