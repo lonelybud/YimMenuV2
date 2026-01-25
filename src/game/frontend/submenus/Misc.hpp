@@ -6,6 +6,7 @@
 #include "game/frontend/components/components.hpp"
 #include "game/features/recovery/UnlockEverything.hpp"
 #include "game/gta/Network.hpp"
+#include "game/features/misc.hpp"
 // #include "game/backend/Tunables.hpp"
 
 namespace YimMenu::Submenus
@@ -224,6 +225,8 @@ namespace YimMenu::Submenus
 				FiberPool::Push([] {
 					Network::LaunchJoinType(Network::JoinType::LEAVE_ONLINE);
 				});
+			ImGui::Spacing();
+			ImGui::Checkbox("Allow Player Communication", &YimMenu::Features::allowMultiPlayerCommun);
 		}
 	};
 

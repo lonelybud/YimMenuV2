@@ -31,7 +31,8 @@ namespace YimMenu::UnlockEverything
 		PackedBool,
 		PackedInt,
 		PackedBoolRange,
-		IntBit
+		IntBit,
+		IntBits
 	};
 	class StatCommon
 	{
@@ -110,7 +111,6 @@ namespace YimMenu::UnlockEverything
 		{
 		}
 	};
-
 	class IntBitStat : public StatCommon
 	{
 	public:
@@ -123,6 +123,22 @@ namespace YimMenu::UnlockEverything
 		{
 		}
 	};
+	class IntBitsStat : public StatCommon
+	{
+	public:
+		std::string name;
+		int num;
+		IntBitsStat(std::string n, int b0, int bn) :
+		    StatCommon(StatType::IntBits),
+		    name(n)
+		{
+			// https://www.geeksforgeeks.org/dsa/check-whether-bits-set-given-range/
+			// example to get 1->2 bits set, 110 = 111 ^ 1
+			// where 1000 - 1 = 111, 10 - 1 = 1
+			num = ((1 << (bn + 1)) - 1) ^ ((1 << b0) - 1);
+		}
+	};
+
 
 	inline std::vector<std::shared_ptr<StatCommon>> allStats = {
 	    std::make_shared<PackedBoolStat>(54653),
@@ -186,7 +202,6 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<PackedIntStat>(42100, 5),
 	    std::make_shared<PackedIntStat>(22063, 20),
 	    std::make_shared<PackedIntStat>(41246, 20),
-	    std::make_shared<PackedIntStat>(42091, 10),
 	    std::make_shared<PackedIntStat>(41242, 8),
 	    std::make_shared<PackedIntStat>(24928, 10),
 	    std::make_shared<PackedIntStat>(24929, 14),
@@ -248,10 +263,9 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<BoolStat>("MPX_BS_IMANI_D_APP_HOOD_2"),
 	    std::make_shared<BoolStat>("MPX_BS_IMANI_D_APP_HOOD_F"),
 	    std::make_shared<BoolStat>("MPX_UNLOCKED_MESSAGE_FLEECA"),
-	    std::make_shared<BoolStat>("MPX_CARMEET_PV_CHLLGE_CMPLT"),
-	    std::make_shared<IntStat>("MPX_SB_CAR_WASH_OWNED", 1),
-	    std::make_shared<IntStat>("MPX_SB_HELI_TOURS_OWNED", 1),
-	    std::make_shared<IntStat>("MPX_SB_WEED_SHOP_OWNED", 1),
+	    // std::make_shared<IntStat>("MPX_SB_CAR_WASH_OWNED", 1),
+	    // std::make_shared<IntStat>("MPX_SB_HELI_TOURS_OWNED", 1),
+	    // std::make_shared<IntStat>("MPX_SB_WEED_SHOP_OWNED", 1),
 	    std::make_shared<IntStat>("MPPLY_GANGOPS_LOYALTY2", -1),
 	    std::make_shared<IntStat>("MPPLY_GANGOPS_LOYALTY3", -1),
 	    std::make_shared<IntStat>("MPPLY_GANGOPS_CRIMMASMD2", -1),
@@ -282,7 +296,7 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_NUMBER_STOLEN_PLANES", 100),
 	    std::make_shared<IntStat>("MPX_NUMBER_STOLEN_QUADBIKES", 100),
 	    std::make_shared<IntStat>("MPX_NUMBER_STOLEN_BICYCLES", 100),
-	    std::make_shared<IntStat>("MPX_NUMBER_STOLEN_SUBMARINES", 100),
+
 	    std::make_shared<IntStat>("MPX_NO_STOLEN_VEH_SCRIPT", 100),
 	    std::make_shared<IntStat>("MPX_DB_PLAYER_KILLS", 100),
 	    std::make_shared<IntStat>("MPX_HOLDUPS_BITSET", -1),
@@ -303,12 +317,7 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_CHAR_FM_WEAP_UNLOCKED6", -1),
 	    std::make_shared<IntStat>("MPX_GCLUB_FM_AMMO_BOUGHT", 1),
 	    std::make_shared<IntStat>("MPX_CHAR_WEAP_EQUIPPED", -1),
-	    std::make_shared<IntStat>("MPX_CHAR_FM_WEAP_EQUIPPED", -1),
-	    std::make_shared<IntStat>("MPX_CHAR_FM_WEAP_EQUIPPED2", -1),
-	    std::make_shared<IntStat>("MPX_CHAR_FM_WEAP_EQUIPPED3", -1),
-	    std::make_shared<IntStat>("MPX_CHAR_FM_WEAP_EQUIPPED4", -1),
-	    std::make_shared<IntStat>("MPX_CHAR_FM_WEAP_EQUIPPED5", -1),
-	    std::make_shared<IntStat>("MPX_CHAR_FM_WEAP_EQUIPPED6", -1),
+
 	    std::make_shared<IntStat>("MPX_CHAR_FM_WEAP_ADDON_1_UNLCK", -1),
 	    std::make_shared<IntStat>("MPX_CHAR_FM_WEAP_ADDON_2_UNLCK", -1),
 	    std::make_shared<IntStat>("MPX_CHAR_FM_WEAP_ADDON_3_UNLCK", -1),
@@ -595,47 +604,16 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_WVM_FLOW_MISSION_PROGRESS", 50),
 	    std::make_shared<IntStat>("MPX_WVM_FLOW_IMPEXP_NUM", 50),
 	    std::make_shared<IntStat>("MPX_WVM_FLOW_VEHICLE_BS", -1),
-	    std::make_shared<IntStat>("MPX_GANGOPS_FLOW_MISSION_PROG", -1),
+
 	    std::make_shared<IntStat>("MPX_GANGOPS_FLOW_IMPEXP_NUM", 50),
 	    std::make_shared<IntStat>("MPX_WAM_FLOW_VEHICLE_BS", -1),
 	    std::make_shared<IntStat>("MPX_GANGOPS_FLOW_PASSED_BITSET", -1),
 	    std::make_shared<IntStat>("MPX_TUNER_FLOW_BS", -1),
 	    std::make_shared<IntStat>("MPX_TUNER_MIS_BS", -1),
-	    std::make_shared<IntStat>("MPX_GANGOPS_FM_MISSION_PROG", -1),
-	    std::make_shared<IntStat>("MPX_GANGOPS_FM_BITSET_MISS0", -1),
-	    std::make_shared<IntStat>("MPX_LIFETIME_BUY_UNDERTAKEN", 1025),
-	    std::make_shared<IntStat>("MPX_LIFETIME_SELL_COMPLETE", 1025),
-	    std::make_shared<IntStat>("MPX_LIFETIME_SELL_UNDERTAKEN", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_BUY_COMPLET", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_BUY_UNDERTA", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_SELL_COMPLET", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_SELL_UNDERTA", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_BUY_COMPLET1", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_BUY_UNDERTA1", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_SELL_COMPLET1", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_SELL_UNDERTA1", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_BUY_COMPLET2", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_BUY_UNDERTA2", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_SELL_COMPLET2", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_SELL_UNDERTA2", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_BUY_COMPLET3", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_BUY_UNDERTA3", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_SELL_COMPLET3", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_SELL_UNDERTA3", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_BUY_COMPLET4", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_BUY_UNDERTA4", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_SELL_COMPLET4", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_SELL_UNDERTA4", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_BUY_UNDERTA5", 1025),
-	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_SELL_UNDERTA5", 1025),
-	    std::make_shared<IntStat>("MPX_LIFETIME_BKR_SELL_EARNINGS1", 25000000),
-	    std::make_shared<IntStat>("MPX_LIFETIME_BKR_SELL_EARNINGS2", 25000000),
-	    std::make_shared<IntStat>("MPX_LIFETIME_BKR_SELL_EARNINGS3", 25000000),
-	    std::make_shared<IntStat>("MPX_LIFETIME_BKR_SELL_EARNINGS4", 25000000),
 	    std::make_shared<IntStat>("MPX_XMAS2023_ADV_MODE_WINS", 6),
 	    std::make_shared<IntStat>("MPPLY_XMAS23_PLATES0", 3),
 	    std::make_shared<IntStat>("MPX_COUNT_HOTRING_RACE", 20),
-	    std::make_shared<IntStat>("MPX_TIMES_PREV_PLAY_AS_BOSS", 500),
+	
 	    std::make_shared<IntStat>("MPX_GBTELTIMESPLAYEDGOONPREV", 500),
 	    std::make_shared<IntStat>("MPX_LOW_FLOW_CURRENT_PROG", 9),
 	    std::make_shared<IntStat>("MPX_LOW_FLOW_CURRENT_CALL", 9),
@@ -677,7 +655,7 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<PackedBoolRangeStat>(28273, 28281),
 
 	    // SAN ANDREAS MERCENARIES
-	    std::make_shared<IntStat>("MPX_SUM23_AVOP_PROGRESS", -1),
+	    std::make_shared<IntBitsStat>("MPX_SUM23_AVOP_PROGRESS", 0, 11),
 	    std::make_shared<PackedBoolStat>(41566),
 	    std::make_shared<PackedBoolStat>(41706),
 	    std::make_shared<PackedBoolRangeStat>(41567, 41572),
@@ -686,7 +664,7 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<PackedBoolRangeStat>(41585, 41590),
 
 	    // OPERATION PAPER TRAIL
-	    std::make_shared<IntStat>("MPX_ULP_MISSION_PROGRESS", -1),
+	    std::make_shared<IntBitsStat>("MPX_ULP_MISSION_PROGRESS", 0, 13),
 	    std::make_shared<PackedBoolRangeStat>(41333, 41338),
 	    std::make_shared<PackedBoolStat>(41707),
 	    std::make_shared<PackedBoolRangeStat>(41339, 41344),
@@ -695,7 +673,7 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<PackedBoolRangeStat>(41357, 41362),
 
 	    // A SUPERYATCH LIFE
-	    std::make_shared<IntStat>("MPX_YACHT_MISSION_FLOW", -1),
+	    std::make_shared<IntBitsStat>("MPX_YACHT_MISSION_FLOW", 4, 15),
 	    std::make_shared<PackedBoolStat>(41379),
 	    std::make_shared<PackedBoolStat>(41708),
 	    std::make_shared<PackedBoolRangeStat>(41380, 41385),
@@ -740,19 +718,19 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<PackedBoolRangeStat>(41531, 41538),
 
 	    // AGENTS OF SABOTAGE
-	    std::make_shared<IntStat>("MPX_HACKER_DEN_OWNED", 1),
+	    // std::make_shared<IntStat>("MPX_HACKER_DEN_OWNED", 1),
 	    std::make_shared<PackedBoolStat>(9539),
 	    std::make_shared<PackedIntStat>(24903, 25),
 	    std::make_shared<PackedIntStat>(24904, 2),
 	    std::make_shared<IntStat>("MPX_PROG_HUB_DEN24_SAFEEARNINGS", 100000),
-	    std::make_shared<IntStat>("MPX_HACKER24_GEN_BS", -1),
+	    std::make_shared<IntBitsStat>("MPX_HACKER24_GEN_BS", 5, 12),
 	    std::make_shared<PackedBoolStat>(9549),
 	    std::make_shared<PackedBoolStat>(9542),
 	    std::make_shared<PackedIntStat>(24905, 9),
 	    std::make_shared<PackedBoolRangeStat>(9543, 9546),
 
 	    // BOTTOM DOLLAR BOUNTIES
-	    std::make_shared<IntStat>("MPX_BAIL_OFFICE_OWNED", 1),
+	    // std::make_shared<IntStat>("MPX_BAIL_OFFICE_OWNED", 1),
 	    std::make_shared<PackedBoolStat>(9537),
 	    std::make_shared<PackedBoolStat>(7639),
 	    std::make_shared<PackedIntStat>(7669, 5),
@@ -766,7 +744,7 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_BAIL_PROPERTY_EARNINGS", 1000000),
 
 	    // THE CHOP SHOP
-	    std::make_shared<IntStat>("MPX_SALVAGE_YARD_OWNED", 1),
+	    // std::make_shared<IntStat>("MPX_SALVAGE_YARD_OWNED", 1),
 	    std::make_shared<PackedBoolStat>(42038),
 	    std::make_shared<PackedBoolStat>(42041),
 	    std::make_shared<PackedBoolStat>(42044),
@@ -780,10 +758,12 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_PROG_HUB_SALV23_EARN_SELL", 10000000),
 
 	    // LOS SANTOS DRUG WARS
-	    std::make_shared<IntStat>("MPX_XM22_MISSIONS_SA", -1),
+	    std::make_shared<IntBitsStat>("MPX_XM22_MISSIONS_SA", 0, 16),
+	    std::make_shared<IntBitsStat>("MPX_XM22_MISSIONS_SA", 6, 10),
+	    std::make_shared<IntBitsStat>("MPX_XM22_MISSIONS_SA", 17, 21),
 	    std::make_shared<PackedBoolStat>(42037),
 	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_BUY_COMPLET6", 100),
-	    std::make_shared<IntStat>("MPX_XM22_FLOW", -1),
+	    std::make_shared<IntBitsStat>("MPX_XM22_FLOW", 20, 24),
 	    std::make_shared<IntStat>("MPX_LIFETIME_BKR_SELL_EARNINGS6", 10000000),
 	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_SELL_COMPLET6", 10),
 	    std::make_shared<PackedIntStat>(41241, 5),
@@ -828,20 +808,20 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_LFETIME_HANGAR_EARNINGS", 50000000),
 
 	    // GUNRUNNING
-	    std::make_shared<IntStat>("MPX_FACTORYSETUP5", 1),
+	    // std::make_shared<IntStat>("MPX_FACTORYSETUP5", 1),
 	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_BUY_COMPLET5", 25),
 	    std::make_shared<PackedIntStat>(9359, 25),
 	    std::make_shared<PackedBoolStat>(36870),
 	    std::make_shared<IntStat>("MPX_WVM_FLOW_BITSET_MISSIONS0", -1),
 	    std::make_shared<IntStat>("MPX_LIFETIME_BKR_SEL_COMPLETBC5", 1),
 	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_SELL_COMPLET5", 1),
-	    std::make_shared<IntStat>("MPX_SR_WEAPON_BIT_SET", -1),
+	    std::make_shared<IntBitsStat>("MPX_SR_WEAPON_BIT_SET", 1, 17),
 	    std::make_shared<PackedBoolRangeStat>(42002, 42013),
 	    std::make_shared<PackedBoolRangeStat>(36831, 36838),
 	    std::make_shared<IntStat>("MPX_LIFETIME_BKR_SELL_EARNINGS5", 25000000),
 
 	    // IMPORT / EXPORT
-	    std::make_shared<IntStat>("MPX_OWNED_IE_WAREHOUSE", 1),
+	    // std::make_shared<IntStat>("MPX_OWNED_IE_WAREHOUSE", 1),
 	    std::make_shared<IntStat>("MPX_LFETIME_IE_EXPORT_COMPLETED", 25),
 	    std::make_shared<PackedBoolRangeStat>(42029, 42036),
 	    std::make_shared<PackedBoolRangeStat>(41874, 41883),
@@ -883,11 +863,11 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_LIFETIME_CONTRA_EARNINGS", 50000000),
 
 	    // LOS SANTOS TUNERS
-	    std::make_shared<IntStat>("MPX_CAR_CLUB_MEMBERSHIP", 1),
+	    // std::make_shared<IntStat>("MPX_CAR_CLUB_MEMBERSHIP", 1),
 	    std::make_shared<PackedBoolStat>(31737),
 	    std::make_shared<PackedBoolStat>(41870),
 	    std::make_shared<PackedBoolStat>(31753),
-	    std::make_shared<IntStat>("MPX_TUNER_COMP_BS", -1),
+	    std::make_shared<IntBitsStat>("MPX_TUNER_COMP_BS", 0, 7),
 	    std::make_shared<PackedBoolStat>(32397),
 	    std::make_shared<PackedIntStat>(30226, 10),
 	    std::make_shared<IntStat>("MPX_TUNER_COUNT", 25),
@@ -911,8 +891,8 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<PackedBoolStat>(30309),
 	    std::make_shared<PackedBoolStat>(30522),
 	    std::make_shared<IntBitStat>("MPX_H4_MISSIONS", 0),
-	    std::make_shared<IntBitStat>("MPX_H4_PROGRESS", 1),
-	    std::make_shared<IntStat>("MPX_H4_H4_DJ_MISSIONS", -1),
+	    std::make_shared<IntBitsStat>("MPX_H4_PROGRESS", 6, 11),
+	    std::make_shared<IntBitsStat>("MPX_H4_H4_DJ_MISSIONS", 0, 6),
 	    std::make_shared<PackedBoolStat>(41677),
 	    std::make_shared<IntStat>("MPX_PROG_HUB_CAYO_PRP_NO_DEATHS", 25),
 	    std::make_shared<PackedIntStat>(42094, 15),
@@ -926,7 +906,7 @@ namespace YimMenu::UnlockEverything
 
 	    // THE DIAMOND CASINO HEIST
 
-	    std::make_shared<IntStat>("MPX_CAS_HEIST_FLOW", -1),
+	    std::make_shared<IntBitsStat>("MPX_CAS_HEIST_FLOW", 11, 13),
 	    std::make_shared<PackedBoolStat>(28270),
 	    std::make_shared<PackedBoolStat>(36842),
 	    std::make_shared<PackedBoolStat>(32399),
@@ -939,7 +919,7 @@ namespace YimMenu::UnlockEverything
 	    // THE DOOMSDAY HEIST
 	    std::make_shared<PackedBoolStat>(18139),
 	    std::make_shared<PackedBoolStat>(36861),
-	    std::make_shared<IntStat>("MPX_GANGOPS_FLOW_BITSET_MISS0", -1),
+	    std::make_shared<IntBitsStat>("MPX_GANGOPS_FLOW_BITSET_MISS0", 0, 2),
 	    std::make_shared<PackedBoolStat>(41712),
 	    std::make_shared<PackedBoolStat>(36862),
 	    std::make_shared<PackedBoolStat>(41713),
@@ -995,10 +975,10 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<PackedBoolStat>(42023),
 	    std::make_shared<PackedBoolRangeStat>(41363, 42151),
 	    std::make_shared<IntStat>("MPX_RACES_WON", 50),
-	    std::make_shared<IntStat>("MPX_PROG_HUB_T_TRIAL_PAR_TIME", -1),
-	    std::make_shared<IntStat>("MPX_PROG_HUB_T_TRL_PAR_TIME_RC", -1),
-	    std::make_shared<IntStat>("MPX_PROG_HUB_T_TRL_PAR_TIME_HSW", -1),
-	    std::make_shared<IntStat>("MPX_PROG_HUB_T_TRL_PAR_TIME_BKE", -1),
+	    std::make_shared<IntBitsStat>("MPX_PROG_HUB_T_TRIAL_PAR_TIME", 0, 25),
+	    std::make_shared<IntBitsStat>("MPX_PROG_HUB_T_TRL_PAR_TIME_RC", 0, 25),
+	    std::make_shared<IntBitsStat>("MPX_PROG_HUB_T_TRL_PAR_TIME_HSW", 0, 25),
+	    std::make_shared<IntBitsStat>("MPX_PROG_HUB_T_TRL_PAR_TIME_BKE", 0, 25),
 	    std::make_shared<PackedIntStat>(41246, 20),
 	    std::make_shared<IntStat>("MPX_PROG_HUB_FST_LPS_RSTAR_RAC", 50),
 

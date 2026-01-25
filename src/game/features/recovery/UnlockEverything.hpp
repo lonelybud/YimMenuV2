@@ -29,13 +29,12 @@ namespace YimMenu
 		val |= (1U << bit);
 		Stats::SetInt(statName, val);
 	}
-	// void SET_MP_INT_CHARACTER_STAT_BITS(std::string statName, int fromBit, int toBit)
-	// {
-	// 	auto val = Stats::GetInt(statName);
-	// 	for (int i = fromBit; i <= toBit; i++)
-	// 		val |= (1 << i);
-	// 	Stats::SetInt(statName, val);
-	// }
+	void SET_MP_INT_CHARACTER_STAT_BITS(std::string statName, int bitsToNum)
+	{
+		auto val = Stats::GetInt(statName);
+		val |= bitsToNum;
+		Stats::SetInt(statName, val);
+	}
 }
 
 namespace YimMenu::UnlockEverything
@@ -349,6 +348,48 @@ namespace YimMenu::UnlockEverything
 			Stats::SetInt("MPX_HEIST_SAVED_STRAND_3_L", 5);
 			Stats::SetInt("MPX_HEIST_SAVED_STRAND_4", Tunable("ROOT_ID_HASH_THE_PACIFIC_STANDARD_JOB"_J).Get<int>());
 			Stats::SetInt("MPX_HEIST_SAVED_STRAND_4_L", 5);
+
+			Stats::SetBool("MPX_CARMEET_PV_CHLLGE_CMPLT", true);
+			Stats::SetInt("MPX_NUMBER_STOLEN_SUBMARINES", 100);
+			Stats::SetInt("MPX_CHAR_FM_WEAP_EQUIPPED", -1);
+			Stats::SetInt("MPX_CHAR_FM_WEAP_EQUIPPED2", -1);
+			Stats::SetInt("MPX_CHAR_FM_WEAP_EQUIPPED3", -1);
+			Stats::SetInt("MPX_CHAR_FM_WEAP_EQUIPPED4", -1);
+			Stats::SetInt("MPX_CHAR_FM_WEAP_EQUIPPED5", -1);
+			Stats::SetInt("MPX_CHAR_FM_WEAP_EQUIPPED6", -1);
+			Stats::SetInt("MPX_GANGOPS_FLOW_MISSION_PROG", -1);
+			Stats::SetInt("MPX_GANGOPS_FM_MISSION_PROG", -1);
+			Stats::SetInt("MPX_GANGOPS_FM_BITSET_MISS0", -1);
+			Stats::SetInt("MPX_LIFETIME_BUY_UNDERTAKEN", 1025);
+			Stats::SetInt("MPX_LIFETIME_SELL_COMPLETE", 1025);
+			Stats::SetInt("MPX_LIFETIME_SELL_UNDERTAKEN", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_BUY_COMPLET", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_BUY_UNDERTA", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_SELL_COMPLET", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_SELL_UNDERTA", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_BUY_COMPLET1", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_BUY_UNDERTA1", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_SELL_COMPLET1", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_SELL_UNDERTA1", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_BUY_COMPLET2", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_BUY_UNDERTA2", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_SELL_COMPLET2", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_SELL_UNDERTA2", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_BUY_COMPLET3", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_BUY_UNDERTA3", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_SELL_COMPLET3", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_SELL_UNDERTA3", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_BUY_COMPLET4", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_BUY_UNDERTA4", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_SELL_COMPLET4", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_SELL_UNDERTA4", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_BUY_UNDERTA5", 1025);
+			Stats::SetInt("MPX_LFETIME_BIKER_SELL_UNDERTA5", 1025);
+			Stats::SetInt("MPX_LIFETIME_BKR_SELL_EARNINGS1", 25000000);
+			Stats::SetInt("MPX_LIFETIME_BKR_SELL_EARNINGS2", 25000000);
+			Stats::SetInt("MPX_LIFETIME_BKR_SELL_EARNINGS3", 25000000);
+			Stats::SetInt("MPX_LIFETIME_BKR_SELL_EARNINGS4", 25000000);
+			Stats::SetInt("MPX_TIMES_PREV_PLAY_AS_BOSS", 500);
 		});
 	}
 
@@ -423,6 +464,15 @@ namespace YimMenu::UnlockEverything
 					LOGF(VERBOSE, "Mismatch StatType::IntBit {}, value {}, req bit {}", derived->name, v, derived->bit);
 				return b;
 			}
+			case StatType::IntBits:
+			{
+				auto* derived = static_cast<IntBitsStat*>(base);
+				auto v = Stats::GetInt(derived->name);
+				auto b = (v & derived->num) == derived->num;
+				if (logging && !b)
+					LOGF(VERBOSE, "Mismatch StatType::IntBits {}, value {}, req bitToNum {}", derived->name, v, derived->num);
+				return b;
+			}
 			default:
 			{
 				LOGF(WARNING, "Unknown Stat encountered {}, {}", index, (int)base->type);
@@ -485,7 +535,13 @@ namespace YimMenu::UnlockEverything
 				// LOG(VERBOSE) << index << " " << derived->name << " " << derived->bit;
 				return;
 			}
-
+			case StatType::IntBits:
+			{
+				auto* derived = static_cast<IntBitsStat*>(base);
+				SET_MP_INT_CHARACTER_STAT_BITS(derived->name, derived->num);
+				// LOG(VERBOSE) << index << " " << derived->name << " " << derived->num;
+				return;
+			}
 			default:
 			{
 				LOGF(WARNING, "Unknown Stat encountered {}, {}", index, (int)base->type);

@@ -131,30 +131,30 @@ namespace YimMenu::Submenus
 					Stats::SetInt("MPX_H3OPT_BODYARMORLVL", -1);
 					Stats::SetInt("MPX_H3OPT_KEYLEVELS", 2); // 1 = Level1 Security Pass, 2 = Level2 Security Pass
 
-					if (approach == 1)
+					if (approach == 1) // "Silent & Sneaky"
 					{
 						Stats::SetInt("MPX_H3OPT_CREWWEAP", 1); // Karl Abolaji
 						Stats::SetInt("MPX_H3OPT_WEAPS", 0);
 						Stats::SetInt("MPX_H3OPT_BITSET1", 127);
 						ScriptMgr::Yield(500ms);
-						Stats::SetInt("MPX_H3OPT_BITSET0", 8388607); // 4456480
+						Stats::SetInt("MPX_H3OPT_BITSET0", 4456502);
 					}
-					if (approach == 2)
+					if (approach == 2) // "The Big Con"
 					{
 						Stats::SetInt("MPX_H3OPT_CREWWEAP", 1); // Karl Abolaji
 						Stats::SetInt("MPX_H3OPT_WEAPS", 0);
-						Stats::SetInt("MPX_H3OPT_BITSET1", 255);
+						Stats::SetInt("MPX_H3OPT_BITSET1", 159);
 						ScriptMgr::Yield(500ms);
-						Stats::SetInt("MPX_H3OPT_BITSET0", 8388607); // 4468736
+						Stats::SetInt("MPX_H3OPT_BITSET0", 4534470);
 					}
-					if (approach == 3)
-					{
-						Stats::SetInt("MPX_H3OPT_CREWWEAP", 5); // Patrick McReary
-						Stats::SetInt("MPX_H3OPT_WEAPS", 0);
-						Stats::SetInt("MPX_H3OPT_BITSET1", 1023);
-						ScriptMgr::Yield(500ms);
-						Stats::SetInt("MPX_H3OPT_BITSET0", 8388607); // 5767190
-					}
+					// if (approach == 3) //  "Aggressive"
+					// {
+					// 	Stats::SetInt("MPX_H3OPT_CREWWEAP", 5); // Patrick McReary
+					// 	Stats::SetInt("MPX_H3OPT_WEAPS", 0);
+					// 	Stats::SetInt("MPX_H3OPT_BITSET1", 1023);
+					// 	ScriptMgr::Yield(500ms);
+					// 	Stats::SetInt("MPX_H3OPT_BITSET0", 8388607); // 5767190
+					// }
 				});
 
 			components::ver_space();
@@ -197,9 +197,9 @@ namespace YimMenu::Submenus
 
 					ScriptMgr::Yield(500ms);
 					if (cayoTarget == 2) // Bearer Bonds
-						Stats::SetInt("MPX_H4_PROGRESS", 123051);
+						Stats::SetInt("MPX_H4_PROGRESS", 126955);
 					else
-						Stats::SetInt("MPX_H4_PROGRESS", 90147);
+						Stats::SetInt("MPX_H4_PROGRESS", 94179);
 
 					// Stats::SetInt("MPX_H4_PLAYTHROUGH_STATUS", 25);
 					// Stats::SetInt("MPX_H4CNF_BS_ABIL", 0);
