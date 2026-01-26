@@ -137,7 +137,7 @@ namespace YimMenu::Submenus
 						Stats::SetInt("MPX_H3OPT_WEAPS", 0);
 						Stats::SetInt("MPX_H3OPT_BITSET1", 127);
 						ScriptMgr::Yield(500ms);
-						Stats::SetInt("MPX_H3OPT_BITSET0", 4456502);
+						Stats::SetInt("MPX_H3OPT_BITSET0", 4456566);
 					}
 					if (approach == 2) // "The Big Con"
 					{
@@ -145,7 +145,7 @@ namespace YimMenu::Submenus
 						Stats::SetInt("MPX_H3OPT_WEAPS", 0);
 						Stats::SetInt("MPX_H3OPT_BITSET1", 159);
 						ScriptMgr::Yield(500ms);
-						Stats::SetInt("MPX_H3OPT_BITSET0", 4534470);
+						Stats::SetInt("MPX_H3OPT_BITSET0", 4534486);
 					}
 					// if (approach == 3) //  "Aggressive"
 					// {
