@@ -137,7 +137,7 @@ namespace YimMenu::Submenus
 						Stats::SetInt("MPX_H3OPT_WEAPS", 0);
 						Stats::SetInt("MPX_H3OPT_BITSET1", 127);
 						ScriptMgr::Yield(500ms);
-						Stats::SetInt("MPX_H3OPT_BITSET0", 4456566);
+						Stats::SetInt("MPX_H3OPT_BITSET0", 4456694);
 					}
 					if (approach == 2) // "The Big Con"
 					{
@@ -193,7 +193,7 @@ namespace YimMenu::Submenus
 					Stats::SetInt("MPX_H4CNF_WEP_DISRP", 3);
 					Stats::SetInt("MPX_H4CNF_ARM_DISRP", 3);
 					Stats::SetInt("MPX_H4CNF_HEL_DISRP", 3);
-					Stats::SetInt("MPX_H4_MISSIONS", 65027); // all prep
+					Stats::SetInt("MPX_H4_MISSIONS", 65091); // all prep (boat + submarine)
 
 					ScriptMgr::Yield(500ms);
 					if (cayoTarget == 2) // Bearer Bonds
