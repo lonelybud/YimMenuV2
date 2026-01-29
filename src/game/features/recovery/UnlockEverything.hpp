@@ -468,6 +468,8 @@ namespace YimMenu::UnlockEverything
 			{
 				auto* derived = static_cast<IntBitsStat*>(base);
 				auto v = Stats::GetInt(derived->name);
+				if (v == -1) // if it is said -1 before by us, reset the value
+					Stats::SetInt(derived->name, v = 0);
 				auto b = (v & derived->num) == derived->num;
 				if (logging && !b)
 					LOGF(VERBOSE, "Mismatch StatType::IntBits {}, value {}, req bitToNum {}", derived->name, v, derived->num);

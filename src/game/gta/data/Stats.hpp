@@ -613,7 +613,7 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_XMAS2023_ADV_MODE_WINS", 6),
 	    std::make_shared<IntStat>("MPPLY_XMAS23_PLATES0", 3),
 	    std::make_shared<IntStat>("MPX_COUNT_HOTRING_RACE", 20),
-	
+
 	    std::make_shared<IntStat>("MPX_GBTELTIMESPLAYEDGOONPREV", 500),
 	    std::make_shared<IntStat>("MPX_LOW_FLOW_CURRENT_PROG", 9),
 	    std::make_shared<IntStat>("MPX_LOW_FLOW_CURRENT_CALL", 9),
@@ -765,8 +765,12 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_BUY_COMPLET6", 100),
 	    std::make_shared<IntBitsStat>("MPX_XM22_FLOW", 20, 24),
 	    std::make_shared<IntStat>("MPX_LIFETIME_BKR_SELL_EARNINGS6", 10000000),
+	    std::make_shared<IntBitStat>("(MPX_XM22_FLOW", 0),
 	    std::make_shared<IntStat>("MPX_LFETIME_BIKER_SELL_COMPLET6", 10),
 	    std::make_shared<PackedIntStat>(41241, 5),
+	    std::make_shared<IntBitStat>("(MPX_XM22_MISSIONS_SA", 5),
+	    std::make_shared<IntBitStat>("(MPX_XM22_MISSIONS_SA", 10),
+	    std::make_shared<IntBitStat>("(MPX_XM22_MISSIONS_SA", 26),
 	    std::make_shared<IntStat>("MPX_PROG_HUB_LSDW_FJ_NO_DEATHS", 25),
 	    std::make_shared<IntStat>("MPX_PROG_HUB_DAX_CLONE_KILLS", 100),
 	    std::make_shared<PackedIntStat>(42084, 24),
@@ -775,7 +779,8 @@ namespace YimMenu::UnlockEverything
 	    // THE CONTRACT
 	    std::make_shared<PackedBoolStat>(28257),
 	    std::make_shared<IntStat>("MPX_FIXER_COUNT", 100),
-	    std::make_shared<IntStat>("MPX_FIXER_GENERAL_BS", -1),
+	    std::make_shared<IntBitStat>("(MPX_FIXER_GENERAL_BS", 0),
+	    std::make_shared<IntBitStat>("(MPX_FIXER_GENERAL_BS", 2),
 	    std::make_shared<IntStat>("MPX_PROG_HUB_FXER_PAY_HIT_BONUS", 100),
 	    std::make_shared<PackedIntStat>(42085, 10),
 	    std::make_shared<IntStat>("MPX_PROG_HUB_FIXER_SEC_CON_SPEC", 100),
@@ -873,11 +878,13 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_TUNER_COUNT", 25),
 	    std::make_shared<IntStat>("MPX_PROG_HUB_TUNER_CUS_DEL_CASH", 5000000),
 
-
 	    // THE DIAMOND CASINO & RESORT
 	    std::make_shared<PackedBoolStat>(27089),
 	    std::make_shared<PackedBoolStat>(27090),
-	    std::make_shared<IntStat>("MPX_VCM_FLOW_PROGRESS", -1),
+	    std::make_shared<IntBitStat>("(MPX_VCM_FLOW_PROGRESS", 6),
+	    std::make_shared<IntBitStat>("(MPX_VCM_FLOW_PROGRESS", 12),
+	    std::make_shared<IntBitStat>("(MPX_VCM_FLOW_PROGRESS", 11),
+	    std::make_shared<IntBitStat>("(MPX_VCM_FLOW_PROGRESS", 17),
 	    std::make_shared<PackedBoolStat>(36916),
 	    std::make_shared<PackedBoolRangeStat>(36844, 36859),
 	    std::make_shared<PackedBoolRangeStat>(41548, 41553),
@@ -886,11 +893,11 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<PackedBoolRangeStat>(41560, 41565),
 	    std::make_shared<PackedBoolRangeStat>(41554, 41559),
 
-
 	    // THE CAYO PERICO HEIST
 	    std::make_shared<PackedBoolStat>(30309),
 	    std::make_shared<PackedBoolStat>(30522),
 	    std::make_shared<IntBitStat>("MPX_H4_MISSIONS", 0),
+	    std::make_shared<IntBitStat>("(MPX_H4_PROGRESS", 1),
 	    std::make_shared<IntBitsStat>("MPX_H4_PROGRESS", 6, 11),
 	    std::make_shared<IntBitsStat>("MPX_H4_H4_DJ_MISSIONS", 0, 6),
 	    std::make_shared<PackedBoolStat>(41677),
@@ -906,15 +913,16 @@ namespace YimMenu::UnlockEverything
 
 	    // THE DIAMOND CASINO HEIST
 
-	    std::make_shared<IntBitsStat>("MPX_CAS_HEIST_FLOW", 11, 13),
+	    std::make_shared<IntBitStat>("(MPX_CAS_HEIST_FLOW", 1),
 	    std::make_shared<PackedBoolStat>(28270),
 	    std::make_shared<PackedBoolStat>(36842),
+	    std::make_shared<IntBitStat>("(MPX_CAS_HEIST_FLOW", 10),
 	    std::make_shared<PackedBoolStat>(32399),
+	    std::make_shared<IntBitsStat>("MPX_CAS_HEIST_FLOW", 11, 13),
 	    std::make_shared<PackedBoolStat>(42025),
 	    std::make_shared<PackedBoolStat>(42086),
 	    std::make_shared<PackedBoolRangeStat>(41678, 41681),
 	    std::make_shared<IntStat>("MPX_PROG_HUB_CASINO_H_EARNINGS", 50000000),
-
 
 	    // THE DOOMSDAY HEIST
 	    std::make_shared<PackedBoolStat>(18139),

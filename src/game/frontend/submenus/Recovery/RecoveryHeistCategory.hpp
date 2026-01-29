@@ -98,7 +98,7 @@ namespace YimMenu::Submenus
 			components::ver_space();
 			// https://www.unknowncheats.me/forum/grand-theft-auto-v/368204-skip-casino-heist-preps-using-gtahax.html
 			// https://github.com/YimMenu-Lua/Casino-Pacino/blob/main/CasinoPacino.lua
-			ImGui::Text("Dont use for hard mode!!! Pay the setup fees first...");
+			ImGui::Text("Pay the setup fees first...");
 			if (ImGui::Button("Casino Heist Prep Skip"))
 				FiberPool::Push([] {
 					Stats::SetInt("MPX_H3OPT_POI", 1023);
@@ -131,13 +131,14 @@ namespace YimMenu::Submenus
 					Stats::SetInt("MPX_H3OPT_BODYARMORLVL", -1);
 					Stats::SetInt("MPX_H3OPT_KEYLEVELS", 2); // 1 = Level1 Security Pass, 2 = Level2 Security Pass
 
+					auto B0 = Stats::GetInt("MPX_H3OPT_BITSET0");
 					if (approach == 1) // "Silent & Sneaky"
 					{
 						Stats::SetInt("MPX_H3OPT_CREWWEAP", 1); // Karl Abolaji
 						Stats::SetInt("MPX_H3OPT_WEAPS", 0);
 						Stats::SetInt("MPX_H3OPT_BITSET1", 127);
 						ScriptMgr::Yield(500ms);
-						Stats::SetInt("MPX_H3OPT_BITSET0", 4456694);
+						Stats::SetInt("MPX_H3OPT_BITSET0", B0 | 4456694);
 					}
 					if (approach == 2) // "The Big Con"
 					{
@@ -145,7 +146,7 @@ namespace YimMenu::Submenus
 						Stats::SetInt("MPX_H3OPT_WEAPS", 0);
 						Stats::SetInt("MPX_H3OPT_BITSET1", 159);
 						ScriptMgr::Yield(500ms);
-						Stats::SetInt("MPX_H3OPT_BITSET0", 4534486);
+						Stats::SetInt("MPX_H3OPT_BITSET0",  B0 | 4534486);
 					}
 					// if (approach == 3) //  "Aggressive"
 					// {
@@ -153,7 +154,7 @@ namespace YimMenu::Submenus
 					// 	Stats::SetInt("MPX_H3OPT_WEAPS", 0);
 					// 	Stats::SetInt("MPX_H3OPT_BITSET1", 1023);
 					// 	ScriptMgr::Yield(500ms);
-					// 	Stats::SetInt("MPX_H3OPT_BITSET0", 8388607); // 5767190
+					// 	Stats::SetInt("MPX_H3OPT_BITSET0",  B0 | 8388607); // 5767190
 					// }
 				});
 
@@ -168,19 +169,17 @@ namespace YimMenu::Submenus
 
 			components::ver_space();
 			// https: //www.unknowncheats.me/forum/grand-theft-auto-v/431801-cayo-perico-heist-click-61.html
-			static bool scope_cayo_island = false;
-			ImGui::Text("Dont use for hard mode!!! Pay the setup fees first...");
+			// https://www.unknowncheats.me/forum/3014198-post141.html
+			static bool scope_coke = false, scope_weed = false, scope_cash = false;
+			ImGui::Text("Pay the setup fees first...");
 			if (ImGui::Button("Cayo Perico prep skip"))
 				FiberPool::Push([] {
 					auto cayoTarget = Stats::GetInt("MPX_H4CNF_TARGET");
 					LOG(VERBOSE) << "CayoTarget " << (cayoTarget == -1 ? "Unknown" : cayo_targets[cayoTarget]);
 
-					if (scope_cayo_island)
-					{
-						Stats::SetInt("MPX_H4LOOT_CASH_I_SCOPED", Stats::GetInt("MPX_H4LOOT_CASH_I"));
-						Stats::SetInt("MPX_H4LOOT_COKE_I_SCOPED", Stats::GetInt("MPX_H4LOOT_COKE_I"));
-						Stats::SetInt("MPX_H4LOOT_WEED_I_SCOPED", Stats::GetInt("MPX_H4LOOT_WEED_I"));
-					}
+					Stats::SetInt("MPX_H4LOOT_COKE_I_SCOPED", scope_coke ? Stats::GetInt("MPX_H4LOOT_COKE_I") : 0);
+					Stats::SetInt("MPX_H4LOOT_CASH_I_SCOPED", scope_cash ? Stats::GetInt("MPX_H4LOOT_CASH_I") : 0);
+					Stats::SetInt("MPX_H4LOOT_WEED_I_SCOPED", scope_weed ? Stats::GetInt("MPX_H4LOOT_WEED_I") : 0);
 
 					Stats::SetInt("MPX_H4LOOT_CASH_C_SCOPED", Stats::GetInt("MPX_H4LOOT_CASH_C"));
 					Stats::SetInt("MPX_H4LOOT_GOLD_C_SCOPED", Stats::GetInt("MPX_H4LOOT_GOLD_C"));
@@ -193,24 +192,22 @@ namespace YimMenu::Submenus
 					Stats::SetInt("MPX_H4CNF_WEP_DISRP", 3);
 					Stats::SetInt("MPX_H4CNF_ARM_DISRP", 3);
 					Stats::SetInt("MPX_H4CNF_HEL_DISRP", 3);
-					Stats::SetInt("MPX_H4_MISSIONS", 65091); // all prep (boat + submarine)
+					Stats::SetInt("MPX_H4_MISSIONS", 65027 + ((scope_coke || scope_cash || scope_weed) ? 64 : 0)); // all prep (submarine +-boat)
 
 					ScriptMgr::Yield(500ms);
+
+					auto progress = Stats::GetInt("MPX_H4_PROGRESS");
 					if (cayoTarget == 2) // Bearer Bonds
-						Stats::SetInt("MPX_H4_PROGRESS", 126955);
+						Stats::SetInt("MPX_H4_PROGRESS", progress | 126955);
 					else
-						Stats::SetInt("MPX_H4_PROGRESS", 94179);
-
-					// Stats::SetInt("MPX_H4_PLAYTHROUGH_STATUS", 25);
-					// Stats::SetInt("MPX_H4CNF_BS_ABIL", 0);
-					// Stats::SetInt("MPX_H4CNF_TROJAN", 5); // 2, 5 ,?
-
-					// ScriptMgr::Yield(500ms);
-					// if (auto thread = Scripts::FindScriptThread("heist_island_planning"_J))
-					// 	*ScriptLocal(thread, 1570).As<int*>() = 2;
+						Stats::SetInt("MPX_H4_PROGRESS", progress | 94179);
 				});
 			ImGui::SameLine();
-			ImGui::Checkbox("Scope Island targets?", &scope_cayo_island);
+			ImGui::Checkbox("Scope Coke", &scope_coke);
+			ImGui::SameLine();
+			ImGui::Checkbox("Scope Weed", &scope_weed);
+			ImGui::SameLine();
+			ImGui::Checkbox("Scope Cash", &scope_cash);
 
 			components::ver_space();
 			// https://github.com/YimMenu/YimMenuV2/blob/enhanced/src/game/features/recovery/Heist/DoomsdayHeist.cpp
