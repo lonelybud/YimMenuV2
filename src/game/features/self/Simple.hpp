@@ -31,15 +31,6 @@ namespace YimMenu::Features
 			Stats::SetInt("MPX_MP_CHAR_ARMOUR_5_COUNT", 10);
 			Stats::SetInt("MPX_CIGARETTES_BOUGHT", 20);
 			Stats::SetInt("MPX_BREATHING_APPAR_BOUGHT", 20);
-
-			// others
-			Stats::SetInt("MPX_CLUB_POPULARITY", 1000);
-
-			// https://www.unknowncheats.me/forum/grand-theft-auto-v/707419-lua-scripts-yimmenuv2-collection-thread-12.html#post4539651
-			for (int i = 24924; i <= 24926; ++i)
-				Stats::SetPackedInt(i, 0); // Money Fronts Businesses Heat Removed!
-
-			Tunable("CHARACTER_APPEARANCE_COOLDOWN"_J).Set(0);
 		});
 	}
 

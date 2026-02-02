@@ -226,7 +226,7 @@ namespace YimMenu::Submenus
 					Network::LaunchJoinType(Network::JoinType::LEAVE_ONLINE);
 				});
 			ImGui::Spacing();
-			ImGui::Checkbox("Allow Player Communication", &YimMenu::Features::allowMultiPlayerCommun);
+			ImGui::Checkbox("Allow Players in Lobby", &YimMenu::Features::allowPlayerJoin);
 		}
 	};
 

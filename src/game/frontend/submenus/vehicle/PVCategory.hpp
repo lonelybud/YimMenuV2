@@ -12,7 +12,13 @@ namespace YimMenu::Submenus
 
 		void Draw()
 		{
-			auto &pvs = PersonalVehicles::GetPersonalVehicles();
+			if (!*Pointers.IsSessionStarted)
+			{
+				ImGui::Text("Go online to see this view.");
+				return;
+			}
+
+			auto& pvs = PersonalVehicles::GetPersonalVehicles();
 
 			if (ImGui::Button("Refresh"))
 				FiberPool::Push([] {

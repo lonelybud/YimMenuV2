@@ -21,12 +21,27 @@ namespace YimMenu::Submenus
 		{
 			components::checkbox(YimMenu::Features::_UnlockGTAPlus);
 
-			components::checkbox(YimMenu::Features::_OverrideRPMultiplier);
-			if (YimMenu::Features::_OverrideRPMultiplier.m_State)
+			if (*Pointers.IsSessionStarted)
 			{
-				ImGui::SameLine();
-				ImGui::SetNextItemWidth(200);
-				ImGui::SliderFloat("Value###rp_mult_val", &YimMenu::Features::_OverrideRPMultiplier._RpMultiplierInput, 1, 10);
+				components::ver_space();
+				components::checkbox(YimMenu::Features::_OverrideRPMultiplier);
+				if (YimMenu::Features::_OverrideRPMultiplier.m_State)
+				{
+					ImGui::SameLine();
+					ImGui::SetNextItemWidth(200);
+					ImGui::SliderFloat("Value###rp_mult_val", &YimMenu::Features::_OverrideRPMultiplier._RpMultiplierInput, 1, 10);
+				}
+
+				components::ver_space();
+
+				if (ImGui::Button("Remove Appearance Cooldown"))
+					FiberPool::Push([] {
+						Tunable("CHARACTER_APPEARANCE_COOLDOWN"_J).Set(0);
+					});
+				if (ImGui::Button("Allow Gender Change"))
+					FiberPool::Push([] {
+						Stats::SetInt("MPX_ALLOW_GENDER_CHANGE", 52);
+					});
 			}
 		}
 	};
@@ -36,6 +51,12 @@ namespace YimMenu::Submenus
 		using SubmenuMenuCategory::SubmenuMenuCategory;
 		void Draw()
 		{
+			if (!*Pointers.IsSessionStarted)
+			{
+				ImGui::Text("Go online to see this view.");
+				return;
+			}
+
 			if (ImGui::Button("Save This Vehicle as Personal Vehicle"))
 				Features::SavePersonalVehicle::Save();
 
@@ -74,6 +95,12 @@ namespace YimMenu::Submenus
 
 		void Draw()
 		{
+			if (!*Pointers.IsSessionStarted)
+			{
+				ImGui::Text("Go online to see this view.");
+				return;
+			}
+
 			if (ImGui::Button("unlock_packed_bools_simple"))
 				UnlockEverything::unlock_packed_bools_simple();
 
@@ -114,6 +141,12 @@ namespace YimMenu::Submenus
 		using SubmenuMenuCategory::SubmenuMenuCategory;
 		void Draw()
 		{
+			if (!*Pointers.IsSessionStarted)
+			{
+				ImGui::Text("Go online to see this view.");
+				return;
+			}
+
 			ImGui::SetNextItemWidth(200.f);
 			if (ImGui::BeginCombo("Business##earnings", Features::_ClaimSafeEarnings.selected_business.second))
 			{
@@ -132,6 +165,19 @@ namespace YimMenu::Submenus
 			ImGui::Text("BailShop Value: %d", GPBD_FM::Get()->Entries[Self::GetPlayer().GetId()].PropertyData.BailShopData.SafeCashValue);
 			ImGui::Text("GarmentFactory Value: %d", GPBD_FM::Get()->Entries[Self::GetPlayer().GetId()].PropertyData.HackerDenData.SafeCashValue);
 			ImGui::Text("HandsOnCarWash Value: %d", GPBD_FM_2::Get()->Entries[Self::GetPlayer().GetId()].SYVehSaleData.HOWCData.SafeCashValue);
+
+			components::ver_space();
+
+			if (ImGui::Button("Increase NightClub Popularity"))
+				FiberPool::Push([] {
+					Stats::SetInt("MPX_CLUB_POPULARITY", 1000);
+				});
+			if (ImGui::Button("Remove Money Fronts Businesses Heat"))
+				FiberPool::Push([] {
+					// https://www.unknowncheats.me/forum/grand-theft-auto-v/707419-lua-scripts-yimmenuv2-collection-thread-12.html#post4539651
+					for (int i = 24924; i <= 24926; ++i)
+						Stats::SetPackedInt(i, 0); // Money Fronts Businesses Heat Removed!
+				});
 
 			// components::ver_space();
 			// // https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-47.html#post4549061

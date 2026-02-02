@@ -23,7 +23,6 @@ namespace YimMenu::Submenus
 
 			components::ver_space();
 
-			components::checkbox(YimMenu::Features::_ForceThunder);
 			components::checkbox(YimMenu::Features::_PedIgnore);
 			if (ImGui::Button("Toggle Snow"))
 				FiberPool::Push([] {
@@ -35,6 +34,13 @@ namespace YimMenu::Submenus
 
 			// components::button(YimMenu::Features::_KillAll);
 			components::button(YimMenu::Features::_KillAllEnemies);
+
+
+			if (*Pointers.IsSessionStarted)
+			{
+				components::ver_space();
+				components::checkbox(YimMenu::Features::_ForceThunder);
+			}
 		}
 	};
 

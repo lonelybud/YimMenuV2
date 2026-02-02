@@ -5,6 +5,7 @@
 #include "game/gta/ScriptFunction.hpp"
 #include "game/gta/Stats.hpp"
 #include "types/script/globals/GPBD_FM_2.hpp"
+#include <bitset>
 
 namespace YimMenu::Submenus
 {
@@ -32,6 +33,12 @@ namespace YimMenu::Submenus
 		using SubmenuMenuCategory::SubmenuMenuCategory;
 		void Draw()
 		{
+			if (!*Pointers.IsSessionStarted)
+			{
+				ImGui::Text("Go online to see this view.");
+				return;
+			}
+
 			components::checkbox(YimMenu::Features::_PlayAllMissionsSolo);
 			static int team;
 			ImGui::SetNextItemWidth(150);
@@ -108,19 +115,14 @@ namespace YimMenu::Submenus
 					auto casinoTarget = Stats::GetInt("MPX_H3OPT_TARGET");
 					auto lastApproach = Stats::GetInt("MPX_H3_LAST_APPROACH"); // "Unselected", "Silent & Sneaky", "The Big Con", "Aggressive"
 
-					LOG(VERBOSE) << "casinoTarget " << (casinoTarget == -1 ? "Unknown" : casino_targets[casinoTarget]);
-					LOG(VERBOSE) << "lastApproach " << casino_approach[lastApproach];
-
 					if (lastApproach == 1 || lastApproach == 3) // "Silent & Sneaky" ||  "Aggressive"
 						Stats::SetInt("MPX_H3OPT_APPROACH", 2); // "The Big Con"
 					else if (lastApproach == 2)                 // "The Big Con"
 						Stats::SetInt("MPX_H3OPT_APPROACH", 1); // "Silent & Sneaky"
+					else
+						return; // no last approach (select approach manually)
 
-					auto approach = Stats::GetInt("MPX_H3OPT_APPROACH");
-					if (approach == 0) // no approach selected (please select manually)
-						return;
-
-					LOG(VERBOSE) << "currApproach " << casino_approach[approach];
+					auto approach = Stats::GetInt("MPX_H3OPT_APPROACH"); // "Unselected", "Silent & Sneaky", "The Big Con", "Aggressive"
 
 					Stats::SetInt("MPX_H3OPT_CREWDRIVER", 1); // Karim Denz
 					Stats::SetInt("MPX_H3OPT_CREWHACKER", 5); // Paige Harris
@@ -146,7 +148,7 @@ namespace YimMenu::Submenus
 						Stats::SetInt("MPX_H3OPT_WEAPS", 0);
 						Stats::SetInt("MPX_H3OPT_BITSET1", 159);
 						ScriptMgr::Yield(500ms);
-						Stats::SetInt("MPX_H3OPT_BITSET0",  B0 | 4534486);
+						Stats::SetInt("MPX_H3OPT_BITSET0", B0 | 4534486);
 					}
 					// if (approach == 3) //  "Aggressive"
 					// {
@@ -156,6 +158,10 @@ namespace YimMenu::Submenus
 					// 	ScriptMgr::Yield(500ms);
 					// 	Stats::SetInt("MPX_H3OPT_BITSET0",  B0 | 8388607); // 5767190
 					// }
+
+					LOGF(VERBOSE, "CasinoTarget for char {} - {}", Stats::GetCharIndex() + 1, (casinoTarget == -1 ? "Unknown" : casino_targets[casinoTarget]));
+					LOG(VERBOSE) << "lastApproach " << casino_approach[lastApproach];
+					LOG(VERBOSE) << "currApproach " << casino_approach[approach];
 				});
 
 			components::ver_space();
@@ -175,15 +181,16 @@ namespace YimMenu::Submenus
 			if (ImGui::Button("Cayo Perico prep skip"))
 				FiberPool::Push([] {
 					auto cayoTarget = Stats::GetInt("MPX_H4CNF_TARGET");
-					LOG(VERBOSE) << "CayoTarget " << (cayoTarget == -1 ? "Unknown" : cayo_targets[cayoTarget]);
+					auto c = Stats::GetInt("MPX_H4LOOT_CASH_C");
+					auto g = Stats::GetInt("MPX_H4LOOT_GOLD_C");
+					auto p = Stats::GetInt("MPX_H4LOOT_PAINT");
 
 					Stats::SetInt("MPX_H4LOOT_COKE_I_SCOPED", scope_coke ? Stats::GetInt("MPX_H4LOOT_COKE_I") : 0);
 					Stats::SetInt("MPX_H4LOOT_CASH_I_SCOPED", scope_cash ? Stats::GetInt("MPX_H4LOOT_CASH_I") : 0);
 					Stats::SetInt("MPX_H4LOOT_WEED_I_SCOPED", scope_weed ? Stats::GetInt("MPX_H4LOOT_WEED_I") : 0);
-
-					Stats::SetInt("MPX_H4LOOT_CASH_C_SCOPED", Stats::GetInt("MPX_H4LOOT_CASH_C"));
-					Stats::SetInt("MPX_H4LOOT_GOLD_C_SCOPED", Stats::GetInt("MPX_H4LOOT_GOLD_C"));
-					Stats::SetInt("MPX_H4LOOT_PAINT_SCOPED", Stats::GetInt("MPX_H4LOOT_PAINT"));
+					Stats::SetInt("MPX_H4LOOT_CASH_C_SCOPED", c);
+					Stats::SetInt("MPX_H4LOOT_GOLD_C_SCOPED", g);
+					Stats::SetInt("MPX_H4LOOT_PAINT_SCOPED", p);
 
 					Stats::SetInt("MPX_H4CNF_APPROACH", 223);  // unlock all approach vehicles (fixed)
 					Stats::SetInt("MPX_H4CNF_WEAPONS", 1);     // aggressor
@@ -201,6 +208,12 @@ namespace YimMenu::Submenus
 						Stats::SetInt("MPX_H4_PROGRESS", progress | 126955);
 					else
 						Stats::SetInt("MPX_H4_PROGRESS", progress | 94179);
+
+					LOGF(VERBOSE, "CayoTarget for char {} - {}", Stats::GetCharIndex() + 1, (cayoTarget == -1 ? "Unknown" : cayo_targets[cayoTarget]));
+					LOG(VERBOSE) << "Compound C " << std::bitset<8>(c).count();
+					LOG(VERBOSE) << "Compound G " << std::bitset<8>(g).count();
+					LOG(VERBOSE) << "Compound P " << std::bitset<7>(p).count();
+					// check for bag fill amount -> https://www.reddit.com/r/gtaonline/comments/pq1gcp/how_much_can_each_persons_bag_carry_in_cayo_perico/
 				});
 			ImGui::SameLine();
 			ImGui::Checkbox("Scope Coke", &scope_coke);

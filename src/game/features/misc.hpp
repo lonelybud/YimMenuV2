@@ -2,5 +2,5 @@
 
 namespace YimMenu::Features
 {
-    inline bool allowMultiPlayerCommun = false;
+    inline bool allowPlayerJoin = false;
 }

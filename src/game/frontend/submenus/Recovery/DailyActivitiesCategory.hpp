@@ -10,6 +10,12 @@ namespace YimMenu::Submenus
 		using SubmenuMenuCategory::SubmenuMenuCategory;
 		void Draw()
 		{
+			if (!*Pointers.IsSessionStarted)
+			{
+				ImGui::Text("Go online to see this view.");
+				return;
+			}
+
 			components::checkbox(YimMenu::Features::_EnableTreasureChestInLS);
 			components::checkbox(YimMenu::Features::_EnableBuriedStashInLS);
 

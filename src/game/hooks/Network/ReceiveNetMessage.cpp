@@ -22,7 +22,7 @@ namespace YimMenu::Hooks
 
 	void Network::ReceiveNetMessage(void* a1, rage::netConnectionManager* mgr, rage::netEvent* event)
 	{
-		if(!YimMenu::Features::allowMultiPlayerCommun)
+		if(!YimMenu::Features::allowPlayerJoin)
 			return;
 
 		if (!g_Running)

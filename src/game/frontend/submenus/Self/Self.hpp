@@ -25,11 +25,15 @@ namespace YimMenu::Submenus
 			{
 				components::checkbox(YimMenu::Features::_Godmode);
 				components::checkbox(YimMenu::Features::_NoRagdoll);
-				components::checkbox(YimMenu::Features::_NoIdleKick);
 				components::checkbox(YimMenu::Features::_UnlimitedOxygen);
 				components::checkbox(YimMenu::Features::_NeverWanted);
 				components::checkbox(YimMenu::Features::_SuperJump);
 				components::checkbox(YimMenu::Features::_Freecam);
+
+				if (*Pointers.IsSessionStarted)
+				{
+					components::checkbox(YimMenu::Features::_NoIdleKick);
+				}
 			}
 			ImGui::EndGroup();
 			ImGui::SameLine();
@@ -45,7 +49,11 @@ namespace YimMenu::Submenus
 					YimMenu::Features::ClearSelfDamage();
 				if (ImGui::Button("fill inventory"))
 					YimMenu::Features::FillInventory();
-				components::button(YimMenu::Features::_OpenWardrobe);
+
+				if (*Pointers.IsSessionStarted)
+				{
+					components::button(YimMenu::Features::_OpenWardrobe);
+				}
 			}
 			ImGui::EndGroup();
 		}
