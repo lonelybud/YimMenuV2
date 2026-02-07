@@ -51,6 +51,15 @@ namespace YimMenu::Submenus
 				});
 
 			components::ver_space();
+			// https://www.unknowncheats.me/forum/grand-theft-auto-v/368204-skip-casino-heist-preps-using-gtahax.html
+			// https://github.com/YimMenu-Lua/Casino-Pacino/blob/main/CasinoPacino.lua
+			ImGui::Text("Select the heist first...");
+			if (ImGui::Button("Apartment Heist Prep Skip"))
+				FiberPool::Push([] {
+					Stats::SetInt("MPX_HEIST_PLANNING_STAGE", -1);
+				});
+
+			components::ver_space();
 			// https://www.unknowncheats.me/forum/grand-theft-auto-v/707419-lua-scripts-yimmenuv2-collection-thread-18.html#post4547669
 			if (ImGui::Button("Dr. Dre Contract preps skip"))
 				FiberPool::Push([] {
@@ -106,13 +115,32 @@ namespace YimMenu::Submenus
 			// https://www.unknowncheats.me/forum/grand-theft-auto-v/368204-skip-casino-heist-preps-using-gtahax.html
 			// https://github.com/YimMenu-Lua/Casino-Pacino/blob/main/CasinoPacino.lua
 			ImGui::Text("Pay the setup fees first...");
+			ImGui::SetNextItemWidth(200.f);
+			static auto casinoTarget = 0;
+			if (ImGui::BeginCombo("Target##casinoTarget", casino_targets[casinoTarget]))
+			{
+				for (int i = 0; i < 4; ++i)
+					if (ImGui::Selectable(casino_targets[i], casinoTarget == i))
+						casinoTarget = i;
+				ImGui::EndCombo();
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("Get##casinoTarget"))
+				FiberPool::Push([] {
+					casinoTarget = Stats::GetInt("MPX_H3OPT_TARGET");
+				});
+			ImGui::SameLine();
+			if (ImGui::Button("Set##casinoTarget"))
+				FiberPool::Push([] {
+					Stats::SetInt("MPX_H3OPT_TARGET", casinoTarget);
+				});
+
 			if (ImGui::Button("Casino Heist Prep Skip"))
 				FiberPool::Push([] {
 					Stats::SetInt("MPX_H3OPT_POI", 1023);
 					Stats::SetInt("MPX_H3OPT_ACCESSPOINTS", 2047);
 					Stats::SetInt("MPX_H3OPT_BITSET1", 1); // scope the vault
 
-					auto casinoTarget = Stats::GetInt("MPX_H3OPT_TARGET");
 					auto lastApproach = Stats::GetInt("MPX_H3_LAST_APPROACH"); // "Unselected", "Silent & Sneaky", "The Big Con", "Aggressive"
 
 					if (lastApproach == 1 || lastApproach == 3) // "Silent & Sneaky" ||  "Aggressive"
@@ -165,22 +193,33 @@ namespace YimMenu::Submenus
 				});
 
 			components::ver_space();
-			// https://www.unknowncheats.me/forum/grand-theft-auto-v/368204-skip-casino-heist-preps-using-gtahax.html
-			// https://github.com/YimMenu-Lua/Casino-Pacino/blob/main/CasinoPacino.lua
-			ImGui::Text("Select the heist first...");
-			if (ImGui::Button("Apartment Heist Prep Skip"))
-				FiberPool::Push([] {
-					Stats::SetInt("MPX_HEIST_PLANNING_STAGE", -1);
-				});
-
-			components::ver_space();
 			// https: //www.unknowncheats.me/forum/grand-theft-auto-v/431801-cayo-perico-heist-click-61.html
 			// https://www.unknowncheats.me/forum/3014198-post141.html
-			static bool scope_coke = false, scope_weed = false, scope_cash = false;
+			// https://www.unknowncheats.me/forum/grand-theft-auto-v/431801-cayo-perico-heist-click-15.html
+			static bool scope_coke = false, scope_weed = false, scope_cash = false, scope_boat = false, scope_plane = false;
+			ImGui::SetNextItemWidth(200.f);
+			static auto cayoTarget = 0;
+			if (ImGui::BeginCombo("Target##cayoTarget", cayo_targets[cayoTarget]))
+			{
+				for (int i = 0; i < 4; ++i)
+					if (ImGui::Selectable(cayo_targets[i], cayoTarget == i))
+						cayoTarget = i;
+				ImGui::EndCombo();
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("Get##cayoTarget"))
+				FiberPool::Push([] {
+					cayoTarget = Stats::GetInt("MPX_H4CNF_TARGET");
+				});
+			ImGui::SameLine();
+			if (ImGui::Button("Set##cayoTarget"))
+				FiberPool::Push([] {
+					Stats::SetInt("MPX_H4CNF_TARGET", cayoTarget);
+				});
+
 			ImGui::Text("Pay the setup fees first...");
 			if (ImGui::Button("Cayo Perico prep skip"))
 				FiberPool::Push([] {
-					auto cayoTarget = Stats::GetInt("MPX_H4CNF_TARGET");
 					auto c = Stats::GetInt("MPX_H4LOOT_CASH_C");
 					auto g = Stats::GetInt("MPX_H4LOOT_GOLD_C");
 					auto p = Stats::GetInt("MPX_H4LOOT_PAINT");
@@ -192,14 +231,24 @@ namespace YimMenu::Submenus
 					Stats::SetInt("MPX_H4LOOT_GOLD_C_SCOPED", g);
 					Stats::SetInt("MPX_H4LOOT_PAINT_SCOPED", p);
 
-					Stats::SetInt("MPX_H4CNF_APPROACH", 223);  // unlock all approach vehicles (fixed)
-					Stats::SetInt("MPX_H4CNF_WEAPONS", 1);     // aggressor
-					Stats::SetInt("MPX_H4CNF_BS_GEN", 196608); // 196608, all points of interest (fixed)
-					Stats::SetInt("MPX_H4CNF_BS_ENTR", 63);    // 63, entries (fixed)
+					Stats::SetInt("MPX_H4CNF_APPROACH", 223); // approach vehicles
+					Stats::SetInt("MPX_H4CNF_WEAPONS", 1);    // aggressor
+					Stats::SetInt("MPX_H4CNF_BS_ENTR", 63);   // entries
 					Stats::SetInt("MPX_H4CNF_WEP_DISRP", 3);
 					Stats::SetInt("MPX_H4CNF_ARM_DISRP", 3);
 					Stats::SetInt("MPX_H4CNF_HEL_DISRP", 3);
-					Stats::SetInt("MPX_H4_MISSIONS", 65027 + ((scope_coke || scope_cash || scope_weed) ? 64 : 0)); // all prep (submarine +-boat)
+
+					if (scope_coke || scope_cash || scope_weed)
+						Stats::SetInt("MPX_H4CNF_BS_GEN", 196608 | 32768 | 240); //  + scope truck + scope 4 cloths
+					else
+						Stats::SetInt("MPX_H4CNF_BS_GEN", 196608); // points of interest
+
+					int h4m = 65027;
+					if (scope_boat)
+						h4m |= 8;
+					if (scope_plane)
+						h4m |= 64;
+					Stats::SetInt("MPX_H4_MISSIONS", h4m); // preps
 
 					ScriptMgr::Yield(500ms);
 
@@ -210,17 +259,20 @@ namespace YimMenu::Submenus
 						Stats::SetInt("MPX_H4_PROGRESS", progress | 94179);
 
 					LOGF(VERBOSE, "CayoTarget for char {} - {}", Stats::GetCharIndex() + 1, (cayoTarget == -1 ? "Unknown" : cayo_targets[cayoTarget]));
-					LOG(VERBOSE) << "Compound C " << std::bitset<8>(c).count();
-					LOG(VERBOSE) << "Compound G " << std::bitset<8>(g).count();
-					LOG(VERBOSE) << "Compound P " << std::bitset<7>(p).count();
-					// check for bag fill amount -> https://www.reddit.com/r/gtaonline/comments/pq1gcp/how_much_can_each_persons_bag_carry_in_cayo_perico/
+					// https://www.reddit.com/r/gtaonline/comments/pq1gcp/how_much_can_each_persons_bag_carry_in_cayo_perico/
+					LOG(VERBOSE) << "Compound Cash% : " << ((int)std::bitset<8>(c).count() * 25);
+					LOG(VERBOSE) << "Compound Gold% : " << ((float)std::bitset<8>(g).count() * 66.667);
+					LOG(VERBOSE) << "Compound Painting% : " << ((int)std::bitset<8>(p).count() * 50);
 				});
-			ImGui::SameLine();
 			ImGui::Checkbox("Scope Coke", &scope_coke);
 			ImGui::SameLine();
 			ImGui::Checkbox("Scope Weed", &scope_weed);
 			ImGui::SameLine();
 			ImGui::Checkbox("Scope Cash", &scope_cash);
+			ImGui::SameLine();
+			ImGui::Checkbox("Scope Boat", &scope_boat);
+			ImGui::SameLine();
+			ImGui::Checkbox("Scope Plane", &scope_plane);
 
 			components::ver_space();
 			// https://github.com/YimMenu/YimMenuV2/blob/enhanced/src/game/features/recovery/Heist/DoomsdayHeist.cpp

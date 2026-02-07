@@ -262,5 +262,5 @@ namespace YimMenu::Features
 		}
 	};
 
-	inline PlayAllMissionsSolo _PlayAllMissionsSolo{"playallmissionssolo", "Play All Missions Solo", "Allows you to play any mission solo. Note that some missions might break if there aren't enough players"};
+	inline PlayAllMissionsSolo _PlayAllMissionsSolo{"playallmissionssolo", "Play All Missions Solo", "Allows you to play any mission solo."};
 }
