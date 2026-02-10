@@ -117,6 +117,7 @@ namespace YimMenu::Submenus
 			ImGui::Text("Pay the setup fees first...");
 			ImGui::SetNextItemWidth(200.f);
 			static auto casinoTarget = 0;
+			static bool casino_hard_mode = false;
 			if (ImGui::BeginCombo("Target##casinoTarget", casino_targets[casinoTarget]))
 			{
 				for (int i = 0; i < 4; ++i)
@@ -129,28 +130,26 @@ namespace YimMenu::Submenus
 				FiberPool::Push([] {
 					casinoTarget = Stats::GetInt("MPX_H3OPT_TARGET");
 				});
-			ImGui::SameLine();
-			if (ImGui::Button("Set##casinoTarget"))
-				FiberPool::Push([] {
-					Stats::SetInt("MPX_H3OPT_TARGET", casinoTarget);
-				});
-
+			ImGui::Checkbox("Hard Mode##casino", &casino_hard_mode);
 			if (ImGui::Button("Casino Heist Prep Skip"))
 				FiberPool::Push([] {
 					Stats::SetInt("MPX_H3OPT_POI", 1023);
 					Stats::SetInt("MPX_H3OPT_ACCESSPOINTS", 2047);
+					Stats::SetInt("MPX_H3OPT_TARGET", casinoTarget);
 					Stats::SetInt("MPX_H3OPT_BITSET1", 1); // scope the vault
 
 					auto lastApproach = Stats::GetInt("MPX_H3_LAST_APPROACH"); // "Unselected", "Silent & Sneaky", "The Big Con", "Aggressive"
+					auto approach = 0;
 
 					if (lastApproach == 1 || lastApproach == 3) // "Silent & Sneaky" ||  "Aggressive"
-						Stats::SetInt("MPX_H3OPT_APPROACH", 2); // "The Big Con"
+						approach = 2;                           // "The Big Con"
 					else if (lastApproach == 2)                 // "The Big Con"
-						Stats::SetInt("MPX_H3OPT_APPROACH", 1); // "Silent & Sneaky"
+						approach = 1;                           // "Silent & Sneaky"
 					else
 						return; // no last approach (select approach manually)
 
-					auto approach = Stats::GetInt("MPX_H3OPT_APPROACH"); // "Unselected", "Silent & Sneaky", "The Big Con", "Aggressive"
+					Stats::SetInt("MPX_H3OPT_APPROACH", approach);
+					Stats::SetInt("MPX_H3_HARD_APPROACH", casino_hard_mode ? approach : 0);
 
 					Stats::SetInt("MPX_H3OPT_CREWDRIVER", 1); // Karim Denz
 					Stats::SetInt("MPX_H3OPT_CREWHACKER", 5); // Paige Harris
@@ -196,7 +195,7 @@ namespace YimMenu::Submenus
 			// https: //www.unknowncheats.me/forum/grand-theft-auto-v/431801-cayo-perico-heist-click-61.html
 			// https://www.unknowncheats.me/forum/3014198-post141.html
 			// https://www.unknowncheats.me/forum/grand-theft-auto-v/431801-cayo-perico-heist-click-15.html
-			static bool scope_coke = false, scope_weed = false, scope_cash = false, scope_boat = false, scope_plane = false;
+			static bool scope_coke = false, scope_weed = false, scope_cash = false, scope_boat = false, scope_plane = false, cayo_hard_mode = false;
 			ImGui::SetNextItemWidth(200.f);
 			static auto cayoTarget = 0;
 			if (ImGui::BeginCombo("Target##cayoTarget", cayo_targets[cayoTarget]))
@@ -211,15 +210,21 @@ namespace YimMenu::Submenus
 				FiberPool::Push([] {
 					cayoTarget = Stats::GetInt("MPX_H4CNF_TARGET");
 				});
+			ImGui::Checkbox("Scope Coke", &scope_coke);
 			ImGui::SameLine();
-			if (ImGui::Button("Set##cayoTarget"))
-				FiberPool::Push([] {
-					Stats::SetInt("MPX_H4CNF_TARGET", cayoTarget);
-				});
-
+			ImGui::Checkbox("Scope Weed", &scope_weed);
+			ImGui::SameLine();
+			ImGui::Checkbox("Scope Cash", &scope_cash);
+			ImGui::SameLine();
+			ImGui::Checkbox("Scope Boat", &scope_boat);
+			ImGui::SameLine();
+			ImGui::Checkbox("Scope Plane", &scope_plane);
+			ImGui::Checkbox("Hard Mode##cayo", &cayo_hard_mode);
 			ImGui::Text("Pay the setup fees first...");
 			if (ImGui::Button("Cayo Perico prep skip"))
 				FiberPool::Push([] {
+					Stats::SetInt("MPX_H4CNF_TARGET", cayoTarget);
+
 					auto c = Stats::GetInt("MPX_H4LOOT_CASH_C");
 					auto g = Stats::GetInt("MPX_H4LOOT_GOLD_C");
 					auto p = Stats::GetInt("MPX_H4LOOT_PAINT");
@@ -250,13 +255,8 @@ namespace YimMenu::Submenus
 						h4m |= 64;
 					Stats::SetInt("MPX_H4_MISSIONS", h4m); // preps
 
-					ScriptMgr::Yield(500ms);
-
 					auto progress = Stats::GetInt("MPX_H4_PROGRESS");
-					if (cayoTarget == 2) // Bearer Bonds
-						Stats::SetInt("MPX_H4_PROGRESS", progress | 126955);
-					else
-						Stats::SetInt("MPX_H4_PROGRESS", progress | 94179);
+					Stats::SetInt("MPX_H4_PROGRESS", progress | (cayoTarget == 2 ? 126955 : 94179) | (cayo_hard_mode ? 4096 : 0));
 
 					LOGF(VERBOSE, "CayoTarget for char {} - {}", Stats::GetCharIndex() + 1, (cayoTarget == -1 ? "Unknown" : cayo_targets[cayoTarget]));
 					// https://www.reddit.com/r/gtaonline/comments/pq1gcp/how_much_can_each_persons_bag_carry_in_cayo_perico/
@@ -264,15 +264,6 @@ namespace YimMenu::Submenus
 					LOG(VERBOSE) << "Compound Gold% : " << ((float)std::bitset<8>(g).count() * 66.667);
 					LOG(VERBOSE) << "Compound Painting% : " << ((int)std::bitset<8>(p).count() * 50);
 				});
-			ImGui::Checkbox("Scope Coke", &scope_coke);
-			ImGui::SameLine();
-			ImGui::Checkbox("Scope Weed", &scope_weed);
-			ImGui::SameLine();
-			ImGui::Checkbox("Scope Cash", &scope_cash);
-			ImGui::SameLine();
-			ImGui::Checkbox("Scope Boat", &scope_boat);
-			ImGui::SameLine();
-			ImGui::Checkbox("Scope Plane", &scope_plane);
 
 			components::ver_space();
 			// https://github.com/YimMenu/YimMenuV2/blob/enhanced/src/game/features/recovery/Heist/DoomsdayHeist.cpp
