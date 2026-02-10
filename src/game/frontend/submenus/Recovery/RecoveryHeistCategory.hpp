@@ -201,7 +201,7 @@ namespace YimMenu::Submenus
 			static auto cayoTarget = 0;
 			if (ImGui::BeginCombo("Target##cayoTarget", cayo_targets[cayoTarget]))
 			{
-				for (int i = 0; i < 4; ++i)
+				for (int i = 0; i < 6; ++i)
 					if (ImGui::Selectable(cayo_targets[i], cayoTarget == i))
 						cayoTarget = i;
 				ImGui::EndCombo();
