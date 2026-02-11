@@ -158,8 +158,9 @@ namespace YimMenu::Submenus
 			components::ver_space();
 
 			static int achievmentNo = 1;
-			ImGui::SetNextItemWidth(200);
-			ImGui::SliderInt("Achievment ID", &achievmentNo, 1, 77);
+			ImGui::SetNextItemWidth(120);
+			ImGui::InputInt("Achievment ID [ 1 , 77 ]", &achievmentNo);
+			ImGui::SameLine();
 			if (ImGui::Button("Unlock#achievment"))
 				UnlockEverything::unlock_achievement(achievmentNo);
 

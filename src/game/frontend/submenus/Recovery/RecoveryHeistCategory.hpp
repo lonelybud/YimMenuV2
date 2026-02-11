@@ -6,6 +6,9 @@
 #include "game/gta/Stats.hpp"
 #include "types/script/globals/GPBD_FM_2.hpp"
 #include <bitset>
+#include <random>
+#include <algorithm>
+#include <numeric>
 
 namespace YimMenu::Submenus
 {
@@ -27,6 +30,24 @@ namespace YimMenu::Submenus
 	    "The Agency Deal",
 	    "The LOST Contract",
 	    "The Data Contract"};
+
+	// randomly put n bits in p bits
+	int put_n_random_bits(int n, int p)
+	{
+		// Use a random device to seed the random number engine
+		std::random_device rd;
+		std::mt19937 rng(rd());
+		// 1. Create a vector of all possible bit positions (0 to p-1)
+		std::vector<int> positions(p);
+		std::iota(positions.begin(), positions.end(), 0); // Fills with 0, 1, 2, ..., p-1
+		// 2. Randomly shuffle the positions
+		std::shuffle(positions.begin(), positions.end(), rng);
+		// 3. Take the first n positions
+		int result = 0;
+		for (int i = 0; i < n; ++i)
+			result |= (1U << positions[i]);
+		return result;
+	}
 
 	class RecoveryHeistCategory : public SubmenuMenuCategory
 	{
@@ -195,7 +216,6 @@ namespace YimMenu::Submenus
 			// https: //www.unknowncheats.me/forum/grand-theft-auto-v/431801-cayo-perico-heist-click-61.html
 			// https://www.unknowncheats.me/forum/3014198-post141.html
 			// https://www.unknowncheats.me/forum/grand-theft-auto-v/431801-cayo-perico-heist-click-15.html
-			static bool scope_coke = false, scope_weed = false, scope_cash = false, scope_boat = false, scope_plane = false, cayo_hard_mode = false;
 			ImGui::SetNextItemWidth(200.f);
 			static auto cayoTarget = 0;
 			if (ImGui::BeginCombo("Target##cayoTarget", cayo_targets[cayoTarget]))
@@ -210,28 +230,65 @@ namespace YimMenu::Submenus
 				FiberPool::Push([] {
 					cayoTarget = Stats::GetInt("MPX_H4CNF_TARGET");
 				});
-			ImGui::Checkbox("Scope Coke", &scope_coke);
-			ImGui::SameLine();
-			ImGui::Checkbox("Scope Weed", &scope_weed);
-			ImGui::SameLine();
-			ImGui::Checkbox("Scope Cash", &scope_cash);
-			ImGui::SameLine();
+			static bool scope_boat = false, scope_plane = false, cayo_hard_mode = false;
 			ImGui::Checkbox("Scope Boat", &scope_boat);
 			ImGui::SameLine();
 			ImGui::Checkbox("Scope Plane", &scope_plane);
+			ImGui::SameLine();
 			ImGui::Checkbox("Hard Mode##cayo", &cayo_hard_mode);
+			static int gold = 1, coke_pos = 1;
+			ImGui::SetNextItemWidth(200);
+			ImGui::SliderInt("No of gold:", &gold, 1, 8);
+			// ImGui::SameLine();
+			// ImGui::SetNextItemWidth(200);
+			// ImGui::SliderInt("Coke Position:", &coke_pos, 1, 3);
 			ImGui::Text("Pay the setup fees first...");
 			if (ImGui::Button("Cayo Perico prep skip"))
 				FiberPool::Push([] {
 					Stats::SetInt("MPX_H4CNF_TARGET", cayoTarget);
 
-					auto c = Stats::GetInt("MPX_H4LOOT_CASH_C");
-					auto g = Stats::GetInt("MPX_H4LOOT_GOLD_C");
-					auto p = Stats::GetInt("MPX_H4LOOT_PAINT");
+					// auto coke_c = std::bitset<8>(Stats::GetInt("MPX_H4LOOT_COKE_I")).count();
+					// auto cash_c = std::bitset<8>(Stats::GetInt("MPX_H4LOOT_CASH_I")).count();
+					// auto weed_c = std::bitset<8>(Stats::GetInt("MPX_H4LOOT_WEED_I")).count();
+					// auto coke = put_n_random_bits(coke_c, 8);
+					// auto cash = put_n_random_bits(cash_c, 8);
+					// auto weed = put_n_random_bits(weed_c, 8);
+					// std::random_device cash_i_rd;
+					// std::mt19937 cash_i_engine(cash_i_rd());
+					// std::uniform_int_distribution<int> cash_i_dist(1, 2);
+					// int cash_i_loc = cash_i_dist(cash_i_engine);
+					// int coke_i, weed_i, cash_i;
+					// if (coke_pos == 1)
+					// {
+					// 	coke_i = coke << 16;
+					// 	weed_i = weed << (cash_i_loc == 2 ? 8 : 0);
+					// 	cash_i = cash << (cash_i_loc == 2 ? 0 : 8);
+					// }
+					// else if (coke_pos == 2)
+					// {
+					// 	coke_i = coke << 8;
+					// 	weed_i = weed << (cash_i_loc == 2 ? 16 : 0);
+					// 	cash_i = cash << (cash_i_loc == 2 ? 0 : 16);
+					// }
+					// else if (coke_pos == 3)
+					// {
+					// 	coke_i = coke << 0;
+					// 	weed_i = weed << (cash_i_loc == 2 ? 16 : 8);
+					// 	cash_i = cash << (cash_i_loc == 2 ? 8 : 16);
+					// }
+					// Stats::SetInt("MPX_H4LOOT_COKE_I_SCOPED", coke_i);
+					// Stats::SetInt("MPX_H4LOOT_CASH_I_SCOPED", cash_i);
+					// Stats::SetInt("MPX_H4LOOT_WEED_I_SCOPED", weed_i);
+					// Stats::SetInt("MPX_H4LOOT_COKE_I", coke_i);
+					// Stats::SetInt("MPX_H4LOOT_CASH_I", cash_i);
+					// Stats::SetInt("MPX_H4LOOT_WEED_I", weed_i);
 
-					Stats::SetInt("MPX_H4LOOT_COKE_I_SCOPED", scope_coke ? Stats::GetInt("MPX_H4LOOT_COKE_I") : 0);
-					Stats::SetInt("MPX_H4LOOT_CASH_I_SCOPED", scope_cash ? Stats::GetInt("MPX_H4LOOT_CASH_I") : 0);
-					Stats::SetInt("MPX_H4LOOT_WEED_I_SCOPED", scope_weed ? Stats::GetInt("MPX_H4LOOT_WEED_I") : 0);
+					auto g = put_n_random_bits(gold, 8);
+					auto c = static_cast<int>(std::bitset<8>(g).flip().to_ulong());
+					auto p = put_n_random_bits(2, 7);
+					Stats::SetInt("MPX_H4LOOT_CASH_C", c);
+					Stats::SetInt("MPX_H4LOOT_GOLD_C", g);
+					Stats::SetInt("MPX_H4LOOT_PAINT", p);
 					Stats::SetInt("MPX_H4LOOT_CASH_C_SCOPED", c);
 					Stats::SetInt("MPX_H4LOOT_GOLD_C_SCOPED", g);
 					Stats::SetInt("MPX_H4LOOT_PAINT_SCOPED", p);
@@ -243,10 +300,8 @@ namespace YimMenu::Submenus
 					Stats::SetInt("MPX_H4CNF_ARM_DISRP", 3);
 					Stats::SetInt("MPX_H4CNF_HEL_DISRP", 3);
 
-					if (scope_coke || scope_cash || scope_weed)
-						Stats::SetInt("MPX_H4CNF_BS_GEN", 196608 | 32768 | 240); //  + scope truck + scope 4 cloths
-					else
-						Stats::SetInt("MPX_H4CNF_BS_GEN", 196608); // points of interest
+					// points of interests
+					Stats::SetInt("MPX_H4CNF_BS_GEN", 196608 | 32768 | 240); //  + scope truck + scope 4 cloths
 
 					int h4m = 65027;
 					if (scope_boat)
