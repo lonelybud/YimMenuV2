@@ -149,11 +149,23 @@ namespace YimMenu::Submenus
 			if (ImGui::Button("set_misc"))
 				UnlockEverything::set_misc();
 
-			if (ImGui::Button("unlock_stats"))
-				UnlockEverything::StatUnlockMech.setStat();
+			components::ver_space();
+			static bool logstats = false;
+			if (ImGui::Checkbox("Log below stats in console", &logstats))
+				UnlockEverything::otherstatsUnlockMech.logging = UnlockEverything::careerStatsUnlockMech.logging = UnlockEverything::awardStatsUnlockMech.logging = logstats;
+			if (ImGui::Button("unlock_other_Stats"))
+				UnlockEverything::otherstatsUnlockMech.setStat();
 			ImGui::SameLine();
-			ImGui::Checkbox("Log locked stats in console", &UnlockEverything::StatUnlockMech.logging);
-			ImGui::Text("Stats Done: %d/%llu", UnlockEverything::StatUnlockMech.statsUnlocked, UnlockEverything::allStats.size());
+			ImGui::Text("Stats Done: %d/%llu", UnlockEverything::otherstatsUnlockMech.statsUnlocked, UnlockEverything::otherstats.size());
+			if (ImGui::Button("unlock_career_Stats"))
+				UnlockEverything::careerStatsUnlockMech.setStat();
+			ImGui::SameLine();
+			ImGui::Text("Note - award unlocks will trigger transactions.. do it slowly");
+			ImGui::Text("Stats Done: %d/%llu", UnlockEverything::careerStatsUnlockMech.statsUnlocked, UnlockEverything::careerStats.size());
+			if (ImGui::Button("unlock_awards_Stats"))
+				UnlockEverything::awardStatsUnlockMech.setStat();
+			ImGui::SameLine();
+			ImGui::Text("Stats Done: %d/%llu", UnlockEverything::awardStatsUnlockMech.statsUnlocked, UnlockEverything::awardStats.size());
 
 			components::ver_space();
 

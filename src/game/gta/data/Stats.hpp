@@ -139,8 +139,7 @@ namespace YimMenu::UnlockEverything
 		}
 	};
 
-
-	inline std::vector<std::shared_ptr<StatCommon>> allStats = {
+	inline std::vector<std::shared_ptr<StatCommon>> otherstats = {
 	    std::make_shared<PackedBoolStat>(54653),
 	    std::make_shared<PackedBoolStat>(59971),
 	    std::make_shared<PackedBoolStat>(36839),
@@ -296,7 +295,6 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_NUMBER_STOLEN_PLANES", 100),
 	    std::make_shared<IntStat>("MPX_NUMBER_STOLEN_QUADBIKES", 100),
 	    std::make_shared<IntStat>("MPX_NUMBER_STOLEN_BICYCLES", 100),
-
 	    std::make_shared<IntStat>("MPX_NO_STOLEN_VEH_SCRIPT", 100),
 	    std::make_shared<IntStat>("MPX_DB_PLAYER_KILLS", 100),
 	    std::make_shared<IntStat>("MPX_HOLDUPS_BITSET", -1),
@@ -317,7 +315,6 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_CHAR_FM_WEAP_UNLOCKED6", -1),
 	    std::make_shared<IntStat>("MPX_GCLUB_FM_AMMO_BOUGHT", 1),
 	    std::make_shared<IntStat>("MPX_CHAR_WEAP_EQUIPPED", -1),
-
 	    std::make_shared<IntStat>("MPX_CHAR_FM_WEAP_ADDON_1_UNLCK", -1),
 	    std::make_shared<IntStat>("MPX_CHAR_FM_WEAP_ADDON_2_UNLCK", -1),
 	    std::make_shared<IntStat>("MPX_CHAR_FM_WEAP_ADDON_3_UNLCK", -1),
@@ -604,7 +601,6 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_WVM_FLOW_MISSION_PROGRESS", 50),
 	    std::make_shared<IntStat>("MPX_WVM_FLOW_IMPEXP_NUM", 50),
 	    std::make_shared<IntStat>("MPX_WVM_FLOW_VEHICLE_BS", -1),
-
 	    std::make_shared<IntStat>("MPX_GANGOPS_FLOW_IMPEXP_NUM", 50),
 	    std::make_shared<IntStat>("MPX_WAM_FLOW_VEHICLE_BS", -1),
 	    std::make_shared<IntStat>("MPX_GANGOPS_FLOW_PASSED_BITSET", -1),
@@ -613,7 +609,6 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_XMAS2023_ADV_MODE_WINS", 6),
 	    std::make_shared<IntStat>("MPPLY_XMAS23_PLATES0", 3),
 	    std::make_shared<IntStat>("MPX_COUNT_HOTRING_RACE", 20),
-
 	    std::make_shared<IntStat>("MPX_GBTELTIMESPLAYEDGOONPREV", 500),
 	    std::make_shared<IntStat>("MPX_LOW_FLOW_CURRENT_PROG", 9),
 	    std::make_shared<IntStat>("MPX_LOW_FLOW_CURRENT_CALL", 9),
@@ -632,9 +627,9 @@ namespace YimMenu::UnlockEverything
 	    // std::make_shared<IntStat>("MPPLY_MANSION_DISCOUNT_STATE", 1), // https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-45.html#post4540660
 	    // std::make_shared<PackedBoolStat>(54670),                      // https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-45.html#post4540660
 	    // std::make_shared<IntStat>("MPX_M25_GENERAL_BS", 16511),       // https://www.unknowncheats.me/forum/4539241-post138.html
+	};
 
-	    // career *******************************************************************************
-
+	inline std::vector<std::shared_ptr<StatCommon>> careerStats = {
 	    // OSCAR GUZMAN FLIES AGAIN
 	    std::make_shared<PackedBoolStat>(51280),
 	    std::make_shared<PackedBoolStat>(51285),
@@ -1036,9 +1031,9 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_PROG_HUB_KNOWAY_EARNINGS", 5000000),
 	    std::make_shared<PackedBoolRangeStat>(54781, 54785),
 	    std::make_shared<PackedBoolStat>(54786),
+	};
 
-	    // awards *****************************************************************************************
-
+	inline std::vector<std::shared_ptr<StatCommon>> awardStats = {
 	    // Victory
 	    std::make_shared<IntStat>("MPX_AWD_FM_DM_WINS", 50),
 	    std::make_shared<IntStat>("MPX_AWD_FM_TDM_WINS", 50),

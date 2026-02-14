@@ -160,14 +160,16 @@ namespace YimMenu::Submenus
 					Stats::SetInt("MPX_H3OPT_BITSET1", 1); // scope the vault
 
 					auto lastApproach = Stats::GetInt("MPX_H3_LAST_APPROACH"); // "Unselected", "Silent & Sneaky", "The Big Con", "Aggressive"
-					auto approach = 0;
+					auto approach = Stats::GetInt("MPX_H3OPT_APPROACH");
 
+					// set approach based on last approach
 					if (lastApproach == 1 || lastApproach == 3) // "Silent & Sneaky" ||  "Aggressive"
 						approach = 2;                           // "The Big Con"
 					else if (lastApproach == 2)                 // "The Big Con"
 						approach = 1;                           // "Silent & Sneaky"
-					else
-						return; // no last approach (select approach manually)
+
+					if(approach == 0) // no last approach (select approach manually)
+						return; 
 
 					Stats::SetInt("MPX_H3OPT_APPROACH", approach);
 					Stats::SetInt("MPX_H3_HARD_APPROACH", casino_hard_mode ? approach : 0);
@@ -305,9 +307,9 @@ namespace YimMenu::Submenus
 
 					int h4m = 65027;
 					if (scope_boat)
-						h4m |= 8;
-					if (scope_plane)
 						h4m |= 64;
+					if (scope_plane)
+						h4m |= 8;
 					Stats::SetInt("MPX_H4_MISSIONS", h4m); // preps
 
 					auto progress = Stats::GetInt("MPX_H4_PROGRESS");

@@ -397,10 +397,11 @@ namespace YimMenu::UnlockEverything
 	{
 		std::vector<int> arr;
 		bool initiated = false, initiating = false;
+		std::vector<std::shared_ptr<StatCommon>>& _stats;
 
 		bool checkIfStatSame(int index)
 		{
-			auto* base = allStats[index].get();
+			auto* base = _stats[index].get();
 			switch (base->type)
 			{
 			case StatType::Int:
@@ -485,7 +486,7 @@ namespace YimMenu::UnlockEverything
 
 		void setStatValue(int index)
 		{
-			auto* base = allStats[index].get();
+			auto* base = _stats[index].get();
 			switch (base->type)
 			{
 			case StatType::Int:
@@ -558,6 +559,8 @@ namespace YimMenu::UnlockEverything
 		bool logging = false;
 		int statsUnlocked = 0;
 
+		_StatUnlockMech(std::vector<std::shared_ptr<StatCommon>>& t): _stats(t){}
+
 		void setStat()
 		{
 			if (initiating)
@@ -569,7 +572,7 @@ namespace YimMenu::UnlockEverything
 			FiberPool::Push([this] {
 				if (initiating)
 				{
-					auto arrSize = allStats.size();
+					auto arrSize = _stats.size();
 					arr.resize(arrSize);
 					int loopcount = 0;
 
@@ -595,7 +598,10 @@ namespace YimMenu::UnlockEverything
 			});
 		}
 	};
-	inline _StatUnlockMech StatUnlockMech;
+	
+	inline _StatUnlockMech otherstatsUnlockMech(otherstats);
+	inline _StatUnlockMech careerStatsUnlockMech(careerStats);
+	inline _StatUnlockMech awardStatsUnlockMech(awardStats);
 
 	inline void unlock_achievement(int i)
 	{
