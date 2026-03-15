@@ -21,4 +21,5 @@ namespace YimMenu::Stats
 	extern void SetPackedInt(int index, int value);
 	extern bool GetPackedBool(int index);
 	extern int GetPackedInt(int index);
+	extern void SaveStats();
 }

@@ -226,6 +226,11 @@ namespace YimMenu::Submenus
 					Network::LaunchJoinType(Network::JoinType::LEAVE_ONLINE);
 				});
 			ImGui::Spacing();
+			if (*Pointers.IsSessionStarted && ImGui::Button("Save Game (Online)"))
+				FiberPool::Push([] {
+					Stats::SaveStats();
+				});
+			ImGui::Spacing();
 			ImGui::Checkbox("Allow Players in Lobby", &YimMenu::Features::allowPlayerJoin);
 		}
 	};

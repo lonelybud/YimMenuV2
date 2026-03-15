@@ -20,7 +20,7 @@ namespace YimMenu::Submenus
 		using SubmenuMenuCategory::SubmenuMenuCategory;
 		void Draw()
 		{
-			components::checkbox(YimMenu::Features::_UnlockGTAPlus);
+			// components::checkbox(YimMenu::Features::_UnlockGTAPlus);
 
 			if (*Pointers.IsSessionStarted)
 			{
@@ -43,7 +43,53 @@ namespace YimMenu::Submenus
 					FiberPool::Push([] {
 						Stats::SetInt("MPX_ALLOW_GENDER_CHANGE", 52);
 					});
+
+				components::ver_space();
+				// https://www.unknowncheats.me/forum/grand-theft-auto-v/464955-correct-complete-ms-bakers-casino-mission-unlock-paragon-via-gtahax.html
+				ImGui::Text("Note - buy penthouse and wait for your first call from Ms. Baker for the mission...");
+				if (ImGui::Button("Ms. Baker's missions skip to last"))
+					FiberPool::Push([] {
+						auto t = Stats::GetInt("MPX_VCM_FLOW_PROGRESS");
+						Stats::SetInt("MPX_VCM_FLOW_PROGRESS", t | 1312735);
+						Stats::SetInt("MPX_VCM_STORY_PROGRESS", 5);
+					});
+
+				components::ver_space();
+				if (ImGui::Button("Unlock Acid Lab"))
+					FiberPool::Push([] {
+						Stats::SetInt("MPX_XM22_FLOW", -1);
+					});
 			}
+
+			components::ver_space();
+			// https://github.com/YimMenu-Lua/Singleplayer-Menu/blob/main/SinglePlayer.lua
+			ImGui::Text("Single Player-");
+			if (ImGui::Button("Unlock Stats##sp"))
+				FiberPool::Push([] {
+					for (int i = 0; i <= 2; ++i)
+					{
+						Stats::SetInt("SP" + std::to_string(i) + "_SPECIAL_ABILITY_UNLOCKED", 100);
+						Stats::SetFloat("SP" + std::to_string(i) + "_DIST_RUNNING", 175 * 100);
+						Stats::SetInt("SP" + std::to_string(i) + "_TIME_UNDERWATER", 30 * 60 * 1000 * 100);
+						Stats::SetInt("SP" + std::to_string(i) + "_UNARMED_HITS", 20 * 100);
+						Stats::SetInt("SP" + std::to_string(i) + "_NUMBER_NEAR_MISS", 50 * 100);
+						Stats::SetInt("SP" + std::to_string(i) + "_PLANE_LANDINGS", 10 * 100);
+						Stats::SetInt("SP" + std::to_string(i) + "_KILLS_STEALTH", 2 * 100);
+						Stats::SetInt("SP" + std::to_string(i) + "_HITS_MISSION", 40 * 100);
+						Stats::SetInt("SP" + std::to_string(i) + "_HITS_PEDS_VEHICLES", 80 * 100);
+					}
+					Stats::SetInt("MPPLY_UNLOCK_EXCLUS_CONTENT", -1);
+					Stats::SetInt("SP_UNLOCK_EXCLUS_CONTENT", -1);
+				});
+			ImGui::SameLine();
+			if (ImGui::Button("Add 1 Million"))
+				FiberPool::Push([] {
+					for (int i = 0; i <= 2; ++i)
+					{
+						auto money_string = "SP" + std::to_string(i) + "_TOTAL_CASH";
+						Stats::SetInt(money_string, Stats::GetInt(money_string) + 1000000);
+					}
+				});
 		}
 	};
 
@@ -152,11 +198,7 @@ namespace YimMenu::Submenus
 			components::ver_space();
 			static bool logstats = false;
 			if (ImGui::Checkbox("Log below stats in console", &logstats))
-				UnlockEverything::otherstatsUnlockMech.logging = UnlockEverything::careerStatsUnlockMech.logging = UnlockEverything::awardStatsUnlockMech.logging = logstats;
-			if (ImGui::Button("unlock_other_Stats"))
-				UnlockEverything::otherstatsUnlockMech.setStat();
-			ImGui::SameLine();
-			ImGui::Text("Stats Done: %d/%llu", UnlockEverything::otherstatsUnlockMech.statsUnlocked, UnlockEverything::otherstats.size());
+				UnlockEverything::careerStatsUnlockMech.logging = UnlockEverything::awardStatsUnlockMech.logging = logstats;
 			if (ImGui::Button("unlock_career_Stats"))
 				UnlockEverything::careerStatsUnlockMech.setStat();
 			ImGui::SameLine();

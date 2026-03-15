@@ -104,4 +104,10 @@ namespace YimMenu::Stats
 	{
 		return STATS::GET_PACKED_STAT_INT_CODE(index, -1);
 	}
+
+	void SaveStats()
+	{
+		// https://www.unknowncheats.me/forum/grand-theft-auto-v/707419-lua-scripts-yimmenuv2-collection-thread-31.html#post4614098
+		STATS::STAT_SAVE(0, 0, 3, 0);
+	}
 }

@@ -151,6 +151,15 @@ namespace YimMenu::Submenus
 				FiberPool::Push([] {
 					casinoTarget = Stats::GetInt("MPX_H3OPT_TARGET");
 				});
+			static bool bugstar = false, maintainance = false, GruppeSechs = true, yungancestor = false;
+			ImGui::Text("Big Con Entry -");
+			ImGui::Checkbox("bugstar##casino", &bugstar);
+			ImGui::SameLine();
+			ImGui::Checkbox("maintainance##casino", &maintainance);
+			ImGui::SameLine();
+			ImGui::Checkbox("Gruppe Sechs##casino", &GruppeSechs);
+			ImGui::SameLine();
+			ImGui::Checkbox("yung ancestor##casino", &yungancestor);
 			ImGui::Checkbox("Hard Mode##casino", &casino_hard_mode);
 			if (ImGui::Button("Casino Heist Prep Skip"))
 				FiberPool::Push([] {
@@ -198,7 +207,7 @@ namespace YimMenu::Submenus
 						Stats::SetInt("MPX_H3OPT_WEAPS", 0);
 						Stats::SetInt("MPX_H3OPT_BITSET1", 159);
 						ScriptMgr::Yield(500ms);
-						Stats::SetInt("MPX_H3OPT_BITSET0", B0 | 4534486);
+						Stats::SetInt("MPX_H3OPT_BITSET0", B0 | 4522198 | (bugstar ? 768 : 0) | (maintainance ? 3072 : 0) | (GruppeSechs ? 12288 : 0)| (yungancestor ? 49152 : 0));
 					}
 					// if (approach == 3) //  "Aggressive"
 					// {
@@ -234,8 +243,8 @@ namespace YimMenu::Submenus
 				});
 			static bool scope_boat = false, scope_plane = false, cayo_hard_mode = false;
 			ImGui::Checkbox("Scope Boat", &scope_boat);
-			ImGui::SameLine();
-			ImGui::Checkbox("Scope Plane", &scope_plane);
+			// ImGui::SameLine();
+			// ImGui::Checkbox("Scope Plane", &scope_plane);
 			ImGui::SameLine();
 			ImGui::Checkbox("Hard Mode##cayo", &cayo_hard_mode);
 			static int gold = 1, coke_pos = 1;
@@ -308,8 +317,8 @@ namespace YimMenu::Submenus
 					int h4m = 65027;
 					if (scope_boat)
 						h4m |= 64;
-					if (scope_plane)
-						h4m |= 8;
+					// if (scope_plane)
+					// 	h4m |= 8;
 					Stats::SetInt("MPX_H4_MISSIONS", h4m); // preps
 
 					auto progress = Stats::GetInt("MPX_H4_PROGRESS");
