@@ -74,7 +74,7 @@ namespace YimMenu::Submenus
 			components::ver_space();
 			// https://www.unknowncheats.me/forum/grand-theft-auto-v/368204-skip-casino-heist-preps-using-gtahax.html
 			// https://github.com/YimMenu-Lua/Casino-Pacino/blob/main/CasinoPacino.lua
-			ImGui::Text("Select the heist first...");
+			ImGui::Text("Use \"Play All Missions Solo\" above to start heist as solo.\nThen skip the cutscene and when you see planning board click the button below\n and quit the session.");
 			if (ImGui::Button("Apartment Heist Prep Skip"))
 				FiberPool::Push([] {
 					Stats::SetInt("MPX_HEIST_PLANNING_STAGE", -1);
@@ -90,8 +90,13 @@ namespace YimMenu::Submenus
 			components::ver_space();
 			// https://www.unknowncheats.me/forum/grand-theft-auto-v/461672-gtahax-1-70-external-thread-3-a-214.html
 			// https://github.com/SilentSalo/SilentNight/blob/1f7c02b31afa24f029a892f21d82c789fbc4189f/Yim/Silent_Night_v0.0.5.lua#L663
+			// https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-51.html#post4622349
 			if (ImGui::Button("Cluckin Bell preps skip"))
 				FiberPool::Push([] {
+					Stats::SetPackedBool(42108, false);
+					Stats::SetPackedInt(51019, 2);
+					Stats::SetPackedInt(51021, 2);
+					Stats::SetPackedInt(51023, 4);
 					Stats::SetInt("MPX_SALV23_INST_PROG", 31);
 				});
 
@@ -99,9 +104,10 @@ namespace YimMenu::Submenus
 			// https://www.unknowncheats.me/forum/grand-theft-auto-v/699943-stats-editor-external-enhanced-12.html
 			// https://www.unknowncheats.me/forum/grand-theft-auto-v/698429-skip-cooldown-mission-selector-deguzman.html
 			// https://www.unknowncheats.me/forum/4349818-post4919.html
-			ImGui::Text("Do the first setup misson on hard mode...");
+			// https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-51.html#post4622349
 			if (ImGui::Button("Oscar gunzman flies again preps skip"))
 				FiberPool::Push([] {
+					Stats::SetPackedBool(51272, true);
 					Stats::SetInt("MPX_HACKER24_INST_BS", 31);
 				});
 
@@ -177,8 +183,8 @@ namespace YimMenu::Submenus
 					else if (lastApproach == 2)                 // "The Big Con"
 						approach = 1;                           // "Silent & Sneaky"
 
-					if(approach == 0) // no last approach (select approach manually)
-						return; 
+					if (approach == 0) // no last approach (select approach manually)
+						return;
 
 					Stats::SetInt("MPX_H3OPT_APPROACH", approach);
 					Stats::SetInt("MPX_H3_HARD_APPROACH", casino_hard_mode ? approach : 0);
@@ -207,7 +213,7 @@ namespace YimMenu::Submenus
 						Stats::SetInt("MPX_H3OPT_WEAPS", 0);
 						Stats::SetInt("MPX_H3OPT_BITSET1", 159);
 						ScriptMgr::Yield(500ms);
-						Stats::SetInt("MPX_H3OPT_BITSET0", B0 | 4522198 | (bugstar ? 768 : 0) | (maintainance ? 3072 : 0) | (GruppeSechs ? 12288 : 0)| (yungancestor ? 49152 : 0));
+						Stats::SetInt("MPX_H3OPT_BITSET0", B0 | 4522198 | (bugstar ? 768 : 0) | (maintainance ? 3072 : 0) | (GruppeSechs ? 12288 : 0) | (yungancestor ? 49152 : 0));
 					}
 					// if (approach == 3) //  "Aggressive"
 					// {

@@ -202,8 +202,9 @@ namespace YimMenu::Submenus
 			if (ImGui::Button("unlock_career_Stats"))
 				UnlockEverything::careerStatsUnlockMech.setStat();
 			ImGui::SameLine();
-			ImGui::Text("Note - award unlocks will trigger transactions.. do it slowly");
 			ImGui::Text("Stats Done: %d/%llu", UnlockEverything::careerStatsUnlockMech.statsUnlocked, UnlockEverything::careerStats.size());
+
+			ImGui::Text("Note - award unlocks will trigger transactions.. do it slowly");
 			if (ImGui::Button("unlock_awards_Stats"))
 				UnlockEverything::awardStatsUnlockMech.setStat();
 			ImGui::SameLine();
