@@ -247,60 +247,66 @@ namespace YimMenu::Submenus
 				FiberPool::Push([] {
 					cayoTarget = Stats::GetInt("MPX_H4CNF_TARGET");
 				});
-			static bool scope_boat = false, scope_plane = false, cayo_hard_mode = false;
+			static bool scope_boat = false, scope_plane = false, cayo_hard_mode = false, scope_island = false;
 			ImGui::Checkbox("Scope Boat", &scope_boat);
 			// ImGui::SameLine();
 			// ImGui::Checkbox("Scope Plane", &scope_plane);
 			ImGui::SameLine();
 			ImGui::Checkbox("Hard Mode##cayo", &cayo_hard_mode);
-			static int gold = 1, coke_pos = 1;
-			ImGui::SetNextItemWidth(200);
-			ImGui::SliderInt("No of gold:", &gold, 1, 8);
-			// ImGui::SameLine();
-			// ImGui::SetNextItemWidth(200);
-			// ImGui::SliderInt("Coke Position:", &coke_pos, 1, 3);
+			static int gold_n = 1, coke_pos = 1, coke_n = 4;
+			ImGui::SetNextItemWidth(150);
+			ImGui::SliderInt("No of gold", &gold_n, 1, 8);
+			ImGui::Checkbox("Scope Island##cayo", &scope_island);
+			ImGui::SameLine();
+			ImGui::SetNextItemWidth(150);
+			ImGui::SliderInt("No of Coke", &coke_n, 2, 8);
+			ImGui::SameLine();
+			ImGui::SetNextItemWidth(150);
+			ImGui::SliderInt("Coke Position", &coke_pos, 1, 3);
 			ImGui::Text("Pay the setup fees first...");
 			if (ImGui::Button("Cayo Perico prep skip"))
 				FiberPool::Push([] {
 					Stats::SetInt("MPX_H4CNF_TARGET", cayoTarget);
 
-					// auto coke_c = std::bitset<8>(Stats::GetInt("MPX_H4LOOT_COKE_I")).count();
-					// auto cash_c = std::bitset<8>(Stats::GetInt("MPX_H4LOOT_CASH_I")).count();
-					// auto weed_c = std::bitset<8>(Stats::GetInt("MPX_H4LOOT_WEED_I")).count();
-					// auto coke = put_n_random_bits(coke_c, 8);
-					// auto cash = put_n_random_bits(cash_c, 8);
-					// auto weed = put_n_random_bits(weed_c, 8);
-					// std::random_device cash_i_rd;
-					// std::mt19937 cash_i_engine(cash_i_rd());
-					// std::uniform_int_distribution<int> cash_i_dist(1, 2);
-					// int cash_i_loc = cash_i_dist(cash_i_engine);
-					// int coke_i, weed_i, cash_i;
-					// if (coke_pos == 1)
-					// {
-					// 	coke_i = coke << 16;
-					// 	weed_i = weed << (cash_i_loc == 2 ? 8 : 0);
-					// 	cash_i = cash << (cash_i_loc == 2 ? 0 : 8);
-					// }
-					// else if (coke_pos == 2)
-					// {
-					// 	coke_i = coke << 8;
-					// 	weed_i = weed << (cash_i_loc == 2 ? 16 : 0);
-					// 	cash_i = cash << (cash_i_loc == 2 ? 0 : 16);
-					// }
-					// else if (coke_pos == 3)
-					// {
-					// 	coke_i = coke << 0;
-					// 	weed_i = weed << (cash_i_loc == 2 ? 16 : 8);
-					// 	cash_i = cash << (cash_i_loc == 2 ? 8 : 16);
-					// }
-					// Stats::SetInt("MPX_H4LOOT_COKE_I_SCOPED", coke_i);
-					// Stats::SetInt("MPX_H4LOOT_CASH_I_SCOPED", cash_i);
-					// Stats::SetInt("MPX_H4LOOT_WEED_I_SCOPED", weed_i);
-					// Stats::SetInt("MPX_H4LOOT_COKE_I", coke_i);
-					// Stats::SetInt("MPX_H4LOOT_CASH_I", cash_i);
-					// Stats::SetInt("MPX_H4LOOT_WEED_I", weed_i);
+					if (scope_island)
+					{
+						auto cash_c = std::bitset<24>(Stats::GetInt("MPX_H4LOOT_CASH_I")).count();
+						auto weed_c = std::bitset<24>(Stats::GetInt("MPX_H4LOOT_WEED_I")).count();
+						auto coke = put_n_random_bits(coke_n, 8);
+						auto cash = put_n_random_bits(cash_c > 8 ? 8 : cash_c, 8);
+						auto weed = put_n_random_bits(weed_c > 8 ? 8 : weed_c, 8);
+						std::random_device cash_i_rd;
+						std::mt19937 cash_i_engine(cash_i_rd());
+						std::uniform_int_distribution<int> cash_i_dist(1, 2);
+						int cash_i_loc = cash_i_dist(cash_i_engine);
+						int coke_i, weed_i, cash_i;
+						if (coke_pos == 1)
+						{
+							coke_i = coke << 16;
+							weed_i = weed << (cash_i_loc == 2 ? 8 : 0);
+							cash_i = cash << (cash_i_loc == 2 ? 0 : 8);
+						}
+						else if (coke_pos == 2)
+						{
+							coke_i = coke << 8;
+							weed_i = weed << (cash_i_loc == 2 ? 16 : 0);
+							cash_i = cash << (cash_i_loc == 2 ? 0 : 16);
+						}
+						else if (coke_pos == 3)
+						{
+							coke_i = coke << 0;
+							weed_i = weed << (cash_i_loc == 2 ? 16 : 8);
+							cash_i = cash << (cash_i_loc == 2 ? 8 : 16);
+						}
+						Stats::SetInt("MPX_H4LOOT_COKE_I_SCOPED", coke_i);
+						Stats::SetInt("MPX_H4LOOT_CASH_I_SCOPED", cash_i);
+						Stats::SetInt("MPX_H4LOOT_WEED_I_SCOPED", weed_i);
+						Stats::SetInt("MPX_H4LOOT_COKE_I", coke_i);
+						Stats::SetInt("MPX_H4LOOT_CASH_I", cash_i);
+						Stats::SetInt("MPX_H4LOOT_WEED_I", weed_i);
+					}
 
-					auto g = put_n_random_bits(gold, 8);
+					auto g = put_n_random_bits(gold_n, 8);
 					auto c = static_cast<int>(std::bitset<8>(g).flip().to_ulong());
 					auto p = put_n_random_bits(2, 7);
 					Stats::SetInt("MPX_H4LOOT_CASH_C", c);
@@ -334,7 +340,7 @@ namespace YimMenu::Submenus
 					// https://www.reddit.com/r/gtaonline/comments/pq1gcp/how_much_can_each_persons_bag_carry_in_cayo_perico/
 					LOG(VERBOSE) << "Compound Cash% : " << ((int)std::bitset<8>(c).count() * 25);
 					LOG(VERBOSE) << "Compound Gold% : " << ((float)std::bitset<8>(g).count() * 66.667);
-					LOG(VERBOSE) << "Compound Painting% : " << ((int)std::bitset<8>(p).count() * 50);
+					LOG(VERBOSE) << "Compound Painting% : " << ((int)std::bitset<7>(p).count() * 50);
 				});
 
 			components::ver_space();
