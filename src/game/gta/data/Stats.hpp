@@ -16,6 +16,8 @@
 // https://www.unknowncheats.me/forum/grand-theft-auto-v/707419-lua-scripts-yimmenuv2-collection-thread-12.html#post4539651
 // https://www.unknowncheats.me/forum/grand-theft-auto-v/500059-globals-locals-discussion-read-page-1-a-37.html#post4539636
 // https://www.unknowncheats.me/forum/grand-theft-auto-v/701294-gta-online-enhanced-awards-stats-7.html#post4539241
+// https://www.unknowncheats.me/forum/grand-theft-auto-v/578963-packed-stats-int-bool-collection-thread-55.html#post4741090
+// https://www.unknowncheats.me/forum/grand-theft-auto-v/699943-stats-editor-external-enhanced-31.html#post4742522
 
 // not implemented
 // https://www.unknowncheats.me/forum/grand-theft-auto-v/707419-lua-scripts-yimmenuv2-collection-thread-21.html#post4551843
@@ -541,6 +543,20 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_PROG_HUB_KNOWAY_EARNINGS", 5000000),
 	    std::make_shared<PackedBoolRangeStat>(54781, 54785),
 	    std::make_shared<PackedBoolStat>(54786),
+
+	    // The Kortz Center Heist
+	    std::make_shared<PackedBoolStat>(60011),
+	    std::make_shared<PackedBoolStat>(60021),
+	    std::make_shared<IntBitStat>("MPX_K26_GENERAL_BS", 2),
+	    std::make_shared<IntStat>("MPX_AWD_PREPPER", 20),
+	    std::make_shared<PackedBoolStat>(60022),
+	    std::make_shared<PackedBoolStat>(60023),
+	    std::make_shared<PackedIntStat>(60049, 5),
+	    std::make_shared<PackedBoolRangeStat>(60024, 60027),
+	    std::make_shared<PackedIntStat>(60050, 15),
+	    std::make_shared<PackedBoolStat>(60028),
+	    std::make_shared<IntStat>("MPX_PROG_HUB_KORTZ_STOLEN_VALUE", 50000000),
+		std::make_shared<IntBitsStat>("K26_TARGETS_OWNED_BS", 1, 26), // New Mansion Paintings
 	};
 
 	inline std::vector<std::shared_ptr<StatCommon>> awardStats = {
@@ -1011,5 +1027,26 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<IntStat>("MPX_AWD_LOSSANTOSMETEOR", 20),
 	    std::make_shared<IntStat>("MPX_AWD_TAXIDESTRUCTION", 20),
 	    std::make_shared<BoolStat>("MPX_AWD_ONTHECLOCK"),
+
+	    // The Kortz Center Heist
+	    std::make_shared<BoolStat>("MPX_AWD_SCOPING"),
+	    std::make_shared<IntStat>("MPX_AWD_PREPPER", 20),
+	    std::make_shared<BoolStat>("MPX_AWD_ADAPTABLE"),
+	    std::make_shared<BoolStat>("MPX_AWD_KORTZCENTERHEIST"),
+	    std::make_shared<BoolStat>("MPX_AWD_FINDSAWAY"),
+	    std::make_shared<BoolStat>("MPX_AWD_WHOSTHERE"),
+	    std::make_shared<BoolStat>("MPX_AWD_ELITETHIEF"),
+	    std::make_shared<BoolStat>("MPX_AWD_NOLIFER"),
+	    std::make_shared<BoolStat>("MPX_AWD_SOLITUDE"),
+	    std::make_shared<BoolStat>("MPX_AWD_COORDINATION"),
+	    std::make_shared<BoolStat>("MPX_AWD_FLEXIBLETHIEF"),
+	    std::make_shared<IntStat>("MPX_AWD_REPEATOFFENDER", 20),
+	    std::make_shared<IntStat>("MPX_AWD_FULLBAGS", 5000000),
+	    std::make_shared<BoolStat>("MPX_AWD_HIDDENINPLAINSIGHT"),
+	    std::make_shared<IntStat>("MPX_AWD_CURATOR", 5),
+	    std::make_shared<IntStat>("MPX_AWD_LAPIDARY", 5),
+	    std::make_shared<BoolStat>("MPX_AWD_PACIFIST"),
+	    std::make_shared<BoolStat>("MPX_AWD_PUTRIDPILFERING"),
+	    std::make_shared<BoolStat>("MPX_AWD_METEORITICS"),
 	};
 }
