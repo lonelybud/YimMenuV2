@@ -226,9 +226,6 @@ namespace YimMenu::Features
 			static Tunable parTimeReward{"SKYDIVING_CHALLENGE_CASH_REWARD_PAR_TIME"_J};
 			static Tunable landingReward{"SKYDIVING_CHALLENGE_CASH_REWARD_ACCURATE_LANDING"_J};
 
-			if (!checkpointReward.IsReady() || !parTimeReward.IsReady() || !landingReward.IsReady())
-				return;
-
 			int index = skydiveIndex;
 			int location = Stats::GetInt("MPX_DAILYCOLLECT_SKYDIVES" + std::to_string(index));
 			bool checkpoints = Stats::GetPackedInt(34837 + (index * 4)) == location;

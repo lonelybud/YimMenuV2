@@ -25,7 +25,7 @@ namespace YimMenu::Submenus
 					PersonalVehicles::RegisterVehicles();
 				});
 			ImGui::SameLine();
-			ImGui::Text(" %d", pvs.size());
+			ImGui::Text(" %d", (int)pvs.size());
 
 			if (!delivering_veh && ImGui::BeginListBox("###personal_veh_list", {500, 300}))
 			{
