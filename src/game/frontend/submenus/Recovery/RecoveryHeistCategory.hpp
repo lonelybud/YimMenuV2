@@ -30,6 +30,34 @@ namespace YimMenu::Submenus
 	    "The Agency Deal",
 	    "The LOST Contract",
 	    "The Data Contract"};
+	const char* kortz_targets[] = {
+	    "La Dernière Débauche",
+	    "Hare Oneself Think",
+	    "The Downfall of Rome",
+	    "Brother Brother",
+	    "A Cast of Characters",
+	    "Gone To Seed",
+	    "True Love",
+	    "Breathless",
+	    "Consumato",
+	    "I Hear Voices",
+	    "Winter, Nowhere in Particular",
+	    "The Girl With the Pearl Necklace",
+	    "Chat on Fruit",
+	    "Pumpkin",
+	    "Twindifference",
+	    "Stacks Study V",
+	    "I, Fruit",
+	    "To Beat About the Bush",
+	    "In Excess of Success",
+	    "Juiced",
+	    "A Winding Road Home",
+	    "Teckels",
+	    "Trust",
+	    "Until Death",
+	    "What Are Melons?",
+	    "The Outcome of Endeavour",
+	    "Mi O Melee"};
 
 	// randomly put n bits in p bits
 	int put_n_random_bits(int n, int p)
@@ -390,6 +418,37 @@ namespace YimMenu::Submenus
 						gpbd_fm_2->Entries[2].GangopsData.ArePlayersReady[2] = TRUE;
 						gpbd_fm_2->Entries[3].GangopsData.ArePlayersReady[3] = TRUE;
 					}
+				});
+
+
+			components::ver_space();
+			// https://www.unknowncheats.me/forum/grand-theft-auto-v/699943-stats-editor-external-enhanced-31.html#post4742522
+			ImGui::Text("Pay the setup fees first...");
+			ImGui::SetNextItemWidth(200.f);
+			static auto kortzTarget = 0;
+			if (ImGui::BeginCombo("Target##kortzTarget", kortz_targets[kortzTarget]))
+			{
+				for (int i = 0; i < 27; ++i)
+					if (ImGui::Selectable(kortz_targets[i], kortzTarget == i))
+						kortzTarget = i;
+				ImGui::EndCombo();
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("Get##kortzTarget"))
+				FiberPool::Push([] {
+					kortzTarget = Stats::GetInt("MPX_K26_HEIST_TARGET");
+				});
+
+			if (ImGui::Button("Kortz Heist Prep Skip"))
+				FiberPool::Push([] {
+					auto genBs = Stats::GetInt("MPX_K26_GENERAL_BS");
+					Stats::SetInt("MPX_K26_GENERAL_BS", genBs | 32 | 64 | 128 | 256);
+					Stats::SetInt("MPX_K26_ROBBERY_PROG", 65535 );
+					Stats::SetInt("MPX_K26_HEIST_TARGET", kortzTarget);
+					Stats::SetInt("MPX_K26_SCOPING_BS", -1);
+					Stats::SetInt("MPX_K26_POI_BS", -1);
+
+					LOGF(VERBOSE, "KortzTarget for char {} - {}", Stats::GetCharIndex() + 1, (kortzTarget == -1 ? "Unknown" : kortz_targets[kortzTarget]));
 				});
 		}
 	};
