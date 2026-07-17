@@ -563,6 +563,9 @@ namespace YimMenu::UnlockEverything
 			Stats::SetInt("MPX_CHAR_ABILITY_1_UNLCK", -1);
 			Stats::SetInt("MPX_CHAR_ABILITY_2_UNLCK", -1);
 			Stats::SetInt("MPX_CHAR_ABILITY_3_UNLCK", -1);
+			Stats::SetInt("MPX_CHAR_FM_ABILITY_1_UNLCK", -1);
+			Stats::SetInt("MPX_CHAR_FM_ABILITY_2_UNLCK", -1);
+			Stats::SetInt("MPX_CHAR_FM_ABILITY_3_UNLCK", -1);
 			Stats::SetInt("MPX_CHAR_WEAP_UNLOCKED", -1);
 			Stats::SetInt("MPX_CHAR_WEAP_UNLOCKED2", -1);
 			Stats::SetInt("MPX_CHAR_WEAP_ADDON_1_UNLCK", -1);
@@ -665,9 +668,6 @@ namespace YimMenu::UnlockEverything
 			Stats::SetInt("MPX_CHAR_KIT_39_FM_UNLCK", -1);
 			Stats::SetInt("MPX_CHAR_KIT_40_FM_UNLCK", -1);
 			Stats::SetInt("MPX_CHAR_KIT_41_FM_UNLCK", -1);
-			Stats::SetInt("MPX_CHAR_FM_ABILITY_1_UNLCK", -1);
-			Stats::SetInt("MPX_CHAR_FM_ABILITY_2_UNLCK", -1);
-			Stats::SetInt("MPX_CHAR_FM_ABILITY_3_UNLCK", -1);
 			Stats::SetInt("MPX_CHAR_FM_CLOTHES_1_UNLCK", -1);
 			Stats::SetInt("MPX_CHAR_FM_CLOTHES_2_UNLCK", -1);
 			Stats::SetInt("MPX_CHAR_FM_CLOTHES_3_UNLCK", -1);

@@ -175,10 +175,10 @@ namespace YimMenu
 			NetEventMgr = ptr.Add(3).Rip().As<rage::netEventMgr**>();
 		});
 
-		constexpr auto sendEventAckPtrn = Pattern<"84 C0 75 ? 89 EE 49 8D AD">("SendEventAck");
+		constexpr auto sendEventAckPtrn = Pattern<"E8 ? ? ? ? 84 C0 75 ? 44 89 F5">("SendEventAck");
 		scanner.Add(sendEventAckPtrn, [this](PointerCalculator ptr) {
-			EventAck = ptr.Sub(4).Rip().As<Functions::EventAck>();
-			SendEventAck = ptr.Add(0x13).Add(1).Rip().As<Functions::SendEventAck>();
+			EventAck = ptr.Add(1).Rip().As<Functions::EventAck>();
+			SendEventAck = ptr.Add(0x1A).Add(1).Rip().As<Functions::SendEventAck>();
 		});
 
 		constexpr auto queueDependencyPtrn = Pattern<"0F 29 46 50 48 8D 05">("QueueDependency&SigScanMemory");
@@ -192,9 +192,9 @@ namespace YimMenu
 			ScriptVM = ptr.Sub(0x24).As<Functions::ScriptVM>();
 		});
 
-		constexpr auto prepareMetricForSendingPtrn = Pattern<"48 89 F9 FF 50 20 48 8D 15">("PrepareMetricForSending");
+		constexpr auto prepareMetricForSendingPtrn = Pattern<"41 56 56 57 55 53 48 83 EC ? 4C 89 CB 4C 89 C6">("PrepareMetricForSending");
 		scanner.Add(prepareMetricForSendingPtrn, [this](PointerCalculator ptr) {
-			PrepareMetricForSending = ptr.Sub(0x26).As<PVOID>();
+			PrepareMetricForSending = ptr.As<PVOID>();
 		});
 
 		constexpr auto beDataPtrn = Pattern<"48 C7 05 ? ? ? ? 00 00 00 00 E8 ? ? ? ? 48 89 C1 E8 ? ? ? ? E8 ? ? ? ? BD 0A 00 00 00">("BEData");
@@ -204,7 +204,8 @@ namespace YimMenu
 			IsBEBanned = ptr.Add(3).Rip().Add(8).Add(4).Add(8).Add(4).As<bool*>();
 		});
 
-		constexpr auto battlEyeStatusUpdatePatchPtrn = Pattern<"80 B9 92 0A 00 00 01">("BattlEyeStatusUpdatePatch");
+#if 0
+		constexpr auto battlEyeStatusUpdatePatchPtrn = Pattern<"80 B9 92 0A 00 00 01 48 81 D1 90 0A 00 00">("BattlEyeStatusUpdatePatch");
 		scanner.Add(battlEyeStatusUpdatePatchPtrn, [this](PointerCalculator ptr) {
 			BattlEyeStatusUpdatePatch = BytePatches::Add(ptr.As<void*>(), 
 				// since arxan obfuscated this subroutine, return mid-function instead
@@ -217,6 +218,7 @@ namespace YimMenu
 				})
 			);
 		});
+#endif
 
 		constexpr auto getPackedStatDataPtrn = Pattern<"8D 81 37 FE FF FF">("GetPackedStatData");
 		scanner.Add(getPackedStatDataPtrn, [this](PointerCalculator ptr) {

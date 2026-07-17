@@ -21,14 +21,14 @@ namespace YimMenu::Features
 
 		virtual void OnEnable() override
 		{
-			camEntity = CAM::CREATE_CAM("DEFAULT_SCRIPTED_CAMERA", 0);
-			position = CAM::GET_GAMEPLAY_CAM_COORD();
-			rotation = CAM::GET_GAMEPLAY_CAM_ROT(2);
+			camEntity = CAMERA::CREATE_CAM("DEFAULT_SCRIPTED_CAMERA", 0);
+			position = CAMERA::GET_GAMEPLAY_CAM_COORD();
+			rotation = CAMERA::GET_GAMEPLAY_CAM_ROT(2);
 
-			CAM::SET_CAM_COORD(camEntity, position.x, position.y, position.z);
-			CAM::SET_CAM_ROT(camEntity, rotation.x, rotation.y, rotation.z, 2);
-			CAM::SET_CAM_ACTIVE(camEntity, true);
-			CAM::RENDER_SCRIPT_CAMS(true, true, 500, true, true, 0);
+			CAMERA::SET_CAM_COORD(camEntity, position.x, position.y, position.z);
+			CAMERA::SET_CAM_ROT(camEntity, rotation.x, rotation.y, rotation.z, 2);
+			CAMERA::SET_CAM_ACTIVE(camEntity, true);
+			CAMERA::RENDER_SCRIPT_CAMS(true, true, 500, true, true, 0);
 		}
 
 		void UpdateFreecamPosition()
@@ -62,14 +62,14 @@ namespace YimMenu::Features
 			else if (mult < 10)
 				mult += 0.15f;
 
-			Vector3 rot = CAM::GET_CAM_ROT(camEntity, 2);
+			Vector3 rot = CAMERA::GET_CAM_ROT(camEntity, 2);
 			float yaw   = Math::DegToRad(rot.z);
 
 			position.x += (vecChange.x * cos(yaw) - vecChange.y * sin(yaw)) * mult;
 			position.y += (vecChange.x * sin(yaw) + vecChange.y * cos(yaw)) * mult;
 			position.z += vecChange.z * mult;
 
-			CAM::SET_CAM_COORD(camEntity, position.x, position.y, position.z);
+			CAMERA::SET_CAM_COORD(camEntity, position.x, position.y, position.z);
 			STREAMING::SET_FOCUS_POS_AND_VEL(position.x, position.y, position.z, 0.0f, 0.0f, 0.0f);
 		}
 
@@ -77,8 +77,8 @@ namespace YimMenu::Features
 		{
 			UpdateFreecamPosition();
 
-			rotation = CAM::GET_GAMEPLAY_CAM_ROT(2);
-			CAM::SET_CAM_ROT(camEntity, rotation.x, rotation.y, rotation.z, 2);
+			rotation = CAMERA::GET_GAMEPLAY_CAM_ROT(2);
+			CAMERA::SET_CAM_ROT(camEntity, rotation.x, rotation.y, rotation.z, 2);
 
 			// TASK::CLEAR_PED_TASKS(Self::GetPed().GetHandle());
 			// TASK::CLEAR_PED_SECONDARY_TASK(Self::GetPed().GetHandle());
@@ -107,9 +107,9 @@ namespace YimMenu::Features
 
 		virtual void OnDisable() override
 		{
-			CAM::SET_CAM_ACTIVE(camEntity, false);
-			CAM::RENDER_SCRIPT_CAMS(false, true, 500, true, true, 0);
-			CAM::DESTROY_CAM(camEntity, false);
+			CAMERA::SET_CAM_ACTIVE(camEntity, false);
+			CAMERA::RENDER_SCRIPT_CAMS(false, true, 500, true, true, 0);
+			CAMERA::DESTROY_CAM(camEntity, false);
 			STREAMING::CLEAR_FOCUS();
 
 			// Self::GetPed().SetFrozen(false);

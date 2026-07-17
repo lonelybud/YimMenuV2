@@ -71,7 +71,7 @@ namespace YimMenu
 
 			ScriptMgr::Yield(100ms);
 
-			*ScriptLocal("freemode"_J, 19633).At(176).As<int*>() = 0;
+			*ScriptLocal("freemode"_J, 19672).At(176).As<int*>() = 0;
 
 			return true;
 		}

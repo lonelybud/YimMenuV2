@@ -42,7 +42,7 @@ namespace YimMenu::Features
 		}
 
 		if (!found_ground)
-			vec.z = PATHFIND::GET_APPROX_HEIGHT_FOR_POINT(vec.x, vec.y); // fallback value
+			vec.z = PATH::GET_APPROX_HEIGHT_FOR_POINT(vec.x, vec.y);
 	}
 
 	class TpToWaypoint : public CallCode

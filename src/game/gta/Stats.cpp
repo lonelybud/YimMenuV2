@@ -105,6 +105,34 @@ namespace YimMenu::Stats
 		return STATS::GET_PACKED_STAT_INT_CODE(index, -1);
 	}
 
+	void SetMaskedBool(std::string statName, int bitIndex, bool value)
+	{
+		ConvertMPX(statName);
+		STATS::STAT_SET_MASKED_INT(Joaat(statName), value, bitIndex, 1, true);
+	}
+
+	void SetMaskedInt(std::string statName, int bitStart, int bitSize, int value)
+	{
+		ConvertMPX(statName);
+		STATS::STAT_SET_MASKED_INT(Joaat(statName), value, bitStart, bitSize, true);
+	}
+
+	bool GetMaskedBool(std::string statName, int bitIndex)
+	{
+		int value{};
+		ConvertMPX(statName);
+		STATS::STAT_GET_MASKED_INT(Joaat(statName), &value, bitIndex, 1, -1);
+		return value != 0;
+	}
+
+	int GetMaskedInt(std::string statName, int bitIndex, int bitSize)
+	{
+		int value{};
+		ConvertMPX(statName);
+		STATS::STAT_GET_MASKED_INT(Joaat(statName), &value, bitIndex, bitSize, -1);
+		return value;
+	}
+
 	void SaveStats()
 	{
 		// https://www.unknowncheats.me/forum/grand-theft-auto-v/707419-lua-scripts-yimmenuv2-collection-thread-31.html#post4614098

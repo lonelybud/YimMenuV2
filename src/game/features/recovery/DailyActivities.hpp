@@ -42,13 +42,13 @@ namespace YimMenu::Features
 
 	static joaat_t GetNextExoticExportsVehicleHash()
 	{
-		constexpr ScriptGlobal order(1950369);
+		constexpr ScriptGlobal order(1950873);
 		for (int i = 1; i <= 10; i++)
 		{
 			auto offset = *order.At(i).As<int*>();
 			if (!GPBD_Flow::Get()->Entries[Self::GetPlayer().GetId()].TunerCBVDeliveredFlags.IsSet(offset))
 			{
-				auto hash = *ScriptGlobal(1950358 + (offset + 1)).As<joaat_t*>();
+				auto hash = *ScriptGlobal(1950862 + (offset + 1)).As<joaat_t*>();
 				return hash;
 			}
 		}
@@ -226,19 +226,22 @@ namespace YimMenu::Features
 			static Tunable parTimeReward{"SKYDIVING_CHALLENGE_CASH_REWARD_PAR_TIME"_J};
 			static Tunable landingReward{"SKYDIVING_CHALLENGE_CASH_REWARD_ACCURATE_LANDING"_J};
 
+			if (!checkpointReward.IsReady() || !parTimeReward.IsReady() || !landingReward.IsReady())
+				return;
+
 			int index = skydiveIndex;
 			int location = Stats::GetInt("MPX_DAILYCOLLECT_SKYDIVES" + std::to_string(index));
 			bool checkpoints = Stats::GetPackedInt(34837 + (index * 4)) == location;
 			bool partime = Stats::GetPackedInt(34838 + (index * 4)) == location;
 			bool landing = Stats::GetPackedInt(34839 + (index * 4)) == location;
 
-			*ScriptGlobal(1979960).As<int*>() = 1;
-			*ScriptGlobal(1979960).At(1).As<int*>() = 1;
-			*ScriptGlobal(1979960).At(3).As<int*>() = 5;
-			*ScriptGlobal(1979960).At(4).As<int*>() = location + 1;
-			*ScriptGlobal(1979960).At(8).At(1).As<int*>() = checkpointReward.Get<int>() / (1 + (checkpoints * 9));
-			*ScriptGlobal(1979960).At(8).At(2).As<int*>() = parTimeReward.Get<int>() / (1 + (partime * 9));
-			*ScriptGlobal(1979960).At(8).At(3).As<int*>() = landingReward.Get<int>() / (1 + (landing * 9));
+			*ScriptGlobal(1980496).As<int*>() = 1;
+			*ScriptGlobal(1980496).At(1).As<int*>() = 1;
+			*ScriptGlobal(1980496).At(3).As<int*>() = 5;
+			*ScriptGlobal(1980496).At(4).As<int*>() = location + 1;
+			*ScriptGlobal(1980496).At(8).At(1).As<int*>() = checkpointReward.Get<int>() / (1 + (checkpoints * 9));
+			*ScriptGlobal(1980496).At(8).At(2).As<int*>() = parTimeReward.Get<int>() / (1 + (partime * 9));
+			*ScriptGlobal(1980496).At(8).At(3).As<int*>() = landingReward.Get<int>() / (1 + (landing * 9));
 
 			SET_SKYDIVE_COMPLETED data;
 			data.SkydiveIndex = index;
@@ -248,7 +251,7 @@ namespace YimMenu::Features
 			data.AccurateLanding = TRUE;
 			data.Send();
 
-			ScriptGlobal(1983929).At(4).As<SCR_BITSET<uint64_t>*>()->Clear(3);
+			ScriptGlobal(1984467).At(4).As<SCR_BITSET<uint64_t>*>()->Clear(3);
 		}
 
 	public:
@@ -318,8 +321,8 @@ namespace YimMenu::Features
 			{
 				thread->m_Context.m_State = rage::scrThread::State::PAUSED;
 
-				*ScriptLocal(thread, 3103).At(131).At(1).As<int*>() = FreemodeGeneral::Get()->DailyReset.Seed % 14; // if we don't init this, the par time duration function will return 0 and the COMPLETED stat will be set to 0, which is bad
-				*ScriptLocal(thread, 146).At(4).As<int*>() = 0;
+				*ScriptLocal(thread, 3135).At(131).At(1).As<int*>() = FreemodeGeneral::Get()->DailyReset.Seed % 14; // if we don't init this, the par time duration function will return 0 and the COMPLETED stat will be set to 0, which is bad
+				*ScriptLocal(thread, 153).At(4).As<int*>() = 0;
 				static ScriptFunction onBTTEnd("fm_content_bicycle_time_trial"_J,
 				    ScriptPointer("OnBTTEnd", "64 ? ? ? 5D ? ? ? 75 77").Add(1).Rip());
 				onBTTEnd.Call<void>();
@@ -355,7 +358,7 @@ namespace YimMenu::Features
 			}*/
 
 			auto hash = GetNextExoticExportsVehicleHash();
-			static ScriptFunction onFreemodeDeliveryEnd("freemode"_J, ScriptPointer("OnFreemodeDeliveryEnd", "2D 0C 2A 00 00"));
+			static ScriptFunction onFreemodeDeliveryEnd("freemode"_J, ScriptPointer("OnFreemodeDeliveryEnd", "2D 0C 2B 00"));
 			onFreemodeDeliveryEnd.Call<void>(0, Self::GetPlayer().GetId(), 0, 0, 0, 0, 0, 0, 0, 0, hash, 273);
 			//FreemodeDelivery::Get()->DeliveryCooldown1.Reset();
 		}
@@ -394,8 +397,8 @@ namespace YimMenu::Features
 			{
 				for (int i = 0; i < 3; i++)
 				{
-					int combination = *ScriptLocal(thread, 146).At(22).At(i, 2).At(1).As<int*>();
-					*ScriptLocal(thread, 146).At(22).At(i, 2).As<float*>() = combination;
+					int combination = *ScriptLocal(thread, 153).At(22).At(i, 2).At(1).As<int*>();
+					*ScriptLocal(thread, 153).At(22).At(i, 2).As<float*>() = combination;
 				}
 			}
 		}
@@ -461,9 +464,9 @@ namespace YimMenu::Features
 				if (index < 0 || index >= wildlifePhotographyAnimalHashes.size())
 					return;
 
-				ScriptGlobal(2709409).At(545).As<SCR_BITSET<uint64_t>*>()->Set(6);
-				*ScriptGlobal(2709409).At(549).As<joaat_t*>() = wildlifePhotographyAnimalHashes[index];
-				*ScriptGlobal(2709409).At(550).As<int*>() = *Pointers.GameTimer - 1; // bypass 2 sec delay
+				ScriptGlobal(2709520).At(545).As<SCR_BITSET<uint64_t>*>()->Set(6);
+				*ScriptGlobal(2709520).At(549).As<joaat_t*>() = wildlifePhotographyAnimalHashes[index];
+				*ScriptGlobal(2709520).At(550).As<int*>() = *Pointers.GameTimer - 1; // bypass 2 sec delay
 			}
 			else
 			{
@@ -548,7 +551,7 @@ namespace YimMenu::Features
 
 			if (auto thread = Scripts::FindScriptThread("fm_content_daily_bounty"_J))
 			{
-				if (auto coords = *ScriptLocal(thread, 243).At(434).At(1).At(0, 4).As<Vector3*>())
+				if (auto coords = *ScriptLocal(thread, 250).At(434).At(1).At(0, 4).As<Vector3*>())
 				{
 					Self::GetPed().TeleportTo(coords);
 				}
