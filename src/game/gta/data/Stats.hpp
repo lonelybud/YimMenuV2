@@ -556,7 +556,7 @@ namespace YimMenu::UnlockEverything
 	    std::make_shared<PackedIntStat>(60050, 15),
 	    std::make_shared<PackedBoolStat>(60028),
 	    std::make_shared<IntStat>("MPX_PROG_HUB_KORTZ_STOLEN_VALUE", 50000000),
-		std::make_shared<IntBitsStat>("K26_TARGETS_OWNED_BS", 1, 26), // New Mansion Paintings
+		std::make_shared<IntBitsStat>("MPX_K26_TARGETS_OWNED_BS", 1, 26), // New Mansion Paintings
 	};
 
 	inline std::vector<std::shared_ptr<StatCommon>> awardStats = {
