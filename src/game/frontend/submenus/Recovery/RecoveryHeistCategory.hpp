@@ -31,33 +31,33 @@ namespace YimMenu::Submenus
 	    "The LOST Contract",
 	    "The Data Contract"};
 	const char* kortz_targets[] = {
-	    "La Dernière Débauche",
-	    "Hare Oneself Think",
-	    "The Downfall of Rome",
-	    "Brother Brother",
-	    "A Cast of Characters",
-	    "Gone To Seed",
-	    "True Love",
-	    "Breathless",
-	    "Consumato",
-	    "I Hear Voices",
-	    "Winter, Nowhere in Particular",
-	    "The Girl With the Pearl Necklace",
-	    "Chat on Fruit",
-	    "Pumpkin",
-	    "Twindifference",
-	    "Stacks Study V",
-	    "I, Fruit",
-	    "To Beat About the Bush",
-	    "In Excess of Success",
-	    "Juiced",
-	    "A Winding Road Home",
-	    "Teckels",
-	    "Trust",
-	    "Until Death",
-	    "What Are Melons?",
-	    "The Outcome of Endeavour",
-	    "Mi O Melee"};
+	    "La Derniere Debauche (1.925)",
+	    "Hare Oneself Think (1.218)",
+	    "The Downfall of Rome (1.220)",
+	    "Brother Brother (1.222)",
+	    "A Cast of Characters (1.224)",
+	    "Gone To Seed (1.226)",
+	    "True Love (1.228)",
+	    "Breathless (1.230)",
+	    "Consumato (1.232)",
+	    "I Hear Voices (1.234)",
+	    "Winter, Nowhere in Particular (1.236)",
+	    "The Girl With the Pearl Necklace (1.238)",
+	    "Chat on Fruit (1.240)",
+	    "Pumpkin (1.242)",
+	    "Twindifference (1.244)",
+	    "Stacks Study V (1.246)",
+	    "I, Fruit (1.248)",
+	    "To Beat About the Bush (1.250)",
+	    "In Excess of Success (1.252)",
+	    "Juiced (1.254)",
+	    "A Winding Road Home (1.256)",
+	    "Teckels (1.258)",
+	    "Trust (1.260)",
+	    "Until Death (1.262)",
+	    "What Are Melons? (1.264)",
+	    "The Outcome of Endeavour (1.460)",
+	    "Mi O Melee (1.268)"};
 
 	// randomly put n bits in p bits
 	int put_n_random_bits(int n, int p)
@@ -442,11 +442,12 @@ namespace YimMenu::Submenus
 			if (ImGui::Button("Kortz Heist Prep Skip"))
 				FiberPool::Push([] {
 					auto genBs = Stats::GetInt("MPX_K26_GENERAL_BS");
-					Stats::SetInt("MPX_K26_GENERAL_BS", genBs | 32 | 64 | 128 | 256);
+					Stats::SetInt("MPX_K26_GENERAL_BS", -1931477513);
+					Stats::SetInt("MPX_K26_GENERAL_BS2", 254984);
 					Stats::SetInt("MPX_K26_ROBBERY_PROG", 65535 );
 					Stats::SetInt("MPX_K26_HEIST_TARGET", kortzTarget);
 					Stats::SetInt("MPX_K26_SCOPING_BS", -1);
-					Stats::SetInt("MPX_K26_POI_BS", -1);
+					Stats::SetInt("MPX_K26_POI_BS", 65439);
 
 					LOGF(VERBOSE, "KortzTarget for char {} - {}", Stats::GetCharIndex() + 1, (kortzTarget == -1 ? "Unknown" : kortz_targets[kortzTarget]));
 				});
