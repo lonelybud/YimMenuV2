@@ -4,6 +4,7 @@
 #include "game/gta/data/Stats.hpp"
 #include "game/backend/Tunables.hpp"
 #include "game/backend/Self.hpp"
+#include "game/gta/CustomGlobals.hpp"
 
 #include <array>
 
@@ -1142,9 +1143,7 @@ namespace YimMenu::UnlockEverything
 	inline void unlock_achievement(int i)
 	{
 		FiberPool::Push([i] {
-			// https://www.unknowncheats.me/forum/grand-theft-auto-v/699311-achievement-unlocker-fo-gta-enhanced.html
-			// https://www.unknowncheats.me/forum/grand-theft-auto-v/500059-globals-locals-discussion-read-page-1-a-38.html#post4740828
-			*ScriptGlobal(4525223).At(1).As<int*>() = i;
+			unlock_achievement_global(i);
 		});
 	}
 }

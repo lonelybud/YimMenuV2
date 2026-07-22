@@ -9,6 +9,7 @@
 #include <random>
 #include <algorithm>
 #include <numeric>
+#include "game/gta/CustomLocals.hpp"
 
 namespace YimMenu::Submenus
 {
@@ -403,10 +404,6 @@ namespace YimMenu::Submenus
 					}
 
 					Stats::SetInt("MPX_GANGOPS_FLOW_NOTIFICATIONS", 1557);
-
-					// ScriptMgr::Yield(500ms);
-					// if (auto thread = Scripts::FindScriptThread("gb_gang_ops_planning"_J))
-					// 	*ScriptLocal(thread, 211).As<int*>() = 6;
 				});
 			ImGui::SameLine();
 			if (ImGui::Button("Forces all players Ready"))
@@ -442,15 +439,24 @@ namespace YimMenu::Submenus
 			if (ImGui::Button("Kortz Heist Prep Skip"))
 				FiberPool::Push([] {
 					auto genBs = Stats::GetInt("MPX_K26_GENERAL_BS");
-					Stats::SetInt("MPX_K26_GENERAL_BS", -1931477513);
+					Stats::SetInt("MPX_K26_GENERAL_BS", -1929380361);
 					Stats::SetInt("MPX_K26_GENERAL_BS2", 254984);
-					Stats::SetInt("MPX_K26_ROBBERY_PROG", 65535 );
+					Stats::SetInt("MPX_K26_ROBBERY_PROG", 65535);
 					Stats::SetInt("MPX_K26_HEIST_TARGET", kortzTarget);
 					Stats::SetInt("MPX_K26_SCOPING_BS", -1);
 					Stats::SetInt("MPX_K26_POI_BS", 65439);
 
 					LOGF(VERBOSE, "KortzTarget for char {} - {}", Stats::GetCharIndex() + 1, (kortzTarget == -1 ? "Unknown" : kortz_targets[kortzTarget]));
 				});
+			components::button(YimMenu::KortzCenterHeist::_KortzCenterCutGlass);
+			ImGui::SameLine();
+			components::button(YimMenu::KortzCenterHeist::_KortzCenterDisableLaser);
+			ImGui::SameLine();
+			components::button(YimMenu::KortzCenterHeist::_KortzCenterSkipDataCrack);
+			ImGui::SameLine();
+			components::button(YimMenu::KortzCenterHeist::_KortzCenterSkipFingerprint);
+			ImGui::SameLine();
+			components::button(YimMenu::KortzCenterHeist::_KortzCenterSkipSignalNodes);
 		}
 	};
 }
