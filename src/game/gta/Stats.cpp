@@ -1,11 +1,12 @@
 #include "Stats.hpp"
 #include "game/gta/Natives.hpp"
+#include "core/util/Strings.hpp"
 
 namespace YimMenu::Stats
 {
 	static void ConvertMPX(std::string& statName)
 	{
-		std::transform(statName.begin(), statName.end(), statName.begin(), ::tolower);
+		LowerString(statName);
 		if (statName.substr(0, 3) == "mpx")
 			statName[2] = GetCharIndex() + '0';
 	}

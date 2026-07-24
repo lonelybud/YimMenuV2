@@ -27,14 +27,14 @@ namespace YimMenu::Submenus
 					std::string fileName = vehicle_file_name_input;
 					strcpy(vehicle_file_name_input, "");
 
-						if (!TrimString(fileName).size())
-						{
-							Notifications::Show("Saved Vehicles", "Filename empty!", NotificationType::Warning);
-							return;
-						}
+					if (!TrimString(fileName).size())
+					{
+						Notifications::Show("Saved Vehicles", "Filename empty!", NotificationType::Warning);
+						return;
+					}
 
-						ReplaceString(fileName, ".", ""); // filename say "bob.." will throw relative path error from Folder::GetFile
-						fileName += ".json";
+					ReplaceString(fileName, ".", ""); // filename say "bob.." will throw relative path error from Folder::GetFile
+					fileName += ".json";
 
 					Features::SavedVehicles::Save(saveToNewFolder ? newFolder : folder, fileName);
 
@@ -95,7 +95,7 @@ namespace YimMenu::Submenus
 
 			ImGui::SetNextItemWidth(300);
 			if (ImGui::InputTextWithHint("###veh_name", "Search", &search))
-				std::transform(search.begin(), search.end(), search.begin(), tolower);
+				LowerString(search);
 
 			ImGui::Text("Saved Vehicles");
 
@@ -107,15 +107,12 @@ namespace YimMenu::Submenus
 				for (const auto& pair : files)
 				{
 					std::string pair_lower = pair;
-					std::transform(pair_lower.begin(), pair_lower.end(), pair_lower.begin(), tolower);
-					if (pair_lower.contains(search))
+					LowerString(pair_lower);
+
+					if (pair_lower.contains(search) && ImGui::Selectable(pair.c_str(), file == pair, ImGuiSelectableFlags_AllowItemOverlap))
 					{
-						auto file_name = pair.c_str();
-						if (ImGui::Selectable(file_name, file == pair, ImGuiSelectableFlags_AllowItemOverlap))
-						{
-							file = pair;
-							open_modal = true;
-						}
+						file = pair;
+						open_modal = true;
 					}
 				}
 				ImGui::EndListBox();

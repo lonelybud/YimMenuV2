@@ -39,4 +39,8 @@ namespace YimMenu
 		while ((pos = str.find(str1, pos)) != std::string::npos)
 			str.replace(pos, strlen(str1), str2);
 	}
+
+	inline void LowerString(std::string &text)  {
+		std::transform(text.begin(), text.end(), text.begin(), ::tolower);
+	};
 }

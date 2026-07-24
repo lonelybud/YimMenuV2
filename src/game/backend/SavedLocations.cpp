@@ -1,6 +1,7 @@
 #include "SavedLocations.hpp"
 
 #include "core/filemgr/FileMgr.hpp"
+#include "core/util/Strings.hpp"
 
 namespace YimMenu
 {
@@ -13,14 +14,15 @@ namespace YimMenu
 	{
 		std::vector<SavedLocation> filterList{};
 
-		static auto toLower = [=](std::string text) -> std::string {
-			std::transform(text.begin(), text.end(), text.begin(), ::tolower);
-			return text;
-		};
+		LowerString(filter);
 
 		for (auto& location : m_AllSavedLocations | std::views::values | std::views::join)
-			if (toLower(location.name).find(toLower(filter)) != std::string::npos)
+		{
+			std::string locationNameLower = location.name;
+			LowerString(locationNameLower);
+			if (locationNameLower.find(filter) != std::string::npos)
 				filterList.push_back(location);
+		}
 
 		return filterList;
 	}

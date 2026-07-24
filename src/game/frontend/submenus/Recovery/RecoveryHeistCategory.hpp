@@ -9,7 +9,7 @@
 #include <random>
 #include <algorithm>
 #include <numeric>
-#include "game/gta/CustomLocals.hpp"
+#include "game/features/recovery/Heist/KortzCenterHeist.hpp"
 
 namespace YimMenu::Submenus
 {

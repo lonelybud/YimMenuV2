@@ -147,19 +147,15 @@ namespace YimMenu::Submenus
 				static std::string search;
 				ImGui::SetNextItemWidth(300);
 				if (ImGui::InputTextWithHint("###outfitname", "Search", &search))
-					std::transform(search.begin(), search.end(), search.begin(), tolower);
+					LowerString(search);
 				if (ImGui::BeginListBox("##saved_outfits", ImVec2(300, 300)))
 				{
 					for (const auto& pair : files)
 					{
 						std::string pair_lower = pair;
-						std::transform(pair_lower.begin(), pair_lower.end(), pair_lower.begin(), tolower);
-						if (pair_lower.contains(search))
-						{
-							auto file_name = pair.c_str();
-							if (ImGui::Selectable(file_name, file == pair, ImGuiSelectableFlags_AllowItemOverlap))
-								file = pair;
-						}
+						LowerString(pair_lower);
+						if (pair_lower.contains(search) && ImGui::Selectable(pair.c_str(), file == pair, ImGuiSelectableFlags_AllowItemOverlap))
+							file = pair;
 					}
 					ImGui::EndListBox();
 				}
