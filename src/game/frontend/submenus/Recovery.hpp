@@ -11,7 +11,7 @@
 #include "Recovery/DailyActivitiesCategory.hpp"
 #include "game/features/recovery/ClaimSafeEarnings.hpp"
 #include "Recovery/RecoveryHeistCategory.hpp"
-#include "game/backend/PersonalVehicles.hpp"
+#include "game/gta/CustomGlobals.hpp"
 
 namespace YimMenu::Submenus
 {
@@ -112,17 +112,17 @@ namespace YimMenu::Submenus
 			components::checkbox(YimMenu::Features::_LSCCustomsBypass);
 
 			components::ver_space();
-			static bool delete_pv = false;
+			static bool open_delete_pv = false;
 			static std::string pv_name;
 			if (ImGui::Button("Delete Active Personal Vehicle"))
 				FiberPool::Push([] {
 					if (auto veh = PersonalVehicles::GetCurrentHandle(); veh.IsValid())
 					{
-						delete_pv = true;
+						open_delete_pv = true;
 						pv_name = PersonalVehicles::GetCurrent()->GetName();
 					}
 				});
-			if (delete_pv)
+			if (open_delete_pv)
 				ImGui::OpenPopup("##delete_pv");
 			if (ImGui::BeginPopupModal("##delete_pv", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove))
 			{
@@ -131,19 +131,15 @@ namespace YimMenu::Submenus
 				if (ImGui::Button("Yes"))
 				{
 					FiberPool::Push([] {
-						// https://www.unknowncheats.me/forum/grand-theft-auto-v/707419-lua-scripts-yimmenuv2-collection-thread-45.html#post4749525
-						ScriptGlobal request(2733326);
-						*request.At(472).As<int*>() = PersonalVehicles::GetCurrent()->GetId();
-						*request.At(473).As<int*>() = 1;
-						*request.At(474).As<int*>() = 0;
+						delete_pv();
 					});
-					delete_pv = false;
+					open_delete_pv = false;
 					ImGui::CloseCurrentPopup();
 				}
 				ImGui::SameLine();
 				if (ImGui::Button("No"))
 				{
-					delete_pv = false;
+					open_delete_pv = false;
 					ImGui::CloseCurrentPopup();
 				}
 				ImGui::EndPopup();

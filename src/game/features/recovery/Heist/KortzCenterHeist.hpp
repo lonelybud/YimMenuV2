@@ -6,6 +6,7 @@
 
 namespace YimMenu
 {
+	// https://www.unknowncheats.me/forum/grand-theft-auto-v/500059-globals-locals-discussion-read-page-1-a-39.html#post4746347
 	// https://www.unknowncheats.me/forum/grand-theft-auto-v/707419-lua-scripts-yimmenuv2-collection-thread-42.html#post4746547
 	// https://github.com/Abdelakil/YimMenuV2/blob/personal/src/game/features/recovery/Heist/KortzCenterHeist.cpp
 	namespace KortzCenterHeist
@@ -53,7 +54,10 @@ namespace YimMenu
 			virtual void OnCall() override
 			{
 				if (auto thread = Scripts::FindScriptThread("fm_mission_controller_v3"_J))
-					*ScriptLocal(thread, 32855).At(4, 13).At(3).As<float*>() = 100.0f;
+				{
+					for (int i = 0; i <= 4; i++)
+						*ScriptLocal(thread, 32855).At(i, 13).At(3).As<float*>() = 100.0f;
+				}
 			}
 		};
 
