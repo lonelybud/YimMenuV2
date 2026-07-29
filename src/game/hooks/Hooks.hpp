@@ -78,4 +78,9 @@ namespace YimMenu::Hooks
 	{
 		extern LRESULT WndProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam);
 	}
+
+	namespace RawInput
+	{
+		extern UINT GetRawInputData(HRAWINPUT hRawInput, UINT uiCommand, LPVOID pData, PUINT pcbSize, UINT cbSizeHeader);
+	}
 }
