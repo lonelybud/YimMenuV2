@@ -2,34 +2,28 @@
 #include "Menu.hpp"
 #include "core/backend/ScriptMgr.hpp"
 #include "core/renderer/Renderer.hpp"
+#include "core/scripting/LuaManager.hpp"
+#include "core/scripting/LuaScript.hpp"
 #include "core/frontend/Notifications.hpp"
 #include "game/gta/Natives.hpp"
 #include "types/pad/ControllerInputs.hpp"
 
 namespace YimMenu
 {
-	GUI::GUI() :
-	    m_IsOpen(false)
+	void GUI::InitImpl()
 	{
-		Menu::SetupFonts();
-		Menu::SetupStyle();
 		Menu::Init();
 
 		Renderer::AddWindowProcedureCallback([this](HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
 			GUI::WndProc(hwnd, msg, wparam, lparam);
 		});
 
-		Renderer::AddRendererCallBack(
+		Renderer::AddRendererCallback(
 		    [&] {
 			    Notifications::Draw();
 		    },
 		    -2);
-
 		Renderer::SetSafeToRender();
-	}
-
-	GUI::~GUI()
-	{
 	}
 
 	void GUI::ToggleMouse()
@@ -63,7 +57,7 @@ namespace YimMenu
 	{
 		while (g_Running)
 		{
-			if (GUI::IsOpen())
+			if (Renderer::IsInitialized() && GUI::IsOpen())
 			{
 				if (GUI::IsUsingKeyboard() && PAD::IS_USING_KEYBOARD_AND_MOUSE(0))
 				{

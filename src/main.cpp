@@ -7,6 +7,7 @@
 #include "core/hooking/Hooking.hpp"
 #include "core/hooking/CallHook.hpp"
 #include "core/memory/ModuleMgr.hpp"
+#include "core/renderer/D3D12Hook.hpp"
 #include "core/renderer/Renderer.hpp"
 #include "game/backend/AnticheatBypass.hpp"
 #include "game/backend/NativeHooks.hpp"
@@ -39,14 +40,16 @@ namespace YimMenu
 
 		AnticheatBypass::RunOnStartup();
 
-		if (!Renderer::Init())
-			goto EARLY_UNLOAD;
-
 		Hooking::Init();
 
 		ScriptMgr::Init();
 		LOG(INFO) << "ScriptMgr initialized";
 
+		if (!D3D12Hook::Init())
+			goto EARLY_UNLOAD;
+		Renderer::Init();
+		while (!Renderer::IsInitialized())
+			std::this_thread::sleep_for(100ms);
 		GUI::Init();
 
 		ScriptMgr::AddScript(std::make_unique<Script>(&NativeHooks::RunScript));                      // runs once
@@ -78,6 +81,7 @@ namespace YimMenu
 
 	EARLY_UNLOAD:
 		g_Running = false;
+		D3D12Hook::Destroy(true);
 		Renderer::Destroy();
 		LogHelper::Destroy();
 
