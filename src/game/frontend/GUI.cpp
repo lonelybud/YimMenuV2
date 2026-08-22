@@ -2,8 +2,6 @@
 #include "Menu.hpp"
 #include "core/backend/ScriptMgr.hpp"
 #include "core/renderer/Renderer.hpp"
-#include "core/scripting/LuaManager.hpp"
-#include "core/scripting/LuaScript.hpp"
 #include "core/frontend/Notifications.hpp"
 #include "game/gta/Natives.hpp"
 #include "types/pad/ControllerInputs.hpp"

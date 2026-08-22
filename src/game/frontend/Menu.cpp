@@ -1,5 +1,6 @@
 #include "Menu.hpp"
 #include "core/frontend/manager/UIManager.hpp"
+#include "core/frontend/manager/styles/Themes.hpp"
 #include "core/renderer/Renderer.hpp"
 #include "submenus/Recovery.hpp"
 #include "submenus/Self/Self.hpp"
@@ -25,7 +26,7 @@ namespace YimMenu
 			    if (!GUI::IsOpen())
 				    return;
 
-			    ImGui::PushFont(Menu::Font::g_DefaultFont);
+			    ImGui::PushFont(Font::g_DefaultFont);
 			    ImGui::PushStyleColor(ImGuiCol_WindowBg, ImU32(ImColor(15, 15, 15)));
 
 			    ImGui::SetNextWindowPos({10.f, 50.f});

@@ -2,6 +2,7 @@
 #include "imgui_internal.h"
 #include "Themes.hpp"
 #include "core/frontend/manager/UIManager.hpp"
+#include "game/frontend/fonts/Fonts.hpp"
 
 namespace YimMenu
 {
