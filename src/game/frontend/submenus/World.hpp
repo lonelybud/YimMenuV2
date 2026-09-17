@@ -14,12 +14,10 @@ namespace YimMenu::Submenus
 		void Draw()
 		{
 			ImGui::Text("Local Time -");
+			components::checkbox(YimMenu::Features::_FreezeTime);
 			ImGui::SliderInt("Hour", &YimMenu::Features::worldHour, 0, 23);
 			ImGui::SliderInt("Minute", &YimMenu::Features::worldMinute, 0, 59);
 			ImGui::SliderInt("Second", &YimMenu::Features::worldSecond, 0, 59);
-			components::button(YimMenu::Features::_SetNetworkTime);
-			ImGui::SameLine();
-			components::button(YimMenu::Features::_ClearNetworkTime);
 
 			components::ver_space();
 
