@@ -8,12 +8,25 @@
 
 namespace YimMenu::Features
 {
+	static const Hash controls[]{
+	    (Hash)ControllerInputs::INPUT_LOOK_LR,
+	    (Hash)ControllerInputs::INPUT_LOOK_UD,
+	    (Hash)ControllerInputs::INPUT_LOOK_UP_ONLY,
+	    (Hash)ControllerInputs::INPUT_LOOK_DOWN_ONLY,
+	    (Hash)ControllerInputs::INPUT_LOOK_LEFT_ONLY,
+	    (Hash)ControllerInputs::INPUT_LOOK_RIGHT_ONLY,
+	    (Hash)ControllerInputs::INPUT_LOOK_LEFT,
+	    (Hash)ControllerInputs::INPUT_LOOK_RIGHT,
+	    (Hash)ControllerInputs::INPUT_LOOK_UP,
+	    (Hash)ControllerInputs::INPUT_LOOK_DOWN,
+	};
+
 	class Freecam : public LoopState
 	{
 		using LoopState::LoopState;
 
 		float speed = 0.5f;
-		float mult  = 0.f;
+		float mult = 0.f;
 
 		int camEntity = 0;
 		Vector3 position{};
@@ -63,7 +76,7 @@ namespace YimMenu::Features
 				mult += 0.15f;
 
 			Vector3 rot = CAMERA::GET_CAM_ROT(camEntity, 2);
-			float yaw   = Math::DegToRad(rot.z);
+			float yaw = Math::DegToRad(rot.z);
 
 			position.x += (vecChange.x * cos(yaw) - vecChange.y * sin(yaw)) * mult;
 			position.y += (vecChange.x * sin(yaw) + vecChange.y * cos(yaw)) * mult;
@@ -75,33 +88,17 @@ namespace YimMenu::Features
 
 		virtual void OnTick() override
 		{
-			UpdateFreecamPosition();
-
-			rotation = CAMERA::GET_GAMEPLAY_CAM_ROT(2);
-			CAMERA::SET_CAM_ROT(camEntity, rotation.x, rotation.y, rotation.z, 2);
-
-			// TASK::CLEAR_PED_TASKS(Self::GetPed().GetHandle());
-			// TASK::CLEAR_PED_SECONDARY_TASK(Self::GetPed().GetHandle());
-			// TASK::CLEAR_PED_TASKS_IMMEDIATELY(Self::GetPed().GetHandle());
-			// Self::GetPed().SetFrozen(true);
-			// Self::GetPed().SetVisible(false);
-
 			if (!GUI::IsOpen())
 			{
-				static Hash controls[]{
-				    (Hash)ControllerInputs::INPUT_JUMP,
-				    (Hash)ControllerInputs::INPUT_SPRINT,
-				    (Hash)ControllerInputs::INPUT_LOOK_UP_ONLY,
-				    (Hash)ControllerInputs::INPUT_LOOK_DOWN_ONLY,
-				    (Hash)ControllerInputs::INPUT_LOOK_LEFT_ONLY,
-				    (Hash)ControllerInputs::INPUT_LOOK_RIGHT_ONLY,
-				};
 				PAD::DISABLE_ALL_CONTROL_ACTIONS(0);
 
 				for (Hash c : controls)
-				{
 					PAD::ENABLE_CONTROL_ACTION(0, c, true);
-				}
+
+				UpdateFreecamPosition();
+
+				rotation = CAMERA::GET_GAMEPLAY_CAM_ROT(2);
+				CAMERA::SET_CAM_ROT(camEntity, rotation.x, rotation.y, rotation.z, 2);
 			}
 		}
 
@@ -111,9 +108,6 @@ namespace YimMenu::Features
 			CAMERA::RENDER_SCRIPT_CAMS(false, true, 500, true, true, 0);
 			CAMERA::DESTROY_CAM(camEntity, false);
 			STREAMING::CLEAR_FOCUS();
-
-			// Self::GetPed().SetFrozen(false);
-			// Self::GetPed().SetVisible(true);
 
 			camEntity = 0;
 		}
