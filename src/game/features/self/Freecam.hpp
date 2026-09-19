@@ -21,6 +21,8 @@ namespace YimMenu::Features
 	    (Hash)ControllerInputs::INPUT_LOOK_DOWN,
 	};
 
+	inline BoolState _FreecamAutoTeleport{"freecamautoteleport", "Auto Teleport", "Teleport to the freecam position when Freecam is disabled"};
+
 	class Freecam : public LoopState
 	{
 		using LoopState::LoopState;
@@ -104,12 +106,20 @@ namespace YimMenu::Features
 
 		virtual void OnDisable() override
 		{
+			const Vector3 finalPosition = position;
+
 			CAMERA::SET_CAM_ACTIVE(camEntity, false);
 			CAMERA::RENDER_SCRIPT_CAMS(false, true, 500, true, true, 0);
 			CAMERA::DESTROY_CAM(camEntity, false);
 			STREAMING::CLEAR_FOCUS();
 
 			camEntity = 0;
+
+			if (_FreecamAutoTeleport.m_State)
+			{
+
+				ENTITY::SET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), finalPosition.x, finalPosition.y, finalPosition.z, false, false, false, false);
+			}
 		}
 	};
 
