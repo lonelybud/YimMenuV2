@@ -21,7 +21,7 @@ namespace YimMenu::Features
 	    (Hash)ControllerInputs::INPUT_LOOK_DOWN,
 	};
 
-	inline BoolState _FreecamAutoTeleport{"freecamautoteleport", "Auto Teleport", "Teleport to the freecam position when Freecam is disabled"};
+	inline BoolState _FreecamAutoTeleport{"freecamautoteleport", "Freecam Auto teleport", "Teleport to the camera when you disable Freecam"};
 
 	class Freecam : public LoopState
 	{
@@ -116,7 +116,7 @@ namespace YimMenu::Features
 
 			if (_FreecamAutoTeleport.m_State)
 			{
-				ENTITY::SET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), position.x, position.y, position.z, false, false, false, false);
+				Self::GetPed().TeleportTo(position);
 			}
 		}
 	};
