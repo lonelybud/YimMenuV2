@@ -30,6 +30,11 @@ namespace YimMenu::Submenus
 				components::checkbox(YimMenu::Features::_SuperJump);
 				components::checkbox(YimMenu::Features::_Freecam);
 
+				if (YimMenu::Features::_Freecam.m_State)
+				{
+					components::checkbox(YimMenu::Features::_FreecamAutoTeleport);
+				}
+
 				if (*Pointers.IsSessionStarted)
 				{
 					components::checkbox(YimMenu::Features::_NoIdleKick);
