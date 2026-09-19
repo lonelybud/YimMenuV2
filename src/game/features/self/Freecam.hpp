@@ -106,7 +106,6 @@ namespace YimMenu::Features
 
 		virtual void OnDisable() override
 		{
-			const Vector3 finalPosition = position;
 
 			CAMERA::SET_CAM_ACTIVE(camEntity, false);
 			CAMERA::RENDER_SCRIPT_CAMS(false, true, 500, true, true, 0);
@@ -117,8 +116,7 @@ namespace YimMenu::Features
 
 			if (_FreecamAutoTeleport.m_State)
 			{
-
-				ENTITY::SET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), finalPosition.x, finalPosition.y, finalPosition.z, false, false, false, false);
+				ENTITY::SET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), position.x, position.y, position.z, false, false, false, false);
 			}
 		}
 	};
