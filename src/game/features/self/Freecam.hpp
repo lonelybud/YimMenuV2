@@ -1,6 +1,6 @@
 #include "core/componentStates/LoopState.hpp"
 #include "core/util/Math.hpp"
-// #include "game/backend/Self.hpp"
+#include "game/backend/Self.hpp"
 #include "game/frontend/GUI.hpp"
 #include "game/gta/Natives.hpp"
 #include "types/pad/ControllerInputs.hpp"
@@ -20,6 +20,8 @@ namespace YimMenu::Features
 	    (Hash)ControllerInputs::INPUT_LOOK_UP,
 	    (Hash)ControllerInputs::INPUT_LOOK_DOWN,
 	};
+
+	inline BoolState _FreecamAutoTeleport{"freecamautoteleport", "Freecam Auto teleport", "Teleport to the camera when you disable Freecam"};
 
 	class Freecam : public LoopState
 	{
@@ -104,12 +106,18 @@ namespace YimMenu::Features
 
 		virtual void OnDisable() override
 		{
+
 			CAMERA::SET_CAM_ACTIVE(camEntity, false);
 			CAMERA::RENDER_SCRIPT_CAMS(false, true, 500, true, true, 0);
 			CAMERA::DESTROY_CAM(camEntity, false);
 			STREAMING::CLEAR_FOCUS();
 
 			camEntity = 0;
+
+			if (_FreecamAutoTeleport.m_State)
+			{
+				Self::GetPed().TeleportTo(position);
+			}
 		}
 	};
 
