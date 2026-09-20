@@ -28,18 +28,18 @@ namespace YimMenu::Submenus
 				components::checkbox(YimMenu::Features::_UnlimitedOxygen);
 				components::checkbox(YimMenu::Features::_NeverWanted);
 				components::checkbox(YimMenu::Features::_SuperJump);
-				ImGui::SameLine();
-				ImGui::BeginGroup();
-				{
-					components::checkbox(YimMenu::Features::_Freecam);
-					components::checkbox(YimMenu::Features::_FreecamAutoTeleport);
-				}
-				ImGui::EndGroup();
 
 				if (*Pointers.IsSessionStarted)
 				{
 					components::checkbox(YimMenu::Features::_NoIdleKick);
 				}
+			}
+			ImGui::EndGroup();
+			ImGui::SameLine();
+			ImGui::BeginGroup();
+			{
+				components::checkbox(YimMenu::Features::_Freecam);
+				components::checkbox(YimMenu::Features::_FreecamAutoTeleport);
 			}
 			ImGui::EndGroup();
 			ImGui::SameLine();

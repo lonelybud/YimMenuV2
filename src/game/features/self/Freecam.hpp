@@ -1,6 +1,6 @@
 #include "core/componentStates/LoopState.hpp"
 #include "core/util/Math.hpp"
-// #include "game/backend/Self.hpp"
+#include "game/backend/Self.hpp"
 #include "game/frontend/GUI.hpp"
 #include "game/gta/Natives.hpp"
 #include "types/pad/ControllerInputs.hpp"
