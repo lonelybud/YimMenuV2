@@ -18,14 +18,14 @@ namespace YimMenu::Features
 		HANDS_ON_CAR_WASH
 	};
 
-	inline std::vector<std::pair<eAppVinewoodMenuSafe, const char*>> businessNames = {
+	inline constexpr auto businessNames = std::to_array<std::pair<eAppVinewoodMenuSafe, const char *>>({
 	    {eAppVinewoodMenuSafe::NIGHTCLUB, "Nightclub"},
 	    {eAppVinewoodMenuSafe::ARCADE, "Arcade"},
 	    {eAppVinewoodMenuSafe::AGENCY, "Agency"},
 	    {eAppVinewoodMenuSafe::SALVAGE_YARD, "Salvage Yard"},
 	    {eAppVinewoodMenuSafe::BAIL_OFFICE, "Bail Office"},
 	    {eAppVinewoodMenuSafe::GARMENT_FACTORY, "Garment Factory"},
-	    {eAppVinewoodMenuSafe::HANDS_ON_CAR_WASH, "Hands on Car Wash"}};
+	    {eAppVinewoodMenuSafe::HANDS_ON_CAR_WASH, "Hands on Car Wash"}});
 
 	class ClaimSafeEarnings : public CallCode
 	{

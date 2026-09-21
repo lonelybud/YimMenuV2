@@ -137,6 +137,7 @@ namespace YimMenu::Stats
 	void SaveStats()
 	{
 		// https://www.unknowncheats.me/forum/grand-theft-auto-v/707419-lua-scripts-yimmenuv2-collection-thread-31.html#post4614098
+		// https://www.unknowncheats.me/forum/grand-theft-auto-v/772902-tinkerscripts-yimmenuv2.html#post4804655
 		STATS::STAT_SAVE(0, 0, 3, 0);
 	}
 

@@ -14,3 +14,14 @@ Before using this menu I recommended using the official [YimMenuV2](https://gith
 - Commands: Not implemented
 - Hotkey: Only implemented for toggle.
 - UI: Use imgui code directly in "Category->Draw"
+
+## Credits
+
+This menu other than original yim source includes code from other sources and as such I respect the original authers works.
+
+In this repo where i have used their code, the reference to their original source will be mentioned with a `//` comment in the starting of file or close to the code.
+
+Credits to people with most code references:
+- [ImagineNothing on UC](https://www.unknowncheats.me/forum/members/3627117.html)
+- [ShinyWasabi on UC](https://www.unknowncheats.me/forum/members/4767140.html)
+- Small codes from many others (i will add them soon)

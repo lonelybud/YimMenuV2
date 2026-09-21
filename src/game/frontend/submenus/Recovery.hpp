@@ -12,6 +12,7 @@
 #include "game/features/recovery/ClaimSafeEarnings.hpp"
 #include "Recovery/RecoveryHeistCategory.hpp"
 #include "game/gta/CustomGlobals.hpp"
+#include "game/features/recovery/tunables.hpp"
 
 namespace YimMenu::Submenus
 {
@@ -59,6 +60,9 @@ namespace YimMenu::Submenus
 					FiberPool::Push([] {
 						Stats::SetInt("MPX_XM22_FLOW", -1);
 					});
+
+				components::ver_space();
+				components::checkbox(YimMenu::Features::_EnableIndependenceDay);
 			}
 
 			components::ver_space();
@@ -148,7 +152,8 @@ namespace YimMenu::Submenus
 			components::ver_space();
 
 			ImGui::Text("Gun Van -");
-			static int selected_slot = 0, selected_weap_slot = 0;
+			static int selected_slot = 0;
+			static std::pair<int, const char*> selected_weapon = Features::allowedGunVanWeapons[0];
 			ImGui::SetNextItemWidth(200.f);
 			if (ImGui::BeginCombo("Slot##allowedGunVanSlots", Features::allowedGunVanSlots[selected_slot]))
 			{
@@ -158,15 +163,15 @@ namespace YimMenu::Submenus
 				ImGui::EndCombo();
 			}
 			ImGui::SetNextItemWidth(300.f);
-			if (ImGui::BeginCombo("Weapon##allowedGunVanWeapons", Features::allowedGunVanWeapons[selected_weap_slot]))
+			if (ImGui::BeginCombo("Weapon##allowedGunVanWeapons", selected_weapon.second))
 			{
-				for (int i = 0; i < Features::allowedGunVanWeapons.size(); ++i)
-					if (ImGui::Selectable(Features::allowedGunVanWeapons[i], selected_weap_slot == i))
-						selected_weap_slot = i;
+				for (auto& weapon : Features::allowedGunVanWeapons)
+					if (ImGui::Selectable(weapon.second, selected_weapon.first == weapon.first))
+						selected_weapon = weapon;
 				ImGui::EndCombo();
 			}
-			if (ImGui::Button("Set Gun Van Weapon"))
-				Features::SetGunvanWeapon(Features::allowedGunVanWeapons[selected_weap_slot], selected_slot + 1);
+			if (ImGui::Button("Set Gun Van Weapon") && selected_weapon.first != 0)
+				Features::SetGunvanWeapon(selected_weapon.first, selected_slot + 1);
 		}
 	};
 
