@@ -8,6 +8,7 @@
 #include "game/frontend/components/components.hpp"
 #include "game/features/recovery/RpMultiplier.hpp"
 #include "game/features/recovery/LSCCustomsBypass.hpp"
+#include "game/features/recovery/FreeShopping.hpp"
 #include "Recovery/DailyActivitiesCategory.hpp"
 #include "game/features/recovery/ClaimSafeEarnings.hpp"
 #include "Recovery/RecoveryHeistCategory.hpp"
@@ -172,6 +173,12 @@ namespace YimMenu::Submenus
 			}
 			if (ImGui::Button("Set Gun Van Weapon") && selected_weapon.first != 0)
 				Features::SetGunvanWeapon(selected_weapon.first, selected_slot + 1);
+
+			components::ver_space();
+
+			ImGui::BeginDisabled(_FreeShopping.m_State);
+			components::checkbox(YimMenu::Features::_FreeShopping);
+			ImGui::EndDisabled();
 		}
 	};
 
