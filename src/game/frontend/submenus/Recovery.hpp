@@ -176,9 +176,7 @@ namespace YimMenu::Submenus
 
 			components::ver_space();
 
-			ImGui::BeginDisabled(_FreeShopping.m_State);
 			components::checkbox(YimMenu::Features::_FreeShopping);
-			ImGui::EndDisabled();
 		}
 	};
 

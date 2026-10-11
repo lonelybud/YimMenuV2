@@ -102,6 +102,7 @@ namespace YimMenu
 		bool* IsBEBanned;
 		BytePatch BattlEyeStatusUpdatePatch;
 		Functions::GetPackedStatData GetPackedStatData;
+		rage::netCatalog* NetCatalog;
 		PoolEncryption* PedPool;
 		PoolEncryption* ObjectPool;
 		rage::fwVehiclePool*** VehiclePool;

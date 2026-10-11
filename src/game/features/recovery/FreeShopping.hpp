@@ -136,8 +136,6 @@ namespace YimMenu::Features
 				return true;
 			}();
 		}
-
-		// TODO Add ondisable and remove ImGui::BeginDisabled & ImGui::EndDisabled() from UI
 	};
 
 	inline FreeShopping _FreeShopping{
@@ -169,7 +167,7 @@ namespace YimMenu::Features
 			return NETSHOPPING::NET_GAMESERVER_BASKET_ADD_ITEM(entry, quantity);
 		};
 
-		const bool freeShopping = _FreeShopping.GetState();
+		const bool freeShopping = _FreeShopping.m_State;
 
 
 		if (freeShopping && IsPropertyAction(CurrentBasketAction) && price > 0)
@@ -238,7 +236,7 @@ namespace YimMenu::Features
 
 	static void UseFakeMPCashHook(rage::scrNativeCallContext* ctx)
 	{
-		if (_FreeShopping.GetState())
+		if (_FreeShopping.m_State)
 			return;
 
 		HUD::USE_FAKE_MP_CASH(ctx->GetArg<BOOL>(0));
@@ -246,7 +244,7 @@ namespace YimMenu::Features
 
 	static void ChangeFakeMPCashHook(rage::scrNativeCallContext* ctx)
 	{
-		if (_FreeShopping.GetState())
+		if (_FreeShopping.m_State)
 			return;
 
 		HUD::CHANGE_FAKE_MP_CASH(ctx->GetArg<int>(0), ctx->GetArg<int>(1));

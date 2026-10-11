@@ -198,6 +198,11 @@ namespace YimMenu
 			GetPackedStatData = ptr.Sub(0xE).As<Functions::GetPackedStatData>();
 		});
 
+		constexpr auto getCatalogItemPtrn = Pattern<"0F 82 55 FF FF FF 44 89 7C 24 30">("NetCatalog&GetCatalogItem");
+		scanner.Add(getCatalogItemPtrn, [this](PointerCalculator ptr) {
+			NetCatalog = ptr.Add(0xB).Add(3).Rip().As<rage::netCatalog*>();
+		});
+
 		constexpr auto pedPoolPtrn = Pattern<"80 79 4B 00 0F 84 F5 00 00 00 48 89 F1">("PedPool");
 		scanner.Add(pedPoolPtrn, [this](PointerCalculator ptr) {
 			PedPool = ptr.Add(0x18).Add(3).Rip().As<PoolEncryption*>();
