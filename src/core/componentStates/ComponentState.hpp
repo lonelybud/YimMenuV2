@@ -23,6 +23,12 @@ namespace YimMenu
 		bool GetState() {
 			return m_State;
 		}
+		bool& GetStateRef() {
+			return m_State;
+		}
+		bool SetState(bool state) {
+			m_State = state;
+		}
 
 		const std::string& GetName()
 		{
