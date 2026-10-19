@@ -23,7 +23,7 @@ namespace YimMenu
 			while (g_Running)
 			{
 				for (auto& state : LoopState::all_states)
-					if (state->m_State)
+					if (state->GetState())
 						state->OnTick();
 
 				ScriptMgr::Yield();

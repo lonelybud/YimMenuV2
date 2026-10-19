@@ -114,7 +114,7 @@ namespace YimMenu::Features
 
 			camEntity = 0;
 
-			if (_FreecamAutoTeleport.m_State)
+			if (_FreecamAutoTeleport.GetState())
 			{
 				Self::GetPed().TeleportTo(position);
 			}

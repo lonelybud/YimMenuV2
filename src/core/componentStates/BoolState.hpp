@@ -19,7 +19,7 @@ namespace YimMenu
 		virtual void Refresh()
 		{
 			FiberPool::Push([this] {
-				m_State ? OnEnable() : OnDisable();
+				GetState() ? OnEnable() : OnDisable();
 			});
 		}
 	};

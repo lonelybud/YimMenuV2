@@ -28,7 +28,7 @@ namespace YimMenu::Submenus
 			{
 				components::ver_space();
 				components::checkbox(YimMenu::Features::_OverrideRPMultiplier);
-				if (YimMenu::Features::_OverrideRPMultiplier.m_State)
+				if (YimMenu::Features::_OverrideRPMultiplier.GetState())
 				{
 					ImGui::SameLine();
 					ImGui::SetNextItemWidth(200);

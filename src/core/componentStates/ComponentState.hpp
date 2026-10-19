@@ -9,8 +9,8 @@ namespace YimMenu
 		std::string m_Label;
 		std::string m_Description;
 
-	public:
 		bool m_State;
+	public:
 
 		ComponentState(std::string name, std::string label, std::string description) :
 		    m_Name(name),
@@ -18,6 +18,10 @@ namespace YimMenu
 		    m_Description(description),
 		    m_State(false)
 		{
+		}
+
+		bool GetState() {
+			return m_State;
 		}
 
 		const std::string& GetName()

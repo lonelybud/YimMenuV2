@@ -80,6 +80,7 @@ namespace YimMenu
 		Functions::GetNetPlayerFromPid GetNetPlayerFromPid;
 		bool* IsSessionStarted;
 		PVOID AssignPhysicalIndex;
+		PVOID NetworkPlayerMgrInit;
 		PVOID NetworkPlayerMgrShutdown;
 		rage::scrProgram** ScriptPrograms;
 		Functions::GetSyncTreeForType GetSyncTreeForType;

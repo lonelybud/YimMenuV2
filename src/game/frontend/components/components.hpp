@@ -20,7 +20,7 @@ namespace YimMenu
 		static bool checkbox(BoolState& state)
 		{
 			bool updated;
-			if ((updated = ImGui::Checkbox(state.GetLabel().data(), &state.m_State)))
+			if ((updated = ImGui::Checkbox(state.GetLabel().data(), &state.GetState())))
 				state.Refresh();
 			if (ImGui::IsItemHovered())
 				if (auto desc = state.GetDescription(); desc.length())
