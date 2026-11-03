@@ -5,6 +5,7 @@
 #include "game/gta/Packet.hpp"
 #include "game/backend/Self.hpp"
 #include "types/network/netEvent.hpp"
+#include "types/network/netGameEvent.hpp"
 #include "types/network/netMessage.hpp"
 #include "types/rage/datBitBuffer.hpp"
 #include "game/features/misc.hpp"
@@ -22,7 +23,7 @@ namespace YimMenu::Hooks
 
 	void Network::ReceiveNetMessage(void* a1, rage::netConnectionManager* mgr, rage::netEvent* event)
 	{
-		if(!YimMenu::Features::allowPlayerJoin)
+		if (!YimMenu::Features::allowPlayerJoin)
 			return;
 
 		if (!g_Running)
@@ -39,6 +40,53 @@ namespace YimMenu::Hooks
 
 		switch (type)
 		{
+		case rage::netMessage::Type::PackedEvents:
+		{
+			uint32_t count = buffer.Read<uint32_t>(5);
+			uint32_t buffer_size = buffer.Read<uint32_t>(15);
+
+			if (buffer_size > 7296)
+				buffer_size = 7296;
+
+			int remaining = buffer_size;
+
+			while (remaining >= 39)
+			{
+				int bits_read = buffer.m_BitsRead;
+
+				uint16_t event_id = buffer.Read<uint16_t>(7);
+				uint32_t event_index = buffer.Read<uint32_t>(9);
+				uint32_t event_handled_bits = buffer.Read<uint32_t>(8);
+				uint32_t event_data_size = buffer.Read<uint32_t>(15);
+
+				if (buffer.Read<bool>(1))
+					buffer.Read<uint32_t>(16);
+
+				char event_data[4096 + 1];
+				if (event_data_size)
+				{
+					buffer.ReadArray(event_data, event_data_size);
+				}
+
+				rage::datBitBuffer event_buffer(event_data, sizeof(event_data), true);
+				event_buffer.m_MaxBit = event_data_size + 1;
+
+				// added custom logic from ReceiveNetGameEvent
+
+				// always block other players reporting themselves, because we dont want them to get reported
+				if (event_id == (uint16_t)rage::netGameEvent::Type::REPORT_MYSELF_EVENT)
+				{
+					LOGF(WARNING, "Blocked REPORT_MYSELF_EVENT from some player. Warn them!");
+					return;
+				}
+
+				// end
+
+				remaining -= (int)buffer.m_BitsRead - bits_read;
+			}
+
+			break;
+		}
 		case rage::netMessage::Type::KickPlayer:
 		{
 			if (!AnticheatBypass::IsFSLProvidingBattlEyeBypass())
