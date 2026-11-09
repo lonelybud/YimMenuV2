@@ -309,11 +309,6 @@ namespace YimMenu
 
 		auto scanner = PatternScanner(sc);
 
-		constexpr auto numHandlesPatchPtrn = Pattern<"83 FD 20 0F 87 54 02 00 00">("NumHandlesPatch");
-		scanner.Add(numHandlesPatchPtrn, [this](PointerCalculator ptr) {
-			BytePatches::Add(ptr.Add(2).As<std::uint8_t*>(), 100)->Apply(); // change handle limit to 100
-		});
-
 		constexpr auto readAttributePatchPtrn = Pattern<"75 70 EB 23">("ReadAttributesPatch");
 		scanner.Add(readAttributePatchPtrn, [this](PointerCalculator ptr) {
 			BytePatches::Add(ptr.As<void*>(), std::to_array<std::uint8_t>({0x90, 0x90}))->Apply();
