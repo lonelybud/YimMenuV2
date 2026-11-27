@@ -81,10 +81,12 @@ namespace YimMenu::Submenus
 			{
 				if (ImGui::Button("Give Parachute"))
 					YimMenu::Features::GiveParachute();
-				if (ImGui::Button("Give All Weapons"))
-					YimMenu::Features::GiveAllWeapons();
 				if (ImGui::Button("Refill Ammo"))
 					YimMenu::Features::RefillAllWeapons();
+
+				components::ver_space();
+				if (ImGui::Button("Give All Weapons (temporarily)"))
+					YimMenu::Features::GiveAllWeapons();
 			}
 			ImGui::EndGroup();
 		}
