@@ -69,9 +69,20 @@ namespace YimMenu
 			{
 				if (auto thread = Scripts::FindScriptThread("fm_mission_controller_v3"_J))
 				{
-					*ScriptLocal(thread, 70416).As<int*>() = 4294784;
+					*ScriptLocal(thread, 70416).As<int*>() = *ScriptLocal(thread, 70416).As<int*>() | (1 << 22);
 					*ScriptGlobal(1935711).As<int*>() |= 1;
 				}
+			}
+		};
+
+		class DisableCameras : public CallCode
+		{
+			using CallCode::CallCode;
+
+			virtual void OnCall() override
+			{
+				if (auto thread = Scripts::FindScriptThread("fm_mission_controller_v3"_J))
+					*ScriptLocal(thread, 70176).At(0, 295).At(237).At(0, 1).As<int*>() = *ScriptLocal(thread, 70176).At(0, 295).At(237).At(0, 1).As<int*>() | (1 << 21);
 			}
 		};
 
@@ -80,5 +91,6 @@ namespace YimMenu
 		inline SkipDataCrack _KortzCenterSkipDataCrack{"kortzcenterheistskipdatacrack", "Skip Data Crack", "Skips data crack minigame"};
 		inline CutGlass _KortzCenterCutGlass{"kortzcenterheistcutglass", "Cut Glass", "Cuts display case glass instantly"};
 		inline DisableLaserGrid _KortzCenterDisableLaser{"kortzcenterheistdisablelaser", "Disable Laser Grid", "Disables laser security grid"};
+		inline DisableCameras _KortzCenterDisableCameras{"kortzcenterheistdisablecameras", "Disable Cameras", "Disables interior cameras"};
 	}
 }

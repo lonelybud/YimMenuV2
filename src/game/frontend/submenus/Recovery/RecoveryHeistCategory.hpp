@@ -445,6 +445,10 @@ namespace YimMenu::Submenus
 					Stats::SetInt("MPX_K26_HEIST_TARGET", kortzTarget);
 					Stats::SetInt("MPX_K26_SCOPING_BS", -1);
 					Stats::SetInt("MPX_K26_POI_BS", 65439);
+					// On Loan" signs appear in empty display cases to cover up artifacts you stole in a previous run
+					// This functions similarly to cooldowns in other heists, preventing you from farming the exact same high-value secondary targets on back-to-back runs.
+					// https://www.unknowncheats.me/forum/grand-theft-auto-v/699943-stats-editor-external-enhanced-35.html
+					// Stats::SetInt("MPX_K26_STOLENLAST_BS", 0);
 
 					LOGF(VERBOSE, "KortzTarget for char {} - {}", Stats::GetCharIndex() + 1, (kortzTarget == -1 ? "Unknown" : kortz_targets[kortzTarget]));
 				});
@@ -453,10 +457,11 @@ namespace YimMenu::Submenus
 			components::button(YimMenu::KortzCenterHeist::_KortzCenterDisableLaser);
 			ImGui::SameLine();
 			components::button(YimMenu::KortzCenterHeist::_KortzCenterSkipDataCrack);
-			ImGui::SameLine();
 			components::button(YimMenu::KortzCenterHeist::_KortzCenterSkipFingerprint);
 			ImGui::SameLine();
 			components::button(YimMenu::KortzCenterHeist::_KortzCenterSkipSignalNodes);
+			ImGui::SameLine();
+			components::button(YimMenu::KortzCenterHeist::_KortzCenterDisableCameras);
 		}
 	};
 }

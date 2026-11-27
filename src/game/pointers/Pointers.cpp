@@ -275,6 +275,11 @@ namespace YimMenu
 			GetAnticheatInitializedHash2 = ptr.Add(0x9).Rip().As<PVOID>();
 		});
 
+		constexpr auto codeTamperReportPatchPtrn = Pattern<"74 ? 80 3D ? ? ? ? 00 75 ? F6 05">("CodeTamperReportPatch");
+		scanner.Add(codeTamperReportPatchPtrn, [this](PointerCalculator ptr) {
+			BytePatches::Add(ptr.As<std::uint8_t*>(), 0xEB)->Apply();
+		});
+
 		static constexpr auto gameSkeletonUpdatePtrn = Pattern<"56 48 83 EC 20 48 8B 81 40 01 00 00 48 85 C0">("GameSkeletonUpdate");
 		scanner.Add(gameSkeletonUpdatePtrn, [this](PointerCalculator addr) {
 			GameSkeletonUpdate = addr.As<PVOID>();

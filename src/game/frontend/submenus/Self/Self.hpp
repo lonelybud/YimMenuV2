@@ -85,7 +85,7 @@ namespace YimMenu::Submenus
 					YimMenu::Features::RefillAllWeapons();
 
 				components::ver_space();
-				if (ImGui::Button("Give All Weapons (temporarily)"))
+				if (ImGui::Button("Give All Weapons (temporarily!)"))
 					YimMenu::Features::GiveAllWeapons();
 			}
 			ImGui::EndGroup();
